@@ -5,6 +5,8 @@
 
 namespace PlayFab
 {
+namespace ClientModels
+{
 
 	
 	struct AddFriendRequest : public PlayFabBaseModel
@@ -3285,7 +3287,8 @@ namespace PlayFab
         bool readFromValue(const rapidjson::Value& obj);
     };
 	
-	
+
+}
 }
 
 #endif

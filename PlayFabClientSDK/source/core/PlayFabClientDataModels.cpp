@@ -1,7 +1,8 @@
 
-#include "playfab/PlayFabDataModels.h"
+#include "playfab/PlayFabClientDataModels.h"
 
 using namespace PlayFab;
+using namespace PlayFab::ClientModels;
 using namespace rapidjson;
 
 
@@ -711,7 +712,7 @@ bool ConfirmPurchaseResult::readFromValue(const rapidjson::Value& obj)
 }
 
 
-void PlayFab::writeCurrencyEnumJSON(Currency enumVal, PFStringJsonWriter& writer)
+void PlayFab::ClientModels::writeCurrencyEnumJSON(Currency enumVal, PFStringJsonWriter& writer)
 {
 	switch(enumVal)
 	{
@@ -725,7 +726,7 @@ void PlayFab::writeCurrencyEnumJSON(Currency enumVal, PFStringJsonWriter& writer
 	}
 }
 
-Currency PlayFab::readCurrencyFromValue(const rapidjson::Value& obj)
+Currency PlayFab::ClientModels::readCurrencyFromValue(const rapidjson::Value& obj)
 {
 	std::string enumStr = obj.GetString();
 	if(enumStr == "USD")
@@ -745,7 +746,7 @@ Currency PlayFab::readCurrencyFromValue(const rapidjson::Value& obj)
 }
 
 
-void PlayFab::writeRegionEnumJSON(Region enumVal, PFStringJsonWriter& writer)
+void PlayFab::ClientModels::writeRegionEnumJSON(Region enumVal, PFStringJsonWriter& writer)
 {
 	switch(enumVal)
 	{
@@ -762,7 +763,7 @@ void PlayFab::writeRegionEnumJSON(Region enumVal, PFStringJsonWriter& writer)
 	}
 }
 
-Region PlayFab::readRegionFromValue(const rapidjson::Value& obj)
+Region PlayFab::ClientModels::readRegionFromValue(const rapidjson::Value& obj)
 {
 	std::string enumStr = obj.GetString();
 	if(enumStr == "USWest")
@@ -1000,7 +1001,7 @@ bool UserFacebookInfo::readFromValue(const rapidjson::Value& obj)
 }
 
 
-void PlayFab::writeTitleActivationStatusEnumJSON(TitleActivationStatus enumVal, PFStringJsonWriter& writer)
+void PlayFab::ClientModels::writeTitleActivationStatusEnumJSON(TitleActivationStatus enumVal, PFStringJsonWriter& writer)
 {
 	switch(enumVal)
 	{
@@ -1012,7 +1013,7 @@ void PlayFab::writeTitleActivationStatusEnumJSON(TitleActivationStatus enumVal, 
 	}
 }
 
-TitleActivationStatus PlayFab::readTitleActivationStatusFromValue(const rapidjson::Value& obj)
+TitleActivationStatus PlayFab::ClientModels::readTitleActivationStatusFromValue(const rapidjson::Value& obj)
 {
 	std::string enumStr = obj.GetString();
 	if(enumStr == "None")
@@ -1373,7 +1374,7 @@ bool GetAccountInfoRequest::readFromValue(const rapidjson::Value& obj)
 }
 
 
-void PlayFab::writeUserOriginationEnumJSON(UserOrigination enumVal, PFStringJsonWriter& writer)
+void PlayFab::ClientModels::writeUserOriginationEnumJSON(UserOrigination enumVal, PFStringJsonWriter& writer)
 {
 	switch(enumVal)
 	{
@@ -1391,7 +1392,7 @@ void PlayFab::writeUserOriginationEnumJSON(UserOrigination enumVal, PFStringJson
 	}
 }
 
-UserOrigination PlayFab::readUserOriginationFromValue(const rapidjson::Value& obj)
+UserOrigination PlayFab::ClientModels::readUserOriginationFromValue(const rapidjson::Value& obj)
 {
 	std::string enumStr = obj.GetString();
 	if(enumStr == "Organic")
@@ -2714,7 +2715,7 @@ bool MatchmakeRequest::readFromValue(const rapidjson::Value& obj)
 }
 
 
-void PlayFab::writeMatchmakeStatusEnumJSON(MatchmakeStatus enumVal, PFStringJsonWriter& writer)
+void PlayFab::ClientModels::writeMatchmakeStatusEnumJSON(MatchmakeStatus enumVal, PFStringJsonWriter& writer)
 {
 	switch(enumVal)
 	{
@@ -2724,7 +2725,7 @@ void PlayFab::writeMatchmakeStatusEnumJSON(MatchmakeStatus enumVal, PFStringJson
 	}
 }
 
-MatchmakeStatus PlayFab::readMatchmakeStatusFromValue(const rapidjson::Value& obj)
+MatchmakeStatus PlayFab::ClientModels::readMatchmakeStatusFromValue(const rapidjson::Value& obj)
 {
 	std::string enumStr = obj.GetString();
 	if(enumStr == "Complete")
@@ -2852,7 +2853,7 @@ bool PayForPurchaseRequest::readFromValue(const rapidjson::Value& obj)
 }
 
 
-void PlayFab::writeTransactionStatusEnumJSON(TransactionStatus enumVal, PFStringJsonWriter& writer)
+void PlayFab::ClientModels::writeTransactionStatusEnumJSON(TransactionStatus enumVal, PFStringJsonWriter& writer)
 {
 	switch(enumVal)
 	{
@@ -2874,7 +2875,7 @@ void PlayFab::writeTransactionStatusEnumJSON(TransactionStatus enumVal, PFString
 	}
 }
 
-TransactionStatus PlayFab::readTransactionStatusFromValue(const rapidjson::Value& obj)
+TransactionStatus PlayFab::ClientModels::readTransactionStatusFromValue(const rapidjson::Value& obj)
 {
 	std::string enumStr = obj.GetString();
 	if(enumStr == "CreateCart")
