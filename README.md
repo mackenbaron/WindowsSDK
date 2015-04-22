@@ -1,22 +1,29 @@
-WindowsSDK
-==========
+Windows C++ SDK for PlayFab README
+========
+1. Overview:
+----
+This document describes the process of configuring and building the PlayFab C++ SDK.
 
-Windows C++ SDK for PlayFab
 
-# SDKs
+2. Prerequisites:
+----
+* Users should be very familiar with the topics covered in our [getting started guide](https://playfab.com/getting-started).
 
+
+3. Source Code & Key Repository Components:
+----
 This package contains three different versions of the PlayFab SDK. 
 
 PlayFabClientSDK - This version contains only client libraries and is designed for integration with your game client
 PlayFabServerSDK - Contains server and admin APIs designed to be called from your custom logic server or build process
 PlayFabSDK - Contains all APIs in one SDK.
 
-# Integration
 
-
+4. Installation & Configuration Instructions:
+----
 To integrate the PlayFab SDK into your Visual Studio project, follow these steps.
 
-## Linker Settings
+#### Linker Settings
 
 1.
 
@@ -36,7 +43,7 @@ Add the following libraries to the "Additional Dependencies" line:
 zlibd.lib;libeay32d.lib;ssleay32d.lib;libcurld.lib;PlayFabAPI.lib;ws2_32.lib;wldap32.lib;
 ```
 
-## Preprocessor settings
+#### Preprocessor settings
 
 Open your project's Properties panel and switch to "Configuration Properties\C/C++".
 
@@ -48,11 +55,11 @@ $(PlayFabRoot)\PlayFabSDK\include;$(PlayFabRoot)\PlayFabSDK\dependencies\include
 
 Substitute $(PlayFabRoot) for wherever you have the PlayFabSDK installed in your project.
 
-## Done
+#### Done
 
 Your project should now be ready to compile and link against the PlayFabSDK.
 
-# Alternative approach
+### Alternative approach
 
 If you'd prefer, another approach is to add the PlayFabSDK's vcproj to your solution. This makes it easier to browse and debug the SDK's source code as you develop with it.
 
@@ -64,6 +71,28 @@ If you'd prefer, another approach is to add the PlayFabSDK's vcproj to your solu
 You must then follow all the steps above to setup dependent libs and headers, but you would leave out "layFabAPI.lib" when you add the additional dependencies line.
 
 
-# API Docs
+5. Troubleshooting:
+----
+For a complete list of available APIs, check out the [online documentation](http://api.playfab.com/Documentation/).
 
-Please see http://api.playfab.com/Documentation/ for complete documentation of all PlayFab SDK calls.
+#### Contact Us
+We love to hear from our developer community! 
+Do you have ideas on how we can make our products and services better? 
+
+Our Developer Success Team can assist with answering any questions as well as process any feedback you have about PlayFab services.
+
+[Forums, Support and Knowlage Base](https://support.playfab.com/support/home)
+
+
+6. Copyright and Licensing Information:
+----
+  Apache License -- 
+  Version 2.0, January 2004
+  http://www.apache.org/licenses/
+
+  Full details available within the LICENSE file.
+
+
+7. Version History:
+----
+* (v1.2.4) --
