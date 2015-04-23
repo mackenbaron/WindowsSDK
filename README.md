@@ -13,10 +13,9 @@ This document describes the process of configuring and building the PlayFab C++ 
 3. Source Code & Key Repository Components:
 ----
 This package contains three different versions of the PlayFab SDK. 
-
-PlayFabClientSDK - This version contains only client libraries and is designed for integration with your game client
-PlayFabServerSDK - Contains server and admin APIs designed to be called from your custom logic server or build process
-PlayFabSDK - Contains all APIs in one SDK.
+* PlayFabClientSDK - This version contains only client libraries and is designed for integration with your game client
+* PlayFabServerSDK - Contains server and admin APIs designed to be called from your custom logic server or build process
+* PlayFabSDK - Contains all APIs in one SDK.
 
 
 4. Installation & Configuration Instructions:
@@ -81,7 +80,7 @@ Do you have ideas on how we can make our products and services better?
 
 Our Developer Success Team can assist with answering any questions as well as process any feedback you have about PlayFab services.
 
-[Forums, Support and Knowlage Base](https://support.playfab.com/support/home)
+[Forums, Support and Knowledge Base](https://support.playfab.com/support/home)
 
 
 6. Copyright and Licensing Information:
