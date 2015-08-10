@@ -3,7 +3,8 @@
 
 #include <curl/curl.h>
 
-#include "playfab/PlayFabZlib.h"
+#define ZLIB_WINAPI
+#include "zlib/zlib.h"
 
 #define CHUNK 0x4000
 
@@ -54,7 +55,7 @@ PlayFabErrorCode HttpRequesterCURL::AddRequest(HttpRequest* request, RequestComp
         std::string body = request->GetBody();
         char* buffer = NULL;
         size_t bodyLen = 0;
-        int compressionLevel = 0; //request->GetCompressionLevel(); Temporarily disabled due to problems
+        int compressionLevel = request->GetCompressionLevel();
         if(compressionLevel != 0)
         {
             unsigned long ret = 0;
