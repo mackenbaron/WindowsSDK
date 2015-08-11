@@ -72,6 +72,7 @@ namespace PlayFab
 		typedef void(*DeleteContentCallback)(AdminModels::BlankResult& result, void* userData);
 		typedef void(*GetContentListCallback)(AdminModels::GetContentListResult& result, void* userData);
 		typedef void(*GetContentUploadUrlCallback)(AdminModels::GetContentUploadUrlResult& result, void* userData);
+		typedef void(*ResetCharacterStatisticsCallback)(AdminModels::ResetCharacterStatisticsResult& result, void* userData);
 		
 	
         PlayFabAdminAPI();
@@ -79,7 +80,9 @@ namespace PlayFab
         ~PlayFabAdminAPI();
 
         IHttpRequester* GetRequester(bool relinquishOwnership = false);
-        void Update();
+        size_t Update();
+
+		
 
         // ------------ Generated API calls
 		
@@ -192,6 +195,8 @@ namespace PlayFab
 		void GetContentList(AdminModels::GetContentListRequest& request, GetContentListCallback callback, ErrorCallback errorCallback = NULL, void* userData = NULL);
 		
 		void GetContentUploadUrl(AdminModels::GetContentUploadUrlRequest& request, GetContentUploadUrlCallback callback, ErrorCallback errorCallback = NULL, void* userData = NULL);
+		
+		void ResetCharacterStatistics(AdminModels::ResetCharacterStatisticsRequest& request, ResetCharacterStatisticsCallback callback, ErrorCallback errorCallback = NULL, void* userData = NULL);
 		
 
     private:
@@ -307,6 +312,8 @@ namespace PlayFab
 		static void OnGetContentListResult(int httpStatus, HttpRequest* request, void* userData);
 		
 		static void OnGetContentUploadUrlResult(int httpStatus, HttpRequest* request, void* userData);
+		
+		static void OnResetCharacterStatisticsResult(int httpStatus, HttpRequest* request, void* userData);
 		
  
         bool mOwnsRequester;
