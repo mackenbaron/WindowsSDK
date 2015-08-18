@@ -88,23 +88,25 @@ void PlayFab::AdminModels::writeRegionEnumJSON(Region enumVal, PFStringJsonWrite
 
 Region PlayFab::AdminModels::readRegionFromValue(const rapidjson::Value& obj)
 {
-	std::string enumStr = obj.GetString();
-	if(enumStr == "USCentral")
-		return RegionUSCentral;
-	else if(enumStr == "USEast")
-		return RegionUSEast;
-	else if(enumStr == "EUWest")
-		return RegionEUWest;
-	else if(enumStr == "Singapore")
-		return RegionSingapore;
-	else if(enumStr == "Japan")
-		return RegionJapan;
-	else if(enumStr == "Brazil")
-		return RegionBrazil;
-	else if(enumStr == "Australia")
-		return RegionAustralia;
-	
-	return RegionUSCentral;
+    static std::map<std::string, Region> _RegionMap;
+    if (_RegionMap.size() == 0)
+    {
+        // Auto-generate the map on the first use
+        _RegionMap["USCentral"] = RegionUSCentral;
+        _RegionMap["USEast"] = RegionUSEast;
+        _RegionMap["EUWest"] = RegionEUWest;
+        _RegionMap["Singapore"] = RegionSingapore;
+        _RegionMap["Japan"] = RegionJapan;
+        _RegionMap["Brazil"] = RegionBrazil;
+        _RegionMap["Australia"] = RegionAustralia;
+
+    }
+
+    auto output = _RegionMap.find(obj.GetString());
+    if (output != _RegionMap.end())
+        return output->second;
+
+    return RegionUSCentral; // Basically critical fail
 }
 
 
@@ -187,19 +189,23 @@ void PlayFab::AdminModels::writeGameBuildStatusEnumJSON(GameBuildStatus enumVal,
 
 GameBuildStatus PlayFab::AdminModels::readGameBuildStatusFromValue(const rapidjson::Value& obj)
 {
-	std::string enumStr = obj.GetString();
-	if(enumStr == "Available")
-		return GameBuildStatusAvailable;
-	else if(enumStr == "Validating")
-		return GameBuildStatusValidating;
-	else if(enumStr == "InvalidBuildPackage")
-		return GameBuildStatusInvalidBuildPackage;
-	else if(enumStr == "Processing")
-		return GameBuildStatusProcessing;
-	else if(enumStr == "FailedToProcess")
-		return GameBuildStatusFailedToProcess;
-	
-	return GameBuildStatusAvailable;
+    static std::map<std::string, GameBuildStatus> _GameBuildStatusMap;
+    if (_GameBuildStatusMap.size() == 0)
+    {
+        // Auto-generate the map on the first use
+        _GameBuildStatusMap["Available"] = GameBuildStatusAvailable;
+        _GameBuildStatusMap["Validating"] = GameBuildStatusValidating;
+        _GameBuildStatusMap["InvalidBuildPackage"] = GameBuildStatusInvalidBuildPackage;
+        _GameBuildStatusMap["Processing"] = GameBuildStatusProcessing;
+        _GameBuildStatusMap["FailedToProcess"] = GameBuildStatusFailedToProcess;
+
+    }
+
+    auto output = _GameBuildStatusMap.find(obj.GetString());
+    if (output != _GameBuildStatusMap.end())
+        return output->second;
+
+    return GameBuildStatusAvailable; // Basically critical fail
 }
 
 
@@ -857,35 +863,347 @@ void PlayFab::AdminModels::writeCurrencyEnumJSON(Currency enumVal, PFStringJsonW
 	switch(enumVal)
 	{
 		
-		case CurrencyUSD: writer.String("USD"); break;
-		case CurrencyGBP: writer.String("GBP"); break;
-		case CurrencyEUR: writer.String("EUR"); break;
-		case CurrencyRUB: writer.String("RUB"); break;
+		case CurrencyAED: writer.String("AED"); break;
+		case CurrencyAFN: writer.String("AFN"); break;
+		case CurrencyALL: writer.String("ALL"); break;
+		case CurrencyAMD: writer.String("AMD"); break;
+		case CurrencyANG: writer.String("ANG"); break;
+		case CurrencyAOA: writer.String("AOA"); break;
+		case CurrencyARS: writer.String("ARS"); break;
+		case CurrencyAUD: writer.String("AUD"); break;
+		case CurrencyAWG: writer.String("AWG"); break;
+		case CurrencyAZN: writer.String("AZN"); break;
+		case CurrencyBAM: writer.String("BAM"); break;
+		case CurrencyBBD: writer.String("BBD"); break;
+		case CurrencyBDT: writer.String("BDT"); break;
+		case CurrencyBGN: writer.String("BGN"); break;
+		case CurrencyBHD: writer.String("BHD"); break;
+		case CurrencyBIF: writer.String("BIF"); break;
+		case CurrencyBMD: writer.String("BMD"); break;
+		case CurrencyBND: writer.String("BND"); break;
+		case CurrencyBOB: writer.String("BOB"); break;
 		case CurrencyBRL: writer.String("BRL"); break;
-		case CurrencyCIS: writer.String("CIS"); break;
+		case CurrencyBSD: writer.String("BSD"); break;
+		case CurrencyBTN: writer.String("BTN"); break;
+		case CurrencyBWP: writer.String("BWP"); break;
+		case CurrencyBYR: writer.String("BYR"); break;
+		case CurrencyBZD: writer.String("BZD"); break;
 		case CurrencyCAD: writer.String("CAD"); break;
+		case CurrencyCDF: writer.String("CDF"); break;
+		case CurrencyCHF: writer.String("CHF"); break;
+		case CurrencyCLP: writer.String("CLP"); break;
+		case CurrencyCNY: writer.String("CNY"); break;
+		case CurrencyCOP: writer.String("COP"); break;
+		case CurrencyCRC: writer.String("CRC"); break;
+		case CurrencyCUC: writer.String("CUC"); break;
+		case CurrencyCUP: writer.String("CUP"); break;
+		case CurrencyCVE: writer.String("CVE"); break;
+		case CurrencyCZK: writer.String("CZK"); break;
+		case CurrencyDJF: writer.String("DJF"); break;
+		case CurrencyDKK: writer.String("DKK"); break;
+		case CurrencyDOP: writer.String("DOP"); break;
+		case CurrencyDZD: writer.String("DZD"); break;
+		case CurrencyEGP: writer.String("EGP"); break;
+		case CurrencyERN: writer.String("ERN"); break;
+		case CurrencyETB: writer.String("ETB"); break;
+		case CurrencyEUR: writer.String("EUR"); break;
+		case CurrencyFJD: writer.String("FJD"); break;
+		case CurrencyFKP: writer.String("FKP"); break;
+		case CurrencyGBP: writer.String("GBP"); break;
+		case CurrencyGEL: writer.String("GEL"); break;
+		case CurrencyGGP: writer.String("GGP"); break;
+		case CurrencyGHS: writer.String("GHS"); break;
+		case CurrencyGIP: writer.String("GIP"); break;
+		case CurrencyGMD: writer.String("GMD"); break;
+		case CurrencyGNF: writer.String("GNF"); break;
+		case CurrencyGTQ: writer.String("GTQ"); break;
+		case CurrencyGYD: writer.String("GYD"); break;
+		case CurrencyHKD: writer.String("HKD"); break;
+		case CurrencyHNL: writer.String("HNL"); break;
+		case CurrencyHRK: writer.String("HRK"); break;
+		case CurrencyHTG: writer.String("HTG"); break;
+		case CurrencyHUF: writer.String("HUF"); break;
+		case CurrencyIDR: writer.String("IDR"); break;
+		case CurrencyILS: writer.String("ILS"); break;
+		case CurrencyIMP: writer.String("IMP"); break;
+		case CurrencyINR: writer.String("INR"); break;
+		case CurrencyIQD: writer.String("IQD"); break;
+		case CurrencyIRR: writer.String("IRR"); break;
+		case CurrencyISK: writer.String("ISK"); break;
+		case CurrencyJEP: writer.String("JEP"); break;
+		case CurrencyJMD: writer.String("JMD"); break;
+		case CurrencyJOD: writer.String("JOD"); break;
+		case CurrencyJPY: writer.String("JPY"); break;
+		case CurrencyKES: writer.String("KES"); break;
+		case CurrencyKGS: writer.String("KGS"); break;
+		case CurrencyKHR: writer.String("KHR"); break;
+		case CurrencyKMF: writer.String("KMF"); break;
+		case CurrencyKPW: writer.String("KPW"); break;
+		case CurrencyKRW: writer.String("KRW"); break;
+		case CurrencyKWD: writer.String("KWD"); break;
+		case CurrencyKYD: writer.String("KYD"); break;
+		case CurrencyKZT: writer.String("KZT"); break;
+		case CurrencyLAK: writer.String("LAK"); break;
+		case CurrencyLBP: writer.String("LBP"); break;
+		case CurrencyLKR: writer.String("LKR"); break;
+		case CurrencyLRD: writer.String("LRD"); break;
+		case CurrencyLSL: writer.String("LSL"); break;
+		case CurrencyLYD: writer.String("LYD"); break;
+		case CurrencyMAD: writer.String("MAD"); break;
+		case CurrencyMDL: writer.String("MDL"); break;
+		case CurrencyMGA: writer.String("MGA"); break;
+		case CurrencyMKD: writer.String("MKD"); break;
+		case CurrencyMMK: writer.String("MMK"); break;
+		case CurrencyMNT: writer.String("MNT"); break;
+		case CurrencyMOP: writer.String("MOP"); break;
+		case CurrencyMRO: writer.String("MRO"); break;
+		case CurrencyMUR: writer.String("MUR"); break;
+		case CurrencyMVR: writer.String("MVR"); break;
+		case CurrencyMWK: writer.String("MWK"); break;
+		case CurrencyMXN: writer.String("MXN"); break;
+		case CurrencyMYR: writer.String("MYR"); break;
+		case CurrencyMZN: writer.String("MZN"); break;
+		case CurrencyNAD: writer.String("NAD"); break;
+		case CurrencyNGN: writer.String("NGN"); break;
+		case CurrencyNIO: writer.String("NIO"); break;
+		case CurrencyNOK: writer.String("NOK"); break;
+		case CurrencyNPR: writer.String("NPR"); break;
+		case CurrencyNZD: writer.String("NZD"); break;
+		case CurrencyOMR: writer.String("OMR"); break;
+		case CurrencyPAB: writer.String("PAB"); break;
+		case CurrencyPEN: writer.String("PEN"); break;
+		case CurrencyPGK: writer.String("PGK"); break;
+		case CurrencyPHP: writer.String("PHP"); break;
+		case CurrencyPKR: writer.String("PKR"); break;
+		case CurrencyPLN: writer.String("PLN"); break;
+		case CurrencyPYG: writer.String("PYG"); break;
+		case CurrencyQAR: writer.String("QAR"); break;
+		case CurrencyRON: writer.String("RON"); break;
+		case CurrencyRSD: writer.String("RSD"); break;
+		case CurrencyRUB: writer.String("RUB"); break;
+		case CurrencyRWF: writer.String("RWF"); break;
+		case CurrencySAR: writer.String("SAR"); break;
+		case CurrencySBD: writer.String("SBD"); break;
+		case CurrencySCR: writer.String("SCR"); break;
+		case CurrencySDG: writer.String("SDG"); break;
+		case CurrencySEK: writer.String("SEK"); break;
+		case CurrencySGD: writer.String("SGD"); break;
+		case CurrencySHP: writer.String("SHP"); break;
+		case CurrencySLL: writer.String("SLL"); break;
+		case CurrencySOS: writer.String("SOS"); break;
+		case CurrencySPL: writer.String("SPL"); break;
+		case CurrencySRD: writer.String("SRD"); break;
+		case CurrencySTD: writer.String("STD"); break;
+		case CurrencySVC: writer.String("SVC"); break;
+		case CurrencySYP: writer.String("SYP"); break;
+		case CurrencySZL: writer.String("SZL"); break;
+		case CurrencyTHB: writer.String("THB"); break;
+		case CurrencyTJS: writer.String("TJS"); break;
+		case CurrencyTMT: writer.String("TMT"); break;
+		case CurrencyTND: writer.String("TND"); break;
+		case CurrencyTOP: writer.String("TOP"); break;
+		case CurrencyTRY: writer.String("TRY"); break;
+		case CurrencyTTD: writer.String("TTD"); break;
+		case CurrencyTVD: writer.String("TVD"); break;
+		case CurrencyTWD: writer.String("TWD"); break;
+		case CurrencyTZS: writer.String("TZS"); break;
+		case CurrencyUAH: writer.String("UAH"); break;
+		case CurrencyUGX: writer.String("UGX"); break;
+		case CurrencyUSD: writer.String("USD"); break;
+		case CurrencyUYU: writer.String("UYU"); break;
+		case CurrencyUZS: writer.String("UZS"); break;
+		case CurrencyVEF: writer.String("VEF"); break;
+		case CurrencyVND: writer.String("VND"); break;
+		case CurrencyVUV: writer.String("VUV"); break;
+		case CurrencyWST: writer.String("WST"); break;
+		case CurrencyXAF: writer.String("XAF"); break;
+		case CurrencyXCD: writer.String("XCD"); break;
+		case CurrencyXDR: writer.String("XDR"); break;
+		case CurrencyXOF: writer.String("XOF"); break;
+		case CurrencyXPF: writer.String("XPF"); break;
+		case CurrencyYER: writer.String("YER"); break;
+		case CurrencyZAR: writer.String("ZAR"); break;
+		case CurrencyZMW: writer.String("ZMW"); break;
+		case CurrencyZWD: writer.String("ZWD"); break;
 	}
 }
 
 Currency PlayFab::AdminModels::readCurrencyFromValue(const rapidjson::Value& obj)
 {
-	std::string enumStr = obj.GetString();
-	if(enumStr == "USD")
-		return CurrencyUSD;
-	else if(enumStr == "GBP")
-		return CurrencyGBP;
-	else if(enumStr == "EUR")
-		return CurrencyEUR;
-	else if(enumStr == "RUB")
-		return CurrencyRUB;
-	else if(enumStr == "BRL")
-		return CurrencyBRL;
-	else if(enumStr == "CIS")
-		return CurrencyCIS;
-	else if(enumStr == "CAD")
-		return CurrencyCAD;
-	
-	return CurrencyUSD;
+    static std::map<std::string, Currency> _CurrencyMap;
+    if (_CurrencyMap.size() == 0)
+    {
+        // Auto-generate the map on the first use
+        _CurrencyMap["AED"] = CurrencyAED;
+        _CurrencyMap["AFN"] = CurrencyAFN;
+        _CurrencyMap["ALL"] = CurrencyALL;
+        _CurrencyMap["AMD"] = CurrencyAMD;
+        _CurrencyMap["ANG"] = CurrencyANG;
+        _CurrencyMap["AOA"] = CurrencyAOA;
+        _CurrencyMap["ARS"] = CurrencyARS;
+        _CurrencyMap["AUD"] = CurrencyAUD;
+        _CurrencyMap["AWG"] = CurrencyAWG;
+        _CurrencyMap["AZN"] = CurrencyAZN;
+        _CurrencyMap["BAM"] = CurrencyBAM;
+        _CurrencyMap["BBD"] = CurrencyBBD;
+        _CurrencyMap["BDT"] = CurrencyBDT;
+        _CurrencyMap["BGN"] = CurrencyBGN;
+        _CurrencyMap["BHD"] = CurrencyBHD;
+        _CurrencyMap["BIF"] = CurrencyBIF;
+        _CurrencyMap["BMD"] = CurrencyBMD;
+        _CurrencyMap["BND"] = CurrencyBND;
+        _CurrencyMap["BOB"] = CurrencyBOB;
+        _CurrencyMap["BRL"] = CurrencyBRL;
+        _CurrencyMap["BSD"] = CurrencyBSD;
+        _CurrencyMap["BTN"] = CurrencyBTN;
+        _CurrencyMap["BWP"] = CurrencyBWP;
+        _CurrencyMap["BYR"] = CurrencyBYR;
+        _CurrencyMap["BZD"] = CurrencyBZD;
+        _CurrencyMap["CAD"] = CurrencyCAD;
+        _CurrencyMap["CDF"] = CurrencyCDF;
+        _CurrencyMap["CHF"] = CurrencyCHF;
+        _CurrencyMap["CLP"] = CurrencyCLP;
+        _CurrencyMap["CNY"] = CurrencyCNY;
+        _CurrencyMap["COP"] = CurrencyCOP;
+        _CurrencyMap["CRC"] = CurrencyCRC;
+        _CurrencyMap["CUC"] = CurrencyCUC;
+        _CurrencyMap["CUP"] = CurrencyCUP;
+        _CurrencyMap["CVE"] = CurrencyCVE;
+        _CurrencyMap["CZK"] = CurrencyCZK;
+        _CurrencyMap["DJF"] = CurrencyDJF;
+        _CurrencyMap["DKK"] = CurrencyDKK;
+        _CurrencyMap["DOP"] = CurrencyDOP;
+        _CurrencyMap["DZD"] = CurrencyDZD;
+        _CurrencyMap["EGP"] = CurrencyEGP;
+        _CurrencyMap["ERN"] = CurrencyERN;
+        _CurrencyMap["ETB"] = CurrencyETB;
+        _CurrencyMap["EUR"] = CurrencyEUR;
+        _CurrencyMap["FJD"] = CurrencyFJD;
+        _CurrencyMap["FKP"] = CurrencyFKP;
+        _CurrencyMap["GBP"] = CurrencyGBP;
+        _CurrencyMap["GEL"] = CurrencyGEL;
+        _CurrencyMap["GGP"] = CurrencyGGP;
+        _CurrencyMap["GHS"] = CurrencyGHS;
+        _CurrencyMap["GIP"] = CurrencyGIP;
+        _CurrencyMap["GMD"] = CurrencyGMD;
+        _CurrencyMap["GNF"] = CurrencyGNF;
+        _CurrencyMap["GTQ"] = CurrencyGTQ;
+        _CurrencyMap["GYD"] = CurrencyGYD;
+        _CurrencyMap["HKD"] = CurrencyHKD;
+        _CurrencyMap["HNL"] = CurrencyHNL;
+        _CurrencyMap["HRK"] = CurrencyHRK;
+        _CurrencyMap["HTG"] = CurrencyHTG;
+        _CurrencyMap["HUF"] = CurrencyHUF;
+        _CurrencyMap["IDR"] = CurrencyIDR;
+        _CurrencyMap["ILS"] = CurrencyILS;
+        _CurrencyMap["IMP"] = CurrencyIMP;
+        _CurrencyMap["INR"] = CurrencyINR;
+        _CurrencyMap["IQD"] = CurrencyIQD;
+        _CurrencyMap["IRR"] = CurrencyIRR;
+        _CurrencyMap["ISK"] = CurrencyISK;
+        _CurrencyMap["JEP"] = CurrencyJEP;
+        _CurrencyMap["JMD"] = CurrencyJMD;
+        _CurrencyMap["JOD"] = CurrencyJOD;
+        _CurrencyMap["JPY"] = CurrencyJPY;
+        _CurrencyMap["KES"] = CurrencyKES;
+        _CurrencyMap["KGS"] = CurrencyKGS;
+        _CurrencyMap["KHR"] = CurrencyKHR;
+        _CurrencyMap["KMF"] = CurrencyKMF;
+        _CurrencyMap["KPW"] = CurrencyKPW;
+        _CurrencyMap["KRW"] = CurrencyKRW;
+        _CurrencyMap["KWD"] = CurrencyKWD;
+        _CurrencyMap["KYD"] = CurrencyKYD;
+        _CurrencyMap["KZT"] = CurrencyKZT;
+        _CurrencyMap["LAK"] = CurrencyLAK;
+        _CurrencyMap["LBP"] = CurrencyLBP;
+        _CurrencyMap["LKR"] = CurrencyLKR;
+        _CurrencyMap["LRD"] = CurrencyLRD;
+        _CurrencyMap["LSL"] = CurrencyLSL;
+        _CurrencyMap["LYD"] = CurrencyLYD;
+        _CurrencyMap["MAD"] = CurrencyMAD;
+        _CurrencyMap["MDL"] = CurrencyMDL;
+        _CurrencyMap["MGA"] = CurrencyMGA;
+        _CurrencyMap["MKD"] = CurrencyMKD;
+        _CurrencyMap["MMK"] = CurrencyMMK;
+        _CurrencyMap["MNT"] = CurrencyMNT;
+        _CurrencyMap["MOP"] = CurrencyMOP;
+        _CurrencyMap["MRO"] = CurrencyMRO;
+        _CurrencyMap["MUR"] = CurrencyMUR;
+        _CurrencyMap["MVR"] = CurrencyMVR;
+        _CurrencyMap["MWK"] = CurrencyMWK;
+        _CurrencyMap["MXN"] = CurrencyMXN;
+        _CurrencyMap["MYR"] = CurrencyMYR;
+        _CurrencyMap["MZN"] = CurrencyMZN;
+        _CurrencyMap["NAD"] = CurrencyNAD;
+        _CurrencyMap["NGN"] = CurrencyNGN;
+        _CurrencyMap["NIO"] = CurrencyNIO;
+        _CurrencyMap["NOK"] = CurrencyNOK;
+        _CurrencyMap["NPR"] = CurrencyNPR;
+        _CurrencyMap["NZD"] = CurrencyNZD;
+        _CurrencyMap["OMR"] = CurrencyOMR;
+        _CurrencyMap["PAB"] = CurrencyPAB;
+        _CurrencyMap["PEN"] = CurrencyPEN;
+        _CurrencyMap["PGK"] = CurrencyPGK;
+        _CurrencyMap["PHP"] = CurrencyPHP;
+        _CurrencyMap["PKR"] = CurrencyPKR;
+        _CurrencyMap["PLN"] = CurrencyPLN;
+        _CurrencyMap["PYG"] = CurrencyPYG;
+        _CurrencyMap["QAR"] = CurrencyQAR;
+        _CurrencyMap["RON"] = CurrencyRON;
+        _CurrencyMap["RSD"] = CurrencyRSD;
+        _CurrencyMap["RUB"] = CurrencyRUB;
+        _CurrencyMap["RWF"] = CurrencyRWF;
+        _CurrencyMap["SAR"] = CurrencySAR;
+        _CurrencyMap["SBD"] = CurrencySBD;
+        _CurrencyMap["SCR"] = CurrencySCR;
+        _CurrencyMap["SDG"] = CurrencySDG;
+        _CurrencyMap["SEK"] = CurrencySEK;
+        _CurrencyMap["SGD"] = CurrencySGD;
+        _CurrencyMap["SHP"] = CurrencySHP;
+        _CurrencyMap["SLL"] = CurrencySLL;
+        _CurrencyMap["SOS"] = CurrencySOS;
+        _CurrencyMap["SPL"] = CurrencySPL;
+        _CurrencyMap["SRD"] = CurrencySRD;
+        _CurrencyMap["STD"] = CurrencySTD;
+        _CurrencyMap["SVC"] = CurrencySVC;
+        _CurrencyMap["SYP"] = CurrencySYP;
+        _CurrencyMap["SZL"] = CurrencySZL;
+        _CurrencyMap["THB"] = CurrencyTHB;
+        _CurrencyMap["TJS"] = CurrencyTJS;
+        _CurrencyMap["TMT"] = CurrencyTMT;
+        _CurrencyMap["TND"] = CurrencyTND;
+        _CurrencyMap["TOP"] = CurrencyTOP;
+        _CurrencyMap["TRY"] = CurrencyTRY;
+        _CurrencyMap["TTD"] = CurrencyTTD;
+        _CurrencyMap["TVD"] = CurrencyTVD;
+        _CurrencyMap["TWD"] = CurrencyTWD;
+        _CurrencyMap["TZS"] = CurrencyTZS;
+        _CurrencyMap["UAH"] = CurrencyUAH;
+        _CurrencyMap["UGX"] = CurrencyUGX;
+        _CurrencyMap["USD"] = CurrencyUSD;
+        _CurrencyMap["UYU"] = CurrencyUYU;
+        _CurrencyMap["UZS"] = CurrencyUZS;
+        _CurrencyMap["VEF"] = CurrencyVEF;
+        _CurrencyMap["VND"] = CurrencyVND;
+        _CurrencyMap["VUV"] = CurrencyVUV;
+        _CurrencyMap["WST"] = CurrencyWST;
+        _CurrencyMap["XAF"] = CurrencyXAF;
+        _CurrencyMap["XCD"] = CurrencyXCD;
+        _CurrencyMap["XDR"] = CurrencyXDR;
+        _CurrencyMap["XOF"] = CurrencyXOF;
+        _CurrencyMap["XPF"] = CurrencyXPF;
+        _CurrencyMap["YER"] = CurrencyYER;
+        _CurrencyMap["ZAR"] = CurrencyZAR;
+        _CurrencyMap["ZMW"] = CurrencyZMW;
+        _CurrencyMap["ZWD"] = CurrencyZWD;
+
+    }
+
+    auto output = _CurrencyMap.find(obj.GetString());
+    if (output != _CurrencyMap.end())
+        return output->second;
+
+    return CurrencyAED; // Basically critical fail
 }
 
 
@@ -910,6 +1228,71 @@ bool DeleteContentRequest::readFromValue(const rapidjson::Value& obj)
 	
 	const Value::Member* Key_member = obj.FindMember("Key");
 	if (Key_member != NULL && !Key_member->value.IsNull()) Key = Key_member->value.GetString();
+	
+	
+	return true;
+}
+
+
+DeleteUsersRequest::~DeleteUsersRequest()
+{
+	
+}
+
+void DeleteUsersRequest::writeJSON(PFStringJsonWriter& writer)
+{
+    writer.StartObject();
+
+	
+	writer.String("PlayFabIds");
+	writer.StartArray();
+	for (std::list<std::string>::iterator iter = PlayFabIds.begin(); iter != PlayFabIds.end(); iter++) {
+		writer.String(iter->c_str());
+	}
+	writer.EndArray();
+	
+	
+	writer.String("TitleId"); writer.String(TitleId.c_str());
+	
+	
+	writer.EndObject();
+}
+
+bool DeleteUsersRequest::readFromValue(const rapidjson::Value& obj)
+{
+	
+	const Value::Member* PlayFabIds_member = obj.FindMember("PlayFabIds");
+	if (PlayFabIds_member != NULL) {
+		const rapidjson::Value& memberList = PlayFabIds_member->value;
+		for (SizeType i = 0; i < memberList.Size(); i++) {
+			PlayFabIds.push_back(memberList[i].GetString());
+		}
+	}
+	
+	const Value::Member* TitleId_member = obj.FindMember("TitleId");
+	if (TitleId_member != NULL && !TitleId_member->value.IsNull()) TitleId = TitleId_member->value.GetString();
+	
+	
+	return true;
+}
+
+
+DeleteUsersResult::~DeleteUsersResult()
+{
+	
+}
+
+void DeleteUsersResult::writeJSON(PFStringJsonWriter& writer)
+{
+    writer.StartObject();
+
+	
+	
+	writer.EndObject();
+}
+
+bool DeleteUsersResult::readFromValue(const rapidjson::Value& obj)
+{
 	
 	
 	return true;
@@ -1667,13 +2050,20 @@ void PlayFab::AdminModels::writeResultTableNodeTypeEnumJSON(ResultTableNodeType 
 
 ResultTableNodeType PlayFab::AdminModels::readResultTableNodeTypeFromValue(const rapidjson::Value& obj)
 {
-	std::string enumStr = obj.GetString();
-	if(enumStr == "ItemId")
-		return ResultTableNodeTypeItemId;
-	else if(enumStr == "TableId")
-		return ResultTableNodeTypeTableId;
-	
-	return ResultTableNodeTypeItemId;
+    static std::map<std::string, ResultTableNodeType> _ResultTableNodeTypeMap;
+    if (_ResultTableNodeTypeMap.size() == 0)
+    {
+        // Auto-generate the map on the first use
+        _ResultTableNodeTypeMap["ItemId"] = ResultTableNodeTypeItemId;
+        _ResultTableNodeTypeMap["TableId"] = ResultTableNodeTypeTableId;
+
+    }
+
+    auto output = _ResultTableNodeTypeMap.find(obj.GetString());
+    if (output != _ResultTableNodeTypeMap.end())
+        return output->second;
+
+    return ResultTableNodeTypeItemId; // Basically critical fail
 }
 
 
@@ -2222,13 +2612,20 @@ void PlayFab::AdminModels::writeUserDataPermissionEnumJSON(UserDataPermission en
 
 UserDataPermission PlayFab::AdminModels::readUserDataPermissionFromValue(const rapidjson::Value& obj)
 {
-	std::string enumStr = obj.GetString();
-	if(enumStr == "Private")
-		return UserDataPermissionPrivate;
-	else if(enumStr == "Public")
-		return UserDataPermissionPublic;
-	
-	return UserDataPermissionPrivate;
+    static std::map<std::string, UserDataPermission> _UserDataPermissionMap;
+    if (_UserDataPermissionMap.size() == 0)
+    {
+        // Auto-generate the map on the first use
+        _UserDataPermissionMap["Private"] = UserDataPermissionPrivate;
+        _UserDataPermissionMap["Public"] = UserDataPermissionPublic;
+
+    }
+
+    auto output = _UserDataPermissionMap.find(obj.GetString());
+    if (output != _UserDataPermissionMap.end())
+        return output->second;
+
+    return UserDataPermissionPrivate; // Basically critical fail
 }
 
 
@@ -3013,40 +3410,38 @@ void PlayFab::AdminModels::writeUserOriginationEnumJSON(UserOrigination enumVal,
 		case UserOriginationAndroid: writer.String("Android"); break;
 		case UserOriginationPSN: writer.String("PSN"); break;
 		case UserOriginationGameCenter: writer.String("GameCenter"); break;
+		case UserOriginationCustomId: writer.String("CustomId"); break;
 	}
 }
 
 UserOrigination PlayFab::AdminModels::readUserOriginationFromValue(const rapidjson::Value& obj)
 {
-	std::string enumStr = obj.GetString();
-	if(enumStr == "Organic")
-		return UserOriginationOrganic;
-	else if(enumStr == "Steam")
-		return UserOriginationSteam;
-	else if(enumStr == "Google")
-		return UserOriginationGoogle;
-	else if(enumStr == "Amazon")
-		return UserOriginationAmazon;
-	else if(enumStr == "Facebook")
-		return UserOriginationFacebook;
-	else if(enumStr == "Kongregate")
-		return UserOriginationKongregate;
-	else if(enumStr == "GamersFirst")
-		return UserOriginationGamersFirst;
-	else if(enumStr == "Unknown")
-		return UserOriginationUnknown;
-	else if(enumStr == "IOS")
-		return UserOriginationIOS;
-	else if(enumStr == "LoadTest")
-		return UserOriginationLoadTest;
-	else if(enumStr == "Android")
-		return UserOriginationAndroid;
-	else if(enumStr == "PSN")
-		return UserOriginationPSN;
-	else if(enumStr == "GameCenter")
-		return UserOriginationGameCenter;
-	
-	return UserOriginationOrganic;
+    static std::map<std::string, UserOrigination> _UserOriginationMap;
+    if (_UserOriginationMap.size() == 0)
+    {
+        // Auto-generate the map on the first use
+        _UserOriginationMap["Organic"] = UserOriginationOrganic;
+        _UserOriginationMap["Steam"] = UserOriginationSteam;
+        _UserOriginationMap["Google"] = UserOriginationGoogle;
+        _UserOriginationMap["Amazon"] = UserOriginationAmazon;
+        _UserOriginationMap["Facebook"] = UserOriginationFacebook;
+        _UserOriginationMap["Kongregate"] = UserOriginationKongregate;
+        _UserOriginationMap["GamersFirst"] = UserOriginationGamersFirst;
+        _UserOriginationMap["Unknown"] = UserOriginationUnknown;
+        _UserOriginationMap["IOS"] = UserOriginationIOS;
+        _UserOriginationMap["LoadTest"] = UserOriginationLoadTest;
+        _UserOriginationMap["Android"] = UserOriginationAndroid;
+        _UserOriginationMap["PSN"] = UserOriginationPSN;
+        _UserOriginationMap["GameCenter"] = UserOriginationGameCenter;
+        _UserOriginationMap["CustomId"] = UserOriginationCustomId;
+
+    }
+
+    auto output = _UserOriginationMap.find(obj.GetString());
+    if (output != _UserOriginationMap.end())
+        return output->second;
+
+    return UserOriginationOrganic; // Basically critical fail
 }
 
 
@@ -3176,19 +3571,23 @@ void PlayFab::AdminModels::writeTitleActivationStatusEnumJSON(TitleActivationSta
 
 TitleActivationStatus PlayFab::AdminModels::readTitleActivationStatusFromValue(const rapidjson::Value& obj)
 {
-	std::string enumStr = obj.GetString();
-	if(enumStr == "None")
-		return TitleActivationStatusNone;
-	else if(enumStr == "ActivatedTitleKey")
-		return TitleActivationStatusActivatedTitleKey;
-	else if(enumStr == "PendingSteam")
-		return TitleActivationStatusPendingSteam;
-	else if(enumStr == "ActivatedSteam")
-		return TitleActivationStatusActivatedSteam;
-	else if(enumStr == "RevokedSteam")
-		return TitleActivationStatusRevokedSteam;
-	
-	return TitleActivationStatusNone;
+    static std::map<std::string, TitleActivationStatus> _TitleActivationStatusMap;
+    if (_TitleActivationStatusMap.size() == 0)
+    {
+        // Auto-generate the map on the first use
+        _TitleActivationStatusMap["None"] = TitleActivationStatusNone;
+        _TitleActivationStatusMap["ActivatedTitleKey"] = TitleActivationStatusActivatedTitleKey;
+        _TitleActivationStatusMap["PendingSteam"] = TitleActivationStatusPendingSteam;
+        _TitleActivationStatusMap["ActivatedSteam"] = TitleActivationStatusActivatedSteam;
+        _TitleActivationStatusMap["RevokedSteam"] = TitleActivationStatusRevokedSteam;
+
+    }
+
+    auto output = _TitleActivationStatusMap.find(obj.GetString());
+    if (output != _TitleActivationStatusMap.end())
+        return output->second;
+
+    return TitleActivationStatusNone; // Basically critical fail
 }
 
 
@@ -3654,6 +4053,70 @@ bool RandomResultTable::readFromValue(const rapidjson::Value& obj)
 }
 
 
+RefundPurchaseRequest::~RefundPurchaseRequest()
+{
+	
+}
+
+void RefundPurchaseRequest::writeJSON(PFStringJsonWriter& writer)
+{
+    writer.StartObject();
+
+	
+	writer.String("PlayFabId"); writer.String(PlayFabId.c_str());
+	
+	writer.String("OrderId"); writer.String(OrderId.c_str());
+	
+	if(Reason.length() > 0) { writer.String("Reason"); writer.String(Reason.c_str()); }
+	
+	
+	writer.EndObject();
+}
+
+bool RefundPurchaseRequest::readFromValue(const rapidjson::Value& obj)
+{
+	
+	const Value::Member* PlayFabId_member = obj.FindMember("PlayFabId");
+	if (PlayFabId_member != NULL && !PlayFabId_member->value.IsNull()) PlayFabId = PlayFabId_member->value.GetString();
+	
+	const Value::Member* OrderId_member = obj.FindMember("OrderId");
+	if (OrderId_member != NULL && !OrderId_member->value.IsNull()) OrderId = OrderId_member->value.GetString();
+	
+	const Value::Member* Reason_member = obj.FindMember("Reason");
+	if (Reason_member != NULL && !Reason_member->value.IsNull()) Reason = Reason_member->value.GetString();
+	
+	
+	return true;
+}
+
+
+RefundPurchaseResponse::~RefundPurchaseResponse()
+{
+	
+}
+
+void RefundPurchaseResponse::writeJSON(PFStringJsonWriter& writer)
+{
+    writer.StartObject();
+
+	
+	if(PurchaseStatus.length() > 0) { writer.String("PurchaseStatus"); writer.String(PurchaseStatus.c_str()); }
+	
+	
+	writer.EndObject();
+}
+
+bool RefundPurchaseResponse::readFromValue(const rapidjson::Value& obj)
+{
+	
+	const Value::Member* PurchaseStatus_member = obj.FindMember("PurchaseStatus");
+	if (PurchaseStatus_member != NULL && !PurchaseStatus_member->value.IsNull()) PurchaseStatus = PurchaseStatus_member->value.GetString();
+	
+	
+	return true;
+}
+
+
 RemoveServerBuildRequest::~RemoveServerBuildRequest()
 {
 	
@@ -3870,6 +4333,106 @@ void ResetUserStatisticsResult::writeJSON(PFStringJsonWriter& writer)
 
 bool ResetUserStatisticsResult::readFromValue(const rapidjson::Value& obj)
 {
+	
+	
+	return true;
+}
+
+
+void PlayFab::AdminModels::writeResolutionOutcomeEnumJSON(ResolutionOutcome enumVal, PFStringJsonWriter& writer)
+{
+	switch(enumVal)
+	{
+		
+		case ResolutionOutcomeRevoke: writer.String("Revoke"); break;
+		case ResolutionOutcomeReinstate: writer.String("Reinstate"); break;
+		case ResolutionOutcomeManual: writer.String("Manual"); break;
+	}
+}
+
+ResolutionOutcome PlayFab::AdminModels::readResolutionOutcomeFromValue(const rapidjson::Value& obj)
+{
+    static std::map<std::string, ResolutionOutcome> _ResolutionOutcomeMap;
+    if (_ResolutionOutcomeMap.size() == 0)
+    {
+        // Auto-generate the map on the first use
+        _ResolutionOutcomeMap["Revoke"] = ResolutionOutcomeRevoke;
+        _ResolutionOutcomeMap["Reinstate"] = ResolutionOutcomeReinstate;
+        _ResolutionOutcomeMap["Manual"] = ResolutionOutcomeManual;
+
+    }
+
+    auto output = _ResolutionOutcomeMap.find(obj.GetString());
+    if (output != _ResolutionOutcomeMap.end())
+        return output->second;
+
+    return ResolutionOutcomeRevoke; // Basically critical fail
+}
+
+
+ResolvePurchaseDisputeRequest::~ResolvePurchaseDisputeRequest()
+{
+	
+}
+
+void ResolvePurchaseDisputeRequest::writeJSON(PFStringJsonWriter& writer)
+{
+    writer.StartObject();
+
+	
+	writer.String("PlayFabId"); writer.String(PlayFabId.c_str());
+	
+	writer.String("OrderId"); writer.String(OrderId.c_str());
+	
+	if(Reason.length() > 0) { writer.String("Reason"); writer.String(Reason.c_str()); }
+	
+	writer.String("Outcome"); writeResolutionOutcomeEnumJSON(Outcome, writer);
+	
+	
+	writer.EndObject();
+}
+
+bool ResolvePurchaseDisputeRequest::readFromValue(const rapidjson::Value& obj)
+{
+	
+	const Value::Member* PlayFabId_member = obj.FindMember("PlayFabId");
+	if (PlayFabId_member != NULL && !PlayFabId_member->value.IsNull()) PlayFabId = PlayFabId_member->value.GetString();
+	
+	const Value::Member* OrderId_member = obj.FindMember("OrderId");
+	if (OrderId_member != NULL && !OrderId_member->value.IsNull()) OrderId = OrderId_member->value.GetString();
+	
+	const Value::Member* Reason_member = obj.FindMember("Reason");
+	if (Reason_member != NULL && !Reason_member->value.IsNull()) Reason = Reason_member->value.GetString();
+	
+	const Value::Member* Outcome_member = obj.FindMember("Outcome");
+	if (Outcome_member != NULL && !Outcome_member->value.IsNull()) Outcome = readResolutionOutcomeFromValue(Outcome_member->value);
+	
+	
+	return true;
+}
+
+
+ResolvePurchaseDisputeResponse::~ResolvePurchaseDisputeResponse()
+{
+	
+}
+
+void ResolvePurchaseDisputeResponse::writeJSON(PFStringJsonWriter& writer)
+{
+    writer.StartObject();
+
+	
+	if(PurchaseStatus.length() > 0) { writer.String("PurchaseStatus"); writer.String(PurchaseStatus.c_str()); }
+	
+	
+	writer.EndObject();
+}
+
+bool ResolvePurchaseDisputeResponse::readFromValue(const rapidjson::Value& obj)
+{
+	
+	const Value::Member* PurchaseStatus_member = obj.FindMember("PurchaseStatus");
+	if (PurchaseStatus_member != NULL && !PurchaseStatus_member->value.IsNull()) PurchaseStatus = PurchaseStatus_member->value.GetString();
 	
 	
 	return true;

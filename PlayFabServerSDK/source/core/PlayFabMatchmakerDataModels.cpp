@@ -311,23 +311,25 @@ void PlayFab::MatchmakerModels::writeRegionEnumJSON(Region enumVal, PFStringJson
 
 Region PlayFab::MatchmakerModels::readRegionFromValue(const rapidjson::Value& obj)
 {
-	std::string enumStr = obj.GetString();
-	if(enumStr == "USCentral")
-		return RegionUSCentral;
-	else if(enumStr == "USEast")
-		return RegionUSEast;
-	else if(enumStr == "EUWest")
-		return RegionEUWest;
-	else if(enumStr == "Singapore")
-		return RegionSingapore;
-	else if(enumStr == "Japan")
-		return RegionJapan;
-	else if(enumStr == "Brazil")
-		return RegionBrazil;
-	else if(enumStr == "Australia")
-		return RegionAustralia;
-	
-	return RegionUSCentral;
+    static std::map<std::string, Region> _RegionMap;
+    if (_RegionMap.size() == 0)
+    {
+        // Auto-generate the map on the first use
+        _RegionMap["USCentral"] = RegionUSCentral;
+        _RegionMap["USEast"] = RegionUSEast;
+        _RegionMap["EUWest"] = RegionEUWest;
+        _RegionMap["Singapore"] = RegionSingapore;
+        _RegionMap["Japan"] = RegionJapan;
+        _RegionMap["Brazil"] = RegionBrazil;
+        _RegionMap["Australia"] = RegionAustralia;
+
+    }
+
+    auto output = _RegionMap.find(obj.GetString());
+    if (output != _RegionMap.end())
+        return output->second;
+
+    return RegionUSCentral; // Basically critical fail
 }
 
 
