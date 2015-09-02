@@ -206,7 +206,8 @@ namespace ServerModels
 		UserOriginationLoadTest,
 		UserOriginationAndroid,
 		UserOriginationPSN,
-		UserOriginationGameCenter
+		UserOriginationGameCenter,
+		UserOriginationCustomId
 	};
 	
 	void writeUserOriginationEnumJSON(UserOrigination enumVal, PFStringJsonWriter& writer);
@@ -311,13 +312,168 @@ namespace ServerModels
 	
 	enum Currency
 	{
-		CurrencyUSD,
-		CurrencyGBP,
-		CurrencyEUR,
-		CurrencyRUB,
+		CurrencyAED,
+		CurrencyAFN,
+		CurrencyALL,
+		CurrencyAMD,
+		CurrencyANG,
+		CurrencyAOA,
+		CurrencyARS,
+		CurrencyAUD,
+		CurrencyAWG,
+		CurrencyAZN,
+		CurrencyBAM,
+		CurrencyBBD,
+		CurrencyBDT,
+		CurrencyBGN,
+		CurrencyBHD,
+		CurrencyBIF,
+		CurrencyBMD,
+		CurrencyBND,
+		CurrencyBOB,
 		CurrencyBRL,
-		CurrencyCIS,
-		CurrencyCAD
+		CurrencyBSD,
+		CurrencyBTN,
+		CurrencyBWP,
+		CurrencyBYR,
+		CurrencyBZD,
+		CurrencyCAD,
+		CurrencyCDF,
+		CurrencyCHF,
+		CurrencyCLP,
+		CurrencyCNY,
+		CurrencyCOP,
+		CurrencyCRC,
+		CurrencyCUC,
+		CurrencyCUP,
+		CurrencyCVE,
+		CurrencyCZK,
+		CurrencyDJF,
+		CurrencyDKK,
+		CurrencyDOP,
+		CurrencyDZD,
+		CurrencyEGP,
+		CurrencyERN,
+		CurrencyETB,
+		CurrencyEUR,
+		CurrencyFJD,
+		CurrencyFKP,
+		CurrencyGBP,
+		CurrencyGEL,
+		CurrencyGGP,
+		CurrencyGHS,
+		CurrencyGIP,
+		CurrencyGMD,
+		CurrencyGNF,
+		CurrencyGTQ,
+		CurrencyGYD,
+		CurrencyHKD,
+		CurrencyHNL,
+		CurrencyHRK,
+		CurrencyHTG,
+		CurrencyHUF,
+		CurrencyIDR,
+		CurrencyILS,
+		CurrencyIMP,
+		CurrencyINR,
+		CurrencyIQD,
+		CurrencyIRR,
+		CurrencyISK,
+		CurrencyJEP,
+		CurrencyJMD,
+		CurrencyJOD,
+		CurrencyJPY,
+		CurrencyKES,
+		CurrencyKGS,
+		CurrencyKHR,
+		CurrencyKMF,
+		CurrencyKPW,
+		CurrencyKRW,
+		CurrencyKWD,
+		CurrencyKYD,
+		CurrencyKZT,
+		CurrencyLAK,
+		CurrencyLBP,
+		CurrencyLKR,
+		CurrencyLRD,
+		CurrencyLSL,
+		CurrencyLYD,
+		CurrencyMAD,
+		CurrencyMDL,
+		CurrencyMGA,
+		CurrencyMKD,
+		CurrencyMMK,
+		CurrencyMNT,
+		CurrencyMOP,
+		CurrencyMRO,
+		CurrencyMUR,
+		CurrencyMVR,
+		CurrencyMWK,
+		CurrencyMXN,
+		CurrencyMYR,
+		CurrencyMZN,
+		CurrencyNAD,
+		CurrencyNGN,
+		CurrencyNIO,
+		CurrencyNOK,
+		CurrencyNPR,
+		CurrencyNZD,
+		CurrencyOMR,
+		CurrencyPAB,
+		CurrencyPEN,
+		CurrencyPGK,
+		CurrencyPHP,
+		CurrencyPKR,
+		CurrencyPLN,
+		CurrencyPYG,
+		CurrencyQAR,
+		CurrencyRON,
+		CurrencyRSD,
+		CurrencyRUB,
+		CurrencyRWF,
+		CurrencySAR,
+		CurrencySBD,
+		CurrencySCR,
+		CurrencySDG,
+		CurrencySEK,
+		CurrencySGD,
+		CurrencySHP,
+		CurrencySLL,
+		CurrencySOS,
+		CurrencySPL,
+		CurrencySRD,
+		CurrencySTD,
+		CurrencySVC,
+		CurrencySYP,
+		CurrencySZL,
+		CurrencyTHB,
+		CurrencyTJS,
+		CurrencyTMT,
+		CurrencyTND,
+		CurrencyTOP,
+		CurrencyTRY,
+		CurrencyTTD,
+		CurrencyTVD,
+		CurrencyTWD,
+		CurrencyTZS,
+		CurrencyUAH,
+		CurrencyUGX,
+		CurrencyUSD,
+		CurrencyUYU,
+		CurrencyUZS,
+		CurrencyVEF,
+		CurrencyVND,
+		CurrencyVUV,
+		CurrencyWST,
+		CurrencyXAF,
+		CurrencyXCD,
+		CurrencyXDR,
+		CurrencyXOF,
+		CurrencyXPF,
+		CurrencyYER,
+		CurrencyZAR,
+		CurrencyZMW,
+		CurrencyZWD
 	};
 	
 	void writeCurrencyEnumJSON(Currency enumVal, PFStringJsonWriter& writer);
@@ -1268,17 +1424,23 @@ namespace ServerModels
 	struct GetCharacterInventoryResult : public PlayFabBaseModel
     {
 		
+		std::string PlayFabId;
+		std::string CharacterId;
 		std::list<ItemInstance> Inventory;
 		std::map<std::string, Int32> VirtualCurrency;
 	
         GetCharacterInventoryResult() :
 			PlayFabBaseModel(),
+			PlayFabId(),
+			CharacterId(),
 			Inventory(),
 			VirtualCurrency()
 			{}
 		
 		GetCharacterInventoryResult(const GetCharacterInventoryResult& src) :
 			PlayFabBaseModel(),
+			PlayFabId(src.PlayFabId),
+			CharacterId(src.CharacterId),
 			Inventory(src.Inventory),
 			VirtualCurrency(src.VirtualCurrency)
 			{}
@@ -1390,15 +1552,21 @@ namespace ServerModels
 	struct GetCharacterStatisticsResult : public PlayFabBaseModel
     {
 		
+		std::string PlayFabId;
+		std::string CharacterId;
 		std::map<std::string, Int32> CharacterStatistics;
 	
         GetCharacterStatisticsResult() :
 			PlayFabBaseModel(),
+			PlayFabId(),
+			CharacterId(),
 			CharacterStatistics()
 			{}
 		
 		GetCharacterStatisticsResult(const GetCharacterStatisticsResult& src) :
 			PlayFabBaseModel(),
+			PlayFabId(src.PlayFabId),
+			CharacterId(src.CharacterId),
 			CharacterStatistics(src.CharacterStatistics)
 			{}
 			
@@ -2220,12 +2388,14 @@ namespace ServerModels
 	struct GetUserInventoryResult : public PlayFabBaseModel
     {
 		
+		std::string PlayFabId;
 		std::list<ItemInstance> Inventory;
 		std::map<std::string, Int32> VirtualCurrency;
 		std::map<std::string, VirtualCurrencyRechargeTime> VirtualCurrencyRechargeTimes;
 	
         GetUserInventoryResult() :
 			PlayFabBaseModel(),
+			PlayFabId(),
 			Inventory(),
 			VirtualCurrency(),
 			VirtualCurrencyRechargeTimes()
@@ -2233,6 +2403,7 @@ namespace ServerModels
 		
 		GetUserInventoryResult(const GetUserInventoryResult& src) :
 			PlayFabBaseModel(),
+			PlayFabId(src.PlayFabId),
 			Inventory(src.Inventory),
 			VirtualCurrency(src.VirtualCurrency),
 			VirtualCurrencyRechargeTimes(src.VirtualCurrencyRechargeTimes)
@@ -2278,15 +2449,18 @@ namespace ServerModels
 	struct GetUserStatisticsResult : public PlayFabBaseModel
     {
 		
+		std::string PlayFabId;
 		std::map<std::string, Int32> UserStatistics;
 	
         GetUserStatisticsResult() :
 			PlayFabBaseModel(),
+			PlayFabId(),
 			UserStatistics()
 			{}
 		
 		GetUserStatisticsResult(const GetUserStatisticsResult& src) :
 			PlayFabBaseModel(),
+			PlayFabId(src.PlayFabId),
 			UserStatistics(src.UserStatistics)
 			{}
 			

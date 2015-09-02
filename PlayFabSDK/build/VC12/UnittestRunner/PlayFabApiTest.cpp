@@ -50,7 +50,7 @@ namespace UnittestRunner
 	const int TEST_STAT_BASE = 10;
 	const string TEST_STAT_NAME = "str";
 	const string CHAR_TEST_TYPE = "Test";
-	const string TEST_TITLE_DATA_LOC = "C:/depot/pf-main/tools/SDKBuildScripts/testTitleData.json";
+	const string TEST_TITLE_DATA_LOC = "C:/depot/pf-main/tools/SDKBuildScripts/testTitleData.json"; // TODO: Convert hard coded path to a relative path that always works (harder than it sounds when the unittests are run from multiple working directories)
 	const string TEST_DATA_KEY = "testCounter";
 
 	// Variables for specific tests
@@ -355,7 +355,7 @@ namespace UnittestRunner
 		{
 			// C++ Environment is nicely secluded, but also means that we have to manually handle sequential requirements
 			LoginOrRegister();
-			UserCharacter();
+            UserStatisticsApi();
 
 			GetLeaderboardAroundCurrentUserRequest clientRequest;
 			clientRequest.MaxResultsCount = 3;
@@ -365,12 +365,11 @@ namespace UnittestRunner
 			Assert::IsTrue(testMessageReturn.compare("GetClientLB_Success") == 0);
 			Assert::IsTrue(testMessageInt != 0);
 
-			PlayFab::ServerModels::GetLeaderboardAroundCharacterRequest serverRequest;
+			PlayFab::ServerModels::GetLeaderboardAroundUserRequest serverRequest;
 			serverRequest.MaxResultsCount = 3;
 			serverRequest.StatisticName = TEST_STAT_NAME;
-			serverRequest.CharacterId = characterId;
 			serverRequest.PlayFabId = playFabId;
-			serverApi.GetLeaderboardAroundCharacter(serverRequest, &ServerLeaderboardCallback, &FailedCallback, NULL);
+			serverApi.GetLeaderboardAroundUser(serverRequest, &ServerLeaderboardCallback, &FailedCallback, NULL);
 			ServerApiWait();
 			Assert::IsTrue(testMessageReturn.compare("GetServerLB_Success") == 0);
 			Assert::IsTrue(testMessageInt != 0);
@@ -380,10 +379,33 @@ namespace UnittestRunner
 			testMessageReturn = "GetClientLB_Success";
 			testMessageInt = result.Leaderboard.size();
 		}
-		static void ServerLeaderboardCallback(PlayFab::ServerModels::GetLeaderboardAroundCharacterResult& result, void* userData)
+		static void ServerLeaderboardCallback(PlayFab::ServerModels::GetLeaderboardAroundUserResult& result, void* userData)
 		{
 			testMessageReturn = "GetServerLB_Success";
 			testMessageInt = result.Leaderboard.size();
+		}
+
+		// The primary purpose of this test is to verify that enums work properly
+		TEST_METHOD(AccountInfo)
+		{
+			LoginOrRegister();
+
+			GetAccountInfoRequest request;
+			request.PlayFabId = playFabId;
+			clientApi.GetAccountInfo(request, &AcctInfoCallback, &FailedCallback, NULL);
+			ClientApiWait();
+			Assert::IsTrue(testMessageReturn.compare("Enums tested") == 0);
+		}
+		static void AcctInfoCallback(GetAccountInfoResult& result, void* userData)
+		{
+			if (result.AccountInfo == NULL || result.AccountInfo->TitleInfo == NULL || result.AccountInfo->TitleInfo->Origination.isNull())
+			{
+				testMessageReturn = "Enums not properly tested";
+				return;
+			}
+
+			auto output = result.AccountInfo->TitleInfo->Origination.mValue; // C++ can't really do anything with this once fetched
+			testMessageReturn = "Enums tested";
 		}
 
 	private:
