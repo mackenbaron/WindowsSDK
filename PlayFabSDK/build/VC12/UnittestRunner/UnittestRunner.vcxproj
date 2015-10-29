@@ -98,11 +98,6 @@
     <ClCompile Include="PlayFabApiTest.cpp" />
     <ClCompile Include="BugfixTest.cpp" />
   </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\PlayFabAPI\PlayFabAPI.vcxproj">
-      <Project>{3f59ddf6-0bae-4f81-bc48-2659a1706826}</Project>
-    </ProjectReference>
-  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>

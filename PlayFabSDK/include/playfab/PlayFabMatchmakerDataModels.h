@@ -7,11 +7,8 @@ namespace PlayFab
 {
     namespace MatchmakerModels
     {
-
-
         struct AuthUserRequest : public PlayFabBaseModel
         {
-
             std::string AuthorizationTicket;
 
             AuthUserRequest() :
@@ -37,7 +34,6 @@ namespace PlayFab
 
         struct AuthUserResponse : public PlayFabBaseModel
         {
-
             bool Authorized;
             std::string PlayFabId;
 
@@ -66,7 +62,6 @@ namespace PlayFab
 
         struct ItemInstance : public PlayFabBaseModel
         {
-
             std::string ItemId;
             std::string ItemInstanceId;
             std::string ItemClass;
@@ -134,7 +129,6 @@ namespace PlayFab
 
         struct PlayerJoinedRequest : public PlayFabBaseModel
         {
-
             std::string LobbyId;
             std::string PlayFabId;
 
@@ -164,7 +158,6 @@ namespace PlayFab
         struct PlayerJoinedResponse : public PlayFabBaseModel
         {
 
-
             PlayerJoinedResponse() :
                 PlayFabBaseModel()
             {}
@@ -186,7 +179,6 @@ namespace PlayFab
 
         struct PlayerLeftRequest : public PlayFabBaseModel
         {
-
             std::string LobbyId;
             std::string PlayFabId;
 
@@ -215,7 +207,6 @@ namespace PlayFab
 
         struct PlayerLeftResponse : public PlayFabBaseModel
         {
-
 
             PlayerLeftResponse() :
                 PlayFabBaseModel()
@@ -250,10 +241,8 @@ namespace PlayFab
         void writeRegionEnumJSON(Region enumVal, PFStringJsonWriter& writer);
         Region readRegionFromValue(const rapidjson::Value& obj);
 
-
         struct StartGameRequest : public PlayFabBaseModel
         {
-
             std::string Build;
             Region pfRegion;
             std::string GameMode;
@@ -291,7 +280,6 @@ namespace PlayFab
 
         struct StartGameResponse : public PlayFabBaseModel
         {
-
             std::string GameID;
             std::string ServerHostname;
             Uint32 ServerPort;
@@ -323,7 +311,6 @@ namespace PlayFab
 
         struct UserInfoRequest : public PlayFabBaseModel
         {
-
             std::string PlayFabId;
             Int32 MinCatalogVersion;
 
@@ -352,7 +339,6 @@ namespace PlayFab
 
         struct VirtualCurrencyRechargeTime : public PlayFabBaseModel
         {
-
             Int32 SecondsToRecharge;
             time_t RechargeTime;
             Int32 RechargeMax;
@@ -384,7 +370,6 @@ namespace PlayFab
 
         struct UserInfoResponse : public PlayFabBaseModel
         {
-
             std::string PlayFabId;
             std::string Username;
             std::string TitleDisplayName;

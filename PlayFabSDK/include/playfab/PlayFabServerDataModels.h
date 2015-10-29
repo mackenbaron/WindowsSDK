@@ -7,11 +7,8 @@ namespace PlayFab
 {
     namespace ServerModels
     {
-
-
         struct AddCharacterVirtualCurrencyRequest : public PlayFabBaseModel
         {
-
             std::string PlayFabId;
             std::string CharacterId;
             std::string VirtualCurrency;
@@ -46,7 +43,6 @@ namespace PlayFab
 
         struct AddFriendRequest : public PlayFabBaseModel
         {
-
             std::string PlayFabId;
             std::string FriendPlayFabId;
             std::string FriendUsername;
@@ -84,7 +80,6 @@ namespace PlayFab
 
         struct AddSharedGroupMembersRequest : public PlayFabBaseModel
         {
-
             std::string SharedGroupId;
             std::list<std::string> PlayFabIds;
 
@@ -114,7 +109,6 @@ namespace PlayFab
         struct AddSharedGroupMembersResult : public PlayFabBaseModel
         {
 
-
             AddSharedGroupMembersResult() :
                 PlayFabBaseModel()
             {}
@@ -136,7 +130,6 @@ namespace PlayFab
 
         struct AddUserVirtualCurrencyRequest : public PlayFabBaseModel
         {
-
             std::string PlayFabId;
             std::string VirtualCurrency;
             Int32 Amount;
@@ -168,7 +161,6 @@ namespace PlayFab
 
         struct AuthenticateSessionTicketRequest : public PlayFabBaseModel
         {
-
             std::string SessionTicket;
 
             AuthenticateSessionTicketRequest() :
@@ -213,10 +205,8 @@ namespace PlayFab
         void writeUserOriginationEnumJSON(UserOrigination enumVal, PFStringJsonWriter& writer);
         UserOrigination readUserOriginationFromValue(const rapidjson::Value& obj);
 
-
         struct UserTitleInfo : public PlayFabBaseModel
         {
-
             std::string DisplayName;
             Boxed<UserOrigination> Origination;
             time_t Created;
@@ -257,7 +247,6 @@ namespace PlayFab
 
         struct UserPrivateAccountInfo : public PlayFabBaseModel
         {
-
             std::string Email;
 
             UserPrivateAccountInfo() :
@@ -283,7 +272,6 @@ namespace PlayFab
 
         struct UserFacebookInfo : public PlayFabBaseModel
         {
-
             std::string FacebookId;
             std::string FullName;
 
@@ -479,7 +467,6 @@ namespace PlayFab
         void writeCurrencyEnumJSON(Currency enumVal, PFStringJsonWriter& writer);
         Currency readCurrencyFromValue(const rapidjson::Value& obj);
 
-
         enum TitleActivationStatus
         {
             TitleActivationStatusNone,
@@ -492,10 +479,8 @@ namespace PlayFab
         void writeTitleActivationStatusEnumJSON(TitleActivationStatus enumVal, PFStringJsonWriter& writer);
         TitleActivationStatus readTitleActivationStatusFromValue(const rapidjson::Value& obj);
 
-
         struct UserSteamInfo : public PlayFabBaseModel
         {
-
             std::string SteamId;
             std::string SteamCountry;
             Boxed<Currency> SteamCurrency;
@@ -530,7 +515,6 @@ namespace PlayFab
 
         struct UserGameCenterInfo : public PlayFabBaseModel
         {
-
             std::string GameCenterId;
 
             UserGameCenterInfo() :
@@ -556,7 +540,6 @@ namespace PlayFab
 
         struct UserAccountInfo : public PlayFabBaseModel
         {
-
             std::string PlayFabId;
             time_t Created;
             std::string Username;
@@ -603,7 +586,6 @@ namespace PlayFab
 
         struct AuthenticateSessionTicketResult : public PlayFabBaseModel
         {
-
             UserAccountInfo* UserInfo;
 
             AuthenticateSessionTicketResult() :
@@ -629,7 +611,6 @@ namespace PlayFab
 
         struct AwardSteamAchievementItem : public PlayFabBaseModel
         {
-
             std::string PlayFabId;
             std::string AchievementName;
             bool Result;
@@ -661,7 +642,6 @@ namespace PlayFab
 
         struct AwardSteamAchievementRequest : public PlayFabBaseModel
         {
-
             std::list<AwardSteamAchievementItem> Achievements;
 
             AwardSteamAchievementRequest() :
@@ -687,7 +667,6 @@ namespace PlayFab
 
         struct AwardSteamAchievementResult : public PlayFabBaseModel
         {
-
             std::list<AwardSteamAchievementItem> AchievementResults;
 
             AwardSteamAchievementResult() :
@@ -713,7 +692,6 @@ namespace PlayFab
 
         struct CatalogItemConsumableInfo : public PlayFabBaseModel
         {
-
             OptionalUint32 UsageCount;
             OptionalUint32 UsagePeriod;
             std::string UsagePeriodGroup;
@@ -745,7 +723,6 @@ namespace PlayFab
 
         struct CatalogItemContainerInfo : public PlayFabBaseModel
         {
-
             std::string KeyItemId;
             std::list<std::string> ItemContents;
             std::list<std::string> ResultTableContents;
@@ -780,7 +757,6 @@ namespace PlayFab
 
         struct CatalogItemBundleInfo : public PlayFabBaseModel
         {
-
             std::list<std::string> BundledItems;
             std::list<std::string> BundledResultTables;
             std::map<std::string, Uint32> BundledVirtualCurrencies;
@@ -812,7 +788,6 @@ namespace PlayFab
 
         struct CatalogItem : public PlayFabBaseModel
         {
-
             std::string ItemId;
             std::string ItemClass;
             std::string CatalogVersion;
@@ -883,7 +858,6 @@ namespace PlayFab
 
         struct CharacterLeaderboardEntry : public PlayFabBaseModel
         {
-
             std::string PlayFabId;
             std::string CharacterId;
             std::string CharacterName;
@@ -927,7 +901,6 @@ namespace PlayFab
 
         struct CharacterResult : public PlayFabBaseModel
         {
-
             std::string CharacterId;
             std::string CharacterName;
             std::string CharacterType;
@@ -959,7 +932,6 @@ namespace PlayFab
 
         struct CreateSharedGroupRequest : public PlayFabBaseModel
         {
-
             std::string SharedGroupId;
 
             CreateSharedGroupRequest() :
@@ -985,7 +957,6 @@ namespace PlayFab
 
         struct CreateSharedGroupResult : public PlayFabBaseModel
         {
-
             std::string SharedGroupId;
 
             CreateSharedGroupResult() :
@@ -1011,7 +982,6 @@ namespace PlayFab
 
         struct DeleteCharacterFromUserRequest : public PlayFabBaseModel
         {
-
             std::string PlayFabId;
             std::string CharacterId;
             bool SaveCharacterInventory;
@@ -1044,7 +1014,6 @@ namespace PlayFab
         struct DeleteCharacterFromUserResult : public PlayFabBaseModel
         {
 
-
             DeleteCharacterFromUserResult() :
                 PlayFabBaseModel()
             {}
@@ -1066,7 +1035,6 @@ namespace PlayFab
 
         struct DeleteSharedGroupRequest : public PlayFabBaseModel
         {
-
             std::string SharedGroupId;
 
             DeleteSharedGroupRequest() :
@@ -1093,7 +1061,6 @@ namespace PlayFab
         struct EmptyResult : public PlayFabBaseModel
         {
 
-
             EmptyResult() :
                 PlayFabBaseModel()
             {}
@@ -1115,7 +1082,6 @@ namespace PlayFab
 
         struct FacebookPlayFabIdPair : public PlayFabBaseModel
         {
-
             std::string FacebookId;
             std::string PlayFabId;
 
@@ -1144,7 +1110,6 @@ namespace PlayFab
 
         struct FriendInfo : public PlayFabBaseModel
         {
-
             std::string FriendPlayFabId;
             std::string Username;
             std::string TitleDisplayName;
@@ -1191,7 +1156,6 @@ namespace PlayFab
 
         struct GetCatalogItemsRequest : public PlayFabBaseModel
         {
-
             std::string CatalogVersion;
 
             GetCatalogItemsRequest() :
@@ -1217,7 +1181,6 @@ namespace PlayFab
 
         struct GetCatalogItemsResult : public PlayFabBaseModel
         {
-
             std::list<CatalogItem> Catalog;
 
             GetCatalogItemsResult() :
@@ -1243,7 +1206,6 @@ namespace PlayFab
 
         struct GetCharacterDataRequest : public PlayFabBaseModel
         {
-
             std::string PlayFabId;
             std::string CharacterId;
             std::list<std::string> Keys;
@@ -1285,10 +1247,8 @@ namespace PlayFab
         void writeUserDataPermissionEnumJSON(UserDataPermission enumVal, PFStringJsonWriter& writer);
         UserDataPermission readUserDataPermissionFromValue(const rapidjson::Value& obj);
 
-
         struct UserDataRecord : public PlayFabBaseModel
         {
-
             std::string Value;
             time_t LastUpdated;
             Boxed<UserDataPermission> Permission;
@@ -1320,7 +1280,6 @@ namespace PlayFab
 
         struct GetCharacterDataResult : public PlayFabBaseModel
         {
-
             std::string PlayFabId;
             Uint32 DataVersion;
             std::map<std::string, UserDataRecord> Data;
@@ -1355,7 +1314,6 @@ namespace PlayFab
 
         struct GetCharacterInventoryRequest : public PlayFabBaseModel
         {
-
             std::string PlayFabId;
             std::string CharacterId;
             std::string CatalogVersion;
@@ -1387,7 +1345,6 @@ namespace PlayFab
 
         struct ItemInstance : public PlayFabBaseModel
         {
-
             std::string ItemId;
             std::string ItemInstanceId;
             std::string ItemClass;
@@ -1455,7 +1412,6 @@ namespace PlayFab
 
         struct VirtualCurrencyRechargeTime : public PlayFabBaseModel
         {
-
             Int32 SecondsToRecharge;
             time_t RechargeTime;
             Int32 RechargeMax;
@@ -1487,7 +1443,6 @@ namespace PlayFab
 
         struct GetCharacterInventoryResult : public PlayFabBaseModel
         {
-
             std::string PlayFabId;
             std::string CharacterId;
             std::list<ItemInstance> Inventory;
@@ -1525,7 +1480,6 @@ namespace PlayFab
 
         struct GetCharacterLeaderboardRequest : public PlayFabBaseModel
         {
-
             std::string CharacterId;
             std::string CharacterType;
             std::string StatisticName;
@@ -1563,7 +1517,6 @@ namespace PlayFab
 
         struct GetCharacterLeaderboardResult : public PlayFabBaseModel
         {
-
             std::list<CharacterLeaderboardEntry> Leaderboard;
 
             GetCharacterLeaderboardResult() :
@@ -1589,7 +1542,6 @@ namespace PlayFab
 
         struct GetCharacterStatisticsRequest : public PlayFabBaseModel
         {
-
             std::string PlayFabId;
             std::string CharacterId;
 
@@ -1618,7 +1570,6 @@ namespace PlayFab
 
         struct GetCharacterStatisticsResult : public PlayFabBaseModel
         {
-
             std::string PlayFabId;
             std::string CharacterId;
             std::map<std::string, Int32> CharacterStatistics;
@@ -1650,7 +1601,6 @@ namespace PlayFab
 
         struct GetContentDownloadUrlRequest : public PlayFabBaseModel
         {
-
             std::string Key;
             std::string HttpMethod;
             OptionalBool ThruCDN;
@@ -1682,7 +1632,6 @@ namespace PlayFab
 
         struct GetContentDownloadUrlResult : public PlayFabBaseModel
         {
-
             std::string URL;
 
             GetContentDownloadUrlResult() :
@@ -1708,7 +1657,6 @@ namespace PlayFab
 
         struct GetFriendLeaderboardRequest : public PlayFabBaseModel
         {
-
             std::string PlayFabId;
             std::string StatisticName;
             Int32 StartPosition;
@@ -1749,7 +1697,6 @@ namespace PlayFab
 
         struct GetFriendsListRequest : public PlayFabBaseModel
         {
-
             std::string PlayFabId;
             OptionalBool IncludeSteamFriends;
             OptionalBool IncludeFacebookFriends;
@@ -1781,7 +1728,6 @@ namespace PlayFab
 
         struct GetFriendsListResult : public PlayFabBaseModel
         {
-
             std::list<FriendInfo> Friends;
 
             GetFriendsListResult() :
@@ -1807,7 +1753,6 @@ namespace PlayFab
 
         struct GetLeaderboardAroundCharacterRequest : public PlayFabBaseModel
         {
-
             std::string StatisticName;
             std::string PlayFabId;
             std::string CharacterId;
@@ -1845,7 +1790,6 @@ namespace PlayFab
 
         struct GetLeaderboardAroundCharacterResult : public PlayFabBaseModel
         {
-
             std::list<CharacterLeaderboardEntry> Leaderboard;
 
             GetLeaderboardAroundCharacterResult() :
@@ -1871,7 +1815,6 @@ namespace PlayFab
 
         struct GetLeaderboardAroundUserRequest : public PlayFabBaseModel
         {
-
             std::string StatisticName;
             std::string PlayFabId;
             Int32 MaxResultsCount;
@@ -1903,7 +1846,6 @@ namespace PlayFab
 
         struct PlayerLeaderboardEntry : public PlayFabBaseModel
         {
-
             std::string PlayFabId;
             std::string DisplayName;
             Int32 StatValue;
@@ -1938,7 +1880,6 @@ namespace PlayFab
 
         struct GetLeaderboardAroundUserResult : public PlayFabBaseModel
         {
-
             std::list<PlayerLeaderboardEntry> Leaderboard;
 
             GetLeaderboardAroundUserResult() :
@@ -1964,7 +1905,6 @@ namespace PlayFab
 
         struct GetLeaderboardForUsersCharactersRequest : public PlayFabBaseModel
         {
-
             std::string StatisticName;
             std::string PlayFabId;
             Int32 MaxResultsCount;
@@ -1996,7 +1936,6 @@ namespace PlayFab
 
         struct GetLeaderboardForUsersCharactersResult : public PlayFabBaseModel
         {
-
             std::list<CharacterLeaderboardEntry> Leaderboard;
 
             GetLeaderboardForUsersCharactersResult() :
@@ -2022,7 +1961,6 @@ namespace PlayFab
 
         struct GetLeaderboardRequest : public PlayFabBaseModel
         {
-
             std::string StatisticName;
             Int32 StartPosition;
             Int32 MaxResultsCount;
@@ -2054,7 +1992,6 @@ namespace PlayFab
 
         struct GetLeaderboardResult : public PlayFabBaseModel
         {
-
             std::list<PlayerLeaderboardEntry> Leaderboard;
 
             GetLeaderboardResult() :
@@ -2080,7 +2017,6 @@ namespace PlayFab
 
         struct GetPlayFabIDsFromFacebookIDsRequest : public PlayFabBaseModel
         {
-
             std::list<std::string> FacebookIDs;
 
             GetPlayFabIDsFromFacebookIDsRequest() :
@@ -2106,7 +2042,6 @@ namespace PlayFab
 
         struct GetPlayFabIDsFromFacebookIDsResult : public PlayFabBaseModel
         {
-
             std::list<FacebookPlayFabIdPair> Data;
 
             GetPlayFabIDsFromFacebookIDsResult() :
@@ -2132,7 +2067,6 @@ namespace PlayFab
 
         struct GetPublisherDataRequest : public PlayFabBaseModel
         {
-
             std::list<std::string> Keys;
 
             GetPublisherDataRequest() :
@@ -2158,7 +2092,6 @@ namespace PlayFab
 
         struct GetPublisherDataResult : public PlayFabBaseModel
         {
-
             std::map<std::string, std::string> Data;
 
             GetPublisherDataResult() :
@@ -2184,7 +2117,6 @@ namespace PlayFab
 
         struct GetSharedGroupDataRequest : public PlayFabBaseModel
         {
-
             std::string SharedGroupId;
             std::list<std::string> Keys;
             OptionalBool GetMembers;
@@ -2216,7 +2148,6 @@ namespace PlayFab
 
         struct SharedGroupDataRecord : public PlayFabBaseModel
         {
-
             std::string Value;
             std::string LastUpdatedBy;
             time_t LastUpdated;
@@ -2251,7 +2182,6 @@ namespace PlayFab
 
         struct GetSharedGroupDataResult : public PlayFabBaseModel
         {
-
             std::map<std::string, SharedGroupDataRecord> Data;
             std::list<std::string> Members;
 
@@ -2280,7 +2210,6 @@ namespace PlayFab
 
         struct GetTitleDataRequest : public PlayFabBaseModel
         {
-
             std::list<std::string> Keys;
 
             GetTitleDataRequest() :
@@ -2306,7 +2235,6 @@ namespace PlayFab
 
         struct GetTitleDataResult : public PlayFabBaseModel
         {
-
             std::map<std::string, std::string> Data;
 
             GetTitleDataResult() :
@@ -2332,7 +2260,6 @@ namespace PlayFab
 
         struct GetTitleNewsRequest : public PlayFabBaseModel
         {
-
             OptionalInt32 Count;
 
             GetTitleNewsRequest() :
@@ -2358,7 +2285,6 @@ namespace PlayFab
 
         struct TitleNewsItem : public PlayFabBaseModel
         {
-
             time_t Timestamp;
             std::string NewsId;
             std::string Title;
@@ -2393,7 +2319,6 @@ namespace PlayFab
 
         struct GetTitleNewsResult : public PlayFabBaseModel
         {
-
             std::list<TitleNewsItem> News;
 
             GetTitleNewsResult() :
@@ -2419,7 +2344,6 @@ namespace PlayFab
 
         struct GetUserAccountInfoRequest : public PlayFabBaseModel
         {
-
             std::string PlayFabId;
 
             GetUserAccountInfoRequest() :
@@ -2445,7 +2369,6 @@ namespace PlayFab
 
         struct GetUserAccountInfoResult : public PlayFabBaseModel
         {
-
             UserAccountInfo* UserInfo;
 
             GetUserAccountInfoResult() :
@@ -2471,7 +2394,6 @@ namespace PlayFab
 
         struct GetUserDataRequest : public PlayFabBaseModel
         {
-
             std::string PlayFabId;
             std::list<std::string> Keys;
             OptionalInt32 IfChangedFromDataVersion;
@@ -2503,7 +2425,6 @@ namespace PlayFab
 
         struct GetUserDataResult : public PlayFabBaseModel
         {
-
             std::string PlayFabId;
             Uint32 DataVersion;
             std::map<std::string, UserDataRecord> Data;
@@ -2535,7 +2456,6 @@ namespace PlayFab
 
         struct GetUserInventoryRequest : public PlayFabBaseModel
         {
-
             std::string PlayFabId;
 
             GetUserInventoryRequest() :
@@ -2561,7 +2481,6 @@ namespace PlayFab
 
         struct GetUserInventoryResult : public PlayFabBaseModel
         {
-
             std::string PlayFabId;
             std::list<ItemInstance> Inventory;
             std::map<std::string, Int32> VirtualCurrency;
@@ -2596,7 +2515,6 @@ namespace PlayFab
 
         struct GetUserStatisticsRequest : public PlayFabBaseModel
         {
-
             std::string PlayFabId;
 
             GetUserStatisticsRequest() :
@@ -2622,7 +2540,6 @@ namespace PlayFab
 
         struct GetUserStatisticsResult : public PlayFabBaseModel
         {
-
             std::string PlayFabId;
             std::map<std::string, Int32> UserStatistics;
 
@@ -2651,7 +2568,6 @@ namespace PlayFab
 
         struct GrantCharacterToUserRequest : public PlayFabBaseModel
         {
-
             std::string PlayFabId;
             std::string CharacterName;
             std::string CharacterType;
@@ -2683,7 +2599,6 @@ namespace PlayFab
 
         struct GrantCharacterToUserResult : public PlayFabBaseModel
         {
-
             std::string CharacterId;
 
             GrantCharacterToUserResult() :
@@ -2709,7 +2624,6 @@ namespace PlayFab
 
         struct GrantedItemInstance : public PlayFabBaseModel
         {
-
             std::string PlayFabId;
             std::string CharacterId;
             bool Result;
@@ -2786,7 +2700,6 @@ namespace PlayFab
 
         struct GrantItemsToCharacterRequest : public PlayFabBaseModel
         {
-
             std::string CatalogVersion;
             std::string CharacterId;
             std::string PlayFabId;
@@ -2824,7 +2737,6 @@ namespace PlayFab
 
         struct GrantItemsToCharacterResult : public PlayFabBaseModel
         {
-
             std::list<GrantedItemInstance> ItemGrantResults;
 
             GrantItemsToCharacterResult() :
@@ -2850,7 +2762,6 @@ namespace PlayFab
 
         struct GrantItemsToUserRequest : public PlayFabBaseModel
         {
-
             std::string CatalogVersion;
             std::string PlayFabId;
             std::string Annotation;
@@ -2885,7 +2796,6 @@ namespace PlayFab
 
         struct GrantItemsToUserResult : public PlayFabBaseModel
         {
-
             std::list<GrantedItemInstance> ItemGrantResults;
 
             GrantItemsToUserResult() :
@@ -2911,7 +2821,6 @@ namespace PlayFab
 
         struct ItemGrant : public PlayFabBaseModel
         {
-
             std::string PlayFabId;
             std::string ItemId;
             std::string Annotation;
@@ -2946,7 +2855,6 @@ namespace PlayFab
 
         struct GrantItemsToUsersRequest : public PlayFabBaseModel
         {
-
             std::string CatalogVersion;
             std::list<ItemGrant> ItemGrants;
 
@@ -2975,7 +2883,6 @@ namespace PlayFab
 
         struct GrantItemsToUsersResult : public PlayFabBaseModel
         {
-
             std::list<GrantedItemInstance> ItemGrantResults;
 
             GrantItemsToUsersResult() :
@@ -3001,7 +2908,6 @@ namespace PlayFab
 
         struct ListUsersCharactersRequest : public PlayFabBaseModel
         {
-
             std::string PlayFabId;
 
             ListUsersCharactersRequest() :
@@ -3027,7 +2933,6 @@ namespace PlayFab
 
         struct ListUsersCharactersResult : public PlayFabBaseModel
         {
-
             std::list<CharacterResult> Characters;
 
             ListUsersCharactersResult() :
@@ -3053,7 +2958,6 @@ namespace PlayFab
 
         struct LogEventRequest : public PlayFabBaseModel
         {
-
             std::string PlayFabId;
             std::string EntityId;
             std::string EntityType;
@@ -3098,7 +3002,6 @@ namespace PlayFab
         struct LogEventResult : public PlayFabBaseModel
         {
 
-
             LogEventResult() :
                 PlayFabBaseModel()
             {}
@@ -3120,7 +3023,6 @@ namespace PlayFab
 
         struct ModifyCharacterVirtualCurrencyResult : public PlayFabBaseModel
         {
-
             std::string VirtualCurrency;
             Int32 Balance;
 
@@ -3149,7 +3051,6 @@ namespace PlayFab
 
         struct ModifyItemUsesRequest : public PlayFabBaseModel
         {
-
             std::string PlayFabId;
             std::string ItemInstanceId;
             Int32 UsesToAdd;
@@ -3181,7 +3082,6 @@ namespace PlayFab
 
         struct ModifyItemUsesResult : public PlayFabBaseModel
         {
-
             std::string ItemInstanceId;
             Int32 RemainingUses;
 
@@ -3210,7 +3110,6 @@ namespace PlayFab
 
         struct ModifyUserVirtualCurrencyResult : public PlayFabBaseModel
         {
-
             std::string PlayFabId;
             std::string VirtualCurrency;
             Int32 BalanceChange;
@@ -3245,7 +3144,6 @@ namespace PlayFab
 
         struct MoveItemToCharacterFromCharacterRequest : public PlayFabBaseModel
         {
-
             std::string PlayFabId;
             std::string GivingCharacterId;
             std::string ReceivingCharacterId;
@@ -3281,7 +3179,6 @@ namespace PlayFab
         struct MoveItemToCharacterFromCharacterResult : public PlayFabBaseModel
         {
 
-
             MoveItemToCharacterFromCharacterResult() :
                 PlayFabBaseModel()
             {}
@@ -3303,7 +3200,6 @@ namespace PlayFab
 
         struct MoveItemToCharacterFromUserRequest : public PlayFabBaseModel
         {
-
             std::string PlayFabId;
             std::string CharacterId;
             std::string ItemInstanceId;
@@ -3336,7 +3232,6 @@ namespace PlayFab
         struct MoveItemToCharacterFromUserResult : public PlayFabBaseModel
         {
 
-
             MoveItemToCharacterFromUserResult() :
                 PlayFabBaseModel()
             {}
@@ -3358,7 +3253,6 @@ namespace PlayFab
 
         struct MoveItemToUserFromCharacterRequest : public PlayFabBaseModel
         {
-
             std::string PlayFabId;
             std::string CharacterId;
             std::string ItemInstanceId;
@@ -3391,7 +3285,6 @@ namespace PlayFab
         struct MoveItemToUserFromCharacterResult : public PlayFabBaseModel
         {
 
-
             MoveItemToUserFromCharacterResult() :
                 PlayFabBaseModel()
             {}
@@ -3413,7 +3306,6 @@ namespace PlayFab
 
         struct NotifyMatchmakerPlayerLeftRequest : public PlayFabBaseModel
         {
-
             std::string LobbyId;
             std::string PlayFabId;
 
@@ -3452,10 +3344,8 @@ namespace PlayFab
         void writePlayerConnectionStateEnumJSON(PlayerConnectionState enumVal, PFStringJsonWriter& writer);
         PlayerConnectionState readPlayerConnectionStateFromValue(const rapidjson::Value& obj);
 
-
         struct NotifyMatchmakerPlayerLeftResult : public PlayFabBaseModel
         {
-
             Boxed<PlayerConnectionState> PlayerState;
 
             NotifyMatchmakerPlayerLeftResult() :
@@ -3481,7 +3371,6 @@ namespace PlayFab
 
         struct RedeemMatchmakerTicketRequest : public PlayFabBaseModel
         {
-
             std::string Ticket;
             std::string LobbyId;
 
@@ -3510,7 +3399,6 @@ namespace PlayFab
 
         struct RedeemMatchmakerTicketResult : public PlayFabBaseModel
         {
-
             bool TicketIsValid;
             std::string Error;
             UserAccountInfo* UserInfo;
@@ -3542,7 +3430,6 @@ namespace PlayFab
 
         struct RemoveFriendRequest : public PlayFabBaseModel
         {
-
             std::string FriendPlayFabId;
             std::string PlayFabId;
 
@@ -3571,7 +3458,6 @@ namespace PlayFab
 
         struct RemoveSharedGroupMembersRequest : public PlayFabBaseModel
         {
-
             std::string SharedGroupId;
             std::list<std::string> PlayFabIds;
 
@@ -3601,7 +3487,6 @@ namespace PlayFab
         struct RemoveSharedGroupMembersResult : public PlayFabBaseModel
         {
 
-
             RemoveSharedGroupMembersResult() :
                 PlayFabBaseModel()
             {}
@@ -3623,7 +3508,6 @@ namespace PlayFab
 
         struct ReportPlayerServerRequest : public PlayFabBaseModel
         {
-
             std::string ReporterId;
             std::string ReporteeId;
             std::string TitleId;
@@ -3658,7 +3542,6 @@ namespace PlayFab
 
         struct ReportPlayerServerResult : public PlayFabBaseModel
         {
-
             bool Updated;
             Int32 SubmissionsRemaining;
 
@@ -3687,7 +3570,6 @@ namespace PlayFab
 
         struct SendPushNotificationRequest : public PlayFabBaseModel
         {
-
             std::string Recipient;
             std::string Message;
             std::string Subject;
@@ -3720,7 +3602,6 @@ namespace PlayFab
         struct SendPushNotificationResult : public PlayFabBaseModel
         {
 
-
             SendPushNotificationResult() :
                 PlayFabBaseModel()
             {}
@@ -3742,7 +3623,6 @@ namespace PlayFab
 
         struct SetPublisherDataRequest : public PlayFabBaseModel
         {
-
             std::string Key;
             std::string Value;
 
@@ -3772,7 +3652,6 @@ namespace PlayFab
         struct SetPublisherDataResult : public PlayFabBaseModel
         {
 
-
             SetPublisherDataResult() :
                 PlayFabBaseModel()
             {}
@@ -3794,7 +3673,6 @@ namespace PlayFab
 
         struct SetTitleDataRequest : public PlayFabBaseModel
         {
-
             std::string Key;
             std::string Value;
 
@@ -3824,7 +3702,6 @@ namespace PlayFab
         struct SetTitleDataResult : public PlayFabBaseModel
         {
 
-
             SetTitleDataResult() :
                 PlayFabBaseModel()
             {}
@@ -3846,7 +3723,6 @@ namespace PlayFab
 
         struct SubtractCharacterVirtualCurrencyRequest : public PlayFabBaseModel
         {
-
             std::string PlayFabId;
             std::string CharacterId;
             std::string VirtualCurrency;
@@ -3881,7 +3757,6 @@ namespace PlayFab
 
         struct SubtractUserVirtualCurrencyRequest : public PlayFabBaseModel
         {
-
             std::string PlayFabId;
             std::string VirtualCurrency;
             Int32 Amount;
@@ -3913,7 +3788,6 @@ namespace PlayFab
 
         struct UpdateCharacterDataRequest : public PlayFabBaseModel
         {
-
             std::string PlayFabId;
             std::string CharacterId;
             std::map<std::string, std::string> Data;
@@ -3948,7 +3822,6 @@ namespace PlayFab
 
         struct UpdateCharacterDataResult : public PlayFabBaseModel
         {
-
             Uint32 DataVersion;
 
             UpdateCharacterDataResult() :
@@ -3974,7 +3847,6 @@ namespace PlayFab
 
         struct UpdateCharacterStatisticsRequest : public PlayFabBaseModel
         {
-
             std::string PlayFabId;
             std::string CharacterId;
             std::map<std::string, Int32> CharacterStatistics;
@@ -4007,7 +3879,6 @@ namespace PlayFab
         struct UpdateCharacterStatisticsResult : public PlayFabBaseModel
         {
 
-
             UpdateCharacterStatisticsResult() :
                 PlayFabBaseModel()
             {}
@@ -4029,7 +3900,6 @@ namespace PlayFab
 
         struct UpdateSharedGroupDataRequest : public PlayFabBaseModel
         {
-
             std::string SharedGroupId;
             std::map<std::string, std::string> Data;
             Boxed<UserDataPermission> Permission;
@@ -4062,7 +3932,6 @@ namespace PlayFab
         struct UpdateSharedGroupDataResult : public PlayFabBaseModel
         {
 
-
             UpdateSharedGroupDataResult() :
                 PlayFabBaseModel()
             {}
@@ -4084,7 +3953,6 @@ namespace PlayFab
 
         struct UpdateUserDataRequest : public PlayFabBaseModel
         {
-
             std::string PlayFabId;
             std::map<std::string, std::string> Data;
             Boxed<UserDataPermission> Permission;
@@ -4116,7 +3984,6 @@ namespace PlayFab
 
         struct UpdateUserDataResult : public PlayFabBaseModel
         {
-
             Uint32 DataVersion;
 
             UpdateUserDataResult() :
@@ -4142,7 +4009,6 @@ namespace PlayFab
 
         struct UpdateUserInternalDataRequest : public PlayFabBaseModel
         {
-
             std::string PlayFabId;
             std::map<std::string, std::string> Data;
 
@@ -4171,7 +4037,6 @@ namespace PlayFab
 
         struct UpdateUserInventoryItemDataRequest : public PlayFabBaseModel
         {
-
             std::string CharacterId;
             std::string PlayFabId;
             std::string ItemInstanceId;
@@ -4207,7 +4072,6 @@ namespace PlayFab
         struct UpdateUserInventoryItemDataResult : public PlayFabBaseModel
         {
 
-
             UpdateUserInventoryItemDataResult() :
                 PlayFabBaseModel()
             {}
@@ -4229,7 +4093,6 @@ namespace PlayFab
 
         struct UpdateUserStatisticsRequest : public PlayFabBaseModel
         {
-
             std::string PlayFabId;
             std::map<std::string, Int32> UserStatistics;
 
@@ -4258,7 +4121,6 @@ namespace PlayFab
 
         struct UpdateUserStatisticsResult : public PlayFabBaseModel
         {
-
 
             UpdateUserStatisticsResult() :
                 PlayFabBaseModel()

@@ -7,11 +7,8 @@ namespace PlayFab
 {
     namespace AdminModels
     {
-
-
         struct AddNewsRequest : public PlayFabBaseModel
         {
-
             OptionalTime Timestamp;
             std::string Title;
             std::string Body;
@@ -43,7 +40,6 @@ namespace PlayFab
 
         struct AddNewsResult : public PlayFabBaseModel
         {
-
             std::string NewsId;
 
             AddNewsResult() :
@@ -81,10 +77,8 @@ namespace PlayFab
         void writeRegionEnumJSON(Region enumVal, PFStringJsonWriter& writer);
         Region readRegionFromValue(const rapidjson::Value& obj);
 
-
         struct AddServerBuildRequest : public PlayFabBaseModel
         {
-
             std::string BuildId;
             std::string CommandLineTemplate;
             std::string ExecutablePath;
@@ -135,10 +129,8 @@ namespace PlayFab
         void writeGameBuildStatusEnumJSON(GameBuildStatus enumVal, PFStringJsonWriter& writer);
         GameBuildStatus readGameBuildStatusFromValue(const rapidjson::Value& obj);
 
-
         struct AddServerBuildResult : public PlayFabBaseModel
         {
-
             std::string BuildId;
             std::list<Region> ActiveRegions;
             Int32 MaxGamesPerHost;
@@ -188,7 +180,6 @@ namespace PlayFab
 
         struct AddUserVirtualCurrencyRequest : public PlayFabBaseModel
         {
-
             std::string PlayFabId;
             std::string VirtualCurrency;
             Int32 Amount;
@@ -220,7 +211,6 @@ namespace PlayFab
 
         struct VirtualCurrencyData : public PlayFabBaseModel
         {
-
             std::string CurrencyCode;
             std::string DisplayName;
             OptionalInt32 InitialDeposit;
@@ -258,7 +248,6 @@ namespace PlayFab
 
         struct AddVirtualCurrencyTypesRequest : public PlayFabBaseModel
         {
-
             std::list<VirtualCurrencyData> VirtualCurrencies;
 
             AddVirtualCurrencyTypesRequest() :
@@ -285,7 +274,6 @@ namespace PlayFab
         struct BlankResult : public PlayFabBaseModel
         {
 
-
             BlankResult() :
                 PlayFabBaseModel()
             {}
@@ -307,7 +295,6 @@ namespace PlayFab
 
         struct CatalogItemConsumableInfo : public PlayFabBaseModel
         {
-
             OptionalUint32 UsageCount;
             OptionalUint32 UsagePeriod;
             std::string UsagePeriodGroup;
@@ -339,7 +326,6 @@ namespace PlayFab
 
         struct CatalogItemContainerInfo : public PlayFabBaseModel
         {
-
             std::string KeyItemId;
             std::list<std::string> ItemContents;
             std::list<std::string> ResultTableContents;
@@ -374,7 +360,6 @@ namespace PlayFab
 
         struct CatalogItemBundleInfo : public PlayFabBaseModel
         {
-
             std::list<std::string> BundledItems;
             std::list<std::string> BundledResultTables;
             std::map<std::string, Uint32> BundledVirtualCurrencies;
@@ -406,7 +391,6 @@ namespace PlayFab
 
         struct CatalogItem : public PlayFabBaseModel
         {
-
             std::string ItemId;
             std::string ItemClass;
             std::string CatalogVersion;
@@ -477,7 +461,6 @@ namespace PlayFab
 
         struct CloudScriptFile : public PlayFabBaseModel
         {
-
             std::string Filename;
             std::string FileContents;
 
@@ -506,7 +489,6 @@ namespace PlayFab
 
         struct CloudScriptVersionStatus : public PlayFabBaseModel
         {
-
             Int32 Version;
             Int32 PublishedRevision;
             Int32 LatestRevision;
@@ -538,7 +520,6 @@ namespace PlayFab
 
         struct ContentInfo : public PlayFabBaseModel
         {
-
             std::string Key;
             Int64 Size;
             time_t LastModified;
@@ -737,10 +718,8 @@ namespace PlayFab
         void writeCurrencyEnumJSON(Currency enumVal, PFStringJsonWriter& writer);
         Currency readCurrencyFromValue(const rapidjson::Value& obj);
 
-
         struct DeleteContentRequest : public PlayFabBaseModel
         {
-
             std::string Key;
 
             DeleteContentRequest() :
@@ -766,7 +745,6 @@ namespace PlayFab
 
         struct DeleteUsersRequest : public PlayFabBaseModel
         {
-
             std::list<std::string> PlayFabIds;
             std::string TitleId;
 
@@ -796,7 +774,6 @@ namespace PlayFab
         struct DeleteUsersResult : public PlayFabBaseModel
         {
 
-
             DeleteUsersResult() :
                 PlayFabBaseModel()
             {}
@@ -818,7 +795,6 @@ namespace PlayFab
 
         struct GameModeInfo : public PlayFabBaseModel
         {
-
             std::string Gamemode;
             Uint32 MinPlayerCount;
             Uint32 MaxPlayerCount;
@@ -850,7 +826,6 @@ namespace PlayFab
 
         struct GetCatalogItemsRequest : public PlayFabBaseModel
         {
-
             std::string CatalogVersion;
 
             GetCatalogItemsRequest() :
@@ -876,7 +851,6 @@ namespace PlayFab
 
         struct GetCatalogItemsResult : public PlayFabBaseModel
         {
-
             std::list<CatalogItem> Catalog;
 
             GetCatalogItemsResult() :
@@ -902,7 +876,6 @@ namespace PlayFab
 
         struct GetCloudScriptRevisionRequest : public PlayFabBaseModel
         {
-
             OptionalInt32 Version;
             OptionalInt32 Revision;
 
@@ -931,7 +904,6 @@ namespace PlayFab
 
         struct GetCloudScriptRevisionResult : public PlayFabBaseModel
         {
-
             Int32 Version;
             Int32 Revision;
             time_t CreatedAt;
@@ -970,7 +942,6 @@ namespace PlayFab
         struct GetCloudScriptVersionsRequest : public PlayFabBaseModel
         {
 
-
             GetCloudScriptVersionsRequest() :
                 PlayFabBaseModel()
             {}
@@ -992,7 +963,6 @@ namespace PlayFab
 
         struct GetCloudScriptVersionsResult : public PlayFabBaseModel
         {
-
             std::list<CloudScriptVersionStatus> Versions;
 
             GetCloudScriptVersionsResult() :
@@ -1018,7 +988,6 @@ namespace PlayFab
 
         struct GetContentListRequest : public PlayFabBaseModel
         {
-
             std::string Prefix;
 
             GetContentListRequest() :
@@ -1044,7 +1013,6 @@ namespace PlayFab
 
         struct GetContentListResult : public PlayFabBaseModel
         {
-
             Int64 ItemCount;
             Int64 TotalSize;
             std::list<ContentInfo> Contents;
@@ -1076,7 +1044,6 @@ namespace PlayFab
 
         struct GetContentUploadUrlRequest : public PlayFabBaseModel
         {
-
             std::string Key;
             std::string ContentType;
 
@@ -1105,7 +1072,6 @@ namespace PlayFab
 
         struct GetContentUploadUrlResult : public PlayFabBaseModel
         {
-
             std::string URL;
 
             GetContentUploadUrlResult() :
@@ -1131,7 +1097,6 @@ namespace PlayFab
 
         struct GetDataReportRequest : public PlayFabBaseModel
         {
-
             std::string ReportName;
             Int32 Year;
             Int32 Month;
@@ -1166,7 +1131,6 @@ namespace PlayFab
 
         struct GetDataReportResult : public PlayFabBaseModel
         {
-
             std::string DownloadUrl;
 
             GetDataReportResult() :
@@ -1192,7 +1156,6 @@ namespace PlayFab
 
         struct GetMatchmakerGameInfoRequest : public PlayFabBaseModel
         {
-
             std::string LobbyId;
 
             GetMatchmakerGameInfoRequest() :
@@ -1218,7 +1181,6 @@ namespace PlayFab
 
         struct GetMatchmakerGameInfoResult : public PlayFabBaseModel
         {
-
             std::string LobbyId;
             std::string TitleId;
             time_t StartTime;
@@ -1271,7 +1233,6 @@ namespace PlayFab
 
         struct GetMatchmakerGameModesRequest : public PlayFabBaseModel
         {
-
             std::string BuildVersion;
 
             GetMatchmakerGameModesRequest() :
@@ -1297,7 +1258,6 @@ namespace PlayFab
 
         struct GetMatchmakerGameModesResult : public PlayFabBaseModel
         {
-
             std::list<GameModeInfo> GameModes;
 
             GetMatchmakerGameModesResult() :
@@ -1323,7 +1283,6 @@ namespace PlayFab
 
         struct GetPublisherDataRequest : public PlayFabBaseModel
         {
-
             std::list<std::string> Keys;
 
             GetPublisherDataRequest() :
@@ -1349,7 +1308,6 @@ namespace PlayFab
 
         struct GetPublisherDataResult : public PlayFabBaseModel
         {
-
             std::map<std::string, std::string> Data;
 
             GetPublisherDataResult() :
@@ -1375,7 +1333,6 @@ namespace PlayFab
 
         struct GetRandomResultTablesRequest : public PlayFabBaseModel
         {
-
             std::string CatalogVersion;
 
             GetRandomResultTablesRequest() :
@@ -1408,10 +1365,8 @@ namespace PlayFab
         void writeResultTableNodeTypeEnumJSON(ResultTableNodeType enumVal, PFStringJsonWriter& writer);
         ResultTableNodeType readResultTableNodeTypeFromValue(const rapidjson::Value& obj);
 
-
         struct ResultTableNode : public PlayFabBaseModel
         {
-
             ResultTableNodeType ResultItemType;
             std::string ResultItem;
             Int32 Weight;
@@ -1443,7 +1398,6 @@ namespace PlayFab
 
         struct RandomResultTableListing : public PlayFabBaseModel
         {
-
             std::string CatalogVersion;
             std::string TableId;
             std::list<ResultTableNode> Nodes;
@@ -1475,7 +1429,6 @@ namespace PlayFab
 
         struct GetRandomResultTablesResult : public PlayFabBaseModel
         {
-
             std::map<std::string, RandomResultTableListing> Tables;
 
             GetRandomResultTablesResult() :
@@ -1501,7 +1454,6 @@ namespace PlayFab
 
         struct GetServerBuildInfoRequest : public PlayFabBaseModel
         {
-
             std::string BuildId;
 
             GetServerBuildInfoRequest() :
@@ -1527,7 +1479,6 @@ namespace PlayFab
 
         struct GetServerBuildInfoResult : public PlayFabBaseModel
         {
-
             std::string BuildId;
             std::list<Region> ActiveRegions;
             Int32 MaxGamesPerHost;
@@ -1574,7 +1525,6 @@ namespace PlayFab
 
         struct GetServerBuildUploadURLRequest : public PlayFabBaseModel
         {
-
             std::string BuildId;
 
             GetServerBuildUploadURLRequest() :
@@ -1600,7 +1550,6 @@ namespace PlayFab
 
         struct GetServerBuildUploadURLResult : public PlayFabBaseModel
         {
-
             std::string URL;
 
             GetServerBuildUploadURLResult() :
@@ -1626,7 +1575,6 @@ namespace PlayFab
 
         struct GetStoreItemsRequest : public PlayFabBaseModel
         {
-
             std::string CatalogVersion;
             std::string StoreId;
 
@@ -1655,7 +1603,6 @@ namespace PlayFab
 
         struct StoreItem : public PlayFabBaseModel
         {
-
             std::string ItemId;
             std::map<std::string, Uint32> VirtualCurrencyPrices;
             std::map<std::string, Uint32> RealCurrencyPrices;
@@ -1687,7 +1634,6 @@ namespace PlayFab
 
         struct GetStoreItemsResult : public PlayFabBaseModel
         {
-
             std::list<StoreItem> Store;
 
             GetStoreItemsResult() :
@@ -1713,7 +1659,6 @@ namespace PlayFab
 
         struct GetTitleDataRequest : public PlayFabBaseModel
         {
-
             std::list<std::string> Keys;
 
             GetTitleDataRequest() :
@@ -1739,7 +1684,6 @@ namespace PlayFab
 
         struct GetTitleDataResult : public PlayFabBaseModel
         {
-
             std::map<std::string, std::string> Data;
 
             GetTitleDataResult() :
@@ -1765,7 +1709,6 @@ namespace PlayFab
 
         struct GetUserDataRequest : public PlayFabBaseModel
         {
-
             std::string PlayFabId;
             std::list<std::string> Keys;
             OptionalInt32 IfChangedFromDataVersion;
@@ -1804,10 +1747,8 @@ namespace PlayFab
         void writeUserDataPermissionEnumJSON(UserDataPermission enumVal, PFStringJsonWriter& writer);
         UserDataPermission readUserDataPermissionFromValue(const rapidjson::Value& obj);
 
-
         struct UserDataRecord : public PlayFabBaseModel
         {
-
             std::string Value;
             time_t LastUpdated;
             Boxed<UserDataPermission> Permission;
@@ -1839,7 +1780,6 @@ namespace PlayFab
 
         struct GetUserDataResult : public PlayFabBaseModel
         {
-
             std::string PlayFabId;
             Uint32 DataVersion;
             std::map<std::string, UserDataRecord> Data;
@@ -1871,7 +1811,6 @@ namespace PlayFab
 
         struct GetUserInventoryRequest : public PlayFabBaseModel
         {
-
             std::string PlayFabId;
 
             GetUserInventoryRequest() :
@@ -1897,7 +1836,6 @@ namespace PlayFab
 
         struct ItemInstance : public PlayFabBaseModel
         {
-
             std::string ItemId;
             std::string ItemInstanceId;
             std::string ItemClass;
@@ -1965,7 +1903,6 @@ namespace PlayFab
 
         struct VirtualCurrencyRechargeTime : public PlayFabBaseModel
         {
-
             Int32 SecondsToRecharge;
             time_t RechargeTime;
             Int32 RechargeMax;
@@ -1997,7 +1934,6 @@ namespace PlayFab
 
         struct GetUserInventoryResult : public PlayFabBaseModel
         {
-
             std::string PlayFabId;
             std::list<ItemInstance> Inventory;
             std::map<std::string, Int32> VirtualCurrency;
@@ -2032,7 +1968,6 @@ namespace PlayFab
 
         struct GrantedItemInstance : public PlayFabBaseModel
         {
-
             std::string PlayFabId;
             std::string CharacterId;
             bool Result;
@@ -2109,7 +2044,6 @@ namespace PlayFab
 
         struct ItemGrant : public PlayFabBaseModel
         {
-
             std::string PlayFabId;
             std::string ItemId;
             std::string Annotation;
@@ -2144,7 +2078,6 @@ namespace PlayFab
 
         struct GrantItemsToUsersRequest : public PlayFabBaseModel
         {
-
             std::string CatalogVersion;
             std::list<ItemGrant> ItemGrants;
 
@@ -2173,7 +2106,6 @@ namespace PlayFab
 
         struct GrantItemsToUsersResult : public PlayFabBaseModel
         {
-
             std::list<GrantedItemInstance> ItemGrantResults;
 
             GrantItemsToUsersResult() :
@@ -2200,7 +2132,6 @@ namespace PlayFab
         struct ListBuildsRequest : public PlayFabBaseModel
         {
 
-
             ListBuildsRequest() :
                 PlayFabBaseModel()
             {}
@@ -2222,7 +2153,6 @@ namespace PlayFab
 
         struct ListBuildsResult : public PlayFabBaseModel
         {
-
             std::list<GetServerBuildInfoResult> Builds;
 
             ListBuildsResult() :
@@ -2249,7 +2179,6 @@ namespace PlayFab
         struct ListVirtualCurrencyTypesRequest : public PlayFabBaseModel
         {
 
-
             ListVirtualCurrencyTypesRequest() :
                 PlayFabBaseModel()
             {}
@@ -2271,7 +2200,6 @@ namespace PlayFab
 
         struct ListVirtualCurrencyTypesResult : public PlayFabBaseModel
         {
-
             std::list<VirtualCurrencyData> VirtualCurrencies;
 
             ListVirtualCurrencyTypesResult() :
@@ -2297,7 +2225,6 @@ namespace PlayFab
 
         struct LookupUserAccountInfoRequest : public PlayFabBaseModel
         {
-
             std::string PlayFabId;
             std::string Email;
             std::string Username;
@@ -2351,10 +2278,8 @@ namespace PlayFab
         void writeUserOriginationEnumJSON(UserOrigination enumVal, PFStringJsonWriter& writer);
         UserOrigination readUserOriginationFromValue(const rapidjson::Value& obj);
 
-
         struct UserTitleInfo : public PlayFabBaseModel
         {
-
             std::string DisplayName;
             Boxed<UserOrigination> Origination;
             time_t Created;
@@ -2395,7 +2320,6 @@ namespace PlayFab
 
         struct UserPrivateAccountInfo : public PlayFabBaseModel
         {
-
             std::string Email;
 
             UserPrivateAccountInfo() :
@@ -2421,7 +2345,6 @@ namespace PlayFab
 
         struct UserFacebookInfo : public PlayFabBaseModel
         {
-
             std::string FacebookId;
             std::string FullName;
 
@@ -2460,10 +2383,8 @@ namespace PlayFab
         void writeTitleActivationStatusEnumJSON(TitleActivationStatus enumVal, PFStringJsonWriter& writer);
         TitleActivationStatus readTitleActivationStatusFromValue(const rapidjson::Value& obj);
 
-
         struct UserSteamInfo : public PlayFabBaseModel
         {
-
             std::string SteamId;
             std::string SteamCountry;
             Boxed<Currency> SteamCurrency;
@@ -2498,7 +2419,6 @@ namespace PlayFab
 
         struct UserGameCenterInfo : public PlayFabBaseModel
         {
-
             std::string GameCenterId;
 
             UserGameCenterInfo() :
@@ -2524,7 +2444,6 @@ namespace PlayFab
 
         struct UserAccountInfo : public PlayFabBaseModel
         {
-
             std::string PlayFabId;
             time_t Created;
             std::string Username;
@@ -2571,7 +2490,6 @@ namespace PlayFab
 
         struct LookupUserAccountInfoResult : public PlayFabBaseModel
         {
-
             UserAccountInfo* UserInfo;
 
             LookupUserAccountInfoResult() :
@@ -2597,7 +2515,6 @@ namespace PlayFab
 
         struct ModifyMatchmakerGameModesRequest : public PlayFabBaseModel
         {
-
             std::string BuildVersion;
             std::list<GameModeInfo> GameModes;
 
@@ -2627,7 +2544,6 @@ namespace PlayFab
         struct ModifyMatchmakerGameModesResult : public PlayFabBaseModel
         {
 
-
             ModifyMatchmakerGameModesResult() :
                 PlayFabBaseModel()
             {}
@@ -2649,7 +2565,6 @@ namespace PlayFab
 
         struct ModifyServerBuildRequest : public PlayFabBaseModel
         {
-
             std::string BuildId;
             OptionalTime Timestamp;
             std::list<Region> ActiveRegions;
@@ -2693,7 +2608,6 @@ namespace PlayFab
 
         struct ModifyServerBuildResult : public PlayFabBaseModel
         {
-
             std::string BuildId;
             std::list<Region> ActiveRegions;
             Int32 MaxGamesPerHost;
@@ -2743,7 +2657,6 @@ namespace PlayFab
 
         struct ModifyUserVirtualCurrencyResult : public PlayFabBaseModel
         {
-
             std::string PlayFabId;
             std::string VirtualCurrency;
             Int32 BalanceChange;
@@ -2778,7 +2691,6 @@ namespace PlayFab
 
         struct RandomResultTable : public PlayFabBaseModel
         {
-
             std::string TableId;
             std::list<ResultTableNode> Nodes;
 
@@ -2807,7 +2719,6 @@ namespace PlayFab
 
         struct RefundPurchaseRequest : public PlayFabBaseModel
         {
-
             std::string PlayFabId;
             std::string OrderId;
             std::string Reason;
@@ -2839,7 +2750,6 @@ namespace PlayFab
 
         struct RefundPurchaseResponse : public PlayFabBaseModel
         {
-
             std::string PurchaseStatus;
 
             RefundPurchaseResponse() :
@@ -2865,7 +2775,6 @@ namespace PlayFab
 
         struct RemoveServerBuildRequest : public PlayFabBaseModel
         {
-
             std::string BuildId;
 
             RemoveServerBuildRequest() :
@@ -2892,7 +2801,6 @@ namespace PlayFab
         struct RemoveServerBuildResult : public PlayFabBaseModel
         {
 
-
             RemoveServerBuildResult() :
                 PlayFabBaseModel()
             {}
@@ -2914,7 +2822,6 @@ namespace PlayFab
 
         struct ResetCharacterStatisticsRequest : public PlayFabBaseModel
         {
-
             std::string PlayFabId;
             std::string CharacterId;
 
@@ -2944,7 +2851,6 @@ namespace PlayFab
         struct ResetCharacterStatisticsResult : public PlayFabBaseModel
         {
 
-
             ResetCharacterStatisticsResult() :
                 PlayFabBaseModel()
             {}
@@ -2966,7 +2872,6 @@ namespace PlayFab
 
         struct UserCredentials : public PlayFabBaseModel
         {
-
             std::string Username;
             std::string Password;
 
@@ -2995,7 +2900,6 @@ namespace PlayFab
 
         struct ResetUsersRequest : public PlayFabBaseModel
         {
-
             std::list<UserCredentials> Users;
 
             ResetUsersRequest() :
@@ -3021,7 +2925,6 @@ namespace PlayFab
 
         struct ResetUserStatisticsRequest : public PlayFabBaseModel
         {
-
             std::string PlayFabId;
 
             ResetUserStatisticsRequest() :
@@ -3047,7 +2950,6 @@ namespace PlayFab
 
         struct ResetUserStatisticsResult : public PlayFabBaseModel
         {
-
 
             ResetUserStatisticsResult() :
                 PlayFabBaseModel()
@@ -3078,10 +2980,8 @@ namespace PlayFab
         void writeResolutionOutcomeEnumJSON(ResolutionOutcome enumVal, PFStringJsonWriter& writer);
         ResolutionOutcome readResolutionOutcomeFromValue(const rapidjson::Value& obj);
 
-
         struct ResolvePurchaseDisputeRequest : public PlayFabBaseModel
         {
-
             std::string PlayFabId;
             std::string OrderId;
             std::string Reason;
@@ -3116,7 +3016,6 @@ namespace PlayFab
 
         struct ResolvePurchaseDisputeResponse : public PlayFabBaseModel
         {
-
             std::string PurchaseStatus;
 
             ResolvePurchaseDisputeResponse() :
@@ -3142,7 +3041,6 @@ namespace PlayFab
 
         struct RevokeInventoryItemRequest : public PlayFabBaseModel
         {
-
             std::string PlayFabId;
             std::string CharacterId;
             std::string ItemInstanceId;
@@ -3175,7 +3073,6 @@ namespace PlayFab
         struct RevokeInventoryResult : public PlayFabBaseModel
         {
 
-
             RevokeInventoryResult() :
                 PlayFabBaseModel()
             {}
@@ -3197,7 +3094,6 @@ namespace PlayFab
 
         struct SendAccountRecoveryEmailRequest : public PlayFabBaseModel
         {
-
             std::string Email;
 
             SendAccountRecoveryEmailRequest() :
@@ -3224,7 +3120,6 @@ namespace PlayFab
         struct SendAccountRecoveryEmailResult : public PlayFabBaseModel
         {
 
-
             SendAccountRecoveryEmailResult() :
                 PlayFabBaseModel()
             {}
@@ -3246,7 +3141,6 @@ namespace PlayFab
 
         struct SetPublishedRevisionRequest : public PlayFabBaseModel
         {
-
             Int32 Version;
             Int32 Revision;
 
@@ -3276,7 +3170,6 @@ namespace PlayFab
         struct SetPublishedRevisionResult : public PlayFabBaseModel
         {
 
-
             SetPublishedRevisionResult() :
                 PlayFabBaseModel()
             {}
@@ -3298,7 +3191,6 @@ namespace PlayFab
 
         struct SetPublisherDataRequest : public PlayFabBaseModel
         {
-
             std::string Key;
             std::string Value;
 
@@ -3328,7 +3220,6 @@ namespace PlayFab
         struct SetPublisherDataResult : public PlayFabBaseModel
         {
 
-
             SetPublisherDataResult() :
                 PlayFabBaseModel()
             {}
@@ -3350,7 +3241,6 @@ namespace PlayFab
 
         struct SetTitleDataRequest : public PlayFabBaseModel
         {
-
             std::string Key;
             std::string Value;
 
@@ -3380,7 +3270,6 @@ namespace PlayFab
         struct SetTitleDataResult : public PlayFabBaseModel
         {
 
-
             SetTitleDataResult() :
                 PlayFabBaseModel()
             {}
@@ -3402,7 +3291,6 @@ namespace PlayFab
 
         struct SetupPushNotificationRequest : public PlayFabBaseModel
         {
-
             std::string Name;
             std::string Platform;
             std::string Key;
@@ -3440,7 +3328,6 @@ namespace PlayFab
 
         struct SetupPushNotificationResult : public PlayFabBaseModel
         {
-
             std::string ARN;
 
             SetupPushNotificationResult() :
@@ -3466,7 +3353,6 @@ namespace PlayFab
 
         struct SubtractUserVirtualCurrencyRequest : public PlayFabBaseModel
         {
-
             std::string PlayFabId;
             std::string VirtualCurrency;
             Int32 Amount;
@@ -3498,7 +3384,6 @@ namespace PlayFab
 
         struct UpdateCatalogItemsRequest : public PlayFabBaseModel
         {
-
             std::string CatalogVersion;
             std::list<CatalogItem> Catalog;
 
@@ -3528,7 +3413,6 @@ namespace PlayFab
         struct UpdateCatalogItemsResult : public PlayFabBaseModel
         {
 
-
             UpdateCatalogItemsResult() :
                 PlayFabBaseModel()
             {}
@@ -3550,7 +3434,6 @@ namespace PlayFab
 
         struct UpdateCloudScriptRequest : public PlayFabBaseModel
         {
-
             OptionalInt32 Version;
             std::list<CloudScriptFile> Files;
 
@@ -3579,7 +3462,6 @@ namespace PlayFab
 
         struct UpdateCloudScriptResult : public PlayFabBaseModel
         {
-
             Int32 Version;
             Int32 Revision;
 
@@ -3608,7 +3490,6 @@ namespace PlayFab
 
         struct UpdateRandomResultTablesRequest : public PlayFabBaseModel
         {
-
             std::string CatalogVersion;
             std::list<RandomResultTable> Tables;
 
@@ -3638,7 +3519,6 @@ namespace PlayFab
         struct UpdateRandomResultTablesResult : public PlayFabBaseModel
         {
 
-
             UpdateRandomResultTablesResult() :
                 PlayFabBaseModel()
             {}
@@ -3660,7 +3540,6 @@ namespace PlayFab
 
         struct UpdateStoreItemsRequest : public PlayFabBaseModel
         {
-
             std::string CatalogVersion;
             std::string StoreId;
             std::list<StoreItem> Store;
@@ -3693,7 +3572,6 @@ namespace PlayFab
         struct UpdateStoreItemsResult : public PlayFabBaseModel
         {
 
-
             UpdateStoreItemsResult() :
                 PlayFabBaseModel()
             {}
@@ -3715,7 +3593,6 @@ namespace PlayFab
 
         struct UpdateUserDataRequest : public PlayFabBaseModel
         {
-
             std::string PlayFabId;
             std::map<std::string, std::string> Data;
             Boxed<UserDataPermission> Permission;
@@ -3747,7 +3624,6 @@ namespace PlayFab
 
         struct UpdateUserDataResult : public PlayFabBaseModel
         {
-
             Uint32 DataVersion;
 
             UpdateUserDataResult() :
@@ -3773,7 +3649,6 @@ namespace PlayFab
 
         struct UpdateUserInternalDataRequest : public PlayFabBaseModel
         {
-
             std::string PlayFabId;
             std::map<std::string, std::string> Data;
 
@@ -3802,7 +3677,6 @@ namespace PlayFab
 
         struct UpdateUserTitleDisplayNameRequest : public PlayFabBaseModel
         {
-
             std::string PlayFabId;
             std::string DisplayName;
 
@@ -3831,7 +3705,6 @@ namespace PlayFab
 
         struct UpdateUserTitleDisplayNameResult : public PlayFabBaseModel
         {
-
             std::string DisplayName;
 
             UpdateUserTitleDisplayNameResult() :
