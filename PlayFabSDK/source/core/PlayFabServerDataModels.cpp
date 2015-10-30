@@ -81,13 +81,13 @@ void AddSharedGroupMembersRequest::writeJSON(PFStringJsonWriter& writer)
 
     writer.String("SharedGroupId"); writer.String(SharedGroupId.c_str());
     if (!PlayFabIds.empty()) {
-        writer.String("PlayFabIds");
-        writer.StartArray();
-        for (std::list<std::string>::iterator iter = PlayFabIds.begin(); iter != PlayFabIds.end(); iter++) {
-            writer.String(iter->c_str());
-        }
-        writer.EndArray();
+    writer.String("PlayFabIds");
+    writer.StartArray();
+    for (std::list<std::string>::iterator iter = PlayFabIds.begin(); iter != PlayFabIds.end(); iter++) {
+        writer.String(iter->c_str());
     }
+    writer.EndArray();
+     }
 
     writer.EndObject();
 }
@@ -858,7 +858,7 @@ void AwardSteamAchievementRequest::writeJSON(PFStringJsonWriter& writer)
         iter->writeJSON(writer);
     }
     writer.EndArray();
-
+    
 
     writer.EndObject();
 }
@@ -886,13 +886,13 @@ void AwardSteamAchievementResult::writeJSON(PFStringJsonWriter& writer)
     writer.StartObject();
 
     if (!AchievementResults.empty()) {
-        writer.String("AchievementResults");
-        writer.StartArray();
-        for (std::list<AwardSteamAchievementItem>::iterator iter = AchievementResults.begin(); iter != AchievementResults.end(); iter++) {
-            iter->writeJSON(writer);
-        }
-        writer.EndArray();
+    writer.String("AchievementResults");
+    writer.StartArray();
+    for (std::list<AwardSteamAchievementItem>::iterator iter = AchievementResults.begin(); iter != AchievementResults.end(); iter++) {
+        iter->writeJSON(writer);
     }
+    writer.EndArray();
+     }
 
     writer.EndObject();
 }
@@ -949,29 +949,29 @@ void CatalogItemContainerInfo::writeJSON(PFStringJsonWriter& writer)
 
     if (KeyItemId.length() > 0) { writer.String("KeyItemId"); writer.String(KeyItemId.c_str()); }
     if (!ItemContents.empty()) {
-        writer.String("ItemContents");
-        writer.StartArray();
-        for (std::list<std::string>::iterator iter = ItemContents.begin(); iter != ItemContents.end(); iter++) {
-            writer.String(iter->c_str());
-        }
-        writer.EndArray();
+    writer.String("ItemContents");
+    writer.StartArray();
+    for (std::list<std::string>::iterator iter = ItemContents.begin(); iter != ItemContents.end(); iter++) {
+        writer.String(iter->c_str());
     }
+    writer.EndArray();
+     }
     if (!ResultTableContents.empty()) {
-        writer.String("ResultTableContents");
-        writer.StartArray();
-        for (std::list<std::string>::iterator iter = ResultTableContents.begin(); iter != ResultTableContents.end(); iter++) {
-            writer.String(iter->c_str());
-        }
-        writer.EndArray();
+    writer.String("ResultTableContents");
+    writer.StartArray();
+    for (std::list<std::string>::iterator iter = ResultTableContents.begin(); iter != ResultTableContents.end(); iter++) {
+        writer.String(iter->c_str());
     }
+    writer.EndArray();
+     }
     if (!VirtualCurrencyContents.empty()) {
-        writer.String("VirtualCurrencyContents");
-        writer.StartObject();
-        for (std::map<std::string, Uint32>::iterator iter = VirtualCurrencyContents.begin(); iter != VirtualCurrencyContents.end(); ++iter) {
-            writer.String(iter->first.c_str()); writer.Uint(iter->second);
-        }
-        writer.EndObject();
+    writer.String("VirtualCurrencyContents");
+    writer.StartObject();
+    for (std::map<std::string, Uint32>::iterator iter = VirtualCurrencyContents.begin(); iter != VirtualCurrencyContents.end(); ++iter) {
+        writer.String(iter->first.c_str()); writer.Uint(iter->second);
     }
+    writer.EndObject();
+     }
 
     writer.EndObject();
 }
@@ -1014,29 +1014,29 @@ void CatalogItemBundleInfo::writeJSON(PFStringJsonWriter& writer)
     writer.StartObject();
 
     if (!BundledItems.empty()) {
-        writer.String("BundledItems");
-        writer.StartArray();
-        for (std::list<std::string>::iterator iter = BundledItems.begin(); iter != BundledItems.end(); iter++) {
-            writer.String(iter->c_str());
-        }
-        writer.EndArray();
+    writer.String("BundledItems");
+    writer.StartArray();
+    for (std::list<std::string>::iterator iter = BundledItems.begin(); iter != BundledItems.end(); iter++) {
+        writer.String(iter->c_str());
     }
+    writer.EndArray();
+     }
     if (!BundledResultTables.empty()) {
-        writer.String("BundledResultTables");
-        writer.StartArray();
-        for (std::list<std::string>::iterator iter = BundledResultTables.begin(); iter != BundledResultTables.end(); iter++) {
-            writer.String(iter->c_str());
-        }
-        writer.EndArray();
+    writer.String("BundledResultTables");
+    writer.StartArray();
+    for (std::list<std::string>::iterator iter = BundledResultTables.begin(); iter != BundledResultTables.end(); iter++) {
+        writer.String(iter->c_str());
     }
+    writer.EndArray();
+     }
     if (!BundledVirtualCurrencies.empty()) {
-        writer.String("BundledVirtualCurrencies");
-        writer.StartObject();
-        for (std::map<std::string, Uint32>::iterator iter = BundledVirtualCurrencies.begin(); iter != BundledVirtualCurrencies.end(); ++iter) {
-            writer.String(iter->first.c_str()); writer.Uint(iter->second);
-        }
-        writer.EndObject();
+    writer.String("BundledVirtualCurrencies");
+    writer.StartObject();
+    for (std::map<std::string, Uint32>::iterator iter = BundledVirtualCurrencies.begin(); iter != BundledVirtualCurrencies.end(); ++iter) {
+        writer.String(iter->first.c_str()); writer.Uint(iter->second);
     }
+    writer.EndObject();
+     }
 
     writer.EndObject();
 }
@@ -1085,29 +1085,29 @@ void CatalogItem::writeJSON(PFStringJsonWriter& writer)
     if (DisplayName.length() > 0) { writer.String("DisplayName"); writer.String(DisplayName.c_str()); }
     if (Description.length() > 0) { writer.String("Description"); writer.String(Description.c_str()); }
     if (!VirtualCurrencyPrices.empty()) {
-        writer.String("VirtualCurrencyPrices");
-        writer.StartObject();
-        for (std::map<std::string, Uint32>::iterator iter = VirtualCurrencyPrices.begin(); iter != VirtualCurrencyPrices.end(); ++iter) {
-            writer.String(iter->first.c_str()); writer.Uint(iter->second);
-        }
-        writer.EndObject();
+    writer.String("VirtualCurrencyPrices");
+    writer.StartObject();
+    for (std::map<std::string, Uint32>::iterator iter = VirtualCurrencyPrices.begin(); iter != VirtualCurrencyPrices.end(); ++iter) {
+        writer.String(iter->first.c_str()); writer.Uint(iter->second);
     }
+    writer.EndObject();
+     }
     if (!RealCurrencyPrices.empty()) {
-        writer.String("RealCurrencyPrices");
-        writer.StartObject();
-        for (std::map<std::string, Uint32>::iterator iter = RealCurrencyPrices.begin(); iter != RealCurrencyPrices.end(); ++iter) {
-            writer.String(iter->first.c_str()); writer.Uint(iter->second);
-        }
-        writer.EndObject();
+    writer.String("RealCurrencyPrices");
+    writer.StartObject();
+    for (std::map<std::string, Uint32>::iterator iter = RealCurrencyPrices.begin(); iter != RealCurrencyPrices.end(); ++iter) {
+        writer.String(iter->first.c_str()); writer.Uint(iter->second);
     }
+    writer.EndObject();
+     }
     if (!Tags.empty()) {
-        writer.String("Tags");
-        writer.StartArray();
-        for (std::list<std::string>::iterator iter = Tags.begin(); iter != Tags.end(); iter++) {
-            writer.String(iter->c_str());
-        }
-        writer.EndArray();
+    writer.String("Tags");
+    writer.StartArray();
+    for (std::list<std::string>::iterator iter = Tags.begin(); iter != Tags.end(); iter++) {
+        writer.String(iter->c_str());
     }
+    writer.EndArray();
+     }
     if (CustomData.length() > 0) { writer.String("CustomData"); writer.String(CustomData.c_str()); }
     if (Consumable != NULL) { writer.String("Consumable"); Consumable->writeJSON(writer); }
     if (Container != NULL) { writer.String("Container"); Container->writeJSON(writer); }
@@ -1412,13 +1412,13 @@ void FriendInfo::writeJSON(PFStringJsonWriter& writer)
     if (Username.length() > 0) { writer.String("Username"); writer.String(Username.c_str()); }
     if (TitleDisplayName.length() > 0) { writer.String("TitleDisplayName"); writer.String(TitleDisplayName.c_str()); }
     if (!Tags.empty()) {
-        writer.String("Tags");
-        writer.StartArray();
-        for (std::list<std::string>::iterator iter = Tags.begin(); iter != Tags.end(); iter++) {
-            writer.String(iter->c_str());
-        }
-        writer.EndArray();
+    writer.String("Tags");
+    writer.StartArray();
+    for (std::list<std::string>::iterator iter = Tags.begin(); iter != Tags.end(); iter++) {
+        writer.String(iter->c_str());
     }
+    writer.EndArray();
+     }
     if (CurrentMatchmakerLobbyId.length() > 0) { writer.String("CurrentMatchmakerLobbyId"); writer.String(CurrentMatchmakerLobbyId.c_str()); }
     if (FacebookInfo != NULL) { writer.String("FacebookInfo"); FacebookInfo->writeJSON(writer); }
     if (SteamInfo != NULL) { writer.String("SteamInfo"); SteamInfo->writeJSON(writer); }
@@ -1486,13 +1486,13 @@ void GetCatalogItemsResult::writeJSON(PFStringJsonWriter& writer)
     writer.StartObject();
 
     if (!Catalog.empty()) {
-        writer.String("Catalog");
-        writer.StartArray();
-        for (std::list<CatalogItem>::iterator iter = Catalog.begin(); iter != Catalog.end(); iter++) {
-            iter->writeJSON(writer);
-        }
-        writer.EndArray();
+    writer.String("Catalog");
+    writer.StartArray();
+    for (std::list<CatalogItem>::iterator iter = Catalog.begin(); iter != Catalog.end(); iter++) {
+        iter->writeJSON(writer);
     }
+    writer.EndArray();
+     }
 
     writer.EndObject();
 }
@@ -1522,13 +1522,13 @@ void GetCharacterDataRequest::writeJSON(PFStringJsonWriter& writer)
     writer.String("PlayFabId"); writer.String(PlayFabId.c_str());
     writer.String("CharacterId"); writer.String(CharacterId.c_str());
     if (!Keys.empty()) {
-        writer.String("Keys");
-        writer.StartArray();
-        for (std::list<std::string>::iterator iter = Keys.begin(); iter != Keys.end(); iter++) {
-            writer.String(iter->c_str());
-        }
-        writer.EndArray();
+    writer.String("Keys");
+    writer.StartArray();
+    for (std::list<std::string>::iterator iter = Keys.begin(); iter != Keys.end(); iter++) {
+        writer.String(iter->c_str());
     }
+    writer.EndArray();
+     }
     if (IfChangedFromDataVersion.notNull()) { writer.String("IfChangedFromDataVersion"); writer.Int(IfChangedFromDataVersion); }
 
     writer.EndObject();
@@ -1620,13 +1620,13 @@ void GetCharacterDataResult::writeJSON(PFStringJsonWriter& writer)
     if (PlayFabId.length() > 0) { writer.String("PlayFabId"); writer.String(PlayFabId.c_str()); }
     writer.String("DataVersion"); writer.Uint(DataVersion);
     if (!Data.empty()) {
-        writer.String("Data");
-        writer.StartObject();
-        for (std::map<std::string, UserDataRecord>::iterator iter = Data.begin(); iter != Data.end(); ++iter) {
-            writer.String(iter->first.c_str()); iter->second.writeJSON(writer);
-        }
-        writer.EndObject();
+    writer.String("Data");
+    writer.StartObject();
+    for (std::map<std::string, UserDataRecord>::iterator iter = Data.begin(); iter != Data.end(); ++iter) {
+        writer.String(iter->first.c_str()); iter->second.writeJSON(writer);
     }
+    writer.EndObject();
+     }
     if (CharacterId.length() > 0) { writer.String("CharacterId"); writer.String(CharacterId.c_str()); }
 
     writer.EndObject();
@@ -1701,21 +1701,21 @@ void ItemInstance::writeJSON(PFStringJsonWriter& writer)
     if (UnitCurrency.length() > 0) { writer.String("UnitCurrency"); writer.String(UnitCurrency.c_str()); }
     writer.String("UnitPrice"); writer.Uint(UnitPrice);
     if (!BundleContents.empty()) {
-        writer.String("BundleContents");
-        writer.StartArray();
-        for (std::list<std::string>::iterator iter = BundleContents.begin(); iter != BundleContents.end(); iter++) {
-            writer.String(iter->c_str());
-        }
-        writer.EndArray();
+    writer.String("BundleContents");
+    writer.StartArray();
+    for (std::list<std::string>::iterator iter = BundleContents.begin(); iter != BundleContents.end(); iter++) {
+        writer.String(iter->c_str());
     }
+    writer.EndArray();
+     }
     if (!CustomData.empty()) {
-        writer.String("CustomData");
-        writer.StartObject();
-        for (std::map<std::string, std::string>::iterator iter = CustomData.begin(); iter != CustomData.end(); ++iter) {
-            writer.String(iter->first.c_str()); writer.String(iter->second.c_str());
-        }
-        writer.EndObject();
+    writer.String("CustomData");
+    writer.StartObject();
+    for (std::map<std::string, std::string>::iterator iter = CustomData.begin(); iter != CustomData.end(); ++iter) {
+        writer.String(iter->first.c_str()); writer.String(iter->second.c_str());
     }
+    writer.EndObject();
+     }
 
     writer.EndObject();
 }
@@ -1805,29 +1805,29 @@ void GetCharacterInventoryResult::writeJSON(PFStringJsonWriter& writer)
     if (PlayFabId.length() > 0) { writer.String("PlayFabId"); writer.String(PlayFabId.c_str()); }
     if (CharacterId.length() > 0) { writer.String("CharacterId"); writer.String(CharacterId.c_str()); }
     if (!Inventory.empty()) {
-        writer.String("Inventory");
-        writer.StartArray();
-        for (std::list<ItemInstance>::iterator iter = Inventory.begin(); iter != Inventory.end(); iter++) {
-            iter->writeJSON(writer);
-        }
-        writer.EndArray();
+    writer.String("Inventory");
+    writer.StartArray();
+    for (std::list<ItemInstance>::iterator iter = Inventory.begin(); iter != Inventory.end(); iter++) {
+        iter->writeJSON(writer);
     }
+    writer.EndArray();
+     }
     if (!VirtualCurrency.empty()) {
-        writer.String("VirtualCurrency");
-        writer.StartObject();
-        for (std::map<std::string, Int32>::iterator iter = VirtualCurrency.begin(); iter != VirtualCurrency.end(); ++iter) {
-            writer.String(iter->first.c_str()); writer.Int(iter->second);
-        }
-        writer.EndObject();
+    writer.String("VirtualCurrency");
+    writer.StartObject();
+    for (std::map<std::string, Int32>::iterator iter = VirtualCurrency.begin(); iter != VirtualCurrency.end(); ++iter) {
+        writer.String(iter->first.c_str()); writer.Int(iter->second);
     }
+    writer.EndObject();
+     }
     if (!VirtualCurrencyRechargeTimes.empty()) {
-        writer.String("VirtualCurrencyRechargeTimes");
-        writer.StartObject();
-        for (std::map<std::string, VirtualCurrencyRechargeTime>::iterator iter = VirtualCurrencyRechargeTimes.begin(); iter != VirtualCurrencyRechargeTimes.end(); ++iter) {
-            writer.String(iter->first.c_str()); iter->second.writeJSON(writer);
-        }
-        writer.EndObject();
+    writer.String("VirtualCurrencyRechargeTimes");
+    writer.StartObject();
+    for (std::map<std::string, VirtualCurrencyRechargeTime>::iterator iter = VirtualCurrencyRechargeTimes.begin(); iter != VirtualCurrencyRechargeTimes.end(); ++iter) {
+        writer.String(iter->first.c_str()); iter->second.writeJSON(writer);
     }
+    writer.EndObject();
+     }
 
     writer.EndObject();
 }
@@ -1905,13 +1905,13 @@ void GetCharacterLeaderboardResult::writeJSON(PFStringJsonWriter& writer)
     writer.StartObject();
 
     if (!Leaderboard.empty()) {
-        writer.String("Leaderboard");
-        writer.StartArray();
-        for (std::list<CharacterLeaderboardEntry>::iterator iter = Leaderboard.begin(); iter != Leaderboard.end(); iter++) {
-            iter->writeJSON(writer);
-        }
-        writer.EndArray();
+    writer.String("Leaderboard");
+    writer.StartArray();
+    for (std::list<CharacterLeaderboardEntry>::iterator iter = Leaderboard.begin(); iter != Leaderboard.end(); iter++) {
+        iter->writeJSON(writer);
     }
+    writer.EndArray();
+     }
 
     writer.EndObject();
 }
@@ -1966,13 +1966,13 @@ void GetCharacterStatisticsResult::writeJSON(PFStringJsonWriter& writer)
     if (PlayFabId.length() > 0) { writer.String("PlayFabId"); writer.String(PlayFabId.c_str()); }
     if (CharacterId.length() > 0) { writer.String("CharacterId"); writer.String(CharacterId.c_str()); }
     if (!CharacterStatistics.empty()) {
-        writer.String("CharacterStatistics");
-        writer.StartObject();
-        for (std::map<std::string, Int32>::iterator iter = CharacterStatistics.begin(); iter != CharacterStatistics.end(); ++iter) {
-            writer.String(iter->first.c_str()); writer.Int(iter->second);
-        }
-        writer.EndObject();
+    writer.String("CharacterStatistics");
+    writer.StartObject();
+    for (std::map<std::string, Int32>::iterator iter = CharacterStatistics.begin(); iter != CharacterStatistics.end(); ++iter) {
+        writer.String(iter->first.c_str()); writer.Int(iter->second);
     }
+    writer.EndObject();
+     }
 
     writer.EndObject();
 }
@@ -2118,13 +2118,13 @@ void GetFriendsListResult::writeJSON(PFStringJsonWriter& writer)
     writer.StartObject();
 
     if (!Friends.empty()) {
-        writer.String("Friends");
-        writer.StartArray();
-        for (std::list<FriendInfo>::iterator iter = Friends.begin(); iter != Friends.end(); iter++) {
-            iter->writeJSON(writer);
-        }
-        writer.EndArray();
+    writer.String("Friends");
+    writer.StartArray();
+    for (std::list<FriendInfo>::iterator iter = Friends.begin(); iter != Friends.end(); iter++) {
+        iter->writeJSON(writer);
     }
+    writer.EndArray();
+     }
 
     writer.EndObject();
 }
@@ -2186,13 +2186,13 @@ void GetLeaderboardAroundCharacterResult::writeJSON(PFStringJsonWriter& writer)
     writer.StartObject();
 
     if (!Leaderboard.empty()) {
-        writer.String("Leaderboard");
-        writer.StartArray();
-        for (std::list<CharacterLeaderboardEntry>::iterator iter = Leaderboard.begin(); iter != Leaderboard.end(); iter++) {
-            iter->writeJSON(writer);
-        }
-        writer.EndArray();
+    writer.String("Leaderboard");
+    writer.StartArray();
+    for (std::list<CharacterLeaderboardEntry>::iterator iter = Leaderboard.begin(); iter != Leaderboard.end(); iter++) {
+        iter->writeJSON(writer);
     }
+    writer.EndArray();
+     }
 
     writer.EndObject();
 }
@@ -2279,13 +2279,13 @@ void GetLeaderboardAroundUserResult::writeJSON(PFStringJsonWriter& writer)
     writer.StartObject();
 
     if (!Leaderboard.empty()) {
-        writer.String("Leaderboard");
-        writer.StartArray();
-        for (std::list<PlayerLeaderboardEntry>::iterator iter = Leaderboard.begin(); iter != Leaderboard.end(); iter++) {
-            iter->writeJSON(writer);
-        }
-        writer.EndArray();
+    writer.String("Leaderboard");
+    writer.StartArray();
+    for (std::list<PlayerLeaderboardEntry>::iterator iter = Leaderboard.begin(); iter != Leaderboard.end(); iter++) {
+        iter->writeJSON(writer);
     }
+    writer.EndArray();
+     }
 
     writer.EndObject();
 }
@@ -2341,13 +2341,13 @@ void GetLeaderboardForUsersCharactersResult::writeJSON(PFStringJsonWriter& write
     writer.StartObject();
 
     if (!Leaderboard.empty()) {
-        writer.String("Leaderboard");
-        writer.StartArray();
-        for (std::list<CharacterLeaderboardEntry>::iterator iter = Leaderboard.begin(); iter != Leaderboard.end(); iter++) {
-            iter->writeJSON(writer);
-        }
-        writer.EndArray();
+    writer.String("Leaderboard");
+    writer.StartArray();
+    for (std::list<CharacterLeaderboardEntry>::iterator iter = Leaderboard.begin(); iter != Leaderboard.end(); iter++) {
+        iter->writeJSON(writer);
     }
+    writer.EndArray();
+     }
 
     writer.EndObject();
 }
@@ -2403,13 +2403,13 @@ void GetLeaderboardResult::writeJSON(PFStringJsonWriter& writer)
     writer.StartObject();
 
     if (!Leaderboard.empty()) {
-        writer.String("Leaderboard");
-        writer.StartArray();
-        for (std::list<PlayerLeaderboardEntry>::iterator iter = Leaderboard.begin(); iter != Leaderboard.end(); iter++) {
-            iter->writeJSON(writer);
-        }
-        writer.EndArray();
+    writer.String("Leaderboard");
+    writer.StartArray();
+    for (std::list<PlayerLeaderboardEntry>::iterator iter = Leaderboard.begin(); iter != Leaderboard.end(); iter++) {
+        iter->writeJSON(writer);
     }
+    writer.EndArray();
+     }
 
     writer.EndObject();
 }
@@ -2442,7 +2442,7 @@ void GetPlayFabIDsFromFacebookIDsRequest::writeJSON(PFStringJsonWriter& writer)
         writer.String(iter->c_str());
     }
     writer.EndArray();
-
+    
 
     writer.EndObject();
 }
@@ -2470,13 +2470,13 @@ void GetPlayFabIDsFromFacebookIDsResult::writeJSON(PFStringJsonWriter& writer)
     writer.StartObject();
 
     if (!Data.empty()) {
-        writer.String("Data");
-        writer.StartArray();
-        for (std::list<FacebookPlayFabIdPair>::iterator iter = Data.begin(); iter != Data.end(); iter++) {
-            iter->writeJSON(writer);
-        }
-        writer.EndArray();
+    writer.String("Data");
+    writer.StartArray();
+    for (std::list<FacebookPlayFabIdPair>::iterator iter = Data.begin(); iter != Data.end(); iter++) {
+        iter->writeJSON(writer);
     }
+    writer.EndArray();
+     }
 
     writer.EndObject();
 }
@@ -2509,7 +2509,7 @@ void GetPublisherDataRequest::writeJSON(PFStringJsonWriter& writer)
         writer.String(iter->c_str());
     }
     writer.EndArray();
-
+    
 
     writer.EndObject();
 }
@@ -2537,13 +2537,13 @@ void GetPublisherDataResult::writeJSON(PFStringJsonWriter& writer)
     writer.StartObject();
 
     if (!Data.empty()) {
-        writer.String("Data");
-        writer.StartObject();
-        for (std::map<std::string, std::string>::iterator iter = Data.begin(); iter != Data.end(); ++iter) {
-            writer.String(iter->first.c_str()); writer.String(iter->second.c_str());
-        }
-        writer.EndObject();
+    writer.String("Data");
+    writer.StartObject();
+    for (std::map<std::string, std::string>::iterator iter = Data.begin(); iter != Data.end(); ++iter) {
+        writer.String(iter->first.c_str()); writer.String(iter->second.c_str());
     }
+    writer.EndObject();
+     }
 
     writer.EndObject();
 }
@@ -2571,13 +2571,13 @@ void GetSharedGroupDataRequest::writeJSON(PFStringJsonWriter& writer)
 
     if (SharedGroupId.length() > 0) { writer.String("SharedGroupId"); writer.String(SharedGroupId.c_str()); }
     if (!Keys.empty()) {
-        writer.String("Keys");
-        writer.StartArray();
-        for (std::list<std::string>::iterator iter = Keys.begin(); iter != Keys.end(); iter++) {
-            writer.String(iter->c_str());
-        }
-        writer.EndArray();
+    writer.String("Keys");
+    writer.StartArray();
+    for (std::list<std::string>::iterator iter = Keys.begin(); iter != Keys.end(); iter++) {
+        writer.String(iter->c_str());
     }
+    writer.EndArray();
+     }
     if (GetMembers.notNull()) { writer.String("GetMembers"); writer.Bool(GetMembers); }
 
     writer.EndObject();
@@ -2641,21 +2641,21 @@ void GetSharedGroupDataResult::writeJSON(PFStringJsonWriter& writer)
     writer.StartObject();
 
     if (!Data.empty()) {
-        writer.String("Data");
-        writer.StartObject();
-        for (std::map<std::string, SharedGroupDataRecord>::iterator iter = Data.begin(); iter != Data.end(); ++iter) {
-            writer.String(iter->first.c_str()); iter->second.writeJSON(writer);
-        }
-        writer.EndObject();
+    writer.String("Data");
+    writer.StartObject();
+    for (std::map<std::string, SharedGroupDataRecord>::iterator iter = Data.begin(); iter != Data.end(); ++iter) {
+        writer.String(iter->first.c_str()); iter->second.writeJSON(writer);
     }
+    writer.EndObject();
+     }
     if (!Members.empty()) {
-        writer.String("Members");
-        writer.StartArray();
-        for (std::list<std::string>::iterator iter = Members.begin(); iter != Members.end(); iter++) {
-            writer.String(iter->c_str());
-        }
-        writer.EndArray();
+    writer.String("Members");
+    writer.StartArray();
+    for (std::list<std::string>::iterator iter = Members.begin(); iter != Members.end(); iter++) {
+        writer.String(iter->c_str());
     }
+    writer.EndArray();
+     }
 
     writer.EndObject();
 }
@@ -2689,13 +2689,13 @@ void GetTitleDataRequest::writeJSON(PFStringJsonWriter& writer)
     writer.StartObject();
 
     if (!Keys.empty()) {
-        writer.String("Keys");
-        writer.StartArray();
-        for (std::list<std::string>::iterator iter = Keys.begin(); iter != Keys.end(); iter++) {
-            writer.String(iter->c_str());
-        }
-        writer.EndArray();
+    writer.String("Keys");
+    writer.StartArray();
+    for (std::list<std::string>::iterator iter = Keys.begin(); iter != Keys.end(); iter++) {
+        writer.String(iter->c_str());
     }
+    writer.EndArray();
+     }
 
     writer.EndObject();
 }
@@ -2723,13 +2723,13 @@ void GetTitleDataResult::writeJSON(PFStringJsonWriter& writer)
     writer.StartObject();
 
     if (!Data.empty()) {
-        writer.String("Data");
-        writer.StartObject();
-        for (std::map<std::string, std::string>::iterator iter = Data.begin(); iter != Data.end(); ++iter) {
-            writer.String(iter->first.c_str()); writer.String(iter->second.c_str());
-        }
-        writer.EndObject();
+    writer.String("Data");
+    writer.StartObject();
+    for (std::map<std::string, std::string>::iterator iter = Data.begin(); iter != Data.end(); ++iter) {
+        writer.String(iter->first.c_str()); writer.String(iter->second.c_str());
     }
+    writer.EndObject();
+     }
 
     writer.EndObject();
 }
@@ -2809,13 +2809,13 @@ void GetTitleNewsResult::writeJSON(PFStringJsonWriter& writer)
     writer.StartObject();
 
     if (!News.empty()) {
-        writer.String("News");
-        writer.StartArray();
-        for (std::list<TitleNewsItem>::iterator iter = News.begin(); iter != News.end(); iter++) {
-            iter->writeJSON(writer);
-        }
-        writer.EndArray();
+    writer.String("News");
+    writer.StartArray();
+    for (std::list<TitleNewsItem>::iterator iter = News.begin(); iter != News.end(); iter++) {
+        iter->writeJSON(writer);
     }
+    writer.EndArray();
+     }
 
     writer.EndObject();
 }
@@ -2889,13 +2889,13 @@ void GetUserDataRequest::writeJSON(PFStringJsonWriter& writer)
 
     writer.String("PlayFabId"); writer.String(PlayFabId.c_str());
     if (!Keys.empty()) {
-        writer.String("Keys");
-        writer.StartArray();
-        for (std::list<std::string>::iterator iter = Keys.begin(); iter != Keys.end(); iter++) {
-            writer.String(iter->c_str());
-        }
-        writer.EndArray();
+    writer.String("Keys");
+    writer.StartArray();
+    for (std::list<std::string>::iterator iter = Keys.begin(); iter != Keys.end(); iter++) {
+        writer.String(iter->c_str());
     }
+    writer.EndArray();
+     }
     if (IfChangedFromDataVersion.notNull()) { writer.String("IfChangedFromDataVersion"); writer.Int(IfChangedFromDataVersion); }
 
     writer.EndObject();
@@ -2930,13 +2930,13 @@ void GetUserDataResult::writeJSON(PFStringJsonWriter& writer)
     if (PlayFabId.length() > 0) { writer.String("PlayFabId"); writer.String(PlayFabId.c_str()); }
     writer.String("DataVersion"); writer.Uint(DataVersion);
     if (!Data.empty()) {
-        writer.String("Data");
-        writer.StartObject();
-        for (std::map<std::string, UserDataRecord>::iterator iter = Data.begin(); iter != Data.end(); ++iter) {
-            writer.String(iter->first.c_str()); iter->second.writeJSON(writer);
-        }
-        writer.EndObject();
+    writer.String("Data");
+    writer.StartObject();
+    for (std::map<std::string, UserDataRecord>::iterator iter = Data.begin(); iter != Data.end(); ++iter) {
+        writer.String(iter->first.c_str()); iter->second.writeJSON(writer);
     }
+    writer.EndObject();
+     }
 
     writer.EndObject();
 }
@@ -2990,29 +2990,29 @@ void GetUserInventoryResult::writeJSON(PFStringJsonWriter& writer)
 
     if (PlayFabId.length() > 0) { writer.String("PlayFabId"); writer.String(PlayFabId.c_str()); }
     if (!Inventory.empty()) {
-        writer.String("Inventory");
-        writer.StartArray();
-        for (std::list<ItemInstance>::iterator iter = Inventory.begin(); iter != Inventory.end(); iter++) {
-            iter->writeJSON(writer);
-        }
-        writer.EndArray();
+    writer.String("Inventory");
+    writer.StartArray();
+    for (std::list<ItemInstance>::iterator iter = Inventory.begin(); iter != Inventory.end(); iter++) {
+        iter->writeJSON(writer);
     }
+    writer.EndArray();
+     }
     if (!VirtualCurrency.empty()) {
-        writer.String("VirtualCurrency");
-        writer.StartObject();
-        for (std::map<std::string, Int32>::iterator iter = VirtualCurrency.begin(); iter != VirtualCurrency.end(); ++iter) {
-            writer.String(iter->first.c_str()); writer.Int(iter->second);
-        }
-        writer.EndObject();
+    writer.String("VirtualCurrency");
+    writer.StartObject();
+    for (std::map<std::string, Int32>::iterator iter = VirtualCurrency.begin(); iter != VirtualCurrency.end(); ++iter) {
+        writer.String(iter->first.c_str()); writer.Int(iter->second);
     }
+    writer.EndObject();
+     }
     if (!VirtualCurrencyRechargeTimes.empty()) {
-        writer.String("VirtualCurrencyRechargeTimes");
-        writer.StartObject();
-        for (std::map<std::string, VirtualCurrencyRechargeTime>::iterator iter = VirtualCurrencyRechargeTimes.begin(); iter != VirtualCurrencyRechargeTimes.end(); ++iter) {
-            writer.String(iter->first.c_str()); iter->second.writeJSON(writer);
-        }
-        writer.EndObject();
+    writer.String("VirtualCurrencyRechargeTimes");
+    writer.StartObject();
+    for (std::map<std::string, VirtualCurrencyRechargeTime>::iterator iter = VirtualCurrencyRechargeTimes.begin(); iter != VirtualCurrencyRechargeTimes.end(); ++iter) {
+        writer.String(iter->first.c_str()); iter->second.writeJSON(writer);
     }
+    writer.EndObject();
+     }
 
     writer.EndObject();
 }
@@ -3077,13 +3077,13 @@ void GetUserStatisticsResult::writeJSON(PFStringJsonWriter& writer)
 
     if (PlayFabId.length() > 0) { writer.String("PlayFabId"); writer.String(PlayFabId.c_str()); }
     if (!UserStatistics.empty()) {
-        writer.String("UserStatistics");
-        writer.StartObject();
-        for (std::map<std::string, Int32>::iterator iter = UserStatistics.begin(); iter != UserStatistics.end(); ++iter) {
-            writer.String(iter->first.c_str()); writer.Int(iter->second);
-        }
-        writer.EndObject();
+    writer.String("UserStatistics");
+    writer.StartObject();
+    for (std::map<std::string, Int32>::iterator iter = UserStatistics.begin(); iter != UserStatistics.end(); ++iter) {
+        writer.String(iter->first.c_str()); writer.Int(iter->second);
     }
+    writer.EndObject();
+     }
 
     writer.EndObject();
 }
@@ -3178,21 +3178,21 @@ void GrantedItemInstance::writeJSON(PFStringJsonWriter& writer)
     if (UnitCurrency.length() > 0) { writer.String("UnitCurrency"); writer.String(UnitCurrency.c_str()); }
     writer.String("UnitPrice"); writer.Uint(UnitPrice);
     if (!BundleContents.empty()) {
-        writer.String("BundleContents");
-        writer.StartArray();
-        for (std::list<std::string>::iterator iter = BundleContents.begin(); iter != BundleContents.end(); iter++) {
-            writer.String(iter->c_str());
-        }
-        writer.EndArray();
+    writer.String("BundleContents");
+    writer.StartArray();
+    for (std::list<std::string>::iterator iter = BundleContents.begin(); iter != BundleContents.end(); iter++) {
+        writer.String(iter->c_str());
     }
+    writer.EndArray();
+     }
     if (!CustomData.empty()) {
-        writer.String("CustomData");
-        writer.StartObject();
-        for (std::map<std::string, std::string>::iterator iter = CustomData.begin(); iter != CustomData.end(); ++iter) {
-            writer.String(iter->first.c_str()); writer.String(iter->second.c_str());
-        }
-        writer.EndObject();
+    writer.String("CustomData");
+    writer.StartObject();
+    for (std::map<std::string, std::string>::iterator iter = CustomData.begin(); iter != CustomData.end(); ++iter) {
+        writer.String(iter->first.c_str()); writer.String(iter->second.c_str());
     }
+    writer.EndObject();
+     }
 
     writer.EndObject();
 }
@@ -3262,13 +3262,13 @@ void GrantItemsToCharacterRequest::writeJSON(PFStringJsonWriter& writer)
     writer.String("PlayFabId"); writer.String(PlayFabId.c_str());
     if (Annotation.length() > 0) { writer.String("Annotation"); writer.String(Annotation.c_str()); }
     if (!ItemIds.empty()) {
-        writer.String("ItemIds");
-        writer.StartArray();
-        for (std::list<std::string>::iterator iter = ItemIds.begin(); iter != ItemIds.end(); iter++) {
-            writer.String(iter->c_str());
-        }
-        writer.EndArray();
+    writer.String("ItemIds");
+    writer.StartArray();
+    for (std::list<std::string>::iterator iter = ItemIds.begin(); iter != ItemIds.end(); iter++) {
+        writer.String(iter->c_str());
     }
+    writer.EndArray();
+     }
 
     writer.EndObject();
 }
@@ -3304,13 +3304,13 @@ void GrantItemsToCharacterResult::writeJSON(PFStringJsonWriter& writer)
     writer.StartObject();
 
     if (!ItemGrantResults.empty()) {
-        writer.String("ItemGrantResults");
-        writer.StartArray();
-        for (std::list<GrantedItemInstance>::iterator iter = ItemGrantResults.begin(); iter != ItemGrantResults.end(); iter++) {
-            iter->writeJSON(writer);
-        }
-        writer.EndArray();
+    writer.String("ItemGrantResults");
+    writer.StartArray();
+    for (std::list<GrantedItemInstance>::iterator iter = ItemGrantResults.begin(); iter != ItemGrantResults.end(); iter++) {
+        iter->writeJSON(writer);
     }
+    writer.EndArray();
+     }
 
     writer.EndObject();
 }
@@ -3346,7 +3346,7 @@ void GrantItemsToUserRequest::writeJSON(PFStringJsonWriter& writer)
         writer.String(iter->c_str());
     }
     writer.EndArray();
-
+    
 
     writer.EndObject();
 }
@@ -3380,13 +3380,13 @@ void GrantItemsToUserResult::writeJSON(PFStringJsonWriter& writer)
     writer.StartObject();
 
     if (!ItemGrantResults.empty()) {
-        writer.String("ItemGrantResults");
-        writer.StartArray();
-        for (std::list<GrantedItemInstance>::iterator iter = ItemGrantResults.begin(); iter != ItemGrantResults.end(); iter++) {
-            iter->writeJSON(writer);
-        }
-        writer.EndArray();
+    writer.String("ItemGrantResults");
+    writer.StartArray();
+    for (std::list<GrantedItemInstance>::iterator iter = ItemGrantResults.begin(); iter != ItemGrantResults.end(); iter++) {
+        iter->writeJSON(writer);
     }
+    writer.EndArray();
+     }
 
     writer.EndObject();
 }
@@ -3451,7 +3451,7 @@ void GrantItemsToUsersRequest::writeJSON(PFStringJsonWriter& writer)
         iter->writeJSON(writer);
     }
     writer.EndArray();
-
+    
 
     writer.EndObject();
 }
@@ -3481,13 +3481,13 @@ void GrantItemsToUsersResult::writeJSON(PFStringJsonWriter& writer)
     writer.StartObject();
 
     if (!ItemGrantResults.empty()) {
-        writer.String("ItemGrantResults");
-        writer.StartArray();
-        for (std::list<GrantedItemInstance>::iterator iter = ItemGrantResults.begin(); iter != ItemGrantResults.end(); iter++) {
-            iter->writeJSON(writer);
-        }
-        writer.EndArray();
+    writer.String("ItemGrantResults");
+    writer.StartArray();
+    for (std::list<GrantedItemInstance>::iterator iter = ItemGrantResults.begin(); iter != ItemGrantResults.end(); iter++) {
+        iter->writeJSON(writer);
     }
+    writer.EndArray();
+     }
 
     writer.EndObject();
 }
@@ -3537,13 +3537,13 @@ void ListUsersCharactersResult::writeJSON(PFStringJsonWriter& writer)
     writer.StartObject();
 
     if (!Characters.empty()) {
-        writer.String("Characters");
-        writer.StartArray();
-        for (std::list<CharacterResult>::iterator iter = Characters.begin(); iter != Characters.end(); iter++) {
-            iter->writeJSON(writer);
-        }
-        writer.EndArray();
+    writer.String("Characters");
+    writer.StartArray();
+    for (std::list<CharacterResult>::iterator iter = Characters.begin(); iter != Characters.end(); iter++) {
+        iter->writeJSON(writer);
     }
+    writer.EndArray();
+     }
 
     writer.EndObject();
 }
@@ -3576,13 +3576,13 @@ void LogEventRequest::writeJSON(PFStringJsonWriter& writer)
     if (Timestamp.notNull()) { writer.String("Timestamp"); writeDatetime(Timestamp, writer); }
     if (EventName.length() > 0) { writer.String("EventName"); writer.String(EventName.c_str()); }
     if (!Body.empty()) {
-        writer.String("Body");
-        writer.StartObject();
-        for (std::map<std::string, MultitypeVar>::iterator iter = Body.begin(); iter != Body.end(); ++iter) {
-            writer.String(iter->first.c_str()); iter->second.writeJSON(writer);
-        }
-        writer.EndObject();
+    writer.String("Body");
+    writer.StartObject();
+    for (std::map<std::string, MultitypeVar>::iterator iter = Body.begin(); iter != Body.end(); ++iter) {
+        writer.String(iter->first.c_str()); iter->second.writeJSON(writer);
     }
+    writer.EndObject();
+     }
     writer.String("ProfileSetEvent"); writer.Bool(ProfileSetEvent);
 
     writer.EndObject();
@@ -4054,13 +4054,13 @@ void RemoveSharedGroupMembersRequest::writeJSON(PFStringJsonWriter& writer)
 
     writer.String("SharedGroupId"); writer.String(SharedGroupId.c_str());
     if (!PlayFabIds.empty()) {
-        writer.String("PlayFabIds");
-        writer.StartArray();
-        for (std::list<std::string>::iterator iter = PlayFabIds.begin(); iter != PlayFabIds.end(); iter++) {
-            writer.String(iter->c_str());
-        }
-        writer.EndArray();
+    writer.String("PlayFabIds");
+    writer.StartArray();
+    for (std::list<std::string>::iterator iter = PlayFabIds.begin(); iter != PlayFabIds.end(); iter++) {
+        writer.String(iter->c_str());
     }
+    writer.EndArray();
+     }
 
     writer.EndObject();
 }
@@ -4361,13 +4361,13 @@ void UpdateCharacterDataRequest::writeJSON(PFStringJsonWriter& writer)
     writer.String("PlayFabId"); writer.String(PlayFabId.c_str());
     writer.String("CharacterId"); writer.String(CharacterId.c_str());
     if (!Data.empty()) {
-        writer.String("Data");
-        writer.StartObject();
-        for (std::map<std::string, std::string>::iterator iter = Data.begin(); iter != Data.end(); ++iter) {
-            writer.String(iter->first.c_str()); writer.String(iter->second.c_str());
-        }
-        writer.EndObject();
+    writer.String("Data");
+    writer.StartObject();
+    for (std::map<std::string, std::string>::iterator iter = Data.begin(); iter != Data.end(); ++iter) {
+        writer.String(iter->first.c_str()); writer.String(iter->second.c_str());
     }
+    writer.EndObject();
+     }
     if (Permission.notNull()) { writer.String("Permission"); writeUserDataPermissionEnumJSON(Permission, writer); }
 
     writer.EndObject();
@@ -4425,13 +4425,13 @@ void UpdateCharacterStatisticsRequest::writeJSON(PFStringJsonWriter& writer)
     writer.String("PlayFabId"); writer.String(PlayFabId.c_str());
     writer.String("CharacterId"); writer.String(CharacterId.c_str());
     if (!CharacterStatistics.empty()) {
-        writer.String("CharacterStatistics");
-        writer.StartObject();
-        for (std::map<std::string, Int32>::iterator iter = CharacterStatistics.begin(); iter != CharacterStatistics.end(); ++iter) {
-            writer.String(iter->first.c_str()); writer.Int(iter->second);
-        }
-        writer.EndObject();
+    writer.String("CharacterStatistics");
+    writer.StartObject();
+    for (std::map<std::string, Int32>::iterator iter = CharacterStatistics.begin(); iter != CharacterStatistics.end(); ++iter) {
+        writer.String(iter->first.c_str()); writer.Int(iter->second);
     }
+    writer.EndObject();
+     }
 
     writer.EndObject();
 }
@@ -4482,13 +4482,13 @@ void UpdateSharedGroupDataRequest::writeJSON(PFStringJsonWriter& writer)
 
     writer.String("SharedGroupId"); writer.String(SharedGroupId.c_str());
     if (!Data.empty()) {
-        writer.String("Data");
-        writer.StartObject();
-        for (std::map<std::string, std::string>::iterator iter = Data.begin(); iter != Data.end(); ++iter) {
-            writer.String(iter->first.c_str()); writer.String(iter->second.c_str());
-        }
-        writer.EndObject();
+    writer.String("Data");
+    writer.StartObject();
+    for (std::map<std::string, std::string>::iterator iter = Data.begin(); iter != Data.end(); ++iter) {
+        writer.String(iter->first.c_str()); writer.String(iter->second.c_str());
     }
+    writer.EndObject();
+     }
     if (Permission.notNull()) { writer.String("Permission"); writeUserDataPermissionEnumJSON(Permission, writer); }
 
     writer.EndObject();
@@ -4540,13 +4540,13 @@ void UpdateUserDataRequest::writeJSON(PFStringJsonWriter& writer)
 
     writer.String("PlayFabId"); writer.String(PlayFabId.c_str());
     if (!Data.empty()) {
-        writer.String("Data");
-        writer.StartObject();
-        for (std::map<std::string, std::string>::iterator iter = Data.begin(); iter != Data.end(); ++iter) {
-            writer.String(iter->first.c_str()); writer.String(iter->second.c_str());
-        }
-        writer.EndObject();
+    writer.String("Data");
+    writer.StartObject();
+    for (std::map<std::string, std::string>::iterator iter = Data.begin(); iter != Data.end(); ++iter) {
+        writer.String(iter->first.c_str()); writer.String(iter->second.c_str());
     }
+    writer.EndObject();
+     }
     if (Permission.notNull()) { writer.String("Permission"); writeUserDataPermissionEnumJSON(Permission, writer); }
 
     writer.EndObject();
@@ -4601,13 +4601,13 @@ void UpdateUserInternalDataRequest::writeJSON(PFStringJsonWriter& writer)
 
     writer.String("PlayFabId"); writer.String(PlayFabId.c_str());
     if (!Data.empty()) {
-        writer.String("Data");
-        writer.StartObject();
-        for (std::map<std::string, std::string>::iterator iter = Data.begin(); iter != Data.end(); ++iter) {
-            writer.String(iter->first.c_str()); writer.String(iter->second.c_str());
-        }
-        writer.EndObject();
+    writer.String("Data");
+    writer.StartObject();
+    for (std::map<std::string, std::string>::iterator iter = Data.begin(); iter != Data.end(); ++iter) {
+        writer.String(iter->first.c_str()); writer.String(iter->second.c_str());
     }
+    writer.EndObject();
+     }
 
     writer.EndObject();
 }
@@ -4639,13 +4639,13 @@ void UpdateUserInventoryItemDataRequest::writeJSON(PFStringJsonWriter& writer)
     writer.String("PlayFabId"); writer.String(PlayFabId.c_str());
     writer.String("ItemInstanceId"); writer.String(ItemInstanceId.c_str());
     if (!Data.empty()) {
-        writer.String("Data");
-        writer.StartObject();
-        for (std::map<std::string, std::string>::iterator iter = Data.begin(); iter != Data.end(); ++iter) {
-            writer.String(iter->first.c_str()); writer.String(iter->second.c_str());
-        }
-        writer.EndObject();
+    writer.String("Data");
+    writer.StartObject();
+    for (std::map<std::string, std::string>::iterator iter = Data.begin(); iter != Data.end(); ++iter) {
+        writer.String(iter->first.c_str()); writer.String(iter->second.c_str());
     }
+    writer.EndObject();
+     }
 
     writer.EndObject();
 }
@@ -4698,13 +4698,13 @@ void UpdateUserStatisticsRequest::writeJSON(PFStringJsonWriter& writer)
 
     writer.String("PlayFabId"); writer.String(PlayFabId.c_str());
     if (!UserStatistics.empty()) {
-        writer.String("UserStatistics");
-        writer.StartObject();
-        for (std::map<std::string, Int32>::iterator iter = UserStatistics.begin(); iter != UserStatistics.end(); ++iter) {
-            writer.String(iter->first.c_str()); writer.Int(iter->second);
-        }
-        writer.EndObject();
+    writer.String("UserStatistics");
+    writer.StartObject();
+    for (std::map<std::string, Int32>::iterator iter = UserStatistics.begin(); iter != UserStatistics.end(); ++iter) {
+        writer.String(iter->first.c_str()); writer.Int(iter->second);
     }
+    writer.EndObject();
+     }
 
     writer.EndObject();
 }

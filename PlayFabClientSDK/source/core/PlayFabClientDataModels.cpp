@@ -48,13 +48,13 @@ void PlayFab::ClientModels::writeTradeStatusEnumJSON(TradeStatus enumVal, PFStri
 {
     switch (enumVal)
     {
-        case TradeStatusInvalid: writer.String("Invalid"); break;
-        case TradeStatusOpening: writer.String("Opening"); break;
-        case TradeStatusOpen: writer.String("Open"); break;
-        case TradeStatusAccepting: writer.String("Accepting"); break;
-        case TradeStatusAccepted: writer.String("Accepted"); break;
-        case TradeStatusFilled: writer.String("Filled"); break;
-        case TradeStatusCancelled: writer.String("Cancelled"); break;
+    case TradeStatusInvalid: writer.String("Invalid"); break;
+    case TradeStatusOpening: writer.String("Opening"); break;
+    case TradeStatusOpen: writer.String("Open"); break;
+    case TradeStatusAccepting: writer.String("Accepting"); break;
+    case TradeStatusAccepted: writer.String("Accepted"); break;
+    case TradeStatusFilled: writer.String("Filled"); break;
+    case TradeStatusCancelled: writer.String("Cancelled"); break;
 
     }
 }
@@ -1211,168 +1211,168 @@ void PlayFab::ClientModels::writeCurrencyEnumJSON(Currency enumVal, PFStringJson
 {
     switch (enumVal)
     {
-        case CurrencyAED: writer.String("AED"); break;
-        case CurrencyAFN: writer.String("AFN"); break;
-        case CurrencyALL: writer.String("ALL"); break;
-        case CurrencyAMD: writer.String("AMD"); break;
-        case CurrencyANG: writer.String("ANG"); break;
-        case CurrencyAOA: writer.String("AOA"); break;
-        case CurrencyARS: writer.String("ARS"); break;
-        case CurrencyAUD: writer.String("AUD"); break;
-        case CurrencyAWG: writer.String("AWG"); break;
-        case CurrencyAZN: writer.String("AZN"); break;
-        case CurrencyBAM: writer.String("BAM"); break;
-        case CurrencyBBD: writer.String("BBD"); break;
-        case CurrencyBDT: writer.String("BDT"); break;
-        case CurrencyBGN: writer.String("BGN"); break;
-        case CurrencyBHD: writer.String("BHD"); break;
-        case CurrencyBIF: writer.String("BIF"); break;
-        case CurrencyBMD: writer.String("BMD"); break;
-        case CurrencyBND: writer.String("BND"); break;
-        case CurrencyBOB: writer.String("BOB"); break;
-        case CurrencyBRL: writer.String("BRL"); break;
-        case CurrencyBSD: writer.String("BSD"); break;
-        case CurrencyBTN: writer.String("BTN"); break;
-        case CurrencyBWP: writer.String("BWP"); break;
-        case CurrencyBYR: writer.String("BYR"); break;
-        case CurrencyBZD: writer.String("BZD"); break;
-        case CurrencyCAD: writer.String("CAD"); break;
-        case CurrencyCDF: writer.String("CDF"); break;
-        case CurrencyCHF: writer.String("CHF"); break;
-        case CurrencyCLP: writer.String("CLP"); break;
-        case CurrencyCNY: writer.String("CNY"); break;
-        case CurrencyCOP: writer.String("COP"); break;
-        case CurrencyCRC: writer.String("CRC"); break;
-        case CurrencyCUC: writer.String("CUC"); break;
-        case CurrencyCUP: writer.String("CUP"); break;
-        case CurrencyCVE: writer.String("CVE"); break;
-        case CurrencyCZK: writer.String("CZK"); break;
-        case CurrencyDJF: writer.String("DJF"); break;
-        case CurrencyDKK: writer.String("DKK"); break;
-        case CurrencyDOP: writer.String("DOP"); break;
-        case CurrencyDZD: writer.String("DZD"); break;
-        case CurrencyEGP: writer.String("EGP"); break;
-        case CurrencyERN: writer.String("ERN"); break;
-        case CurrencyETB: writer.String("ETB"); break;
-        case CurrencyEUR: writer.String("EUR"); break;
-        case CurrencyFJD: writer.String("FJD"); break;
-        case CurrencyFKP: writer.String("FKP"); break;
-        case CurrencyGBP: writer.String("GBP"); break;
-        case CurrencyGEL: writer.String("GEL"); break;
-        case CurrencyGGP: writer.String("GGP"); break;
-        case CurrencyGHS: writer.String("GHS"); break;
-        case CurrencyGIP: writer.String("GIP"); break;
-        case CurrencyGMD: writer.String("GMD"); break;
-        case CurrencyGNF: writer.String("GNF"); break;
-        case CurrencyGTQ: writer.String("GTQ"); break;
-        case CurrencyGYD: writer.String("GYD"); break;
-        case CurrencyHKD: writer.String("HKD"); break;
-        case CurrencyHNL: writer.String("HNL"); break;
-        case CurrencyHRK: writer.String("HRK"); break;
-        case CurrencyHTG: writer.String("HTG"); break;
-        case CurrencyHUF: writer.String("HUF"); break;
-        case CurrencyIDR: writer.String("IDR"); break;
-        case CurrencyILS: writer.String("ILS"); break;
-        case CurrencyIMP: writer.String("IMP"); break;
-        case CurrencyINR: writer.String("INR"); break;
-        case CurrencyIQD: writer.String("IQD"); break;
-        case CurrencyIRR: writer.String("IRR"); break;
-        case CurrencyISK: writer.String("ISK"); break;
-        case CurrencyJEP: writer.String("JEP"); break;
-        case CurrencyJMD: writer.String("JMD"); break;
-        case CurrencyJOD: writer.String("JOD"); break;
-        case CurrencyJPY: writer.String("JPY"); break;
-        case CurrencyKES: writer.String("KES"); break;
-        case CurrencyKGS: writer.String("KGS"); break;
-        case CurrencyKHR: writer.String("KHR"); break;
-        case CurrencyKMF: writer.String("KMF"); break;
-        case CurrencyKPW: writer.String("KPW"); break;
-        case CurrencyKRW: writer.String("KRW"); break;
-        case CurrencyKWD: writer.String("KWD"); break;
-        case CurrencyKYD: writer.String("KYD"); break;
-        case CurrencyKZT: writer.String("KZT"); break;
-        case CurrencyLAK: writer.String("LAK"); break;
-        case CurrencyLBP: writer.String("LBP"); break;
-        case CurrencyLKR: writer.String("LKR"); break;
-        case CurrencyLRD: writer.String("LRD"); break;
-        case CurrencyLSL: writer.String("LSL"); break;
-        case CurrencyLYD: writer.String("LYD"); break;
-        case CurrencyMAD: writer.String("MAD"); break;
-        case CurrencyMDL: writer.String("MDL"); break;
-        case CurrencyMGA: writer.String("MGA"); break;
-        case CurrencyMKD: writer.String("MKD"); break;
-        case CurrencyMMK: writer.String("MMK"); break;
-        case CurrencyMNT: writer.String("MNT"); break;
-        case CurrencyMOP: writer.String("MOP"); break;
-        case CurrencyMRO: writer.String("MRO"); break;
-        case CurrencyMUR: writer.String("MUR"); break;
-        case CurrencyMVR: writer.String("MVR"); break;
-        case CurrencyMWK: writer.String("MWK"); break;
-        case CurrencyMXN: writer.String("MXN"); break;
-        case CurrencyMYR: writer.String("MYR"); break;
-        case CurrencyMZN: writer.String("MZN"); break;
-        case CurrencyNAD: writer.String("NAD"); break;
-        case CurrencyNGN: writer.String("NGN"); break;
-        case CurrencyNIO: writer.String("NIO"); break;
-        case CurrencyNOK: writer.String("NOK"); break;
-        case CurrencyNPR: writer.String("NPR"); break;
-        case CurrencyNZD: writer.String("NZD"); break;
-        case CurrencyOMR: writer.String("OMR"); break;
-        case CurrencyPAB: writer.String("PAB"); break;
-        case CurrencyPEN: writer.String("PEN"); break;
-        case CurrencyPGK: writer.String("PGK"); break;
-        case CurrencyPHP: writer.String("PHP"); break;
-        case CurrencyPKR: writer.String("PKR"); break;
-        case CurrencyPLN: writer.String("PLN"); break;
-        case CurrencyPYG: writer.String("PYG"); break;
-        case CurrencyQAR: writer.String("QAR"); break;
-        case CurrencyRON: writer.String("RON"); break;
-        case CurrencyRSD: writer.String("RSD"); break;
-        case CurrencyRUB: writer.String("RUB"); break;
-        case CurrencyRWF: writer.String("RWF"); break;
-        case CurrencySAR: writer.String("SAR"); break;
-        case CurrencySBD: writer.String("SBD"); break;
-        case CurrencySCR: writer.String("SCR"); break;
-        case CurrencySDG: writer.String("SDG"); break;
-        case CurrencySEK: writer.String("SEK"); break;
-        case CurrencySGD: writer.String("SGD"); break;
-        case CurrencySHP: writer.String("SHP"); break;
-        case CurrencySLL: writer.String("SLL"); break;
-        case CurrencySOS: writer.String("SOS"); break;
-        case CurrencySPL: writer.String("SPL"); break;
-        case CurrencySRD: writer.String("SRD"); break;
-        case CurrencySTD: writer.String("STD"); break;
-        case CurrencySVC: writer.String("SVC"); break;
-        case CurrencySYP: writer.String("SYP"); break;
-        case CurrencySZL: writer.String("SZL"); break;
-        case CurrencyTHB: writer.String("THB"); break;
-        case CurrencyTJS: writer.String("TJS"); break;
-        case CurrencyTMT: writer.String("TMT"); break;
-        case CurrencyTND: writer.String("TND"); break;
-        case CurrencyTOP: writer.String("TOP"); break;
-        case CurrencyTRY: writer.String("TRY"); break;
-        case CurrencyTTD: writer.String("TTD"); break;
-        case CurrencyTVD: writer.String("TVD"); break;
-        case CurrencyTWD: writer.String("TWD"); break;
-        case CurrencyTZS: writer.String("TZS"); break;
-        case CurrencyUAH: writer.String("UAH"); break;
-        case CurrencyUGX: writer.String("UGX"); break;
-        case CurrencyUSD: writer.String("USD"); break;
-        case CurrencyUYU: writer.String("UYU"); break;
-        case CurrencyUZS: writer.String("UZS"); break;
-        case CurrencyVEF: writer.String("VEF"); break;
-        case CurrencyVND: writer.String("VND"); break;
-        case CurrencyVUV: writer.String("VUV"); break;
-        case CurrencyWST: writer.String("WST"); break;
-        case CurrencyXAF: writer.String("XAF"); break;
-        case CurrencyXCD: writer.String("XCD"); break;
-        case CurrencyXDR: writer.String("XDR"); break;
-        case CurrencyXOF: writer.String("XOF"); break;
-        case CurrencyXPF: writer.String("XPF"); break;
-        case CurrencyYER: writer.String("YER"); break;
-        case CurrencyZAR: writer.String("ZAR"); break;
-        case CurrencyZMW: writer.String("ZMW"); break;
-        case CurrencyZWD: writer.String("ZWD"); break;
+    case CurrencyAED: writer.String("AED"); break;
+    case CurrencyAFN: writer.String("AFN"); break;
+    case CurrencyALL: writer.String("ALL"); break;
+    case CurrencyAMD: writer.String("AMD"); break;
+    case CurrencyANG: writer.String("ANG"); break;
+    case CurrencyAOA: writer.String("AOA"); break;
+    case CurrencyARS: writer.String("ARS"); break;
+    case CurrencyAUD: writer.String("AUD"); break;
+    case CurrencyAWG: writer.String("AWG"); break;
+    case CurrencyAZN: writer.String("AZN"); break;
+    case CurrencyBAM: writer.String("BAM"); break;
+    case CurrencyBBD: writer.String("BBD"); break;
+    case CurrencyBDT: writer.String("BDT"); break;
+    case CurrencyBGN: writer.String("BGN"); break;
+    case CurrencyBHD: writer.String("BHD"); break;
+    case CurrencyBIF: writer.String("BIF"); break;
+    case CurrencyBMD: writer.String("BMD"); break;
+    case CurrencyBND: writer.String("BND"); break;
+    case CurrencyBOB: writer.String("BOB"); break;
+    case CurrencyBRL: writer.String("BRL"); break;
+    case CurrencyBSD: writer.String("BSD"); break;
+    case CurrencyBTN: writer.String("BTN"); break;
+    case CurrencyBWP: writer.String("BWP"); break;
+    case CurrencyBYR: writer.String("BYR"); break;
+    case CurrencyBZD: writer.String("BZD"); break;
+    case CurrencyCAD: writer.String("CAD"); break;
+    case CurrencyCDF: writer.String("CDF"); break;
+    case CurrencyCHF: writer.String("CHF"); break;
+    case CurrencyCLP: writer.String("CLP"); break;
+    case CurrencyCNY: writer.String("CNY"); break;
+    case CurrencyCOP: writer.String("COP"); break;
+    case CurrencyCRC: writer.String("CRC"); break;
+    case CurrencyCUC: writer.String("CUC"); break;
+    case CurrencyCUP: writer.String("CUP"); break;
+    case CurrencyCVE: writer.String("CVE"); break;
+    case CurrencyCZK: writer.String("CZK"); break;
+    case CurrencyDJF: writer.String("DJF"); break;
+    case CurrencyDKK: writer.String("DKK"); break;
+    case CurrencyDOP: writer.String("DOP"); break;
+    case CurrencyDZD: writer.String("DZD"); break;
+    case CurrencyEGP: writer.String("EGP"); break;
+    case CurrencyERN: writer.String("ERN"); break;
+    case CurrencyETB: writer.String("ETB"); break;
+    case CurrencyEUR: writer.String("EUR"); break;
+    case CurrencyFJD: writer.String("FJD"); break;
+    case CurrencyFKP: writer.String("FKP"); break;
+    case CurrencyGBP: writer.String("GBP"); break;
+    case CurrencyGEL: writer.String("GEL"); break;
+    case CurrencyGGP: writer.String("GGP"); break;
+    case CurrencyGHS: writer.String("GHS"); break;
+    case CurrencyGIP: writer.String("GIP"); break;
+    case CurrencyGMD: writer.String("GMD"); break;
+    case CurrencyGNF: writer.String("GNF"); break;
+    case CurrencyGTQ: writer.String("GTQ"); break;
+    case CurrencyGYD: writer.String("GYD"); break;
+    case CurrencyHKD: writer.String("HKD"); break;
+    case CurrencyHNL: writer.String("HNL"); break;
+    case CurrencyHRK: writer.String("HRK"); break;
+    case CurrencyHTG: writer.String("HTG"); break;
+    case CurrencyHUF: writer.String("HUF"); break;
+    case CurrencyIDR: writer.String("IDR"); break;
+    case CurrencyILS: writer.String("ILS"); break;
+    case CurrencyIMP: writer.String("IMP"); break;
+    case CurrencyINR: writer.String("INR"); break;
+    case CurrencyIQD: writer.String("IQD"); break;
+    case CurrencyIRR: writer.String("IRR"); break;
+    case CurrencyISK: writer.String("ISK"); break;
+    case CurrencyJEP: writer.String("JEP"); break;
+    case CurrencyJMD: writer.String("JMD"); break;
+    case CurrencyJOD: writer.String("JOD"); break;
+    case CurrencyJPY: writer.String("JPY"); break;
+    case CurrencyKES: writer.String("KES"); break;
+    case CurrencyKGS: writer.String("KGS"); break;
+    case CurrencyKHR: writer.String("KHR"); break;
+    case CurrencyKMF: writer.String("KMF"); break;
+    case CurrencyKPW: writer.String("KPW"); break;
+    case CurrencyKRW: writer.String("KRW"); break;
+    case CurrencyKWD: writer.String("KWD"); break;
+    case CurrencyKYD: writer.String("KYD"); break;
+    case CurrencyKZT: writer.String("KZT"); break;
+    case CurrencyLAK: writer.String("LAK"); break;
+    case CurrencyLBP: writer.String("LBP"); break;
+    case CurrencyLKR: writer.String("LKR"); break;
+    case CurrencyLRD: writer.String("LRD"); break;
+    case CurrencyLSL: writer.String("LSL"); break;
+    case CurrencyLYD: writer.String("LYD"); break;
+    case CurrencyMAD: writer.String("MAD"); break;
+    case CurrencyMDL: writer.String("MDL"); break;
+    case CurrencyMGA: writer.String("MGA"); break;
+    case CurrencyMKD: writer.String("MKD"); break;
+    case CurrencyMMK: writer.String("MMK"); break;
+    case CurrencyMNT: writer.String("MNT"); break;
+    case CurrencyMOP: writer.String("MOP"); break;
+    case CurrencyMRO: writer.String("MRO"); break;
+    case CurrencyMUR: writer.String("MUR"); break;
+    case CurrencyMVR: writer.String("MVR"); break;
+    case CurrencyMWK: writer.String("MWK"); break;
+    case CurrencyMXN: writer.String("MXN"); break;
+    case CurrencyMYR: writer.String("MYR"); break;
+    case CurrencyMZN: writer.String("MZN"); break;
+    case CurrencyNAD: writer.String("NAD"); break;
+    case CurrencyNGN: writer.String("NGN"); break;
+    case CurrencyNIO: writer.String("NIO"); break;
+    case CurrencyNOK: writer.String("NOK"); break;
+    case CurrencyNPR: writer.String("NPR"); break;
+    case CurrencyNZD: writer.String("NZD"); break;
+    case CurrencyOMR: writer.String("OMR"); break;
+    case CurrencyPAB: writer.String("PAB"); break;
+    case CurrencyPEN: writer.String("PEN"); break;
+    case CurrencyPGK: writer.String("PGK"); break;
+    case CurrencyPHP: writer.String("PHP"); break;
+    case CurrencyPKR: writer.String("PKR"); break;
+    case CurrencyPLN: writer.String("PLN"); break;
+    case CurrencyPYG: writer.String("PYG"); break;
+    case CurrencyQAR: writer.String("QAR"); break;
+    case CurrencyRON: writer.String("RON"); break;
+    case CurrencyRSD: writer.String("RSD"); break;
+    case CurrencyRUB: writer.String("RUB"); break;
+    case CurrencyRWF: writer.String("RWF"); break;
+    case CurrencySAR: writer.String("SAR"); break;
+    case CurrencySBD: writer.String("SBD"); break;
+    case CurrencySCR: writer.String("SCR"); break;
+    case CurrencySDG: writer.String("SDG"); break;
+    case CurrencySEK: writer.String("SEK"); break;
+    case CurrencySGD: writer.String("SGD"); break;
+    case CurrencySHP: writer.String("SHP"); break;
+    case CurrencySLL: writer.String("SLL"); break;
+    case CurrencySOS: writer.String("SOS"); break;
+    case CurrencySPL: writer.String("SPL"); break;
+    case CurrencySRD: writer.String("SRD"); break;
+    case CurrencySTD: writer.String("STD"); break;
+    case CurrencySVC: writer.String("SVC"); break;
+    case CurrencySYP: writer.String("SYP"); break;
+    case CurrencySZL: writer.String("SZL"); break;
+    case CurrencyTHB: writer.String("THB"); break;
+    case CurrencyTJS: writer.String("TJS"); break;
+    case CurrencyTMT: writer.String("TMT"); break;
+    case CurrencyTND: writer.String("TND"); break;
+    case CurrencyTOP: writer.String("TOP"); break;
+    case CurrencyTRY: writer.String("TRY"); break;
+    case CurrencyTTD: writer.String("TTD"); break;
+    case CurrencyTVD: writer.String("TVD"); break;
+    case CurrencyTWD: writer.String("TWD"); break;
+    case CurrencyTZS: writer.String("TZS"); break;
+    case CurrencyUAH: writer.String("UAH"); break;
+    case CurrencyUGX: writer.String("UGX"); break;
+    case CurrencyUSD: writer.String("USD"); break;
+    case CurrencyUYU: writer.String("UYU"); break;
+    case CurrencyUZS: writer.String("UZS"); break;
+    case CurrencyVEF: writer.String("VEF"); break;
+    case CurrencyVND: writer.String("VND"); break;
+    case CurrencyVUV: writer.String("VUV"); break;
+    case CurrencyWST: writer.String("WST"); break;
+    case CurrencyXAF: writer.String("XAF"); break;
+    case CurrencyXCD: writer.String("XCD"); break;
+    case CurrencyXDR: writer.String("XDR"); break;
+    case CurrencyXOF: writer.String("XOF"); break;
+    case CurrencyXPF: writer.String("XPF"); break;
+    case CurrencyYER: writer.String("YER"); break;
+    case CurrencyZAR: writer.String("ZAR"); break;
+    case CurrencyZMW: writer.String("ZMW"); break;
+    case CurrencyZWD: writer.String("ZWD"); break;
 
     }
 }
@@ -1558,13 +1558,13 @@ void PlayFab::ClientModels::writeRegionEnumJSON(Region enumVal, PFStringJsonWrit
 {
     switch (enumVal)
     {
-        case RegionUSCentral: writer.String("USCentral"); break;
-        case RegionUSEast: writer.String("USEast"); break;
-        case RegionEUWest: writer.String("EUWest"); break;
-        case RegionSingapore: writer.String("Singapore"); break;
-        case RegionJapan: writer.String("Japan"); break;
-        case RegionBrazil: writer.String("Brazil"); break;
-        case RegionAustralia: writer.String("Australia"); break;
+    case RegionUSCentral: writer.String("USCentral"); break;
+    case RegionUSEast: writer.String("USEast"); break;
+    case RegionEUWest: writer.String("EUWest"); break;
+    case RegionSingapore: writer.String("Singapore"); break;
+    case RegionJapan: writer.String("Japan"); break;
+    case RegionBrazil: writer.String("Brazil"); break;
+    case RegionAustralia: writer.String("Australia"); break;
 
     }
 }
@@ -1793,11 +1793,11 @@ void PlayFab::ClientModels::writeTitleActivationStatusEnumJSON(TitleActivationSt
 {
     switch (enumVal)
     {
-        case TitleActivationStatusNone: writer.String("None"); break;
-        case TitleActivationStatusActivatedTitleKey: writer.String("ActivatedTitleKey"); break;
-        case TitleActivationStatusPendingSteam: writer.String("PendingSteam"); break;
-        case TitleActivationStatusActivatedSteam: writer.String("ActivatedSteam"); break;
-        case TitleActivationStatusRevokedSteam: writer.String("RevokedSteam"); break;
+    case TitleActivationStatusNone: writer.String("None"); break;
+    case TitleActivationStatusActivatedTitleKey: writer.String("ActivatedTitleKey"); break;
+    case TitleActivationStatusPendingSteam: writer.String("PendingSteam"); break;
+    case TitleActivationStatusActivatedSteam: writer.String("ActivatedSteam"); break;
+    case TitleActivationStatusRevokedSteam: writer.String("RevokedSteam"); break;
 
     }
 }
@@ -2083,20 +2083,20 @@ void PlayFab::ClientModels::writeUserOriginationEnumJSON(UserOrigination enumVal
 {
     switch (enumVal)
     {
-        case UserOriginationOrganic: writer.String("Organic"); break;
-        case UserOriginationSteam: writer.String("Steam"); break;
-        case UserOriginationGoogle: writer.String("Google"); break;
-        case UserOriginationAmazon: writer.String("Amazon"); break;
-        case UserOriginationFacebook: writer.String("Facebook"); break;
-        case UserOriginationKongregate: writer.String("Kongregate"); break;
-        case UserOriginationGamersFirst: writer.String("GamersFirst"); break;
-        case UserOriginationUnknown: writer.String("Unknown"); break;
-        case UserOriginationIOS: writer.String("IOS"); break;
-        case UserOriginationLoadTest: writer.String("LoadTest"); break;
-        case UserOriginationAndroid: writer.String("Android"); break;
-        case UserOriginationPSN: writer.String("PSN"); break;
-        case UserOriginationGameCenter: writer.String("GameCenter"); break;
-        case UserOriginationCustomId: writer.String("CustomId"); break;
+    case UserOriginationOrganic: writer.String("Organic"); break;
+    case UserOriginationSteam: writer.String("Steam"); break;
+    case UserOriginationGoogle: writer.String("Google"); break;
+    case UserOriginationAmazon: writer.String("Amazon"); break;
+    case UserOriginationFacebook: writer.String("Facebook"); break;
+    case UserOriginationKongregate: writer.String("Kongregate"); break;
+    case UserOriginationGamersFirst: writer.String("GamersFirst"); break;
+    case UserOriginationUnknown: writer.String("Unknown"); break;
+    case UserOriginationIOS: writer.String("IOS"); break;
+    case UserOriginationLoadTest: writer.String("LoadTest"); break;
+    case UserOriginationAndroid: writer.String("Android"); break;
+    case UserOriginationPSN: writer.String("PSN"); break;
+    case UserOriginationGameCenter: writer.String("GameCenter"); break;
+    case UserOriginationCustomId: writer.String("CustomId"); break;
 
     }
 }
@@ -2363,8 +2363,8 @@ void PlayFab::ClientModels::writeUserDataPermissionEnumJSON(UserDataPermission e
 {
     switch (enumVal)
     {
-        case UserDataPermissionPrivate: writer.String("Private"); break;
-        case UserDataPermissionPublic: writer.String("Public"); break;
+    case UserDataPermissionPrivate: writer.String("Private"); break;
+    case UserDataPermissionPublic: writer.String("Public"); break;
 
     }
 }
@@ -5576,9 +5576,9 @@ void PlayFab::ClientModels::writeMatchmakeStatusEnumJSON(MatchmakeStatus enumVal
 {
     switch (enumVal)
     {
-        case MatchmakeStatusComplete: writer.String("Complete"); break;
-        case MatchmakeStatusWaiting: writer.String("Waiting"); break;
-        case MatchmakeStatusGameNotFound: writer.String("GameNotFound"); break;
+    case MatchmakeStatusComplete: writer.String("Complete"); break;
+    case MatchmakeStatusWaiting: writer.String("Waiting"); break;
+    case MatchmakeStatusGameNotFound: writer.String("GameNotFound"); break;
 
     }
 }
@@ -5794,26 +5794,26 @@ void PlayFab::ClientModels::writeTransactionStatusEnumJSON(TransactionStatus enu
 {
     switch (enumVal)
     {
-        case TransactionStatusCreateCart: writer.String("CreateCart"); break;
-        case TransactionStatusInit: writer.String("Init"); break;
-        case TransactionStatusApproved: writer.String("Approved"); break;
-        case TransactionStatusSucceeded: writer.String("Succeeded"); break;
-        case TransactionStatusFailedByProvider: writer.String("FailedByProvider"); break;
-        case TransactionStatusDisputePending: writer.String("DisputePending"); break;
-        case TransactionStatusRefundPending: writer.String("RefundPending"); break;
-        case TransactionStatusRefunded: writer.String("Refunded"); break;
-        case TransactionStatusRefundFailed: writer.String("RefundFailed"); break;
-        case TransactionStatusChargedBack: writer.String("ChargedBack"); break;
-        case TransactionStatusFailedByUber: writer.String("FailedByUber"); break;
-        case TransactionStatusFailedByPlayFab: writer.String("FailedByPlayFab"); break;
-        case TransactionStatusRevoked: writer.String("Revoked"); break;
-        case TransactionStatusTradePending: writer.String("TradePending"); break;
-        case TransactionStatusTraded: writer.String("Traded"); break;
-        case TransactionStatusUpgraded: writer.String("Upgraded"); break;
-        case TransactionStatusStackPending: writer.String("StackPending"); break;
-        case TransactionStatusStacked: writer.String("Stacked"); break;
-        case TransactionStatusOther: writer.String("Other"); break;
-        case TransactionStatusFailed: writer.String("Failed"); break;
+    case TransactionStatusCreateCart: writer.String("CreateCart"); break;
+    case TransactionStatusInit: writer.String("Init"); break;
+    case TransactionStatusApproved: writer.String("Approved"); break;
+    case TransactionStatusSucceeded: writer.String("Succeeded"); break;
+    case TransactionStatusFailedByProvider: writer.String("FailedByProvider"); break;
+    case TransactionStatusDisputePending: writer.String("DisputePending"); break;
+    case TransactionStatusRefundPending: writer.String("RefundPending"); break;
+    case TransactionStatusRefunded: writer.String("Refunded"); break;
+    case TransactionStatusRefundFailed: writer.String("RefundFailed"); break;
+    case TransactionStatusChargedBack: writer.String("ChargedBack"); break;
+    case TransactionStatusFailedByUber: writer.String("FailedByUber"); break;
+    case TransactionStatusFailedByPlayFab: writer.String("FailedByPlayFab"); break;
+    case TransactionStatusRevoked: writer.String("Revoked"); break;
+    case TransactionStatusTradePending: writer.String("TradePending"); break;
+    case TransactionStatusTraded: writer.String("Traded"); break;
+    case TransactionStatusUpgraded: writer.String("Upgraded"); break;
+    case TransactionStatusStackPending: writer.String("StackPending"); break;
+    case TransactionStatusStacked: writer.String("Stacked"); break;
+    case TransactionStatusOther: writer.String("Other"); break;
+    case TransactionStatusFailed: writer.String("Failed"); break;
 
     }
 }

@@ -75,21 +75,21 @@ void ItemInstance::writeJSON(PFStringJsonWriter& writer)
     if (UnitCurrency.length() > 0) { writer.String("UnitCurrency"); writer.String(UnitCurrency.c_str()); }
     writer.String("UnitPrice"); writer.Uint(UnitPrice);
     if (!BundleContents.empty()) {
-        writer.String("BundleContents");
-        writer.StartArray();
-        for (std::list<std::string>::iterator iter = BundleContents.begin(); iter != BundleContents.end(); iter++) {
-            writer.String(iter->c_str());
-        }
-        writer.EndArray();
+    writer.String("BundleContents");
+    writer.StartArray();
+    for (std::list<std::string>::iterator iter = BundleContents.begin(); iter != BundleContents.end(); iter++) {
+        writer.String(iter->c_str());
     }
+    writer.EndArray();
+     }
     if (!CustomData.empty()) {
-        writer.String("CustomData");
-        writer.StartObject();
-        for (std::map<std::string, std::string>::iterator iter = CustomData.begin(); iter != CustomData.end(); ++iter) {
-            writer.String(iter->first.c_str()); writer.String(iter->second.c_str());
-        }
-        writer.EndObject();
+    writer.String("CustomData");
+    writer.StartObject();
+    for (std::map<std::string, std::string>::iterator iter = CustomData.begin(); iter != CustomData.end(); ++iter) {
+        writer.String(iter->first.c_str()); writer.String(iter->second.c_str());
     }
+    writer.EndObject();
+     }
 
     writer.EndObject();
 }
@@ -392,29 +392,29 @@ void UserInfoResponse::writeJSON(PFStringJsonWriter& writer)
     if (Username.length() > 0) { writer.String("Username"); writer.String(Username.c_str()); }
     if (TitleDisplayName.length() > 0) { writer.String("TitleDisplayName"); writer.String(TitleDisplayName.c_str()); }
     if (!Inventory.empty()) {
-        writer.String("Inventory");
-        writer.StartArray();
-        for (std::list<ItemInstance>::iterator iter = Inventory.begin(); iter != Inventory.end(); iter++) {
-            iter->writeJSON(writer);
-        }
-        writer.EndArray();
+    writer.String("Inventory");
+    writer.StartArray();
+    for (std::list<ItemInstance>::iterator iter = Inventory.begin(); iter != Inventory.end(); iter++) {
+        iter->writeJSON(writer);
     }
+    writer.EndArray();
+     }
     if (!VirtualCurrency.empty()) {
-        writer.String("VirtualCurrency");
-        writer.StartObject();
-        for (std::map<std::string, Int32>::iterator iter = VirtualCurrency.begin(); iter != VirtualCurrency.end(); ++iter) {
-            writer.String(iter->first.c_str()); writer.Int(iter->second);
-        }
-        writer.EndObject();
+    writer.String("VirtualCurrency");
+    writer.StartObject();
+    for (std::map<std::string, Int32>::iterator iter = VirtualCurrency.begin(); iter != VirtualCurrency.end(); ++iter) {
+        writer.String(iter->first.c_str()); writer.Int(iter->second);
     }
+    writer.EndObject();
+     }
     if (!VirtualCurrencyRechargeTimes.empty()) {
-        writer.String("VirtualCurrencyRechargeTimes");
-        writer.StartObject();
-        for (std::map<std::string, VirtualCurrencyRechargeTime>::iterator iter = VirtualCurrencyRechargeTimes.begin(); iter != VirtualCurrencyRechargeTimes.end(); ++iter) {
-            writer.String(iter->first.c_str()); iter->second.writeJSON(writer);
-        }
-        writer.EndObject();
+    writer.String("VirtualCurrencyRechargeTimes");
+    writer.StartObject();
+    for (std::map<std::string, VirtualCurrencyRechargeTime>::iterator iter = VirtualCurrencyRechargeTimes.begin(); iter != VirtualCurrencyRechargeTimes.end(); ++iter) {
+        writer.String(iter->first.c_str()); iter->second.writeJSON(writer);
     }
+    writer.EndObject();
+     }
     writer.String("IsDeveloper"); writer.Bool(IsDeveloper);
     if (SteamId.length() > 0) { writer.String("SteamId"); writer.String(SteamId.c_str()); }
 

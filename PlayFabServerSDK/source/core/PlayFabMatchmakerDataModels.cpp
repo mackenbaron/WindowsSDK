@@ -230,13 +230,13 @@ void PlayFab::MatchmakerModels::writeRegionEnumJSON(Region enumVal, PFStringJson
 {
     switch (enumVal)
     {
-        case RegionUSCentral: writer.String("USCentral"); break;
-        case RegionUSEast: writer.String("USEast"); break;
-        case RegionEUWest: writer.String("EUWest"); break;
-        case RegionSingapore: writer.String("Singapore"); break;
-        case RegionJapan: writer.String("Japan"); break;
-        case RegionBrazil: writer.String("Brazil"); break;
-        case RegionAustralia: writer.String("Australia"); break;
+    case RegionUSCentral: writer.String("USCentral"); break;
+    case RegionUSEast: writer.String("USEast"); break;
+    case RegionEUWest: writer.String("EUWest"); break;
+    case RegionSingapore: writer.String("Singapore"); break;
+    case RegionJapan: writer.String("Japan"); break;
+    case RegionBrazil: writer.String("Brazil"); break;
+    case RegionAustralia: writer.String("Australia"); break;
 
     }
 }

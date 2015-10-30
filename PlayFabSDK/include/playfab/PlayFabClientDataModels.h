@@ -6503,7 +6503,7 @@ namespace PlayFab
 
         struct UpdateUserDataRequest : public PlayFabBaseModel
         {
-            std::map<std::string, std::string*> Data;
+            std::map<std::string, std::string> Data;
             Boxed<UserDataPermission> Permission;
 
             UpdateUserDataRequest() :
