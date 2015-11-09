@@ -7238,6 +7238,14 @@ void UpdateCharacterDataRequest::writeJSON(PFStringJsonWriter& writer)
     }
     writer.EndObject();
      }
+    if (!KeysToRemove.empty()) {
+    writer.String("KeysToRemove");
+    writer.StartArray();
+    for (std::list<std::string>::iterator iter = KeysToRemove.begin(); iter != KeysToRemove.end(); iter++) {
+        writer.String(iter->c_str());
+    }
+    writer.EndArray();
+     }
     if (Permission.notNull()) { writer.String("Permission"); writeUserDataPermissionEnumJSON(Permission, writer); }
 
     writer.EndObject();
@@ -7251,6 +7259,13 @@ bool UpdateCharacterDataRequest::readFromValue(const rapidjson::Value& obj)
     if (Data_member != NULL) {
         for (Value::ConstMemberIterator iter = Data_member->value.MemberBegin(); iter != Data_member->value.MemberEnd(); ++iter) {
             Data[iter->name.GetString()] = iter->value.GetString();
+        }
+    }
+    const Value::Member* KeysToRemove_member = obj.FindMember("KeysToRemove");
+    if (KeysToRemove_member != NULL) {
+        const rapidjson::Value& memberList = KeysToRemove_member->value;
+        for (SizeType i = 0; i < memberList.Size(); i++) {
+            KeysToRemove.push_back(memberList[i].GetString());
         }
     }
     const Value::Member* Permission_member = obj.FindMember("Permission");
@@ -7299,6 +7314,14 @@ void UpdateSharedGroupDataRequest::writeJSON(PFStringJsonWriter& writer)
     }
     writer.EndObject();
      }
+    if (!KeysToRemove.empty()) {
+    writer.String("KeysToRemove");
+    writer.StartArray();
+    for (std::list<std::string>::iterator iter = KeysToRemove.begin(); iter != KeysToRemove.end(); iter++) {
+        writer.String(iter->c_str());
+    }
+    writer.EndArray();
+     }
     if (Permission.notNull()) { writer.String("Permission"); writeUserDataPermissionEnumJSON(Permission, writer); }
 
     writer.EndObject();
@@ -7312,6 +7335,13 @@ bool UpdateSharedGroupDataRequest::readFromValue(const rapidjson::Value& obj)
     if (Data_member != NULL) {
         for (Value::ConstMemberIterator iter = Data_member->value.MemberBegin(); iter != Data_member->value.MemberEnd(); ++iter) {
             Data[iter->name.GetString()] = iter->value.GetString();
+        }
+    }
+    const Value::Member* KeysToRemove_member = obj.FindMember("KeysToRemove");
+    if (KeysToRemove_member != NULL) {
+        const rapidjson::Value& memberList = KeysToRemove_member->value;
+        for (SizeType i = 0; i < memberList.Size(); i++) {
+            KeysToRemove.push_back(memberList[i].GetString());
         }
     }
     const Value::Member* Permission_member = obj.FindMember("Permission");
@@ -7356,6 +7386,14 @@ void UpdateUserDataRequest::writeJSON(PFStringJsonWriter& writer)
     }
     writer.EndObject();
      }
+    if (!KeysToRemove.empty()) {
+    writer.String("KeysToRemove");
+    writer.StartArray();
+    for (std::list<std::string>::iterator iter = KeysToRemove.begin(); iter != KeysToRemove.end(); iter++) {
+        writer.String(iter->c_str());
+    }
+    writer.EndArray();
+     }
     if (Permission.notNull()) { writer.String("Permission"); writeUserDataPermissionEnumJSON(Permission, writer); }
 
     writer.EndObject();
@@ -7367,6 +7405,13 @@ bool UpdateUserDataRequest::readFromValue(const rapidjson::Value& obj)
     if (Data_member != NULL) {
         for (Value::ConstMemberIterator iter = Data_member->value.MemberBegin(); iter != Data_member->value.MemberEnd(); ++iter) {
             Data[iter->name.GetString()] = iter->value.GetString();
+        }
+    }
+    const Value::Member* KeysToRemove_member = obj.FindMember("KeysToRemove");
+    if (KeysToRemove_member != NULL) {
+        const rapidjson::Value& memberList = KeysToRemove_member->value;
+        for (SizeType i = 0; i < memberList.Size(); i++) {
+            KeysToRemove.push_back(memberList[i].GetString());
         }
     }
     const Value::Member* Permission_member = obj.FindMember("Permission");

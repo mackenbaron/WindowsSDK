@@ -3595,12 +3595,14 @@ namespace PlayFab
         {
             std::string PlayFabId;
             std::map<std::string, std::string> Data;
+            std::list<std::string> KeysToRemove;
             Boxed<UserDataPermission> Permission;
 
             UpdateUserDataRequest() :
                 PlayFabBaseModel(),
                 PlayFabId(),
                 Data(),
+                KeysToRemove(),
                 Permission()
             {}
 
@@ -3608,6 +3610,7 @@ namespace PlayFab
                 PlayFabBaseModel(),
                 PlayFabId(src.PlayFabId),
                 Data(src.Data),
+                KeysToRemove(src.KeysToRemove),
                 Permission(src.Permission)
             {}
 
@@ -3651,17 +3654,20 @@ namespace PlayFab
         {
             std::string PlayFabId;
             std::map<std::string, std::string> Data;
+            std::list<std::string> KeysToRemove;
 
             UpdateUserInternalDataRequest() :
                 PlayFabBaseModel(),
                 PlayFabId(),
-                Data()
+                Data(),
+                KeysToRemove()
             {}
 
             UpdateUserInternalDataRequest(const UpdateUserInternalDataRequest& src) :
                 PlayFabBaseModel(),
                 PlayFabId(src.PlayFabId),
-                Data(src.Data)
+                Data(src.Data),
+                KeysToRemove(src.KeysToRemove)
             {}
 
             UpdateUserInternalDataRequest(const rapidjson::Value& obj) : UpdateUserInternalDataRequest()

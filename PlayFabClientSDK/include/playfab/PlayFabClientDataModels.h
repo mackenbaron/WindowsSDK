@@ -6396,12 +6396,14 @@ namespace PlayFab
         {
             std::string CharacterId;
             std::map<std::string, std::string> Data;
+            std::list<std::string> KeysToRemove;
             Boxed<UserDataPermission> Permission;
 
             UpdateCharacterDataRequest() :
                 PlayFabBaseModel(),
                 CharacterId(),
                 Data(),
+                KeysToRemove(),
                 Permission()
             {}
 
@@ -6409,6 +6411,7 @@ namespace PlayFab
                 PlayFabBaseModel(),
                 CharacterId(src.CharacterId),
                 Data(src.Data),
+                KeysToRemove(src.KeysToRemove),
                 Permission(src.Permission)
             {}
 
@@ -6452,12 +6455,14 @@ namespace PlayFab
         {
             std::string SharedGroupId;
             std::map<std::string, std::string> Data;
+            std::list<std::string> KeysToRemove;
             Boxed<UserDataPermission> Permission;
 
             UpdateSharedGroupDataRequest() :
                 PlayFabBaseModel(),
                 SharedGroupId(),
                 Data(),
+                KeysToRemove(),
                 Permission()
             {}
 
@@ -6465,6 +6470,7 @@ namespace PlayFab
                 PlayFabBaseModel(),
                 SharedGroupId(src.SharedGroupId),
                 Data(src.Data),
+                KeysToRemove(src.KeysToRemove),
                 Permission(src.Permission)
             {}
 
@@ -6504,17 +6510,20 @@ namespace PlayFab
         struct UpdateUserDataRequest : public PlayFabBaseModel
         {
             std::map<std::string, std::string> Data;
+            std::list<std::string> KeysToRemove;
             Boxed<UserDataPermission> Permission;
 
             UpdateUserDataRequest() :
                 PlayFabBaseModel(),
                 Data(),
+                KeysToRemove(),
                 Permission()
             {}
 
             UpdateUserDataRequest(const UpdateUserDataRequest& src) :
                 PlayFabBaseModel(),
                 Data(src.Data),
+                KeysToRemove(src.KeysToRemove),
                 Permission(src.Permission)
             {}
 

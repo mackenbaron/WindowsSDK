@@ -3964,6 +3964,68 @@ bool NotifyMatchmakerPlayerLeftResult::readFromValue(const rapidjson::Value& obj
     return true;
 }
 
+RedeemCouponRequest::~RedeemCouponRequest()
+{
+
+}
+
+void RedeemCouponRequest::writeJSON(PFStringJsonWriter& writer)
+{
+    writer.StartObject();
+
+    writer.String("CouponCode"); writer.String(CouponCode.c_str());
+    writer.String("PlayFabId"); writer.String(PlayFabId.c_str());
+    if (CatalogVersion.length() > 0) { writer.String("CatalogVersion"); writer.String(CatalogVersion.c_str()); }
+
+    writer.EndObject();
+}
+
+bool RedeemCouponRequest::readFromValue(const rapidjson::Value& obj)
+{
+    const Value::Member* CouponCode_member = obj.FindMember("CouponCode");
+    if (CouponCode_member != NULL && !CouponCode_member->value.IsNull()) CouponCode = CouponCode_member->value.GetString();
+    const Value::Member* PlayFabId_member = obj.FindMember("PlayFabId");
+    if (PlayFabId_member != NULL && !PlayFabId_member->value.IsNull()) PlayFabId = PlayFabId_member->value.GetString();
+    const Value::Member* CatalogVersion_member = obj.FindMember("CatalogVersion");
+    if (CatalogVersion_member != NULL && !CatalogVersion_member->value.IsNull()) CatalogVersion = CatalogVersion_member->value.GetString();
+
+    return true;
+}
+
+RedeemCouponResult::~RedeemCouponResult()
+{
+
+}
+
+void RedeemCouponResult::writeJSON(PFStringJsonWriter& writer)
+{
+    writer.StartObject();
+
+    if (!GrantedItems.empty()) {
+    writer.String("GrantedItems");
+    writer.StartArray();
+    for (std::list<ItemInstance>::iterator iter = GrantedItems.begin(); iter != GrantedItems.end(); iter++) {
+        iter->writeJSON(writer);
+    }
+    writer.EndArray();
+     }
+
+    writer.EndObject();
+}
+
+bool RedeemCouponResult::readFromValue(const rapidjson::Value& obj)
+{
+    const Value::Member* GrantedItems_member = obj.FindMember("GrantedItems");
+    if (GrantedItems_member != NULL) {
+        const rapidjson::Value& memberList = GrantedItems_member->value;
+        for (SizeType i = 0; i < memberList.Size(); i++) {
+            GrantedItems.push_back(ItemInstance(memberList[i]));
+        }
+    }
+
+    return true;
+}
+
 RedeemMatchmakerTicketRequest::~RedeemMatchmakerTicketRequest()
 {
 
@@ -4368,6 +4430,14 @@ void UpdateCharacterDataRequest::writeJSON(PFStringJsonWriter& writer)
     }
     writer.EndObject();
      }
+    if (!KeysToRemove.empty()) {
+    writer.String("KeysToRemove");
+    writer.StartArray();
+    for (std::list<std::string>::iterator iter = KeysToRemove.begin(); iter != KeysToRemove.end(); iter++) {
+        writer.String(iter->c_str());
+    }
+    writer.EndArray();
+     }
     if (Permission.notNull()) { writer.String("Permission"); writeUserDataPermissionEnumJSON(Permission, writer); }
 
     writer.EndObject();
@@ -4383,6 +4453,13 @@ bool UpdateCharacterDataRequest::readFromValue(const rapidjson::Value& obj)
     if (Data_member != NULL) {
         for (Value::ConstMemberIterator iter = Data_member->value.MemberBegin(); iter != Data_member->value.MemberEnd(); ++iter) {
             Data[iter->name.GetString()] = iter->value.GetString();
+        }
+    }
+    const Value::Member* KeysToRemove_member = obj.FindMember("KeysToRemove");
+    if (KeysToRemove_member != NULL) {
+        const rapidjson::Value& memberList = KeysToRemove_member->value;
+        for (SizeType i = 0; i < memberList.Size(); i++) {
+            KeysToRemove.push_back(memberList[i].GetString());
         }
     }
     const Value::Member* Permission_member = obj.FindMember("Permission");
@@ -4489,6 +4566,14 @@ void UpdateSharedGroupDataRequest::writeJSON(PFStringJsonWriter& writer)
     }
     writer.EndObject();
      }
+    if (!KeysToRemove.empty()) {
+    writer.String("KeysToRemove");
+    writer.StartArray();
+    for (std::list<std::string>::iterator iter = KeysToRemove.begin(); iter != KeysToRemove.end(); iter++) {
+        writer.String(iter->c_str());
+    }
+    writer.EndArray();
+     }
     if (Permission.notNull()) { writer.String("Permission"); writeUserDataPermissionEnumJSON(Permission, writer); }
 
     writer.EndObject();
@@ -4502,6 +4587,13 @@ bool UpdateSharedGroupDataRequest::readFromValue(const rapidjson::Value& obj)
     if (Data_member != NULL) {
         for (Value::ConstMemberIterator iter = Data_member->value.MemberBegin(); iter != Data_member->value.MemberEnd(); ++iter) {
             Data[iter->name.GetString()] = iter->value.GetString();
+        }
+    }
+    const Value::Member* KeysToRemove_member = obj.FindMember("KeysToRemove");
+    if (KeysToRemove_member != NULL) {
+        const rapidjson::Value& memberList = KeysToRemove_member->value;
+        for (SizeType i = 0; i < memberList.Size(); i++) {
+            KeysToRemove.push_back(memberList[i].GetString());
         }
     }
     const Value::Member* Permission_member = obj.FindMember("Permission");
@@ -4547,6 +4639,14 @@ void UpdateUserDataRequest::writeJSON(PFStringJsonWriter& writer)
     }
     writer.EndObject();
      }
+    if (!KeysToRemove.empty()) {
+    writer.String("KeysToRemove");
+    writer.StartArray();
+    for (std::list<std::string>::iterator iter = KeysToRemove.begin(); iter != KeysToRemove.end(); iter++) {
+        writer.String(iter->c_str());
+    }
+    writer.EndArray();
+     }
     if (Permission.notNull()) { writer.String("Permission"); writeUserDataPermissionEnumJSON(Permission, writer); }
 
     writer.EndObject();
@@ -4560,6 +4660,13 @@ bool UpdateUserDataRequest::readFromValue(const rapidjson::Value& obj)
     if (Data_member != NULL) {
         for (Value::ConstMemberIterator iter = Data_member->value.MemberBegin(); iter != Data_member->value.MemberEnd(); ++iter) {
             Data[iter->name.GetString()] = iter->value.GetString();
+        }
+    }
+    const Value::Member* KeysToRemove_member = obj.FindMember("KeysToRemove");
+    if (KeysToRemove_member != NULL) {
+        const rapidjson::Value& memberList = KeysToRemove_member->value;
+        for (SizeType i = 0; i < memberList.Size(); i++) {
+            KeysToRemove.push_back(memberList[i].GetString());
         }
     }
     const Value::Member* Permission_member = obj.FindMember("Permission");
@@ -4608,6 +4715,14 @@ void UpdateUserInternalDataRequest::writeJSON(PFStringJsonWriter& writer)
     }
     writer.EndObject();
      }
+    if (!KeysToRemove.empty()) {
+    writer.String("KeysToRemove");
+    writer.StartArray();
+    for (std::list<std::string>::iterator iter = KeysToRemove.begin(); iter != KeysToRemove.end(); iter++) {
+        writer.String(iter->c_str());
+    }
+    writer.EndArray();
+     }
 
     writer.EndObject();
 }
@@ -4620,6 +4735,13 @@ bool UpdateUserInternalDataRequest::readFromValue(const rapidjson::Value& obj)
     if (Data_member != NULL) {
         for (Value::ConstMemberIterator iter = Data_member->value.MemberBegin(); iter != Data_member->value.MemberEnd(); ++iter) {
             Data[iter->name.GetString()] = iter->value.GetString();
+        }
+    }
+    const Value::Member* KeysToRemove_member = obj.FindMember("KeysToRemove");
+    if (KeysToRemove_member != NULL) {
+        const rapidjson::Value& memberList = KeysToRemove_member->value;
+        for (SizeType i = 0; i < memberList.Size(); i++) {
+            KeysToRemove.push_back(memberList[i].GetString());
         }
     }
 
@@ -4646,6 +4768,14 @@ void UpdateUserInventoryItemDataRequest::writeJSON(PFStringJsonWriter& writer)
     }
     writer.EndObject();
      }
+    if (!KeysToRemove.empty()) {
+    writer.String("KeysToRemove");
+    writer.StartArray();
+    for (std::list<std::string>::iterator iter = KeysToRemove.begin(); iter != KeysToRemove.end(); iter++) {
+        writer.String(iter->c_str());
+    }
+    writer.EndArray();
+     }
 
     writer.EndObject();
 }
@@ -4662,6 +4792,13 @@ bool UpdateUserInventoryItemDataRequest::readFromValue(const rapidjson::Value& o
     if (Data_member != NULL) {
         for (Value::ConstMemberIterator iter = Data_member->value.MemberBegin(); iter != Data_member->value.MemberEnd(); ++iter) {
             Data[iter->name.GetString()] = iter->value.GetString();
+        }
+    }
+    const Value::Member* KeysToRemove_member = obj.FindMember("KeysToRemove");
+    if (KeysToRemove_member != NULL) {
+        const rapidjson::Value& memberList = KeysToRemove_member->value;
+        for (SizeType i = 0; i < memberList.Size(); i++) {
+            KeysToRemove.push_back(memberList[i].GetString());
         }
     }
 

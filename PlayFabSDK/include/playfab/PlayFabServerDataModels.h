@@ -3369,6 +3369,62 @@ namespace PlayFab
             bool readFromValue(const rapidjson::Value& obj);
         };
 
+        struct RedeemCouponRequest : public PlayFabBaseModel
+        {
+            std::string CouponCode;
+            std::string PlayFabId;
+            std::string CatalogVersion;
+
+            RedeemCouponRequest() :
+                PlayFabBaseModel(),
+                CouponCode(),
+                PlayFabId(),
+                CatalogVersion()
+            {}
+
+            RedeemCouponRequest(const RedeemCouponRequest& src) :
+                PlayFabBaseModel(),
+                CouponCode(src.CouponCode),
+                PlayFabId(src.PlayFabId),
+                CatalogVersion(src.CatalogVersion)
+            {}
+
+            RedeemCouponRequest(const rapidjson::Value& obj) : RedeemCouponRequest()
+            {
+                readFromValue(obj);
+            }
+
+            ~RedeemCouponRequest();
+
+            void writeJSON(PFStringJsonWriter& writer);
+            bool readFromValue(const rapidjson::Value& obj);
+        };
+
+        struct RedeemCouponResult : public PlayFabBaseModel
+        {
+            std::list<ItemInstance> GrantedItems;
+
+            RedeemCouponResult() :
+                PlayFabBaseModel(),
+                GrantedItems()
+            {}
+
+            RedeemCouponResult(const RedeemCouponResult& src) :
+                PlayFabBaseModel(),
+                GrantedItems(src.GrantedItems)
+            {}
+
+            RedeemCouponResult(const rapidjson::Value& obj) : RedeemCouponResult()
+            {
+                readFromValue(obj);
+            }
+
+            ~RedeemCouponResult();
+
+            void writeJSON(PFStringJsonWriter& writer);
+            bool readFromValue(const rapidjson::Value& obj);
+        };
+
         struct RedeemMatchmakerTicketRequest : public PlayFabBaseModel
         {
             std::string Ticket;
@@ -3791,6 +3847,7 @@ namespace PlayFab
             std::string PlayFabId;
             std::string CharacterId;
             std::map<std::string, std::string> Data;
+            std::list<std::string> KeysToRemove;
             Boxed<UserDataPermission> Permission;
 
             UpdateCharacterDataRequest() :
@@ -3798,6 +3855,7 @@ namespace PlayFab
                 PlayFabId(),
                 CharacterId(),
                 Data(),
+                KeysToRemove(),
                 Permission()
             {}
 
@@ -3806,6 +3864,7 @@ namespace PlayFab
                 PlayFabId(src.PlayFabId),
                 CharacterId(src.CharacterId),
                 Data(src.Data),
+                KeysToRemove(src.KeysToRemove),
                 Permission(src.Permission)
             {}
 
@@ -3902,12 +3961,14 @@ namespace PlayFab
         {
             std::string SharedGroupId;
             std::map<std::string, std::string> Data;
+            std::list<std::string> KeysToRemove;
             Boxed<UserDataPermission> Permission;
 
             UpdateSharedGroupDataRequest() :
                 PlayFabBaseModel(),
                 SharedGroupId(),
                 Data(),
+                KeysToRemove(),
                 Permission()
             {}
 
@@ -3915,6 +3976,7 @@ namespace PlayFab
                 PlayFabBaseModel(),
                 SharedGroupId(src.SharedGroupId),
                 Data(src.Data),
+                KeysToRemove(src.KeysToRemove),
                 Permission(src.Permission)
             {}
 
@@ -3955,12 +4017,14 @@ namespace PlayFab
         {
             std::string PlayFabId;
             std::map<std::string, std::string> Data;
+            std::list<std::string> KeysToRemove;
             Boxed<UserDataPermission> Permission;
 
             UpdateUserDataRequest() :
                 PlayFabBaseModel(),
                 PlayFabId(),
                 Data(),
+                KeysToRemove(),
                 Permission()
             {}
 
@@ -3968,6 +4032,7 @@ namespace PlayFab
                 PlayFabBaseModel(),
                 PlayFabId(src.PlayFabId),
                 Data(src.Data),
+                KeysToRemove(src.KeysToRemove),
                 Permission(src.Permission)
             {}
 
@@ -4011,17 +4076,20 @@ namespace PlayFab
         {
             std::string PlayFabId;
             std::map<std::string, std::string> Data;
+            std::list<std::string> KeysToRemove;
 
             UpdateUserInternalDataRequest() :
                 PlayFabBaseModel(),
                 PlayFabId(),
-                Data()
+                Data(),
+                KeysToRemove()
             {}
 
             UpdateUserInternalDataRequest(const UpdateUserInternalDataRequest& src) :
                 PlayFabBaseModel(),
                 PlayFabId(src.PlayFabId),
-                Data(src.Data)
+                Data(src.Data),
+                KeysToRemove(src.KeysToRemove)
             {}
 
             UpdateUserInternalDataRequest(const rapidjson::Value& obj) : UpdateUserInternalDataRequest()
@@ -4041,13 +4109,15 @@ namespace PlayFab
             std::string PlayFabId;
             std::string ItemInstanceId;
             std::map<std::string, std::string> Data;
+            std::list<std::string> KeysToRemove;
 
             UpdateUserInventoryItemDataRequest() :
                 PlayFabBaseModel(),
                 CharacterId(),
                 PlayFabId(),
                 ItemInstanceId(),
-                Data()
+                Data(),
+                KeysToRemove()
             {}
 
             UpdateUserInventoryItemDataRequest(const UpdateUserInventoryItemDataRequest& src) :
@@ -4055,7 +4125,8 @@ namespace PlayFab
                 CharacterId(src.CharacterId),
                 PlayFabId(src.PlayFabId),
                 ItemInstanceId(src.ItemInstanceId),
-                Data(src.Data)
+                Data(src.Data),
+                KeysToRemove(src.KeysToRemove)
             {}
 
             UpdateUserInventoryItemDataRequest(const rapidjson::Value& obj) : UpdateUserInventoryItemDataRequest()
