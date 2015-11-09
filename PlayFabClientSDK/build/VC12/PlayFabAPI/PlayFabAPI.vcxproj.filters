@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
     <Filter Include="Source Files">
@@ -21,13 +21,10 @@
     <ClCompile Include="..\..\..\source\core\PlayFabClientAPI.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-	<ClCompile Include="..\..\..\source\core\PlayFabClientDataModels.cpp">
+    <ClCompile Include="..\..\..\source\core\PlayFabClientDataModels.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\source\curl\HttpRequesterCURL.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\source\core\PlayFabDataModels.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\source\core\PlayFabSettings.cpp">
@@ -39,7 +36,7 @@
     <ClCompile Include="..\..\..\source\core\PlayFabBaseModel.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-	<ClCompile Include="..\..\..\source\core\PlayFabVersion.cpp">
+    <ClCompile Include="..\..\..\source\core\PlayFabVersion.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -50,10 +47,10 @@
     <ClInclude Include="..\..\..\include\playfab\IHttpRequester.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-	<ClInclude Include="..\..\..\include\playfab\PlayFabClientAPI.h">
+    <ClInclude Include="..\..\..\include\playfab\PlayFabClientAPI.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-	<ClInclude Include="..\..\..\include\playfab\PlayFabClientDataModels.h">
+    <ClInclude Include="..\..\..\include\playfab\PlayFabClientDataModels.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\include\playfab\PlayFabError.h">
@@ -74,7 +71,7 @@
     <ClInclude Include="..\..\..\include\playfab\PlayFabBaseModel.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-	<ClInclude Include="..\..\..\include\playfab\PlayFabVersion.h">
+    <ClInclude Include="..\..\..\include\playfab\PlayFabVersion.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
