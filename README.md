@@ -76,9 +76,9 @@ You must then follow all the steps above to setup dependent libs and headers, bu
 
 5. Troubleshooting:
 ----
-On Feb 16, 2016, we did some repo cleaning, removing 20GB of excessive .lib files. As a consequence, everything except the latest 0.18 release have lost their pre-built lib files. The older versions should still be capable of rebuilding their .lib files for that release. For the future, our automated process has been updated to only check in .lib files for scheduled releases.
+On Feb 16, 2016, we did some repo cleaning, removing 20GB of excessive .lib files. As a consequence, everything except the latest 0.18 release have lost their pre-built lib files. The older versions should still be capable of rebuilding their .lib files for that release. For the future, our automated process has been updated to only check in .lib files for scheduled releases. Also, as a consequence, the old nightly and versioned branches are dead-ended, and re-branched from master.
 
-If you have a fork/clone of the repo from before Feb 16, 2016, you will need to delete and re-fork/re-clone it.
+If you have a fork/clone of the repo from before Feb 16, 2016, you will need to delete and re-fork/re-clone it. If you were using the nightly or versioned branches (not recommended), you may also need to update to the new re-branching of these identifiers.
 
 For a complete list of available APIs, check out the [online documentation](http://api.playfab.com/Documentation/).
 
