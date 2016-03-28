@@ -1937,7 +1937,7 @@ void GetCharacterInventoryRequest::writeJSON(PFStringJsonWriter& writer)
 {
     writer.StartObject();
 
-    if (PlayFabId.length() > 0) { writer.String("PlayFabId"); writer.String(PlayFabId.c_str()); }
+    writer.String("PlayFabId"); writer.String(PlayFabId.c_str());
     writer.String("CharacterId"); writer.String(CharacterId.c_str());
     if (CatalogVersion.length() > 0) { writer.String("CatalogVersion"); writer.String(CatalogVersion.c_str()); }
 
@@ -4536,6 +4536,34 @@ bool NotifyMatchmakerPlayerLeftResult::readFromValue(const rapidjson::Value& obj
     return true;
 }
 
+PlayStreamEventHistory::~PlayStreamEventHistory()
+{
+
+}
+
+void PlayStreamEventHistory::writeJSON(PFStringJsonWriter& writer)
+{
+    writer.StartObject();
+
+    if (ParentTriggerId.length() > 0) { writer.String("ParentTriggerId"); writer.String(ParentTriggerId.c_str()); }
+    if (ParentEventId.length() > 0) { writer.String("ParentEventId"); writer.String(ParentEventId.c_str()); }
+    writer.String("TriggeredEvents"); writer.Bool(TriggeredEvents);
+
+    writer.EndObject();
+}
+
+bool PlayStreamEventHistory::readFromValue(const rapidjson::Value& obj)
+{
+    const Value::ConstMemberIterator ParentTriggerId_member = obj.FindMember("ParentTriggerId");
+    if (ParentTriggerId_member != obj.MemberEnd() && !ParentTriggerId_member->value.IsNull()) ParentTriggerId = ParentTriggerId_member->value.GetString();
+    const Value::ConstMemberIterator ParentEventId_member = obj.FindMember("ParentEventId");
+    if (ParentEventId_member != obj.MemberEnd() && !ParentEventId_member->value.IsNull()) ParentEventId = ParentEventId_member->value.GetString();
+    const Value::ConstMemberIterator TriggeredEvents_member = obj.FindMember("TriggeredEvents");
+    if (TriggeredEvents_member != obj.MemberEnd() && !TriggeredEvents_member->value.IsNull()) TriggeredEvents = TriggeredEvents_member->value.GetBool();
+
+    return true;
+}
+
 RedeemCouponRequest::~RedeemCouponRequest()
 {
 
@@ -4984,6 +5012,41 @@ bool SetTitleDataResult::readFromValue(const rapidjson::Value& obj)
 {
 
     return true;
+}
+void PlayFab::ServerModels::writeSourceTypeEnumJSON(SourceType enumVal, PFStringJsonWriter& writer)
+{
+    switch (enumVal)
+    {
+    case SourceTypeAdmin: writer.String("Admin"); break;
+    case SourceTypeBackEnd: writer.String("BackEnd"); break;
+    case SourceTypeGameClient: writer.String("GameClient"); break;
+    case SourceTypeGameServer: writer.String("GameServer"); break;
+    case SourceTypePartner: writer.String("Partner"); break;
+    case SourceTypeStream: writer.String("Stream"); break;
+
+    }
+}
+
+SourceType PlayFab::ServerModels::readSourceTypeFromValue(const rapidjson::Value& obj)
+{
+    static std::map<std::string, SourceType> _SourceTypeMap;
+    if (_SourceTypeMap.size() == 0)
+    {
+        // Auto-generate the map on the first use
+        _SourceTypeMap["Admin"] = SourceTypeAdmin;
+        _SourceTypeMap["BackEnd"] = SourceTypeBackEnd;
+        _SourceTypeMap["GameClient"] = SourceTypeGameClient;
+        _SourceTypeMap["GameServer"] = SourceTypeGameServer;
+        _SourceTypeMap["Partner"] = SourceTypePartner;
+        _SourceTypeMap["Stream"] = SourceTypeStream;
+
+    }
+
+    auto output = _SourceTypeMap.find(obj.GetString());
+    if (output != _SourceTypeMap.end())
+        return output->second;
+
+    return SourceTypeAdmin; // Basically critical fail
 }
 
 StatisticUpdate::~StatisticUpdate()
@@ -5594,8 +5657,8 @@ void UpdateUserInventoryItemDataRequest::writeJSON(PFStringJsonWriter& writer)
 {
     writer.StartObject();
 
-    if (CharacterId.length() > 0) { writer.String("CharacterId"); writer.String(CharacterId.c_str()); }
     writer.String("PlayFabId"); writer.String(PlayFabId.c_str());
+    if (CharacterId.length() > 0) { writer.String("CharacterId"); writer.String(CharacterId.c_str()); }
     writer.String("ItemInstanceId"); writer.String(ItemInstanceId.c_str());
     if (!Data.empty()) {
     writer.String("Data");
@@ -5619,10 +5682,10 @@ void UpdateUserInventoryItemDataRequest::writeJSON(PFStringJsonWriter& writer)
 
 bool UpdateUserInventoryItemDataRequest::readFromValue(const rapidjson::Value& obj)
 {
-    const Value::ConstMemberIterator CharacterId_member = obj.FindMember("CharacterId");
-    if (CharacterId_member != obj.MemberEnd() && !CharacterId_member->value.IsNull()) CharacterId = CharacterId_member->value.GetString();
     const Value::ConstMemberIterator PlayFabId_member = obj.FindMember("PlayFabId");
     if (PlayFabId_member != obj.MemberEnd() && !PlayFabId_member->value.IsNull()) PlayFabId = PlayFabId_member->value.GetString();
+    const Value::ConstMemberIterator CharacterId_member = obj.FindMember("CharacterId");
+    if (CharacterId_member != obj.MemberEnd() && !CharacterId_member->value.IsNull()) CharacterId = CharacterId_member->value.GetString();
     const Value::ConstMemberIterator ItemInstanceId_member = obj.FindMember("ItemInstanceId");
     if (ItemInstanceId_member != obj.MemberEnd() && !ItemInstanceId_member->value.IsNull()) ItemInstanceId = ItemInstanceId_member->value.GetString();
     const Value::ConstMemberIterator Data_member = obj.FindMember("Data");
@@ -5638,25 +5701,6 @@ bool UpdateUserInventoryItemDataRequest::readFromValue(const rapidjson::Value& o
             KeysToRemove.push_back(memberList[i].GetString());
         }
     }
-
-    return true;
-}
-
-UpdateUserInventoryItemDataResult::~UpdateUserInventoryItemDataResult()
-{
-
-}
-
-void UpdateUserInventoryItemDataResult::writeJSON(PFStringJsonWriter& writer)
-{
-    writer.StartObject();
-
-
-    writer.EndObject();
-}
-
-bool UpdateUserInventoryItemDataResult::readFromValue(const rapidjson::Value& obj)
-{
 
     return true;
 }
