@@ -4,7 +4,6 @@ using namespace PlayFab;
 using namespace PlayFab::MatchmakerModels;
 using namespace rapidjson;
 
-
 AuthUserRequest::~AuthUserRequest()
 {
 
@@ -77,7 +76,7 @@ void ItemInstance::writeJSON(PFStringJsonWriter& writer)
     if (!BundleContents.empty()) {
     writer.String("BundleContents");
     writer.StartArray();
-    for (std::list<std::string>::iterator iter = BundleContents.begin(); iter != BundleContents.end(); iter++) {
+    for (std::list<std::string>::iterator iter = BundleContents.begin(); iter != BundleContents.end(); ++iter) {
         writer.String(iter->c_str());
     }
     writer.EndArray();
@@ -226,6 +225,7 @@ bool PlayerLeftResponse::readFromValue(const rapidjson::Value& obj)
 
     return true;
 }
+
 void PlayFab::MatchmakerModels::writeRegionEnumJSON(Region enumVal, PFStringJsonWriter& writer)
 {
     switch (enumVal)
@@ -394,7 +394,7 @@ void UserInfoResponse::writeJSON(PFStringJsonWriter& writer)
     if (!Inventory.empty()) {
     writer.String("Inventory");
     writer.StartArray();
-    for (std::list<ItemInstance>::iterator iter = Inventory.begin(); iter != Inventory.end(); iter++) {
+    for (std::list<ItemInstance>::iterator iter = Inventory.begin(); iter != Inventory.end(); ++iter) {
         iter->writeJSON(writer);
     }
     writer.EndArray();
