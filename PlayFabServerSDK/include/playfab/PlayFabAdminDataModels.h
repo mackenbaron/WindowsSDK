@@ -34,8 +34,8 @@ namespace PlayFab
 
             ~AddNewsRequest();
 
-            void writeJSON(PFStringJsonWriter& writer);
-            bool readFromValue(const rapidjson::Value& obj);
+            void writeJSON(PFStringJsonWriter& writer) override;
+            bool readFromValue(const rapidjson::Value& obj) override;
         };
 
         struct AddNewsResult : public PlayFabBaseModel
@@ -59,8 +59,8 @@ namespace PlayFab
 
             ~AddNewsResult();
 
-            void writeJSON(PFStringJsonWriter& writer);
-            bool readFromValue(const rapidjson::Value& obj);
+            void writeJSON(PFStringJsonWriter& writer) override;
+            bool readFromValue(const rapidjson::Value& obj) override;
         };
 
         enum Region
@@ -116,8 +116,8 @@ namespace PlayFab
 
             ~AddServerBuildRequest();
 
-            void writeJSON(PFStringJsonWriter& writer);
-            bool readFromValue(const rapidjson::Value& obj);
+            void writeJSON(PFStringJsonWriter& writer) override;
+            bool readFromValue(const rapidjson::Value& obj) override;
         };
 
         enum GameBuildStatus
@@ -180,8 +180,8 @@ namespace PlayFab
 
             ~AddServerBuildResult();
 
-            void writeJSON(PFStringJsonWriter& writer);
-            bool readFromValue(const rapidjson::Value& obj);
+            void writeJSON(PFStringJsonWriter& writer) override;
+            bool readFromValue(const rapidjson::Value& obj) override;
         };
 
         struct AddUserVirtualCurrencyRequest : public PlayFabBaseModel
@@ -211,8 +211,8 @@ namespace PlayFab
 
             ~AddUserVirtualCurrencyRequest();
 
-            void writeJSON(PFStringJsonWriter& writer);
-            bool readFromValue(const rapidjson::Value& obj);
+            void writeJSON(PFStringJsonWriter& writer) override;
+            bool readFromValue(const rapidjson::Value& obj) override;
         };
 
         struct VirtualCurrencyData : public PlayFabBaseModel
@@ -248,8 +248,8 @@ namespace PlayFab
 
             ~VirtualCurrencyData();
 
-            void writeJSON(PFStringJsonWriter& writer);
-            bool readFromValue(const rapidjson::Value& obj);
+            void writeJSON(PFStringJsonWriter& writer) override;
+            bool readFromValue(const rapidjson::Value& obj) override;
         };
 
         struct AddVirtualCurrencyTypesRequest : public PlayFabBaseModel
@@ -273,8 +273,8 @@ namespace PlayFab
 
             ~AddVirtualCurrencyTypesRequest();
 
-            void writeJSON(PFStringJsonWriter& writer);
-            bool readFromValue(const rapidjson::Value& obj);
+            void writeJSON(PFStringJsonWriter& writer) override;
+            bool readFromValue(const rapidjson::Value& obj) override;
         };
 
         struct BlankResult : public PlayFabBaseModel
@@ -295,8 +295,8 @@ namespace PlayFab
 
             ~BlankResult();
 
-            void writeJSON(PFStringJsonWriter& writer);
-            bool readFromValue(const rapidjson::Value& obj);
+            void writeJSON(PFStringJsonWriter& writer) override;
+            bool readFromValue(const rapidjson::Value& obj) override;
         };
 
         struct CatalogItemConsumableInfo : public PlayFabBaseModel
@@ -326,8 +326,8 @@ namespace PlayFab
 
             ~CatalogItemConsumableInfo();
 
-            void writeJSON(PFStringJsonWriter& writer);
-            bool readFromValue(const rapidjson::Value& obj);
+            void writeJSON(PFStringJsonWriter& writer) override;
+            bool readFromValue(const rapidjson::Value& obj) override;
         };
 
         struct CatalogItemContainerInfo : public PlayFabBaseModel
@@ -360,8 +360,8 @@ namespace PlayFab
 
             ~CatalogItemContainerInfo();
 
-            void writeJSON(PFStringJsonWriter& writer);
-            bool readFromValue(const rapidjson::Value& obj);
+            void writeJSON(PFStringJsonWriter& writer) override;
+            bool readFromValue(const rapidjson::Value& obj) override;
         };
 
         struct CatalogItemBundleInfo : public PlayFabBaseModel
@@ -391,8 +391,8 @@ namespace PlayFab
 
             ~CatalogItemBundleInfo();
 
-            void writeJSON(PFStringJsonWriter& writer);
-            bool readFromValue(const rapidjson::Value& obj);
+            void writeJSON(PFStringJsonWriter& writer) override;
+            bool readFromValue(const rapidjson::Value& obj) override;
         };
 
         struct CatalogItem : public PlayFabBaseModel
@@ -425,9 +425,9 @@ namespace PlayFab
                 RealCurrencyPrices(),
                 Tags(),
                 CustomData(),
-                Consumable(NULL),
-                Container(NULL),
-                Bundle(NULL),
+                Consumable(nullptr),
+                Container(nullptr),
+                Bundle(nullptr),
                 CanBecomeCharacter(false),
                 IsStackable(false),
                 IsTradable(false),
@@ -445,9 +445,9 @@ namespace PlayFab
                 RealCurrencyPrices(src.RealCurrencyPrices),
                 Tags(src.Tags),
                 CustomData(src.CustomData),
-                Consumable(src.Consumable ? new CatalogItemConsumableInfo(*src.Consumable) : NULL),
-                Container(src.Container ? new CatalogItemContainerInfo(*src.Container) : NULL),
-                Bundle(src.Bundle ? new CatalogItemBundleInfo(*src.Bundle) : NULL),
+                Consumable(src.Consumable ? new CatalogItemConsumableInfo(*src.Consumable) : nullptr),
+                Container(src.Container ? new CatalogItemContainerInfo(*src.Container) : nullptr),
+                Bundle(src.Bundle ? new CatalogItemBundleInfo(*src.Bundle) : nullptr),
                 CanBecomeCharacter(src.CanBecomeCharacter),
                 IsStackable(src.IsStackable),
                 IsTradable(src.IsTradable),
@@ -461,8 +461,8 @@ namespace PlayFab
 
             ~CatalogItem();
 
-            void writeJSON(PFStringJsonWriter& writer);
-            bool readFromValue(const rapidjson::Value& obj);
+            void writeJSON(PFStringJsonWriter& writer) override;
+            bool readFromValue(const rapidjson::Value& obj) override;
         };
 
         struct CloudScriptFile : public PlayFabBaseModel
@@ -489,8 +489,8 @@ namespace PlayFab
 
             ~CloudScriptFile();
 
-            void writeJSON(PFStringJsonWriter& writer);
-            bool readFromValue(const rapidjson::Value& obj);
+            void writeJSON(PFStringJsonWriter& writer) override;
+            bool readFromValue(const rapidjson::Value& obj) override;
         };
 
         struct CloudScriptVersionStatus : public PlayFabBaseModel
@@ -520,8 +520,8 @@ namespace PlayFab
 
             ~CloudScriptVersionStatus();
 
-            void writeJSON(PFStringJsonWriter& writer);
-            bool readFromValue(const rapidjson::Value& obj);
+            void writeJSON(PFStringJsonWriter& writer) override;
+            bool readFromValue(const rapidjson::Value& obj) override;
         };
 
         struct ContentInfo : public PlayFabBaseModel
@@ -551,8 +551,8 @@ namespace PlayFab
 
             ~ContentInfo();
 
-            void writeJSON(PFStringJsonWriter& writer);
-            bool readFromValue(const rapidjson::Value& obj);
+            void writeJSON(PFStringJsonWriter& writer) override;
+            bool readFromValue(const rapidjson::Value& obj) override;
         };
 
         enum StatisticResetIntervalOption
@@ -605,8 +605,8 @@ namespace PlayFab
 
             ~CreatePlayerStatisticDefinitionRequest();
 
-            void writeJSON(PFStringJsonWriter& writer);
-            bool readFromValue(const rapidjson::Value& obj);
+            void writeJSON(PFStringJsonWriter& writer) override;
+            bool readFromValue(const rapidjson::Value& obj) override;
         };
 
         struct PlayerStatisticDefinition : public PlayFabBaseModel
@@ -639,8 +639,8 @@ namespace PlayFab
 
             ~PlayerStatisticDefinition();
 
-            void writeJSON(PFStringJsonWriter& writer);
-            bool readFromValue(const rapidjson::Value& obj);
+            void writeJSON(PFStringJsonWriter& writer) override;
+            bool readFromValue(const rapidjson::Value& obj) override;
         };
 
         struct CreatePlayerStatisticDefinitionResult : public PlayFabBaseModel
@@ -649,12 +649,12 @@ namespace PlayFab
 
             CreatePlayerStatisticDefinitionResult() :
                 PlayFabBaseModel(),
-                Statistic(NULL)
+                Statistic(nullptr)
             {}
 
             CreatePlayerStatisticDefinitionResult(const CreatePlayerStatisticDefinitionResult& src) :
                 PlayFabBaseModel(),
-                Statistic(src.Statistic ? new PlayerStatisticDefinition(*src.Statistic) : NULL)
+                Statistic(src.Statistic ? new PlayerStatisticDefinition(*src.Statistic) : nullptr)
             {}
 
             CreatePlayerStatisticDefinitionResult(const rapidjson::Value& obj) : CreatePlayerStatisticDefinitionResult()
@@ -664,8 +664,8 @@ namespace PlayFab
 
             ~CreatePlayerStatisticDefinitionResult();
 
-            void writeJSON(PFStringJsonWriter& writer);
-            bool readFromValue(const rapidjson::Value& obj);
+            void writeJSON(PFStringJsonWriter& writer) override;
+            bool readFromValue(const rapidjson::Value& obj) override;
         };
 
         enum Currency
@@ -858,8 +858,8 @@ namespace PlayFab
 
             ~DeleteContentRequest();
 
-            void writeJSON(PFStringJsonWriter& writer);
-            bool readFromValue(const rapidjson::Value& obj);
+            void writeJSON(PFStringJsonWriter& writer) override;
+            bool readFromValue(const rapidjson::Value& obj) override;
         };
 
         struct DeleteUsersRequest : public PlayFabBaseModel
@@ -886,8 +886,8 @@ namespace PlayFab
 
             ~DeleteUsersRequest();
 
-            void writeJSON(PFStringJsonWriter& writer);
-            bool readFromValue(const rapidjson::Value& obj);
+            void writeJSON(PFStringJsonWriter& writer) override;
+            bool readFromValue(const rapidjson::Value& obj) override;
         };
 
         struct DeleteUsersResult : public PlayFabBaseModel
@@ -908,8 +908,8 @@ namespace PlayFab
 
             ~DeleteUsersResult();
 
-            void writeJSON(PFStringJsonWriter& writer);
-            bool readFromValue(const rapidjson::Value& obj);
+            void writeJSON(PFStringJsonWriter& writer) override;
+            bool readFromValue(const rapidjson::Value& obj) override;
         };
 
         struct GameModeInfo : public PlayFabBaseModel
@@ -939,8 +939,8 @@ namespace PlayFab
 
             ~GameModeInfo();
 
-            void writeJSON(PFStringJsonWriter& writer);
-            bool readFromValue(const rapidjson::Value& obj);
+            void writeJSON(PFStringJsonWriter& writer) override;
+            bool readFromValue(const rapidjson::Value& obj) override;
         };
 
         struct GetCatalogItemsRequest : public PlayFabBaseModel
@@ -964,8 +964,8 @@ namespace PlayFab
 
             ~GetCatalogItemsRequest();
 
-            void writeJSON(PFStringJsonWriter& writer);
-            bool readFromValue(const rapidjson::Value& obj);
+            void writeJSON(PFStringJsonWriter& writer) override;
+            bool readFromValue(const rapidjson::Value& obj) override;
         };
 
         struct GetCatalogItemsResult : public PlayFabBaseModel
@@ -989,8 +989,8 @@ namespace PlayFab
 
             ~GetCatalogItemsResult();
 
-            void writeJSON(PFStringJsonWriter& writer);
-            bool readFromValue(const rapidjson::Value& obj);
+            void writeJSON(PFStringJsonWriter& writer) override;
+            bool readFromValue(const rapidjson::Value& obj) override;
         };
 
         struct GetCloudScriptRevisionRequest : public PlayFabBaseModel
@@ -1017,8 +1017,8 @@ namespace PlayFab
 
             ~GetCloudScriptRevisionRequest();
 
-            void writeJSON(PFStringJsonWriter& writer);
-            bool readFromValue(const rapidjson::Value& obj);
+            void writeJSON(PFStringJsonWriter& writer) override;
+            bool readFromValue(const rapidjson::Value& obj) override;
         };
 
         struct GetCloudScriptRevisionResult : public PlayFabBaseModel
@@ -1054,8 +1054,8 @@ namespace PlayFab
 
             ~GetCloudScriptRevisionResult();
 
-            void writeJSON(PFStringJsonWriter& writer);
-            bool readFromValue(const rapidjson::Value& obj);
+            void writeJSON(PFStringJsonWriter& writer) override;
+            bool readFromValue(const rapidjson::Value& obj) override;
         };
 
         struct GetCloudScriptVersionsRequest : public PlayFabBaseModel
@@ -1076,8 +1076,8 @@ namespace PlayFab
 
             ~GetCloudScriptVersionsRequest();
 
-            void writeJSON(PFStringJsonWriter& writer);
-            bool readFromValue(const rapidjson::Value& obj);
+            void writeJSON(PFStringJsonWriter& writer) override;
+            bool readFromValue(const rapidjson::Value& obj) override;
         };
 
         struct GetCloudScriptVersionsResult : public PlayFabBaseModel
@@ -1101,8 +1101,8 @@ namespace PlayFab
 
             ~GetCloudScriptVersionsResult();
 
-            void writeJSON(PFStringJsonWriter& writer);
-            bool readFromValue(const rapidjson::Value& obj);
+            void writeJSON(PFStringJsonWriter& writer) override;
+            bool readFromValue(const rapidjson::Value& obj) override;
         };
 
         struct GetContentListRequest : public PlayFabBaseModel
@@ -1126,8 +1126,8 @@ namespace PlayFab
 
             ~GetContentListRequest();
 
-            void writeJSON(PFStringJsonWriter& writer);
-            bool readFromValue(const rapidjson::Value& obj);
+            void writeJSON(PFStringJsonWriter& writer) override;
+            bool readFromValue(const rapidjson::Value& obj) override;
         };
 
         struct GetContentListResult : public PlayFabBaseModel
@@ -1157,8 +1157,8 @@ namespace PlayFab
 
             ~GetContentListResult();
 
-            void writeJSON(PFStringJsonWriter& writer);
-            bool readFromValue(const rapidjson::Value& obj);
+            void writeJSON(PFStringJsonWriter& writer) override;
+            bool readFromValue(const rapidjson::Value& obj) override;
         };
 
         struct GetContentUploadUrlRequest : public PlayFabBaseModel
@@ -1185,8 +1185,8 @@ namespace PlayFab
 
             ~GetContentUploadUrlRequest();
 
-            void writeJSON(PFStringJsonWriter& writer);
-            bool readFromValue(const rapidjson::Value& obj);
+            void writeJSON(PFStringJsonWriter& writer) override;
+            bool readFromValue(const rapidjson::Value& obj) override;
         };
 
         struct GetContentUploadUrlResult : public PlayFabBaseModel
@@ -1210,8 +1210,8 @@ namespace PlayFab
 
             ~GetContentUploadUrlResult();
 
-            void writeJSON(PFStringJsonWriter& writer);
-            bool readFromValue(const rapidjson::Value& obj);
+            void writeJSON(PFStringJsonWriter& writer) override;
+            bool readFromValue(const rapidjson::Value& obj) override;
         };
 
         struct GetDataReportRequest : public PlayFabBaseModel
@@ -1244,8 +1244,8 @@ namespace PlayFab
 
             ~GetDataReportRequest();
 
-            void writeJSON(PFStringJsonWriter& writer);
-            bool readFromValue(const rapidjson::Value& obj);
+            void writeJSON(PFStringJsonWriter& writer) override;
+            bool readFromValue(const rapidjson::Value& obj) override;
         };
 
         struct GetDataReportResult : public PlayFabBaseModel
@@ -1269,8 +1269,8 @@ namespace PlayFab
 
             ~GetDataReportResult();
 
-            void writeJSON(PFStringJsonWriter& writer);
-            bool readFromValue(const rapidjson::Value& obj);
+            void writeJSON(PFStringJsonWriter& writer) override;
+            bool readFromValue(const rapidjson::Value& obj) override;
         };
 
         struct GetMatchmakerGameInfoRequest : public PlayFabBaseModel
@@ -1294,8 +1294,8 @@ namespace PlayFab
 
             ~GetMatchmakerGameInfoRequest();
 
-            void writeJSON(PFStringJsonWriter& writer);
-            bool readFromValue(const rapidjson::Value& obj);
+            void writeJSON(PFStringJsonWriter& writer) override;
+            bool readFromValue(const rapidjson::Value& obj) override;
         };
 
         struct GetMatchmakerGameInfoResult : public PlayFabBaseModel
@@ -1346,8 +1346,8 @@ namespace PlayFab
 
             ~GetMatchmakerGameInfoResult();
 
-            void writeJSON(PFStringJsonWriter& writer);
-            bool readFromValue(const rapidjson::Value& obj);
+            void writeJSON(PFStringJsonWriter& writer) override;
+            bool readFromValue(const rapidjson::Value& obj) override;
         };
 
         struct GetMatchmakerGameModesRequest : public PlayFabBaseModel
@@ -1371,8 +1371,8 @@ namespace PlayFab
 
             ~GetMatchmakerGameModesRequest();
 
-            void writeJSON(PFStringJsonWriter& writer);
-            bool readFromValue(const rapidjson::Value& obj);
+            void writeJSON(PFStringJsonWriter& writer) override;
+            bool readFromValue(const rapidjson::Value& obj) override;
         };
 
         struct GetMatchmakerGameModesResult : public PlayFabBaseModel
@@ -1396,8 +1396,8 @@ namespace PlayFab
 
             ~GetMatchmakerGameModesResult();
 
-            void writeJSON(PFStringJsonWriter& writer);
-            bool readFromValue(const rapidjson::Value& obj);
+            void writeJSON(PFStringJsonWriter& writer) override;
+            bool readFromValue(const rapidjson::Value& obj) override;
         };
 
         struct GetPlayerStatisticDefinitionsRequest : public PlayFabBaseModel
@@ -1418,8 +1418,8 @@ namespace PlayFab
 
             ~GetPlayerStatisticDefinitionsRequest();
 
-            void writeJSON(PFStringJsonWriter& writer);
-            bool readFromValue(const rapidjson::Value& obj);
+            void writeJSON(PFStringJsonWriter& writer) override;
+            bool readFromValue(const rapidjson::Value& obj) override;
         };
 
         struct GetPlayerStatisticDefinitionsResult : public PlayFabBaseModel
@@ -1443,8 +1443,8 @@ namespace PlayFab
 
             ~GetPlayerStatisticDefinitionsResult();
 
-            void writeJSON(PFStringJsonWriter& writer);
-            bool readFromValue(const rapidjson::Value& obj);
+            void writeJSON(PFStringJsonWriter& writer) override;
+            bool readFromValue(const rapidjson::Value& obj) override;
         };
 
         struct GetPlayerStatisticVersionsRequest : public PlayFabBaseModel
@@ -1468,8 +1468,8 @@ namespace PlayFab
 
             ~GetPlayerStatisticVersionsRequest();
 
-            void writeJSON(PFStringJsonWriter& writer);
-            bool readFromValue(const rapidjson::Value& obj);
+            void writeJSON(PFStringJsonWriter& writer) override;
+            bool readFromValue(const rapidjson::Value& obj) override;
         };
 
         enum StatisticVersionArchivalStatus
@@ -1526,8 +1526,8 @@ namespace PlayFab
 
             ~PlayerStatisticVersion();
 
-            void writeJSON(PFStringJsonWriter& writer);
-            bool readFromValue(const rapidjson::Value& obj);
+            void writeJSON(PFStringJsonWriter& writer) override;
+            bool readFromValue(const rapidjson::Value& obj) override;
         };
 
         struct GetPlayerStatisticVersionsResult : public PlayFabBaseModel
@@ -1551,8 +1551,8 @@ namespace PlayFab
 
             ~GetPlayerStatisticVersionsResult();
 
-            void writeJSON(PFStringJsonWriter& writer);
-            bool readFromValue(const rapidjson::Value& obj);
+            void writeJSON(PFStringJsonWriter& writer) override;
+            bool readFromValue(const rapidjson::Value& obj) override;
         };
 
         struct GetPublisherDataRequest : public PlayFabBaseModel
@@ -1576,8 +1576,8 @@ namespace PlayFab
 
             ~GetPublisherDataRequest();
 
-            void writeJSON(PFStringJsonWriter& writer);
-            bool readFromValue(const rapidjson::Value& obj);
+            void writeJSON(PFStringJsonWriter& writer) override;
+            bool readFromValue(const rapidjson::Value& obj) override;
         };
 
         struct GetPublisherDataResult : public PlayFabBaseModel
@@ -1601,8 +1601,8 @@ namespace PlayFab
 
             ~GetPublisherDataResult();
 
-            void writeJSON(PFStringJsonWriter& writer);
-            bool readFromValue(const rapidjson::Value& obj);
+            void writeJSON(PFStringJsonWriter& writer) override;
+            bool readFromValue(const rapidjson::Value& obj) override;
         };
 
         struct GetRandomResultTablesRequest : public PlayFabBaseModel
@@ -1626,8 +1626,8 @@ namespace PlayFab
 
             ~GetRandomResultTablesRequest();
 
-            void writeJSON(PFStringJsonWriter& writer);
-            bool readFromValue(const rapidjson::Value& obj);
+            void writeJSON(PFStringJsonWriter& writer) override;
+            bool readFromValue(const rapidjson::Value& obj) override;
         };
 
         enum ResultTableNodeType
@@ -1666,8 +1666,8 @@ namespace PlayFab
 
             ~ResultTableNode();
 
-            void writeJSON(PFStringJsonWriter& writer);
-            bool readFromValue(const rapidjson::Value& obj);
+            void writeJSON(PFStringJsonWriter& writer) override;
+            bool readFromValue(const rapidjson::Value& obj) override;
         };
 
         struct RandomResultTableListing : public PlayFabBaseModel
@@ -1697,8 +1697,8 @@ namespace PlayFab
 
             ~RandomResultTableListing();
 
-            void writeJSON(PFStringJsonWriter& writer);
-            bool readFromValue(const rapidjson::Value& obj);
+            void writeJSON(PFStringJsonWriter& writer) override;
+            bool readFromValue(const rapidjson::Value& obj) override;
         };
 
         struct GetRandomResultTablesResult : public PlayFabBaseModel
@@ -1722,8 +1722,8 @@ namespace PlayFab
 
             ~GetRandomResultTablesResult();
 
-            void writeJSON(PFStringJsonWriter& writer);
-            bool readFromValue(const rapidjson::Value& obj);
+            void writeJSON(PFStringJsonWriter& writer) override;
+            bool readFromValue(const rapidjson::Value& obj) override;
         };
 
         struct GetServerBuildInfoRequest : public PlayFabBaseModel
@@ -1747,8 +1747,8 @@ namespace PlayFab
 
             ~GetServerBuildInfoRequest();
 
-            void writeJSON(PFStringJsonWriter& writer);
-            bool readFromValue(const rapidjson::Value& obj);
+            void writeJSON(PFStringJsonWriter& writer) override;
+            bool readFromValue(const rapidjson::Value& obj) override;
         };
 
         struct GetServerBuildInfoResult : public PlayFabBaseModel
@@ -1796,8 +1796,8 @@ namespace PlayFab
 
             ~GetServerBuildInfoResult();
 
-            void writeJSON(PFStringJsonWriter& writer);
-            bool readFromValue(const rapidjson::Value& obj);
+            void writeJSON(PFStringJsonWriter& writer) override;
+            bool readFromValue(const rapidjson::Value& obj) override;
         };
 
         struct GetServerBuildUploadURLRequest : public PlayFabBaseModel
@@ -1821,8 +1821,8 @@ namespace PlayFab
 
             ~GetServerBuildUploadURLRequest();
 
-            void writeJSON(PFStringJsonWriter& writer);
-            bool readFromValue(const rapidjson::Value& obj);
+            void writeJSON(PFStringJsonWriter& writer) override;
+            bool readFromValue(const rapidjson::Value& obj) override;
         };
 
         struct GetServerBuildUploadURLResult : public PlayFabBaseModel
@@ -1846,8 +1846,8 @@ namespace PlayFab
 
             ~GetServerBuildUploadURLResult();
 
-            void writeJSON(PFStringJsonWriter& writer);
-            bool readFromValue(const rapidjson::Value& obj);
+            void writeJSON(PFStringJsonWriter& writer) override;
+            bool readFromValue(const rapidjson::Value& obj) override;
         };
 
         struct GetStoreItemsRequest : public PlayFabBaseModel
@@ -1874,8 +1874,8 @@ namespace PlayFab
 
             ~GetStoreItemsRequest();
 
-            void writeJSON(PFStringJsonWriter& writer);
-            bool readFromValue(const rapidjson::Value& obj);
+            void writeJSON(PFStringJsonWriter& writer) override;
+            bool readFromValue(const rapidjson::Value& obj) override;
         };
 
         struct StoreItem : public PlayFabBaseModel
@@ -1905,8 +1905,8 @@ namespace PlayFab
 
             ~StoreItem();
 
-            void writeJSON(PFStringJsonWriter& writer);
-            bool readFromValue(const rapidjson::Value& obj);
+            void writeJSON(PFStringJsonWriter& writer) override;
+            bool readFromValue(const rapidjson::Value& obj) override;
         };
 
         struct GetStoreItemsResult : public PlayFabBaseModel
@@ -1930,8 +1930,8 @@ namespace PlayFab
 
             ~GetStoreItemsResult();
 
-            void writeJSON(PFStringJsonWriter& writer);
-            bool readFromValue(const rapidjson::Value& obj);
+            void writeJSON(PFStringJsonWriter& writer) override;
+            bool readFromValue(const rapidjson::Value& obj) override;
         };
 
         struct GetTitleDataRequest : public PlayFabBaseModel
@@ -1955,8 +1955,8 @@ namespace PlayFab
 
             ~GetTitleDataRequest();
 
-            void writeJSON(PFStringJsonWriter& writer);
-            bool readFromValue(const rapidjson::Value& obj);
+            void writeJSON(PFStringJsonWriter& writer) override;
+            bool readFromValue(const rapidjson::Value& obj) override;
         };
 
         struct GetTitleDataResult : public PlayFabBaseModel
@@ -1980,8 +1980,8 @@ namespace PlayFab
 
             ~GetTitleDataResult();
 
-            void writeJSON(PFStringJsonWriter& writer);
-            bool readFromValue(const rapidjson::Value& obj);
+            void writeJSON(PFStringJsonWriter& writer) override;
+            bool readFromValue(const rapidjson::Value& obj) override;
         };
 
         struct GetUserDataRequest : public PlayFabBaseModel
@@ -2011,8 +2011,8 @@ namespace PlayFab
 
             ~GetUserDataRequest();
 
-            void writeJSON(PFStringJsonWriter& writer);
-            bool readFromValue(const rapidjson::Value& obj);
+            void writeJSON(PFStringJsonWriter& writer) override;
+            bool readFromValue(const rapidjson::Value& obj) override;
         };
 
         enum UserDataPermission
@@ -2051,8 +2051,8 @@ namespace PlayFab
 
             ~UserDataRecord();
 
-            void writeJSON(PFStringJsonWriter& writer);
-            bool readFromValue(const rapidjson::Value& obj);
+            void writeJSON(PFStringJsonWriter& writer) override;
+            bool readFromValue(const rapidjson::Value& obj) override;
         };
 
         struct GetUserDataResult : public PlayFabBaseModel
@@ -2082,8 +2082,8 @@ namespace PlayFab
 
             ~GetUserDataResult();
 
-            void writeJSON(PFStringJsonWriter& writer);
-            bool readFromValue(const rapidjson::Value& obj);
+            void writeJSON(PFStringJsonWriter& writer) override;
+            bool readFromValue(const rapidjson::Value& obj) override;
         };
 
         struct GetUserInventoryRequest : public PlayFabBaseModel
@@ -2107,8 +2107,8 @@ namespace PlayFab
 
             ~GetUserInventoryRequest();
 
-            void writeJSON(PFStringJsonWriter& writer);
-            bool readFromValue(const rapidjson::Value& obj);
+            void writeJSON(PFStringJsonWriter& writer) override;
+            bool readFromValue(const rapidjson::Value& obj) override;
         };
 
         struct ItemInstance : public PlayFabBaseModel
@@ -2174,8 +2174,8 @@ namespace PlayFab
 
             ~ItemInstance();
 
-            void writeJSON(PFStringJsonWriter& writer);
-            bool readFromValue(const rapidjson::Value& obj);
+            void writeJSON(PFStringJsonWriter& writer) override;
+            bool readFromValue(const rapidjson::Value& obj) override;
         };
 
         struct VirtualCurrencyRechargeTime : public PlayFabBaseModel
@@ -2205,8 +2205,8 @@ namespace PlayFab
 
             ~VirtualCurrencyRechargeTime();
 
-            void writeJSON(PFStringJsonWriter& writer);
-            bool readFromValue(const rapidjson::Value& obj);
+            void writeJSON(PFStringJsonWriter& writer) override;
+            bool readFromValue(const rapidjson::Value& obj) override;
         };
 
         struct GetUserInventoryResult : public PlayFabBaseModel
@@ -2239,8 +2239,8 @@ namespace PlayFab
 
             ~GetUserInventoryResult();
 
-            void writeJSON(PFStringJsonWriter& writer);
-            bool readFromValue(const rapidjson::Value& obj);
+            void writeJSON(PFStringJsonWriter& writer) override;
+            bool readFromValue(const rapidjson::Value& obj) override;
         };
 
         struct GrantedItemInstance : public PlayFabBaseModel
@@ -2315,8 +2315,8 @@ namespace PlayFab
 
             ~GrantedItemInstance();
 
-            void writeJSON(PFStringJsonWriter& writer);
-            bool readFromValue(const rapidjson::Value& obj);
+            void writeJSON(PFStringJsonWriter& writer) override;
+            bool readFromValue(const rapidjson::Value& obj) override;
         };
 
         struct ItemGrant : public PlayFabBaseModel
@@ -2349,8 +2349,8 @@ namespace PlayFab
 
             ~ItemGrant();
 
-            void writeJSON(PFStringJsonWriter& writer);
-            bool readFromValue(const rapidjson::Value& obj);
+            void writeJSON(PFStringJsonWriter& writer) override;
+            bool readFromValue(const rapidjson::Value& obj) override;
         };
 
         struct GrantItemsToUsersRequest : public PlayFabBaseModel
@@ -2377,8 +2377,8 @@ namespace PlayFab
 
             ~GrantItemsToUsersRequest();
 
-            void writeJSON(PFStringJsonWriter& writer);
-            bool readFromValue(const rapidjson::Value& obj);
+            void writeJSON(PFStringJsonWriter& writer) override;
+            bool readFromValue(const rapidjson::Value& obj) override;
         };
 
         struct GrantItemsToUsersResult : public PlayFabBaseModel
@@ -2402,8 +2402,8 @@ namespace PlayFab
 
             ~GrantItemsToUsersResult();
 
-            void writeJSON(PFStringJsonWriter& writer);
-            bool readFromValue(const rapidjson::Value& obj);
+            void writeJSON(PFStringJsonWriter& writer) override;
+            bool readFromValue(const rapidjson::Value& obj) override;
         };
 
         struct IncrementPlayerStatisticVersionRequest : public PlayFabBaseModel
@@ -2427,8 +2427,8 @@ namespace PlayFab
 
             ~IncrementPlayerStatisticVersionRequest();
 
-            void writeJSON(PFStringJsonWriter& writer);
-            bool readFromValue(const rapidjson::Value& obj);
+            void writeJSON(PFStringJsonWriter& writer) override;
+            bool readFromValue(const rapidjson::Value& obj) override;
         };
 
         struct IncrementPlayerStatisticVersionResult : public PlayFabBaseModel
@@ -2437,12 +2437,12 @@ namespace PlayFab
 
             IncrementPlayerStatisticVersionResult() :
                 PlayFabBaseModel(),
-                StatisticVersion(NULL)
+                StatisticVersion(nullptr)
             {}
 
             IncrementPlayerStatisticVersionResult(const IncrementPlayerStatisticVersionResult& src) :
                 PlayFabBaseModel(),
-                StatisticVersion(src.StatisticVersion ? new PlayerStatisticVersion(*src.StatisticVersion) : NULL)
+                StatisticVersion(src.StatisticVersion ? new PlayerStatisticVersion(*src.StatisticVersion) : nullptr)
             {}
 
             IncrementPlayerStatisticVersionResult(const rapidjson::Value& obj) : IncrementPlayerStatisticVersionResult()
@@ -2452,8 +2452,8 @@ namespace PlayFab
 
             ~IncrementPlayerStatisticVersionResult();
 
-            void writeJSON(PFStringJsonWriter& writer);
-            bool readFromValue(const rapidjson::Value& obj);
+            void writeJSON(PFStringJsonWriter& writer) override;
+            bool readFromValue(const rapidjson::Value& obj) override;
         };
 
         struct ListBuildsRequest : public PlayFabBaseModel
@@ -2474,8 +2474,8 @@ namespace PlayFab
 
             ~ListBuildsRequest();
 
-            void writeJSON(PFStringJsonWriter& writer);
-            bool readFromValue(const rapidjson::Value& obj);
+            void writeJSON(PFStringJsonWriter& writer) override;
+            bool readFromValue(const rapidjson::Value& obj) override;
         };
 
         struct ListBuildsResult : public PlayFabBaseModel
@@ -2499,8 +2499,8 @@ namespace PlayFab
 
             ~ListBuildsResult();
 
-            void writeJSON(PFStringJsonWriter& writer);
-            bool readFromValue(const rapidjson::Value& obj);
+            void writeJSON(PFStringJsonWriter& writer) override;
+            bool readFromValue(const rapidjson::Value& obj) override;
         };
 
         struct ListVirtualCurrencyTypesRequest : public PlayFabBaseModel
@@ -2521,8 +2521,8 @@ namespace PlayFab
 
             ~ListVirtualCurrencyTypesRequest();
 
-            void writeJSON(PFStringJsonWriter& writer);
-            bool readFromValue(const rapidjson::Value& obj);
+            void writeJSON(PFStringJsonWriter& writer) override;
+            bool readFromValue(const rapidjson::Value& obj) override;
         };
 
         struct ListVirtualCurrencyTypesResult : public PlayFabBaseModel
@@ -2546,8 +2546,8 @@ namespace PlayFab
 
             ~ListVirtualCurrencyTypesResult();
 
-            void writeJSON(PFStringJsonWriter& writer);
-            bool readFromValue(const rapidjson::Value& obj);
+            void writeJSON(PFStringJsonWriter& writer) override;
+            bool readFromValue(const rapidjson::Value& obj) override;
         };
 
         struct LookupUserAccountInfoRequest : public PlayFabBaseModel
@@ -2580,8 +2580,8 @@ namespace PlayFab
 
             ~LookupUserAccountInfoRequest();
 
-            void writeJSON(PFStringJsonWriter& writer);
-            bool readFromValue(const rapidjson::Value& obj);
+            void writeJSON(PFStringJsonWriter& writer) override;
+            bool readFromValue(const rapidjson::Value& obj) override;
         };
 
         enum UserOrigination
@@ -2643,8 +2643,8 @@ namespace PlayFab
 
             ~UserTitleInfo();
 
-            void writeJSON(PFStringJsonWriter& writer);
-            bool readFromValue(const rapidjson::Value& obj);
+            void writeJSON(PFStringJsonWriter& writer) override;
+            bool readFromValue(const rapidjson::Value& obj) override;
         };
 
         struct UserPrivateAccountInfo : public PlayFabBaseModel
@@ -2668,8 +2668,8 @@ namespace PlayFab
 
             ~UserPrivateAccountInfo();
 
-            void writeJSON(PFStringJsonWriter& writer);
-            bool readFromValue(const rapidjson::Value& obj);
+            void writeJSON(PFStringJsonWriter& writer) override;
+            bool readFromValue(const rapidjson::Value& obj) override;
         };
 
         struct UserFacebookInfo : public PlayFabBaseModel
@@ -2696,8 +2696,8 @@ namespace PlayFab
 
             ~UserFacebookInfo();
 
-            void writeJSON(PFStringJsonWriter& writer);
-            bool readFromValue(const rapidjson::Value& obj);
+            void writeJSON(PFStringJsonWriter& writer) override;
+            bool readFromValue(const rapidjson::Value& obj) override;
         };
 
         enum TitleActivationStatus
@@ -2742,8 +2742,8 @@ namespace PlayFab
 
             ~UserSteamInfo();
 
-            void writeJSON(PFStringJsonWriter& writer);
-            bool readFromValue(const rapidjson::Value& obj);
+            void writeJSON(PFStringJsonWriter& writer) override;
+            bool readFromValue(const rapidjson::Value& obj) override;
         };
 
         struct UserGameCenterInfo : public PlayFabBaseModel
@@ -2767,8 +2767,8 @@ namespace PlayFab
 
             ~UserGameCenterInfo();
 
-            void writeJSON(PFStringJsonWriter& writer);
-            bool readFromValue(const rapidjson::Value& obj);
+            void writeJSON(PFStringJsonWriter& writer) override;
+            bool readFromValue(const rapidjson::Value& obj) override;
         };
 
         struct UserIosDeviceInfo : public PlayFabBaseModel
@@ -2792,8 +2792,8 @@ namespace PlayFab
 
             ~UserIosDeviceInfo();
 
-            void writeJSON(PFStringJsonWriter& writer);
-            bool readFromValue(const rapidjson::Value& obj);
+            void writeJSON(PFStringJsonWriter& writer) override;
+            bool readFromValue(const rapidjson::Value& obj) override;
         };
 
         struct UserAndroidDeviceInfo : public PlayFabBaseModel
@@ -2817,8 +2817,8 @@ namespace PlayFab
 
             ~UserAndroidDeviceInfo();
 
-            void writeJSON(PFStringJsonWriter& writer);
-            bool readFromValue(const rapidjson::Value& obj);
+            void writeJSON(PFStringJsonWriter& writer) override;
+            bool readFromValue(const rapidjson::Value& obj) override;
         };
 
         struct UserKongregateInfo : public PlayFabBaseModel
@@ -2845,8 +2845,8 @@ namespace PlayFab
 
             ~UserKongregateInfo();
 
-            void writeJSON(PFStringJsonWriter& writer);
-            bool readFromValue(const rapidjson::Value& obj);
+            void writeJSON(PFStringJsonWriter& writer) override;
+            bool readFromValue(const rapidjson::Value& obj) override;
         };
 
         struct UserPsnInfo : public PlayFabBaseModel
@@ -2873,8 +2873,8 @@ namespace PlayFab
 
             ~UserPsnInfo();
 
-            void writeJSON(PFStringJsonWriter& writer);
-            bool readFromValue(const rapidjson::Value& obj);
+            void writeJSON(PFStringJsonWriter& writer) override;
+            bool readFromValue(const rapidjson::Value& obj) override;
         };
 
         struct UserGoogleInfo : public PlayFabBaseModel
@@ -2907,8 +2907,8 @@ namespace PlayFab
 
             ~UserGoogleInfo();
 
-            void writeJSON(PFStringJsonWriter& writer);
-            bool readFromValue(const rapidjson::Value& obj);
+            void writeJSON(PFStringJsonWriter& writer) override;
+            bool readFromValue(const rapidjson::Value& obj) override;
         };
 
         struct UserXboxInfo : public PlayFabBaseModel
@@ -2932,8 +2932,8 @@ namespace PlayFab
 
             ~UserXboxInfo();
 
-            void writeJSON(PFStringJsonWriter& writer);
-            bool readFromValue(const rapidjson::Value& obj);
+            void writeJSON(PFStringJsonWriter& writer) override;
+            bool readFromValue(const rapidjson::Value& obj) override;
         };
 
         struct UserCustomIdInfo : public PlayFabBaseModel
@@ -2957,8 +2957,8 @@ namespace PlayFab
 
             ~UserCustomIdInfo();
 
-            void writeJSON(PFStringJsonWriter& writer);
-            bool readFromValue(const rapidjson::Value& obj);
+            void writeJSON(PFStringJsonWriter& writer) override;
+            bool readFromValue(const rapidjson::Value& obj) override;
         };
 
         struct UserAccountInfo : public PlayFabBaseModel
@@ -2984,18 +2984,18 @@ namespace PlayFab
                 PlayFabId(),
                 Created(0),
                 Username(),
-                TitleInfo(NULL),
-                PrivateInfo(NULL),
-                FacebookInfo(NULL),
-                SteamInfo(NULL),
-                GameCenterInfo(NULL),
-                IosDeviceInfo(NULL),
-                AndroidDeviceInfo(NULL),
-                KongregateInfo(NULL),
-                PsnInfo(NULL),
-                GoogleInfo(NULL),
-                XboxInfo(NULL),
-                CustomIdInfo(NULL)
+                TitleInfo(nullptr),
+                PrivateInfo(nullptr),
+                FacebookInfo(nullptr),
+                SteamInfo(nullptr),
+                GameCenterInfo(nullptr),
+                IosDeviceInfo(nullptr),
+                AndroidDeviceInfo(nullptr),
+                KongregateInfo(nullptr),
+                PsnInfo(nullptr),
+                GoogleInfo(nullptr),
+                XboxInfo(nullptr),
+                CustomIdInfo(nullptr)
             {}
 
             UserAccountInfo(const UserAccountInfo& src) :
@@ -3003,18 +3003,18 @@ namespace PlayFab
                 PlayFabId(src.PlayFabId),
                 Created(src.Created),
                 Username(src.Username),
-                TitleInfo(src.TitleInfo ? new UserTitleInfo(*src.TitleInfo) : NULL),
-                PrivateInfo(src.PrivateInfo ? new UserPrivateAccountInfo(*src.PrivateInfo) : NULL),
-                FacebookInfo(src.FacebookInfo ? new UserFacebookInfo(*src.FacebookInfo) : NULL),
-                SteamInfo(src.SteamInfo ? new UserSteamInfo(*src.SteamInfo) : NULL),
-                GameCenterInfo(src.GameCenterInfo ? new UserGameCenterInfo(*src.GameCenterInfo) : NULL),
-                IosDeviceInfo(src.IosDeviceInfo ? new UserIosDeviceInfo(*src.IosDeviceInfo) : NULL),
-                AndroidDeviceInfo(src.AndroidDeviceInfo ? new UserAndroidDeviceInfo(*src.AndroidDeviceInfo) : NULL),
-                KongregateInfo(src.KongregateInfo ? new UserKongregateInfo(*src.KongregateInfo) : NULL),
-                PsnInfo(src.PsnInfo ? new UserPsnInfo(*src.PsnInfo) : NULL),
-                GoogleInfo(src.GoogleInfo ? new UserGoogleInfo(*src.GoogleInfo) : NULL),
-                XboxInfo(src.XboxInfo ? new UserXboxInfo(*src.XboxInfo) : NULL),
-                CustomIdInfo(src.CustomIdInfo ? new UserCustomIdInfo(*src.CustomIdInfo) : NULL)
+                TitleInfo(src.TitleInfo ? new UserTitleInfo(*src.TitleInfo) : nullptr),
+                PrivateInfo(src.PrivateInfo ? new UserPrivateAccountInfo(*src.PrivateInfo) : nullptr),
+                FacebookInfo(src.FacebookInfo ? new UserFacebookInfo(*src.FacebookInfo) : nullptr),
+                SteamInfo(src.SteamInfo ? new UserSteamInfo(*src.SteamInfo) : nullptr),
+                GameCenterInfo(src.GameCenterInfo ? new UserGameCenterInfo(*src.GameCenterInfo) : nullptr),
+                IosDeviceInfo(src.IosDeviceInfo ? new UserIosDeviceInfo(*src.IosDeviceInfo) : nullptr),
+                AndroidDeviceInfo(src.AndroidDeviceInfo ? new UserAndroidDeviceInfo(*src.AndroidDeviceInfo) : nullptr),
+                KongregateInfo(src.KongregateInfo ? new UserKongregateInfo(*src.KongregateInfo) : nullptr),
+                PsnInfo(src.PsnInfo ? new UserPsnInfo(*src.PsnInfo) : nullptr),
+                GoogleInfo(src.GoogleInfo ? new UserGoogleInfo(*src.GoogleInfo) : nullptr),
+                XboxInfo(src.XboxInfo ? new UserXboxInfo(*src.XboxInfo) : nullptr),
+                CustomIdInfo(src.CustomIdInfo ? new UserCustomIdInfo(*src.CustomIdInfo) : nullptr)
             {}
 
             UserAccountInfo(const rapidjson::Value& obj) : UserAccountInfo()
@@ -3024,8 +3024,8 @@ namespace PlayFab
 
             ~UserAccountInfo();
 
-            void writeJSON(PFStringJsonWriter& writer);
-            bool readFromValue(const rapidjson::Value& obj);
+            void writeJSON(PFStringJsonWriter& writer) override;
+            bool readFromValue(const rapidjson::Value& obj) override;
         };
 
         struct LookupUserAccountInfoResult : public PlayFabBaseModel
@@ -3034,12 +3034,12 @@ namespace PlayFab
 
             LookupUserAccountInfoResult() :
                 PlayFabBaseModel(),
-                UserInfo(NULL)
+                UserInfo(nullptr)
             {}
 
             LookupUserAccountInfoResult(const LookupUserAccountInfoResult& src) :
                 PlayFabBaseModel(),
-                UserInfo(src.UserInfo ? new UserAccountInfo(*src.UserInfo) : NULL)
+                UserInfo(src.UserInfo ? new UserAccountInfo(*src.UserInfo) : nullptr)
             {}
 
             LookupUserAccountInfoResult(const rapidjson::Value& obj) : LookupUserAccountInfoResult()
@@ -3049,8 +3049,8 @@ namespace PlayFab
 
             ~LookupUserAccountInfoResult();
 
-            void writeJSON(PFStringJsonWriter& writer);
-            bool readFromValue(const rapidjson::Value& obj);
+            void writeJSON(PFStringJsonWriter& writer) override;
+            bool readFromValue(const rapidjson::Value& obj) override;
         };
 
         struct ModifyMatchmakerGameModesRequest : public PlayFabBaseModel
@@ -3077,8 +3077,8 @@ namespace PlayFab
 
             ~ModifyMatchmakerGameModesRequest();
 
-            void writeJSON(PFStringJsonWriter& writer);
-            bool readFromValue(const rapidjson::Value& obj);
+            void writeJSON(PFStringJsonWriter& writer) override;
+            bool readFromValue(const rapidjson::Value& obj) override;
         };
 
         struct ModifyMatchmakerGameModesResult : public PlayFabBaseModel
@@ -3099,8 +3099,8 @@ namespace PlayFab
 
             ~ModifyMatchmakerGameModesResult();
 
-            void writeJSON(PFStringJsonWriter& writer);
-            bool readFromValue(const rapidjson::Value& obj);
+            void writeJSON(PFStringJsonWriter& writer) override;
+            bool readFromValue(const rapidjson::Value& obj) override;
         };
 
         struct ModifyServerBuildRequest : public PlayFabBaseModel
@@ -3145,8 +3145,8 @@ namespace PlayFab
 
             ~ModifyServerBuildRequest();
 
-            void writeJSON(PFStringJsonWriter& writer);
-            bool readFromValue(const rapidjson::Value& obj);
+            void writeJSON(PFStringJsonWriter& writer) override;
+            bool readFromValue(const rapidjson::Value& obj) override;
         };
 
         struct ModifyServerBuildResult : public PlayFabBaseModel
@@ -3197,8 +3197,8 @@ namespace PlayFab
 
             ~ModifyServerBuildResult();
 
-            void writeJSON(PFStringJsonWriter& writer);
-            bool readFromValue(const rapidjson::Value& obj);
+            void writeJSON(PFStringJsonWriter& writer) override;
+            bool readFromValue(const rapidjson::Value& obj) override;
         };
 
         struct ModifyUserVirtualCurrencyResult : public PlayFabBaseModel
@@ -3231,8 +3231,8 @@ namespace PlayFab
 
             ~ModifyUserVirtualCurrencyResult();
 
-            void writeJSON(PFStringJsonWriter& writer);
-            bool readFromValue(const rapidjson::Value& obj);
+            void writeJSON(PFStringJsonWriter& writer) override;
+            bool readFromValue(const rapidjson::Value& obj) override;
         };
 
         struct RandomResultTable : public PlayFabBaseModel
@@ -3259,8 +3259,8 @@ namespace PlayFab
 
             ~RandomResultTable();
 
-            void writeJSON(PFStringJsonWriter& writer);
-            bool readFromValue(const rapidjson::Value& obj);
+            void writeJSON(PFStringJsonWriter& writer) override;
+            bool readFromValue(const rapidjson::Value& obj) override;
         };
 
         struct RemoveServerBuildRequest : public PlayFabBaseModel
@@ -3284,8 +3284,8 @@ namespace PlayFab
 
             ~RemoveServerBuildRequest();
 
-            void writeJSON(PFStringJsonWriter& writer);
-            bool readFromValue(const rapidjson::Value& obj);
+            void writeJSON(PFStringJsonWriter& writer) override;
+            bool readFromValue(const rapidjson::Value& obj) override;
         };
 
         struct RemoveServerBuildResult : public PlayFabBaseModel
@@ -3306,8 +3306,8 @@ namespace PlayFab
 
             ~RemoveServerBuildResult();
 
-            void writeJSON(PFStringJsonWriter& writer);
-            bool readFromValue(const rapidjson::Value& obj);
+            void writeJSON(PFStringJsonWriter& writer) override;
+            bool readFromValue(const rapidjson::Value& obj) override;
         };
 
         struct ResetCharacterStatisticsRequest : public PlayFabBaseModel
@@ -3334,8 +3334,8 @@ namespace PlayFab
 
             ~ResetCharacterStatisticsRequest();
 
-            void writeJSON(PFStringJsonWriter& writer);
-            bool readFromValue(const rapidjson::Value& obj);
+            void writeJSON(PFStringJsonWriter& writer) override;
+            bool readFromValue(const rapidjson::Value& obj) override;
         };
 
         struct ResetCharacterStatisticsResult : public PlayFabBaseModel
@@ -3356,8 +3356,8 @@ namespace PlayFab
 
             ~ResetCharacterStatisticsResult();
 
-            void writeJSON(PFStringJsonWriter& writer);
-            bool readFromValue(const rapidjson::Value& obj);
+            void writeJSON(PFStringJsonWriter& writer) override;
+            bool readFromValue(const rapidjson::Value& obj) override;
         };
 
         struct UserCredentials : public PlayFabBaseModel
@@ -3384,8 +3384,8 @@ namespace PlayFab
 
             ~UserCredentials();
 
-            void writeJSON(PFStringJsonWriter& writer);
-            bool readFromValue(const rapidjson::Value& obj);
+            void writeJSON(PFStringJsonWriter& writer) override;
+            bool readFromValue(const rapidjson::Value& obj) override;
         };
 
         struct ResetUsersRequest : public PlayFabBaseModel
@@ -3409,8 +3409,8 @@ namespace PlayFab
 
             ~ResetUsersRequest();
 
-            void writeJSON(PFStringJsonWriter& writer);
-            bool readFromValue(const rapidjson::Value& obj);
+            void writeJSON(PFStringJsonWriter& writer) override;
+            bool readFromValue(const rapidjson::Value& obj) override;
         };
 
         struct ResetUserStatisticsRequest : public PlayFabBaseModel
@@ -3434,8 +3434,8 @@ namespace PlayFab
 
             ~ResetUserStatisticsRequest();
 
-            void writeJSON(PFStringJsonWriter& writer);
-            bool readFromValue(const rapidjson::Value& obj);
+            void writeJSON(PFStringJsonWriter& writer) override;
+            bool readFromValue(const rapidjson::Value& obj) override;
         };
 
         struct ResetUserStatisticsResult : public PlayFabBaseModel
@@ -3456,8 +3456,8 @@ namespace PlayFab
 
             ~ResetUserStatisticsResult();
 
-            void writeJSON(PFStringJsonWriter& writer);
-            bool readFromValue(const rapidjson::Value& obj);
+            void writeJSON(PFStringJsonWriter& writer) override;
+            bool readFromValue(const rapidjson::Value& obj) override;
         };
 
         struct RevokeInventoryItemRequest : public PlayFabBaseModel
@@ -3487,8 +3487,8 @@ namespace PlayFab
 
             ~RevokeInventoryItemRequest();
 
-            void writeJSON(PFStringJsonWriter& writer);
-            bool readFromValue(const rapidjson::Value& obj);
+            void writeJSON(PFStringJsonWriter& writer) override;
+            bool readFromValue(const rapidjson::Value& obj) override;
         };
 
         struct RevokeInventoryResult : public PlayFabBaseModel
@@ -3509,8 +3509,8 @@ namespace PlayFab
 
             ~RevokeInventoryResult();
 
-            void writeJSON(PFStringJsonWriter& writer);
-            bool readFromValue(const rapidjson::Value& obj);
+            void writeJSON(PFStringJsonWriter& writer) override;
+            bool readFromValue(const rapidjson::Value& obj) override;
         };
 
         struct SendAccountRecoveryEmailRequest : public PlayFabBaseModel
@@ -3534,8 +3534,8 @@ namespace PlayFab
 
             ~SendAccountRecoveryEmailRequest();
 
-            void writeJSON(PFStringJsonWriter& writer);
-            bool readFromValue(const rapidjson::Value& obj);
+            void writeJSON(PFStringJsonWriter& writer) override;
+            bool readFromValue(const rapidjson::Value& obj) override;
         };
 
         struct SendAccountRecoveryEmailResult : public PlayFabBaseModel
@@ -3556,8 +3556,8 @@ namespace PlayFab
 
             ~SendAccountRecoveryEmailResult();
 
-            void writeJSON(PFStringJsonWriter& writer);
-            bool readFromValue(const rapidjson::Value& obj);
+            void writeJSON(PFStringJsonWriter& writer) override;
+            bool readFromValue(const rapidjson::Value& obj) override;
         };
 
         struct SetPublishedRevisionRequest : public PlayFabBaseModel
@@ -3584,8 +3584,8 @@ namespace PlayFab
 
             ~SetPublishedRevisionRequest();
 
-            void writeJSON(PFStringJsonWriter& writer);
-            bool readFromValue(const rapidjson::Value& obj);
+            void writeJSON(PFStringJsonWriter& writer) override;
+            bool readFromValue(const rapidjson::Value& obj) override;
         };
 
         struct SetPublishedRevisionResult : public PlayFabBaseModel
@@ -3606,8 +3606,8 @@ namespace PlayFab
 
             ~SetPublishedRevisionResult();
 
-            void writeJSON(PFStringJsonWriter& writer);
-            bool readFromValue(const rapidjson::Value& obj);
+            void writeJSON(PFStringJsonWriter& writer) override;
+            bool readFromValue(const rapidjson::Value& obj) override;
         };
 
         struct SetPublisherDataRequest : public PlayFabBaseModel
@@ -3634,8 +3634,8 @@ namespace PlayFab
 
             ~SetPublisherDataRequest();
 
-            void writeJSON(PFStringJsonWriter& writer);
-            bool readFromValue(const rapidjson::Value& obj);
+            void writeJSON(PFStringJsonWriter& writer) override;
+            bool readFromValue(const rapidjson::Value& obj) override;
         };
 
         struct SetPublisherDataResult : public PlayFabBaseModel
@@ -3656,8 +3656,8 @@ namespace PlayFab
 
             ~SetPublisherDataResult();
 
-            void writeJSON(PFStringJsonWriter& writer);
-            bool readFromValue(const rapidjson::Value& obj);
+            void writeJSON(PFStringJsonWriter& writer) override;
+            bool readFromValue(const rapidjson::Value& obj) override;
         };
 
         struct SetTitleDataRequest : public PlayFabBaseModel
@@ -3684,8 +3684,8 @@ namespace PlayFab
 
             ~SetTitleDataRequest();
 
-            void writeJSON(PFStringJsonWriter& writer);
-            bool readFromValue(const rapidjson::Value& obj);
+            void writeJSON(PFStringJsonWriter& writer) override;
+            bool readFromValue(const rapidjson::Value& obj) override;
         };
 
         struct SetTitleDataResult : public PlayFabBaseModel
@@ -3706,8 +3706,8 @@ namespace PlayFab
 
             ~SetTitleDataResult();
 
-            void writeJSON(PFStringJsonWriter& writer);
-            bool readFromValue(const rapidjson::Value& obj);
+            void writeJSON(PFStringJsonWriter& writer) override;
+            bool readFromValue(const rapidjson::Value& obj) override;
         };
 
         struct SetupPushNotificationRequest : public PlayFabBaseModel
@@ -3743,8 +3743,8 @@ namespace PlayFab
 
             ~SetupPushNotificationRequest();
 
-            void writeJSON(PFStringJsonWriter& writer);
-            bool readFromValue(const rapidjson::Value& obj);
+            void writeJSON(PFStringJsonWriter& writer) override;
+            bool readFromValue(const rapidjson::Value& obj) override;
         };
 
         struct SetupPushNotificationResult : public PlayFabBaseModel
@@ -3768,8 +3768,8 @@ namespace PlayFab
 
             ~SetupPushNotificationResult();
 
-            void writeJSON(PFStringJsonWriter& writer);
-            bool readFromValue(const rapidjson::Value& obj);
+            void writeJSON(PFStringJsonWriter& writer) override;
+            bool readFromValue(const rapidjson::Value& obj) override;
         };
 
         struct SubtractUserVirtualCurrencyRequest : public PlayFabBaseModel
@@ -3799,8 +3799,8 @@ namespace PlayFab
 
             ~SubtractUserVirtualCurrencyRequest();
 
-            void writeJSON(PFStringJsonWriter& writer);
-            bool readFromValue(const rapidjson::Value& obj);
+            void writeJSON(PFStringJsonWriter& writer) override;
+            bool readFromValue(const rapidjson::Value& obj) override;
         };
 
         struct UpdateCatalogItemsRequest : public PlayFabBaseModel
@@ -3827,8 +3827,8 @@ namespace PlayFab
 
             ~UpdateCatalogItemsRequest();
 
-            void writeJSON(PFStringJsonWriter& writer);
-            bool readFromValue(const rapidjson::Value& obj);
+            void writeJSON(PFStringJsonWriter& writer) override;
+            bool readFromValue(const rapidjson::Value& obj) override;
         };
 
         struct UpdateCatalogItemsResult : public PlayFabBaseModel
@@ -3849,8 +3849,8 @@ namespace PlayFab
 
             ~UpdateCatalogItemsResult();
 
-            void writeJSON(PFStringJsonWriter& writer);
-            bool readFromValue(const rapidjson::Value& obj);
+            void writeJSON(PFStringJsonWriter& writer) override;
+            bool readFromValue(const rapidjson::Value& obj) override;
         };
 
         struct UpdateCloudScriptRequest : public PlayFabBaseModel
@@ -3880,8 +3880,8 @@ namespace PlayFab
 
             ~UpdateCloudScriptRequest();
 
-            void writeJSON(PFStringJsonWriter& writer);
-            bool readFromValue(const rapidjson::Value& obj);
+            void writeJSON(PFStringJsonWriter& writer) override;
+            bool readFromValue(const rapidjson::Value& obj) override;
         };
 
         struct UpdateCloudScriptResult : public PlayFabBaseModel
@@ -3908,8 +3908,8 @@ namespace PlayFab
 
             ~UpdateCloudScriptResult();
 
-            void writeJSON(PFStringJsonWriter& writer);
-            bool readFromValue(const rapidjson::Value& obj);
+            void writeJSON(PFStringJsonWriter& writer) override;
+            bool readFromValue(const rapidjson::Value& obj) override;
         };
 
         struct UpdatePlayerStatisticDefinitionRequest : public PlayFabBaseModel
@@ -3939,8 +3939,8 @@ namespace PlayFab
 
             ~UpdatePlayerStatisticDefinitionRequest();
 
-            void writeJSON(PFStringJsonWriter& writer);
-            bool readFromValue(const rapidjson::Value& obj);
+            void writeJSON(PFStringJsonWriter& writer) override;
+            bool readFromValue(const rapidjson::Value& obj) override;
         };
 
         struct UpdatePlayerStatisticDefinitionResult : public PlayFabBaseModel
@@ -3949,12 +3949,12 @@ namespace PlayFab
 
             UpdatePlayerStatisticDefinitionResult() :
                 PlayFabBaseModel(),
-                Statistic(NULL)
+                Statistic(nullptr)
             {}
 
             UpdatePlayerStatisticDefinitionResult(const UpdatePlayerStatisticDefinitionResult& src) :
                 PlayFabBaseModel(),
-                Statistic(src.Statistic ? new PlayerStatisticDefinition(*src.Statistic) : NULL)
+                Statistic(src.Statistic ? new PlayerStatisticDefinition(*src.Statistic) : nullptr)
             {}
 
             UpdatePlayerStatisticDefinitionResult(const rapidjson::Value& obj) : UpdatePlayerStatisticDefinitionResult()
@@ -3964,8 +3964,8 @@ namespace PlayFab
 
             ~UpdatePlayerStatisticDefinitionResult();
 
-            void writeJSON(PFStringJsonWriter& writer);
-            bool readFromValue(const rapidjson::Value& obj);
+            void writeJSON(PFStringJsonWriter& writer) override;
+            bool readFromValue(const rapidjson::Value& obj) override;
         };
 
         struct UpdateRandomResultTablesRequest : public PlayFabBaseModel
@@ -3992,8 +3992,8 @@ namespace PlayFab
 
             ~UpdateRandomResultTablesRequest();
 
-            void writeJSON(PFStringJsonWriter& writer);
-            bool readFromValue(const rapidjson::Value& obj);
+            void writeJSON(PFStringJsonWriter& writer) override;
+            bool readFromValue(const rapidjson::Value& obj) override;
         };
 
         struct UpdateRandomResultTablesResult : public PlayFabBaseModel
@@ -4014,8 +4014,8 @@ namespace PlayFab
 
             ~UpdateRandomResultTablesResult();
 
-            void writeJSON(PFStringJsonWriter& writer);
-            bool readFromValue(const rapidjson::Value& obj);
+            void writeJSON(PFStringJsonWriter& writer) override;
+            bool readFromValue(const rapidjson::Value& obj) override;
         };
 
         struct UpdateStoreItemsRequest : public PlayFabBaseModel
@@ -4045,8 +4045,8 @@ namespace PlayFab
 
             ~UpdateStoreItemsRequest();
 
-            void writeJSON(PFStringJsonWriter& writer);
-            bool readFromValue(const rapidjson::Value& obj);
+            void writeJSON(PFStringJsonWriter& writer) override;
+            bool readFromValue(const rapidjson::Value& obj) override;
         };
 
         struct UpdateStoreItemsResult : public PlayFabBaseModel
@@ -4067,8 +4067,8 @@ namespace PlayFab
 
             ~UpdateStoreItemsResult();
 
-            void writeJSON(PFStringJsonWriter& writer);
-            bool readFromValue(const rapidjson::Value& obj);
+            void writeJSON(PFStringJsonWriter& writer) override;
+            bool readFromValue(const rapidjson::Value& obj) override;
         };
 
         struct UpdateUserDataRequest : public PlayFabBaseModel
@@ -4101,8 +4101,8 @@ namespace PlayFab
 
             ~UpdateUserDataRequest();
 
-            void writeJSON(PFStringJsonWriter& writer);
-            bool readFromValue(const rapidjson::Value& obj);
+            void writeJSON(PFStringJsonWriter& writer) override;
+            bool readFromValue(const rapidjson::Value& obj) override;
         };
 
         struct UpdateUserDataResult : public PlayFabBaseModel
@@ -4126,8 +4126,8 @@ namespace PlayFab
 
             ~UpdateUserDataResult();
 
-            void writeJSON(PFStringJsonWriter& writer);
-            bool readFromValue(const rapidjson::Value& obj);
+            void writeJSON(PFStringJsonWriter& writer) override;
+            bool readFromValue(const rapidjson::Value& obj) override;
         };
 
         struct UpdateUserInternalDataRequest : public PlayFabBaseModel
@@ -4157,8 +4157,8 @@ namespace PlayFab
 
             ~UpdateUserInternalDataRequest();
 
-            void writeJSON(PFStringJsonWriter& writer);
-            bool readFromValue(const rapidjson::Value& obj);
+            void writeJSON(PFStringJsonWriter& writer) override;
+            bool readFromValue(const rapidjson::Value& obj) override;
         };
 
         struct UpdateUserTitleDisplayNameRequest : public PlayFabBaseModel
@@ -4185,8 +4185,8 @@ namespace PlayFab
 
             ~UpdateUserTitleDisplayNameRequest();
 
-            void writeJSON(PFStringJsonWriter& writer);
-            bool readFromValue(const rapidjson::Value& obj);
+            void writeJSON(PFStringJsonWriter& writer) override;
+            bool readFromValue(const rapidjson::Value& obj) override;
         };
 
         struct UpdateUserTitleDisplayNameResult : public PlayFabBaseModel
@@ -4210,8 +4210,8 @@ namespace PlayFab
 
             ~UpdateUserTitleDisplayNameResult();
 
-            void writeJSON(PFStringJsonWriter& writer);
-            bool readFromValue(const rapidjson::Value& obj);
+            void writeJSON(PFStringJsonWriter& writer) override;
+            bool readFromValue(const rapidjson::Value& obj) override;
         };
 
 
