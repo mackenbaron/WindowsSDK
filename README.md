@@ -74,6 +74,26 @@ If you'd prefer, another approach is to add the PlayFabSDK's vcproj to your solu
 You must then follow all the steps above to setup dependent libs and headers, but you would leave out "PlayFabAPI.lib" when you add the additional dependencies line.
 
 
+5. testTitleData.json file required for "StartTest" custom event
+----
+
+This sdk includes an optional Visual Studio Test Project (UnittestRunner) that is used by PlayFab to verify sdk features are fully functional.  The testTitleData.json file provides your secret title information to this test node, so it can execute tests in your own PlayFab title.
+
+The format is as follows:
+
+    {
+    	"titleId": "your Game Title ID, found in the settings/credentials section of your dashboard on the website",
+    	"developerSecretKey": "your PlayFab API Secret Key, found in the settings/credentials section of your dashboard on the website - NEVER SHARE THIS KEY WITH PLAYERS",
+    	"titleCanUpdateSettings": "false",  // "true" or "false", based on your Allow Client to Post Player Statistics option, found in the settings/general section of your dashboard on the website
+    	"userName": "testUser", // Arbitrary username, you can change this to any valid username
+    	"userEmail": "your@email.com", // This email address will be bound to the username above
+    	"userPassword": "testPassword", // This must be the correct password for the testUser above (if that user does not exist yet, this will be the new password)
+    	"characterName": "testCharacter" // Arbitrary characterName, you can change this to any valid characterName
+    }
+
+It is read from the hard-coded loction of: TEST_TITLE_DATA_LOC in PlayFabApiTest.cpp, you can redirect this to an input that matches your file location
+
+
 5. Troubleshooting:
 ----
 On Feb 16, 2016, we did some repo cleaning, removing 20GB of excessive .lib files. As a consequence, everything except the latest 0.18 release have lost their pre-built lib files. The older versions should still be capable of rebuilding their .lib files for that release. For the future, our automated process has been updated to only check in .lib files for scheduled releases. Also, as a consequence, the old nightly and versioned branches are dead-ended, and re-branched from master.
