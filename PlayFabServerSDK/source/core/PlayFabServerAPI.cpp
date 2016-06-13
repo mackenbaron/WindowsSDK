@@ -3,11 +3,10 @@
 #include "playfab/PlayFabSettings.h"
 #include "playfab/PlayFabResultHandler.h"
 #include "playfab/HttpRequesterCURL.h"
-#include "playfab/PlayFabVersion.h"
 #include <string>
 
 using namespace PlayFab;
-using namespace PlayFab::ServerModels;
+using namespace ServerModels;
 
 IHttpRequester* PlayFabServerAPI::mHttpRequester = new HttpRequesterCURL();
 
@@ -28,7 +27,7 @@ void PlayFabServerAPI::AuthenticateSessionTicket(
     
     HttpRequest* httpRequest = new HttpRequest("POST", PlayFabSettings::getURL("/Server/AuthenticateSessionTicket"));
     httpRequest->SetHeader("Content-Type", "application/json");
-    httpRequest->SetHeader("X-PlayFabSDK", PlayFabVersionString);
+    httpRequest->SetHeader("X-PlayFabSDK", PlayFabSettings::versionString);
     httpRequest->SetHeader("X-SecretKey", PlayFabSettings::developerSecretKey);
 
     httpRequest->SetResultCallback(reinterpret_cast<void*>(callback));
@@ -76,7 +75,7 @@ void PlayFabServerAPI::GetPlayFabIDsFromFacebookIDs(
     
     HttpRequest* httpRequest = new HttpRequest("POST", PlayFabSettings::getURL("/Server/GetPlayFabIDsFromFacebookIDs"));
     httpRequest->SetHeader("Content-Type", "application/json");
-    httpRequest->SetHeader("X-PlayFabSDK", PlayFabVersionString);
+    httpRequest->SetHeader("X-PlayFabSDK", PlayFabSettings::versionString);
     httpRequest->SetHeader("X-SecretKey", PlayFabSettings::developerSecretKey);
 
     httpRequest->SetResultCallback(reinterpret_cast<void*>(callback));
@@ -124,7 +123,7 @@ void PlayFabServerAPI::GetPlayFabIDsFromSteamIDs(
     
     HttpRequest* httpRequest = new HttpRequest("POST", PlayFabSettings::getURL("/Server/GetPlayFabIDsFromSteamIDs"));
     httpRequest->SetHeader("Content-Type", "application/json");
-    httpRequest->SetHeader("X-PlayFabSDK", PlayFabVersionString);
+    httpRequest->SetHeader("X-PlayFabSDK", PlayFabSettings::versionString);
     httpRequest->SetHeader("X-SecretKey", PlayFabSettings::developerSecretKey);
 
     httpRequest->SetResultCallback(reinterpret_cast<void*>(callback));
@@ -172,7 +171,7 @@ void PlayFabServerAPI::GetUserAccountInfo(
     
     HttpRequest* httpRequest = new HttpRequest("POST", PlayFabSettings::getURL("/Server/GetUserAccountInfo"));
     httpRequest->SetHeader("Content-Type", "application/json");
-    httpRequest->SetHeader("X-PlayFabSDK", PlayFabVersionString);
+    httpRequest->SetHeader("X-PlayFabSDK", PlayFabSettings::versionString);
     httpRequest->SetHeader("X-SecretKey", PlayFabSettings::developerSecretKey);
 
     httpRequest->SetResultCallback(reinterpret_cast<void*>(callback));
@@ -220,7 +219,7 @@ void PlayFabServerAPI::SendPushNotification(
     
     HttpRequest* httpRequest = new HttpRequest("POST", PlayFabSettings::getURL("/Server/SendPushNotification"));
     httpRequest->SetHeader("Content-Type", "application/json");
-    httpRequest->SetHeader("X-PlayFabSDK", PlayFabVersionString);
+    httpRequest->SetHeader("X-PlayFabSDK", PlayFabSettings::versionString);
     httpRequest->SetHeader("X-SecretKey", PlayFabSettings::developerSecretKey);
 
     httpRequest->SetResultCallback(reinterpret_cast<void*>(callback));
@@ -268,7 +267,7 @@ void PlayFabServerAPI::DeleteUsers(
     
     HttpRequest* httpRequest = new HttpRequest("POST", PlayFabSettings::getURL("/Server/DeleteUsers"));
     httpRequest->SetHeader("Content-Type", "application/json");
-    httpRequest->SetHeader("X-PlayFabSDK", PlayFabVersionString);
+    httpRequest->SetHeader("X-PlayFabSDK", PlayFabSettings::versionString);
     httpRequest->SetHeader("X-SecretKey", PlayFabSettings::developerSecretKey);
 
     httpRequest->SetResultCallback(reinterpret_cast<void*>(callback));
@@ -316,7 +315,7 @@ void PlayFabServerAPI::GetLeaderboard(
     
     HttpRequest* httpRequest = new HttpRequest("POST", PlayFabSettings::getURL("/Server/GetLeaderboard"));
     httpRequest->SetHeader("Content-Type", "application/json");
-    httpRequest->SetHeader("X-PlayFabSDK", PlayFabVersionString);
+    httpRequest->SetHeader("X-PlayFabSDK", PlayFabSettings::versionString);
     httpRequest->SetHeader("X-SecretKey", PlayFabSettings::developerSecretKey);
 
     httpRequest->SetResultCallback(reinterpret_cast<void*>(callback));
@@ -364,7 +363,7 @@ void PlayFabServerAPI::GetLeaderboardAroundUser(
     
     HttpRequest* httpRequest = new HttpRequest("POST", PlayFabSettings::getURL("/Server/GetLeaderboardAroundUser"));
     httpRequest->SetHeader("Content-Type", "application/json");
-    httpRequest->SetHeader("X-PlayFabSDK", PlayFabVersionString);
+    httpRequest->SetHeader("X-PlayFabSDK", PlayFabSettings::versionString);
     httpRequest->SetHeader("X-SecretKey", PlayFabSettings::developerSecretKey);
 
     httpRequest->SetResultCallback(reinterpret_cast<void*>(callback));
@@ -412,7 +411,7 @@ void PlayFabServerAPI::GetPlayerStatistics(
     
     HttpRequest* httpRequest = new HttpRequest("POST", PlayFabSettings::getURL("/Server/GetPlayerStatistics"));
     httpRequest->SetHeader("Content-Type", "application/json");
-    httpRequest->SetHeader("X-PlayFabSDK", PlayFabVersionString);
+    httpRequest->SetHeader("X-PlayFabSDK", PlayFabSettings::versionString);
     httpRequest->SetHeader("X-SecretKey", PlayFabSettings::developerSecretKey);
 
     httpRequest->SetResultCallback(reinterpret_cast<void*>(callback));
@@ -460,7 +459,7 @@ void PlayFabServerAPI::GetPlayerStatisticVersions(
     
     HttpRequest* httpRequest = new HttpRequest("POST", PlayFabSettings::getURL("/Server/GetPlayerStatisticVersions"));
     httpRequest->SetHeader("Content-Type", "application/json");
-    httpRequest->SetHeader("X-PlayFabSDK", PlayFabVersionString);
+    httpRequest->SetHeader("X-PlayFabSDK", PlayFabSettings::versionString);
     httpRequest->SetHeader("X-SecretKey", PlayFabSettings::developerSecretKey);
 
     httpRequest->SetResultCallback(reinterpret_cast<void*>(callback));
@@ -508,7 +507,7 @@ void PlayFabServerAPI::GetUserData(
     
     HttpRequest* httpRequest = new HttpRequest("POST", PlayFabSettings::getURL("/Server/GetUserData"));
     httpRequest->SetHeader("Content-Type", "application/json");
-    httpRequest->SetHeader("X-PlayFabSDK", PlayFabVersionString);
+    httpRequest->SetHeader("X-PlayFabSDK", PlayFabSettings::versionString);
     httpRequest->SetHeader("X-SecretKey", PlayFabSettings::developerSecretKey);
 
     httpRequest->SetResultCallback(reinterpret_cast<void*>(callback));
@@ -556,7 +555,7 @@ void PlayFabServerAPI::GetUserInternalData(
     
     HttpRequest* httpRequest = new HttpRequest("POST", PlayFabSettings::getURL("/Server/GetUserInternalData"));
     httpRequest->SetHeader("Content-Type", "application/json");
-    httpRequest->SetHeader("X-PlayFabSDK", PlayFabVersionString);
+    httpRequest->SetHeader("X-PlayFabSDK", PlayFabSettings::versionString);
     httpRequest->SetHeader("X-SecretKey", PlayFabSettings::developerSecretKey);
 
     httpRequest->SetResultCallback(reinterpret_cast<void*>(callback));
@@ -604,7 +603,7 @@ void PlayFabServerAPI::GetUserPublisherData(
     
     HttpRequest* httpRequest = new HttpRequest("POST", PlayFabSettings::getURL("/Server/GetUserPublisherData"));
     httpRequest->SetHeader("Content-Type", "application/json");
-    httpRequest->SetHeader("X-PlayFabSDK", PlayFabVersionString);
+    httpRequest->SetHeader("X-PlayFabSDK", PlayFabSettings::versionString);
     httpRequest->SetHeader("X-SecretKey", PlayFabSettings::developerSecretKey);
 
     httpRequest->SetResultCallback(reinterpret_cast<void*>(callback));
@@ -652,7 +651,7 @@ void PlayFabServerAPI::GetUserPublisherInternalData(
     
     HttpRequest* httpRequest = new HttpRequest("POST", PlayFabSettings::getURL("/Server/GetUserPublisherInternalData"));
     httpRequest->SetHeader("Content-Type", "application/json");
-    httpRequest->SetHeader("X-PlayFabSDK", PlayFabVersionString);
+    httpRequest->SetHeader("X-PlayFabSDK", PlayFabSettings::versionString);
     httpRequest->SetHeader("X-SecretKey", PlayFabSettings::developerSecretKey);
 
     httpRequest->SetResultCallback(reinterpret_cast<void*>(callback));
@@ -700,7 +699,7 @@ void PlayFabServerAPI::GetUserPublisherReadOnlyData(
     
     HttpRequest* httpRequest = new HttpRequest("POST", PlayFabSettings::getURL("/Server/GetUserPublisherReadOnlyData"));
     httpRequest->SetHeader("Content-Type", "application/json");
-    httpRequest->SetHeader("X-PlayFabSDK", PlayFabVersionString);
+    httpRequest->SetHeader("X-PlayFabSDK", PlayFabSettings::versionString);
     httpRequest->SetHeader("X-SecretKey", PlayFabSettings::developerSecretKey);
 
     httpRequest->SetResultCallback(reinterpret_cast<void*>(callback));
@@ -748,7 +747,7 @@ void PlayFabServerAPI::GetUserReadOnlyData(
     
     HttpRequest* httpRequest = new HttpRequest("POST", PlayFabSettings::getURL("/Server/GetUserReadOnlyData"));
     httpRequest->SetHeader("Content-Type", "application/json");
-    httpRequest->SetHeader("X-PlayFabSDK", PlayFabVersionString);
+    httpRequest->SetHeader("X-PlayFabSDK", PlayFabSettings::versionString);
     httpRequest->SetHeader("X-SecretKey", PlayFabSettings::developerSecretKey);
 
     httpRequest->SetResultCallback(reinterpret_cast<void*>(callback));
@@ -796,7 +795,7 @@ void PlayFabServerAPI::GetUserStatistics(
     
     HttpRequest* httpRequest = new HttpRequest("POST", PlayFabSettings::getURL("/Server/GetUserStatistics"));
     httpRequest->SetHeader("Content-Type", "application/json");
-    httpRequest->SetHeader("X-PlayFabSDK", PlayFabVersionString);
+    httpRequest->SetHeader("X-PlayFabSDK", PlayFabSettings::versionString);
     httpRequest->SetHeader("X-SecretKey", PlayFabSettings::developerSecretKey);
 
     httpRequest->SetResultCallback(reinterpret_cast<void*>(callback));
@@ -844,7 +843,7 @@ void PlayFabServerAPI::UpdatePlayerStatistics(
     
     HttpRequest* httpRequest = new HttpRequest("POST", PlayFabSettings::getURL("/Server/UpdatePlayerStatistics"));
     httpRequest->SetHeader("Content-Type", "application/json");
-    httpRequest->SetHeader("X-PlayFabSDK", PlayFabVersionString);
+    httpRequest->SetHeader("X-PlayFabSDK", PlayFabSettings::versionString);
     httpRequest->SetHeader("X-SecretKey", PlayFabSettings::developerSecretKey);
 
     httpRequest->SetResultCallback(reinterpret_cast<void*>(callback));
@@ -892,7 +891,7 @@ void PlayFabServerAPI::UpdateUserData(
     
     HttpRequest* httpRequest = new HttpRequest("POST", PlayFabSettings::getURL("/Server/UpdateUserData"));
     httpRequest->SetHeader("Content-Type", "application/json");
-    httpRequest->SetHeader("X-PlayFabSDK", PlayFabVersionString);
+    httpRequest->SetHeader("X-PlayFabSDK", PlayFabSettings::versionString);
     httpRequest->SetHeader("X-SecretKey", PlayFabSettings::developerSecretKey);
 
     httpRequest->SetResultCallback(reinterpret_cast<void*>(callback));
@@ -940,7 +939,7 @@ void PlayFabServerAPI::UpdateUserInternalData(
     
     HttpRequest* httpRequest = new HttpRequest("POST", PlayFabSettings::getURL("/Server/UpdateUserInternalData"));
     httpRequest->SetHeader("Content-Type", "application/json");
-    httpRequest->SetHeader("X-PlayFabSDK", PlayFabVersionString);
+    httpRequest->SetHeader("X-PlayFabSDK", PlayFabSettings::versionString);
     httpRequest->SetHeader("X-SecretKey", PlayFabSettings::developerSecretKey);
 
     httpRequest->SetResultCallback(reinterpret_cast<void*>(callback));
@@ -988,7 +987,7 @@ void PlayFabServerAPI::UpdateUserPublisherData(
     
     HttpRequest* httpRequest = new HttpRequest("POST", PlayFabSettings::getURL("/Server/UpdateUserPublisherData"));
     httpRequest->SetHeader("Content-Type", "application/json");
-    httpRequest->SetHeader("X-PlayFabSDK", PlayFabVersionString);
+    httpRequest->SetHeader("X-PlayFabSDK", PlayFabSettings::versionString);
     httpRequest->SetHeader("X-SecretKey", PlayFabSettings::developerSecretKey);
 
     httpRequest->SetResultCallback(reinterpret_cast<void*>(callback));
@@ -1036,7 +1035,7 @@ void PlayFabServerAPI::UpdateUserPublisherInternalData(
     
     HttpRequest* httpRequest = new HttpRequest("POST", PlayFabSettings::getURL("/Server/UpdateUserPublisherInternalData"));
     httpRequest->SetHeader("Content-Type", "application/json");
-    httpRequest->SetHeader("X-PlayFabSDK", PlayFabVersionString);
+    httpRequest->SetHeader("X-PlayFabSDK", PlayFabSettings::versionString);
     httpRequest->SetHeader("X-SecretKey", PlayFabSettings::developerSecretKey);
 
     httpRequest->SetResultCallback(reinterpret_cast<void*>(callback));
@@ -1084,7 +1083,7 @@ void PlayFabServerAPI::UpdateUserPublisherReadOnlyData(
     
     HttpRequest* httpRequest = new HttpRequest("POST", PlayFabSettings::getURL("/Server/UpdateUserPublisherReadOnlyData"));
     httpRequest->SetHeader("Content-Type", "application/json");
-    httpRequest->SetHeader("X-PlayFabSDK", PlayFabVersionString);
+    httpRequest->SetHeader("X-PlayFabSDK", PlayFabSettings::versionString);
     httpRequest->SetHeader("X-SecretKey", PlayFabSettings::developerSecretKey);
 
     httpRequest->SetResultCallback(reinterpret_cast<void*>(callback));
@@ -1132,7 +1131,7 @@ void PlayFabServerAPI::UpdateUserReadOnlyData(
     
     HttpRequest* httpRequest = new HttpRequest("POST", PlayFabSettings::getURL("/Server/UpdateUserReadOnlyData"));
     httpRequest->SetHeader("Content-Type", "application/json");
-    httpRequest->SetHeader("X-PlayFabSDK", PlayFabVersionString);
+    httpRequest->SetHeader("X-PlayFabSDK", PlayFabSettings::versionString);
     httpRequest->SetHeader("X-SecretKey", PlayFabSettings::developerSecretKey);
 
     httpRequest->SetResultCallback(reinterpret_cast<void*>(callback));
@@ -1180,7 +1179,7 @@ void PlayFabServerAPI::UpdateUserStatistics(
     
     HttpRequest* httpRequest = new HttpRequest("POST", PlayFabSettings::getURL("/Server/UpdateUserStatistics"));
     httpRequest->SetHeader("Content-Type", "application/json");
-    httpRequest->SetHeader("X-PlayFabSDK", PlayFabVersionString);
+    httpRequest->SetHeader("X-PlayFabSDK", PlayFabSettings::versionString);
     httpRequest->SetHeader("X-SecretKey", PlayFabSettings::developerSecretKey);
 
     httpRequest->SetResultCallback(reinterpret_cast<void*>(callback));
@@ -1228,7 +1227,7 @@ void PlayFabServerAPI::GetCatalogItems(
     
     HttpRequest* httpRequest = new HttpRequest("POST", PlayFabSettings::getURL("/Server/GetCatalogItems"));
     httpRequest->SetHeader("Content-Type", "application/json");
-    httpRequest->SetHeader("X-PlayFabSDK", PlayFabVersionString);
+    httpRequest->SetHeader("X-PlayFabSDK", PlayFabSettings::versionString);
     httpRequest->SetHeader("X-SecretKey", PlayFabSettings::developerSecretKey);
 
     httpRequest->SetResultCallback(reinterpret_cast<void*>(callback));
@@ -1276,7 +1275,7 @@ void PlayFabServerAPI::GetPublisherData(
     
     HttpRequest* httpRequest = new HttpRequest("POST", PlayFabSettings::getURL("/Server/GetPublisherData"));
     httpRequest->SetHeader("Content-Type", "application/json");
-    httpRequest->SetHeader("X-PlayFabSDK", PlayFabVersionString);
+    httpRequest->SetHeader("X-PlayFabSDK", PlayFabSettings::versionString);
     httpRequest->SetHeader("X-SecretKey", PlayFabSettings::developerSecretKey);
 
     httpRequest->SetResultCallback(reinterpret_cast<void*>(callback));
@@ -1324,7 +1323,7 @@ void PlayFabServerAPI::GetTitleData(
     
     HttpRequest* httpRequest = new HttpRequest("POST", PlayFabSettings::getURL("/Server/GetTitleData"));
     httpRequest->SetHeader("Content-Type", "application/json");
-    httpRequest->SetHeader("X-PlayFabSDK", PlayFabVersionString);
+    httpRequest->SetHeader("X-PlayFabSDK", PlayFabSettings::versionString);
     httpRequest->SetHeader("X-SecretKey", PlayFabSettings::developerSecretKey);
 
     httpRequest->SetResultCallback(reinterpret_cast<void*>(callback));
@@ -1372,7 +1371,7 @@ void PlayFabServerAPI::GetTitleInternalData(
     
     HttpRequest* httpRequest = new HttpRequest("POST", PlayFabSettings::getURL("/Server/GetTitleInternalData"));
     httpRequest->SetHeader("Content-Type", "application/json");
-    httpRequest->SetHeader("X-PlayFabSDK", PlayFabVersionString);
+    httpRequest->SetHeader("X-PlayFabSDK", PlayFabSettings::versionString);
     httpRequest->SetHeader("X-SecretKey", PlayFabSettings::developerSecretKey);
 
     httpRequest->SetResultCallback(reinterpret_cast<void*>(callback));
@@ -1420,7 +1419,7 @@ void PlayFabServerAPI::GetTitleNews(
     
     HttpRequest* httpRequest = new HttpRequest("POST", PlayFabSettings::getURL("/Server/GetTitleNews"));
     httpRequest->SetHeader("Content-Type", "application/json");
-    httpRequest->SetHeader("X-PlayFabSDK", PlayFabVersionString);
+    httpRequest->SetHeader("X-PlayFabSDK", PlayFabSettings::versionString);
     httpRequest->SetHeader("X-SecretKey", PlayFabSettings::developerSecretKey);
 
     httpRequest->SetResultCallback(reinterpret_cast<void*>(callback));
@@ -1468,7 +1467,7 @@ void PlayFabServerAPI::SetPublisherData(
     
     HttpRequest* httpRequest = new HttpRequest("POST", PlayFabSettings::getURL("/Server/SetPublisherData"));
     httpRequest->SetHeader("Content-Type", "application/json");
-    httpRequest->SetHeader("X-PlayFabSDK", PlayFabVersionString);
+    httpRequest->SetHeader("X-PlayFabSDK", PlayFabSettings::versionString);
     httpRequest->SetHeader("X-SecretKey", PlayFabSettings::developerSecretKey);
 
     httpRequest->SetResultCallback(reinterpret_cast<void*>(callback));
@@ -1516,7 +1515,7 @@ void PlayFabServerAPI::SetTitleData(
     
     HttpRequest* httpRequest = new HttpRequest("POST", PlayFabSettings::getURL("/Server/SetTitleData"));
     httpRequest->SetHeader("Content-Type", "application/json");
-    httpRequest->SetHeader("X-PlayFabSDK", PlayFabVersionString);
+    httpRequest->SetHeader("X-PlayFabSDK", PlayFabSettings::versionString);
     httpRequest->SetHeader("X-SecretKey", PlayFabSettings::developerSecretKey);
 
     httpRequest->SetResultCallback(reinterpret_cast<void*>(callback));
@@ -1564,7 +1563,7 @@ void PlayFabServerAPI::SetTitleInternalData(
     
     HttpRequest* httpRequest = new HttpRequest("POST", PlayFabSettings::getURL("/Server/SetTitleInternalData"));
     httpRequest->SetHeader("Content-Type", "application/json");
-    httpRequest->SetHeader("X-PlayFabSDK", PlayFabVersionString);
+    httpRequest->SetHeader("X-PlayFabSDK", PlayFabSettings::versionString);
     httpRequest->SetHeader("X-SecretKey", PlayFabSettings::developerSecretKey);
 
     httpRequest->SetResultCallback(reinterpret_cast<void*>(callback));
@@ -1612,7 +1611,7 @@ void PlayFabServerAPI::AddCharacterVirtualCurrency(
     
     HttpRequest* httpRequest = new HttpRequest("POST", PlayFabSettings::getURL("/Server/AddCharacterVirtualCurrency"));
     httpRequest->SetHeader("Content-Type", "application/json");
-    httpRequest->SetHeader("X-PlayFabSDK", PlayFabVersionString);
+    httpRequest->SetHeader("X-PlayFabSDK", PlayFabSettings::versionString);
     httpRequest->SetHeader("X-SecretKey", PlayFabSettings::developerSecretKey);
 
     httpRequest->SetResultCallback(reinterpret_cast<void*>(callback));
@@ -1660,7 +1659,7 @@ void PlayFabServerAPI::AddUserVirtualCurrency(
     
     HttpRequest* httpRequest = new HttpRequest("POST", PlayFabSettings::getURL("/Server/AddUserVirtualCurrency"));
     httpRequest->SetHeader("Content-Type", "application/json");
-    httpRequest->SetHeader("X-PlayFabSDK", PlayFabVersionString);
+    httpRequest->SetHeader("X-PlayFabSDK", PlayFabSettings::versionString);
     httpRequest->SetHeader("X-SecretKey", PlayFabSettings::developerSecretKey);
 
     httpRequest->SetResultCallback(reinterpret_cast<void*>(callback));
@@ -1708,7 +1707,7 @@ void PlayFabServerAPI::ConsumeItem(
     
     HttpRequest* httpRequest = new HttpRequest("POST", PlayFabSettings::getURL("/Server/ConsumeItem"));
     httpRequest->SetHeader("Content-Type", "application/json");
-    httpRequest->SetHeader("X-PlayFabSDK", PlayFabVersionString);
+    httpRequest->SetHeader("X-PlayFabSDK", PlayFabSettings::versionString);
     httpRequest->SetHeader("X-SecretKey", PlayFabSettings::developerSecretKey);
 
     httpRequest->SetResultCallback(reinterpret_cast<void*>(callback));
@@ -1756,7 +1755,7 @@ void PlayFabServerAPI::EvaluateRandomResultTable(
     
     HttpRequest* httpRequest = new HttpRequest("POST", PlayFabSettings::getURL("/Server/EvaluateRandomResultTable"));
     httpRequest->SetHeader("Content-Type", "application/json");
-    httpRequest->SetHeader("X-PlayFabSDK", PlayFabVersionString);
+    httpRequest->SetHeader("X-PlayFabSDK", PlayFabSettings::versionString);
     httpRequest->SetHeader("X-SecretKey", PlayFabSettings::developerSecretKey);
 
     httpRequest->SetResultCallback(reinterpret_cast<void*>(callback));
@@ -1804,7 +1803,7 @@ void PlayFabServerAPI::GetCharacterInventory(
     
     HttpRequest* httpRequest = new HttpRequest("POST", PlayFabSettings::getURL("/Server/GetCharacterInventory"));
     httpRequest->SetHeader("Content-Type", "application/json");
-    httpRequest->SetHeader("X-PlayFabSDK", PlayFabVersionString);
+    httpRequest->SetHeader("X-PlayFabSDK", PlayFabSettings::versionString);
     httpRequest->SetHeader("X-SecretKey", PlayFabSettings::developerSecretKey);
 
     httpRequest->SetResultCallback(reinterpret_cast<void*>(callback));
@@ -1852,7 +1851,7 @@ void PlayFabServerAPI::GetUserInventory(
     
     HttpRequest* httpRequest = new HttpRequest("POST", PlayFabSettings::getURL("/Server/GetUserInventory"));
     httpRequest->SetHeader("Content-Type", "application/json");
-    httpRequest->SetHeader("X-PlayFabSDK", PlayFabVersionString);
+    httpRequest->SetHeader("X-PlayFabSDK", PlayFabSettings::versionString);
     httpRequest->SetHeader("X-SecretKey", PlayFabSettings::developerSecretKey);
 
     httpRequest->SetResultCallback(reinterpret_cast<void*>(callback));
@@ -1900,7 +1899,7 @@ void PlayFabServerAPI::GrantItemsToCharacter(
     
     HttpRequest* httpRequest = new HttpRequest("POST", PlayFabSettings::getURL("/Server/GrantItemsToCharacter"));
     httpRequest->SetHeader("Content-Type", "application/json");
-    httpRequest->SetHeader("X-PlayFabSDK", PlayFabVersionString);
+    httpRequest->SetHeader("X-PlayFabSDK", PlayFabSettings::versionString);
     httpRequest->SetHeader("X-SecretKey", PlayFabSettings::developerSecretKey);
 
     httpRequest->SetResultCallback(reinterpret_cast<void*>(callback));
@@ -1948,7 +1947,7 @@ void PlayFabServerAPI::GrantItemsToUser(
     
     HttpRequest* httpRequest = new HttpRequest("POST", PlayFabSettings::getURL("/Server/GrantItemsToUser"));
     httpRequest->SetHeader("Content-Type", "application/json");
-    httpRequest->SetHeader("X-PlayFabSDK", PlayFabVersionString);
+    httpRequest->SetHeader("X-PlayFabSDK", PlayFabSettings::versionString);
     httpRequest->SetHeader("X-SecretKey", PlayFabSettings::developerSecretKey);
 
     httpRequest->SetResultCallback(reinterpret_cast<void*>(callback));
@@ -1996,7 +1995,7 @@ void PlayFabServerAPI::GrantItemsToUsers(
     
     HttpRequest* httpRequest = new HttpRequest("POST", PlayFabSettings::getURL("/Server/GrantItemsToUsers"));
     httpRequest->SetHeader("Content-Type", "application/json");
-    httpRequest->SetHeader("X-PlayFabSDK", PlayFabVersionString);
+    httpRequest->SetHeader("X-PlayFabSDK", PlayFabSettings::versionString);
     httpRequest->SetHeader("X-SecretKey", PlayFabSettings::developerSecretKey);
 
     httpRequest->SetResultCallback(reinterpret_cast<void*>(callback));
@@ -2044,7 +2043,7 @@ void PlayFabServerAPI::ModifyItemUses(
     
     HttpRequest* httpRequest = new HttpRequest("POST", PlayFabSettings::getURL("/Server/ModifyItemUses"));
     httpRequest->SetHeader("Content-Type", "application/json");
-    httpRequest->SetHeader("X-PlayFabSDK", PlayFabVersionString);
+    httpRequest->SetHeader("X-PlayFabSDK", PlayFabSettings::versionString);
     httpRequest->SetHeader("X-SecretKey", PlayFabSettings::developerSecretKey);
 
     httpRequest->SetResultCallback(reinterpret_cast<void*>(callback));
@@ -2092,7 +2091,7 @@ void PlayFabServerAPI::MoveItemToCharacterFromCharacter(
     
     HttpRequest* httpRequest = new HttpRequest("POST", PlayFabSettings::getURL("/Server/MoveItemToCharacterFromCharacter"));
     httpRequest->SetHeader("Content-Type", "application/json");
-    httpRequest->SetHeader("X-PlayFabSDK", PlayFabVersionString);
+    httpRequest->SetHeader("X-PlayFabSDK", PlayFabSettings::versionString);
     httpRequest->SetHeader("X-SecretKey", PlayFabSettings::developerSecretKey);
 
     httpRequest->SetResultCallback(reinterpret_cast<void*>(callback));
@@ -2140,7 +2139,7 @@ void PlayFabServerAPI::MoveItemToCharacterFromUser(
     
     HttpRequest* httpRequest = new HttpRequest("POST", PlayFabSettings::getURL("/Server/MoveItemToCharacterFromUser"));
     httpRequest->SetHeader("Content-Type", "application/json");
-    httpRequest->SetHeader("X-PlayFabSDK", PlayFabVersionString);
+    httpRequest->SetHeader("X-PlayFabSDK", PlayFabSettings::versionString);
     httpRequest->SetHeader("X-SecretKey", PlayFabSettings::developerSecretKey);
 
     httpRequest->SetResultCallback(reinterpret_cast<void*>(callback));
@@ -2188,7 +2187,7 @@ void PlayFabServerAPI::MoveItemToUserFromCharacter(
     
     HttpRequest* httpRequest = new HttpRequest("POST", PlayFabSettings::getURL("/Server/MoveItemToUserFromCharacter"));
     httpRequest->SetHeader("Content-Type", "application/json");
-    httpRequest->SetHeader("X-PlayFabSDK", PlayFabVersionString);
+    httpRequest->SetHeader("X-PlayFabSDK", PlayFabSettings::versionString);
     httpRequest->SetHeader("X-SecretKey", PlayFabSettings::developerSecretKey);
 
     httpRequest->SetResultCallback(reinterpret_cast<void*>(callback));
@@ -2236,7 +2235,7 @@ void PlayFabServerAPI::RedeemCoupon(
     
     HttpRequest* httpRequest = new HttpRequest("POST", PlayFabSettings::getURL("/Server/RedeemCoupon"));
     httpRequest->SetHeader("Content-Type", "application/json");
-    httpRequest->SetHeader("X-PlayFabSDK", PlayFabVersionString);
+    httpRequest->SetHeader("X-PlayFabSDK", PlayFabSettings::versionString);
     httpRequest->SetHeader("X-SecretKey", PlayFabSettings::developerSecretKey);
 
     httpRequest->SetResultCallback(reinterpret_cast<void*>(callback));
@@ -2284,7 +2283,7 @@ void PlayFabServerAPI::ReportPlayer(
     
     HttpRequest* httpRequest = new HttpRequest("POST", PlayFabSettings::getURL("/Server/ReportPlayer"));
     httpRequest->SetHeader("Content-Type", "application/json");
-    httpRequest->SetHeader("X-PlayFabSDK", PlayFabVersionString);
+    httpRequest->SetHeader("X-PlayFabSDK", PlayFabSettings::versionString);
     httpRequest->SetHeader("X-SecretKey", PlayFabSettings::developerSecretKey);
 
     httpRequest->SetResultCallback(reinterpret_cast<void*>(callback));
@@ -2332,7 +2331,7 @@ void PlayFabServerAPI::RevokeInventoryItem(
     
     HttpRequest* httpRequest = new HttpRequest("POST", PlayFabSettings::getURL("/Server/RevokeInventoryItem"));
     httpRequest->SetHeader("Content-Type", "application/json");
-    httpRequest->SetHeader("X-PlayFabSDK", PlayFabVersionString);
+    httpRequest->SetHeader("X-PlayFabSDK", PlayFabSettings::versionString);
     httpRequest->SetHeader("X-SecretKey", PlayFabSettings::developerSecretKey);
 
     httpRequest->SetResultCallback(reinterpret_cast<void*>(callback));
@@ -2380,7 +2379,7 @@ void PlayFabServerAPI::SubtractCharacterVirtualCurrency(
     
     HttpRequest* httpRequest = new HttpRequest("POST", PlayFabSettings::getURL("/Server/SubtractCharacterVirtualCurrency"));
     httpRequest->SetHeader("Content-Type", "application/json");
-    httpRequest->SetHeader("X-PlayFabSDK", PlayFabVersionString);
+    httpRequest->SetHeader("X-PlayFabSDK", PlayFabSettings::versionString);
     httpRequest->SetHeader("X-SecretKey", PlayFabSettings::developerSecretKey);
 
     httpRequest->SetResultCallback(reinterpret_cast<void*>(callback));
@@ -2428,7 +2427,7 @@ void PlayFabServerAPI::SubtractUserVirtualCurrency(
     
     HttpRequest* httpRequest = new HttpRequest("POST", PlayFabSettings::getURL("/Server/SubtractUserVirtualCurrency"));
     httpRequest->SetHeader("Content-Type", "application/json");
-    httpRequest->SetHeader("X-PlayFabSDK", PlayFabVersionString);
+    httpRequest->SetHeader("X-PlayFabSDK", PlayFabSettings::versionString);
     httpRequest->SetHeader("X-SecretKey", PlayFabSettings::developerSecretKey);
 
     httpRequest->SetResultCallback(reinterpret_cast<void*>(callback));
@@ -2476,7 +2475,7 @@ void PlayFabServerAPI::UnlockContainerInstance(
     
     HttpRequest* httpRequest = new HttpRequest("POST", PlayFabSettings::getURL("/Server/UnlockContainerInstance"));
     httpRequest->SetHeader("Content-Type", "application/json");
-    httpRequest->SetHeader("X-PlayFabSDK", PlayFabVersionString);
+    httpRequest->SetHeader("X-PlayFabSDK", PlayFabSettings::versionString);
     httpRequest->SetHeader("X-SecretKey", PlayFabSettings::developerSecretKey);
 
     httpRequest->SetResultCallback(reinterpret_cast<void*>(callback));
@@ -2524,7 +2523,7 @@ void PlayFabServerAPI::UnlockContainerItem(
     
     HttpRequest* httpRequest = new HttpRequest("POST", PlayFabSettings::getURL("/Server/UnlockContainerItem"));
     httpRequest->SetHeader("Content-Type", "application/json");
-    httpRequest->SetHeader("X-PlayFabSDK", PlayFabVersionString);
+    httpRequest->SetHeader("X-PlayFabSDK", PlayFabSettings::versionString);
     httpRequest->SetHeader("X-SecretKey", PlayFabSettings::developerSecretKey);
 
     httpRequest->SetResultCallback(reinterpret_cast<void*>(callback));
@@ -2572,7 +2571,7 @@ void PlayFabServerAPI::UpdateUserInventoryItemCustomData(
     
     HttpRequest* httpRequest = new HttpRequest("POST", PlayFabSettings::getURL("/Server/UpdateUserInventoryItemCustomData"));
     httpRequest->SetHeader("Content-Type", "application/json");
-    httpRequest->SetHeader("X-PlayFabSDK", PlayFabVersionString);
+    httpRequest->SetHeader("X-PlayFabSDK", PlayFabSettings::versionString);
     httpRequest->SetHeader("X-SecretKey", PlayFabSettings::developerSecretKey);
 
     httpRequest->SetResultCallback(reinterpret_cast<void*>(callback));
@@ -2620,7 +2619,7 @@ void PlayFabServerAPI::NotifyMatchmakerPlayerLeft(
     
     HttpRequest* httpRequest = new HttpRequest("POST", PlayFabSettings::getURL("/Server/NotifyMatchmakerPlayerLeft"));
     httpRequest->SetHeader("Content-Type", "application/json");
-    httpRequest->SetHeader("X-PlayFabSDK", PlayFabVersionString);
+    httpRequest->SetHeader("X-PlayFabSDK", PlayFabSettings::versionString);
     httpRequest->SetHeader("X-SecretKey", PlayFabSettings::developerSecretKey);
 
     httpRequest->SetResultCallback(reinterpret_cast<void*>(callback));
@@ -2668,7 +2667,7 @@ void PlayFabServerAPI::RedeemMatchmakerTicket(
     
     HttpRequest* httpRequest = new HttpRequest("POST", PlayFabSettings::getURL("/Server/RedeemMatchmakerTicket"));
     httpRequest->SetHeader("Content-Type", "application/json");
-    httpRequest->SetHeader("X-PlayFabSDK", PlayFabVersionString);
+    httpRequest->SetHeader("X-PlayFabSDK", PlayFabSettings::versionString);
     httpRequest->SetHeader("X-SecretKey", PlayFabSettings::developerSecretKey);
 
     httpRequest->SetResultCallback(reinterpret_cast<void*>(callback));
@@ -2706,6 +2705,54 @@ void PlayFabServerAPI::OnRedeemMatchmakerTicketResult(int httpStatus, HttpReques
     delete request;
 }
 
+void PlayFabServerAPI::SetGameServerInstanceData(
+    SetGameServerInstanceDataRequest& request,
+    ProcessApiCallback<SetGameServerInstanceDataResult> callback,
+    ErrorCallback errorCallback,
+    void* userData
+    )
+{
+    
+    HttpRequest* httpRequest = new HttpRequest("POST", PlayFabSettings::getURL("/Server/SetGameServerInstanceData"));
+    httpRequest->SetHeader("Content-Type", "application/json");
+    httpRequest->SetHeader("X-PlayFabSDK", PlayFabSettings::versionString);
+    httpRequest->SetHeader("X-SecretKey", PlayFabSettings::developerSecretKey);
+
+    httpRequest->SetResultCallback(reinterpret_cast<void*>(callback));
+    httpRequest->SetErrorCallback(errorCallback);
+    httpRequest->SetUserData(userData);
+
+    httpRequest->SetBody(request.toJSONString());
+    httpRequest->CompressBody();
+
+    mHttpRequester->AddRequest(httpRequest, OnSetGameServerInstanceDataResult, nullptr);
+}
+
+void PlayFabServerAPI::OnSetGameServerInstanceDataResult(int httpStatus, HttpRequest* request, void* userData)
+{
+    SetGameServerInstanceDataResult outResult;
+    PlayFabError errorResult;
+
+    if (PlayFabRequestHandler::DecodeRequest(httpStatus, request, userData, outResult, errorResult))
+    {
+
+        if (request->GetResultCallback() != nullptr)
+        {
+            ProcessApiCallback<SetGameServerInstanceDataResult> successCallback = reinterpret_cast<ProcessApiCallback<SetGameServerInstanceDataResult>>(request->GetResultCallback());
+            successCallback(outResult, request->GetUserData());
+        }
+    }
+    else
+    {
+        if (PlayFabSettings::globalErrorHandler != nullptr)
+            PlayFabSettings::globalErrorHandler(errorResult, request->GetUserData());
+        if (request->GetErrorCallback() != nullptr)
+            request->GetErrorCallback()(errorResult, request->GetUserData());
+    }
+
+    delete request;
+}
+
 void PlayFabServerAPI::SetGameServerInstanceState(
     SetGameServerInstanceStateRequest& request,
     ProcessApiCallback<SetGameServerInstanceStateResult> callback,
@@ -2716,7 +2763,7 @@ void PlayFabServerAPI::SetGameServerInstanceState(
     
     HttpRequest* httpRequest = new HttpRequest("POST", PlayFabSettings::getURL("/Server/SetGameServerInstanceState"));
     httpRequest->SetHeader("Content-Type", "application/json");
-    httpRequest->SetHeader("X-PlayFabSDK", PlayFabVersionString);
+    httpRequest->SetHeader("X-PlayFabSDK", PlayFabSettings::versionString);
     httpRequest->SetHeader("X-SecretKey", PlayFabSettings::developerSecretKey);
 
     httpRequest->SetResultCallback(reinterpret_cast<void*>(callback));
@@ -2764,7 +2811,7 @@ void PlayFabServerAPI::AwardSteamAchievement(
     
     HttpRequest* httpRequest = new HttpRequest("POST", PlayFabSettings::getURL("/Server/AwardSteamAchievement"));
     httpRequest->SetHeader("Content-Type", "application/json");
-    httpRequest->SetHeader("X-PlayFabSDK", PlayFabVersionString);
+    httpRequest->SetHeader("X-PlayFabSDK", PlayFabSettings::versionString);
     httpRequest->SetHeader("X-SecretKey", PlayFabSettings::developerSecretKey);
 
     httpRequest->SetResultCallback(reinterpret_cast<void*>(callback));
@@ -2812,7 +2859,7 @@ void PlayFabServerAPI::LogEvent(
     
     HttpRequest* httpRequest = new HttpRequest("POST", PlayFabSettings::getURL("/Server/LogEvent"));
     httpRequest->SetHeader("Content-Type", "application/json");
-    httpRequest->SetHeader("X-PlayFabSDK", PlayFabVersionString);
+    httpRequest->SetHeader("X-PlayFabSDK", PlayFabSettings::versionString);
     httpRequest->SetHeader("X-SecretKey", PlayFabSettings::developerSecretKey);
 
     httpRequest->SetResultCallback(reinterpret_cast<void*>(callback));
@@ -2860,7 +2907,7 @@ void PlayFabServerAPI::WriteCharacterEvent(
     
     HttpRequest* httpRequest = new HttpRequest("POST", PlayFabSettings::getURL("/Server/WriteCharacterEvent"));
     httpRequest->SetHeader("Content-Type", "application/json");
-    httpRequest->SetHeader("X-PlayFabSDK", PlayFabVersionString);
+    httpRequest->SetHeader("X-PlayFabSDK", PlayFabSettings::versionString);
     httpRequest->SetHeader("X-SecretKey", PlayFabSettings::developerSecretKey);
 
     httpRequest->SetResultCallback(reinterpret_cast<void*>(callback));
@@ -2908,7 +2955,7 @@ void PlayFabServerAPI::WritePlayerEvent(
     
     HttpRequest* httpRequest = new HttpRequest("POST", PlayFabSettings::getURL("/Server/WritePlayerEvent"));
     httpRequest->SetHeader("Content-Type", "application/json");
-    httpRequest->SetHeader("X-PlayFabSDK", PlayFabVersionString);
+    httpRequest->SetHeader("X-PlayFabSDK", PlayFabSettings::versionString);
     httpRequest->SetHeader("X-SecretKey", PlayFabSettings::developerSecretKey);
 
     httpRequest->SetResultCallback(reinterpret_cast<void*>(callback));
@@ -2956,7 +3003,7 @@ void PlayFabServerAPI::WriteTitleEvent(
     
     HttpRequest* httpRequest = new HttpRequest("POST", PlayFabSettings::getURL("/Server/WriteTitleEvent"));
     httpRequest->SetHeader("Content-Type", "application/json");
-    httpRequest->SetHeader("X-PlayFabSDK", PlayFabVersionString);
+    httpRequest->SetHeader("X-PlayFabSDK", PlayFabSettings::versionString);
     httpRequest->SetHeader("X-SecretKey", PlayFabSettings::developerSecretKey);
 
     httpRequest->SetResultCallback(reinterpret_cast<void*>(callback));
@@ -3004,7 +3051,7 @@ void PlayFabServerAPI::AddSharedGroupMembers(
     
     HttpRequest* httpRequest = new HttpRequest("POST", PlayFabSettings::getURL("/Server/AddSharedGroupMembers"));
     httpRequest->SetHeader("Content-Type", "application/json");
-    httpRequest->SetHeader("X-PlayFabSDK", PlayFabVersionString);
+    httpRequest->SetHeader("X-PlayFabSDK", PlayFabSettings::versionString);
     httpRequest->SetHeader("X-SecretKey", PlayFabSettings::developerSecretKey);
 
     httpRequest->SetResultCallback(reinterpret_cast<void*>(callback));
@@ -3052,7 +3099,7 @@ void PlayFabServerAPI::CreateSharedGroup(
     
     HttpRequest* httpRequest = new HttpRequest("POST", PlayFabSettings::getURL("/Server/CreateSharedGroup"));
     httpRequest->SetHeader("Content-Type", "application/json");
-    httpRequest->SetHeader("X-PlayFabSDK", PlayFabVersionString);
+    httpRequest->SetHeader("X-PlayFabSDK", PlayFabSettings::versionString);
     httpRequest->SetHeader("X-SecretKey", PlayFabSettings::developerSecretKey);
 
     httpRequest->SetResultCallback(reinterpret_cast<void*>(callback));
@@ -3100,7 +3147,7 @@ void PlayFabServerAPI::DeleteSharedGroup(
     
     HttpRequest* httpRequest = new HttpRequest("POST", PlayFabSettings::getURL("/Server/DeleteSharedGroup"));
     httpRequest->SetHeader("Content-Type", "application/json");
-    httpRequest->SetHeader("X-PlayFabSDK", PlayFabVersionString);
+    httpRequest->SetHeader("X-PlayFabSDK", PlayFabSettings::versionString);
     httpRequest->SetHeader("X-SecretKey", PlayFabSettings::developerSecretKey);
 
     httpRequest->SetResultCallback(reinterpret_cast<void*>(callback));
@@ -3148,7 +3195,7 @@ void PlayFabServerAPI::GetSharedGroupData(
     
     HttpRequest* httpRequest = new HttpRequest("POST", PlayFabSettings::getURL("/Server/GetSharedGroupData"));
     httpRequest->SetHeader("Content-Type", "application/json");
-    httpRequest->SetHeader("X-PlayFabSDK", PlayFabVersionString);
+    httpRequest->SetHeader("X-PlayFabSDK", PlayFabSettings::versionString);
     httpRequest->SetHeader("X-SecretKey", PlayFabSettings::developerSecretKey);
 
     httpRequest->SetResultCallback(reinterpret_cast<void*>(callback));
@@ -3196,7 +3243,7 @@ void PlayFabServerAPI::RemoveSharedGroupMembers(
     
     HttpRequest* httpRequest = new HttpRequest("POST", PlayFabSettings::getURL("/Server/RemoveSharedGroupMembers"));
     httpRequest->SetHeader("Content-Type", "application/json");
-    httpRequest->SetHeader("X-PlayFabSDK", PlayFabVersionString);
+    httpRequest->SetHeader("X-PlayFabSDK", PlayFabSettings::versionString);
     httpRequest->SetHeader("X-SecretKey", PlayFabSettings::developerSecretKey);
 
     httpRequest->SetResultCallback(reinterpret_cast<void*>(callback));
@@ -3244,7 +3291,7 @@ void PlayFabServerAPI::UpdateSharedGroupData(
     
     HttpRequest* httpRequest = new HttpRequest("POST", PlayFabSettings::getURL("/Server/UpdateSharedGroupData"));
     httpRequest->SetHeader("Content-Type", "application/json");
-    httpRequest->SetHeader("X-PlayFabSDK", PlayFabVersionString);
+    httpRequest->SetHeader("X-PlayFabSDK", PlayFabSettings::versionString);
     httpRequest->SetHeader("X-SecretKey", PlayFabSettings::developerSecretKey);
 
     httpRequest->SetResultCallback(reinterpret_cast<void*>(callback));
@@ -3292,7 +3339,7 @@ void PlayFabServerAPI::ExecuteCloudScript(
     
     HttpRequest* httpRequest = new HttpRequest("POST", PlayFabSettings::getURL("/Server/ExecuteCloudScript"));
     httpRequest->SetHeader("Content-Type", "application/json");
-    httpRequest->SetHeader("X-PlayFabSDK", PlayFabVersionString);
+    httpRequest->SetHeader("X-PlayFabSDK", PlayFabSettings::versionString);
     httpRequest->SetHeader("X-SecretKey", PlayFabSettings::developerSecretKey);
 
     httpRequest->SetResultCallback(reinterpret_cast<void*>(callback));
@@ -3340,7 +3387,7 @@ void PlayFabServerAPI::GetContentDownloadUrl(
     
     HttpRequest* httpRequest = new HttpRequest("POST", PlayFabSettings::getURL("/Server/GetContentDownloadUrl"));
     httpRequest->SetHeader("Content-Type", "application/json");
-    httpRequest->SetHeader("X-PlayFabSDK", PlayFabVersionString);
+    httpRequest->SetHeader("X-PlayFabSDK", PlayFabSettings::versionString);
     httpRequest->SetHeader("X-SecretKey", PlayFabSettings::developerSecretKey);
 
     httpRequest->SetResultCallback(reinterpret_cast<void*>(callback));
@@ -3388,7 +3435,7 @@ void PlayFabServerAPI::DeleteCharacterFromUser(
     
     HttpRequest* httpRequest = new HttpRequest("POST", PlayFabSettings::getURL("/Server/DeleteCharacterFromUser"));
     httpRequest->SetHeader("Content-Type", "application/json");
-    httpRequest->SetHeader("X-PlayFabSDK", PlayFabVersionString);
+    httpRequest->SetHeader("X-PlayFabSDK", PlayFabSettings::versionString);
     httpRequest->SetHeader("X-SecretKey", PlayFabSettings::developerSecretKey);
 
     httpRequest->SetResultCallback(reinterpret_cast<void*>(callback));
@@ -3436,7 +3483,7 @@ void PlayFabServerAPI::GetAllUsersCharacters(
     
     HttpRequest* httpRequest = new HttpRequest("POST", PlayFabSettings::getURL("/Server/GetAllUsersCharacters"));
     httpRequest->SetHeader("Content-Type", "application/json");
-    httpRequest->SetHeader("X-PlayFabSDK", PlayFabVersionString);
+    httpRequest->SetHeader("X-PlayFabSDK", PlayFabSettings::versionString);
     httpRequest->SetHeader("X-SecretKey", PlayFabSettings::developerSecretKey);
 
     httpRequest->SetResultCallback(reinterpret_cast<void*>(callback));
@@ -3484,7 +3531,7 @@ void PlayFabServerAPI::GetCharacterLeaderboard(
     
     HttpRequest* httpRequest = new HttpRequest("POST", PlayFabSettings::getURL("/Server/GetCharacterLeaderboard"));
     httpRequest->SetHeader("Content-Type", "application/json");
-    httpRequest->SetHeader("X-PlayFabSDK", PlayFabVersionString);
+    httpRequest->SetHeader("X-PlayFabSDK", PlayFabSettings::versionString);
     httpRequest->SetHeader("X-SecretKey", PlayFabSettings::developerSecretKey);
 
     httpRequest->SetResultCallback(reinterpret_cast<void*>(callback));
@@ -3532,7 +3579,7 @@ void PlayFabServerAPI::GetCharacterStatistics(
     
     HttpRequest* httpRequest = new HttpRequest("POST", PlayFabSettings::getURL("/Server/GetCharacterStatistics"));
     httpRequest->SetHeader("Content-Type", "application/json");
-    httpRequest->SetHeader("X-PlayFabSDK", PlayFabVersionString);
+    httpRequest->SetHeader("X-PlayFabSDK", PlayFabSettings::versionString);
     httpRequest->SetHeader("X-SecretKey", PlayFabSettings::developerSecretKey);
 
     httpRequest->SetResultCallback(reinterpret_cast<void*>(callback));
@@ -3580,7 +3627,7 @@ void PlayFabServerAPI::GetLeaderboardAroundCharacter(
     
     HttpRequest* httpRequest = new HttpRequest("POST", PlayFabSettings::getURL("/Server/GetLeaderboardAroundCharacter"));
     httpRequest->SetHeader("Content-Type", "application/json");
-    httpRequest->SetHeader("X-PlayFabSDK", PlayFabVersionString);
+    httpRequest->SetHeader("X-PlayFabSDK", PlayFabSettings::versionString);
     httpRequest->SetHeader("X-SecretKey", PlayFabSettings::developerSecretKey);
 
     httpRequest->SetResultCallback(reinterpret_cast<void*>(callback));
@@ -3628,7 +3675,7 @@ void PlayFabServerAPI::GetLeaderboardForUserCharacters(
     
     HttpRequest* httpRequest = new HttpRequest("POST", PlayFabSettings::getURL("/Server/GetLeaderboardForUserCharacters"));
     httpRequest->SetHeader("Content-Type", "application/json");
-    httpRequest->SetHeader("X-PlayFabSDK", PlayFabVersionString);
+    httpRequest->SetHeader("X-PlayFabSDK", PlayFabSettings::versionString);
     httpRequest->SetHeader("X-SecretKey", PlayFabSettings::developerSecretKey);
 
     httpRequest->SetResultCallback(reinterpret_cast<void*>(callback));
@@ -3676,7 +3723,7 @@ void PlayFabServerAPI::GrantCharacterToUser(
     
     HttpRequest* httpRequest = new HttpRequest("POST", PlayFabSettings::getURL("/Server/GrantCharacterToUser"));
     httpRequest->SetHeader("Content-Type", "application/json");
-    httpRequest->SetHeader("X-PlayFabSDK", PlayFabVersionString);
+    httpRequest->SetHeader("X-PlayFabSDK", PlayFabSettings::versionString);
     httpRequest->SetHeader("X-SecretKey", PlayFabSettings::developerSecretKey);
 
     httpRequest->SetResultCallback(reinterpret_cast<void*>(callback));
@@ -3724,7 +3771,7 @@ void PlayFabServerAPI::UpdateCharacterStatistics(
     
     HttpRequest* httpRequest = new HttpRequest("POST", PlayFabSettings::getURL("/Server/UpdateCharacterStatistics"));
     httpRequest->SetHeader("Content-Type", "application/json");
-    httpRequest->SetHeader("X-PlayFabSDK", PlayFabVersionString);
+    httpRequest->SetHeader("X-PlayFabSDK", PlayFabSettings::versionString);
     httpRequest->SetHeader("X-SecretKey", PlayFabSettings::developerSecretKey);
 
     httpRequest->SetResultCallback(reinterpret_cast<void*>(callback));
@@ -3772,7 +3819,7 @@ void PlayFabServerAPI::GetCharacterData(
     
     HttpRequest* httpRequest = new HttpRequest("POST", PlayFabSettings::getURL("/Server/GetCharacterData"));
     httpRequest->SetHeader("Content-Type", "application/json");
-    httpRequest->SetHeader("X-PlayFabSDK", PlayFabVersionString);
+    httpRequest->SetHeader("X-PlayFabSDK", PlayFabSettings::versionString);
     httpRequest->SetHeader("X-SecretKey", PlayFabSettings::developerSecretKey);
 
     httpRequest->SetResultCallback(reinterpret_cast<void*>(callback));
@@ -3820,7 +3867,7 @@ void PlayFabServerAPI::GetCharacterInternalData(
     
     HttpRequest* httpRequest = new HttpRequest("POST", PlayFabSettings::getURL("/Server/GetCharacterInternalData"));
     httpRequest->SetHeader("Content-Type", "application/json");
-    httpRequest->SetHeader("X-PlayFabSDK", PlayFabVersionString);
+    httpRequest->SetHeader("X-PlayFabSDK", PlayFabSettings::versionString);
     httpRequest->SetHeader("X-SecretKey", PlayFabSettings::developerSecretKey);
 
     httpRequest->SetResultCallback(reinterpret_cast<void*>(callback));
@@ -3868,7 +3915,7 @@ void PlayFabServerAPI::GetCharacterReadOnlyData(
     
     HttpRequest* httpRequest = new HttpRequest("POST", PlayFabSettings::getURL("/Server/GetCharacterReadOnlyData"));
     httpRequest->SetHeader("Content-Type", "application/json");
-    httpRequest->SetHeader("X-PlayFabSDK", PlayFabVersionString);
+    httpRequest->SetHeader("X-PlayFabSDK", PlayFabSettings::versionString);
     httpRequest->SetHeader("X-SecretKey", PlayFabSettings::developerSecretKey);
 
     httpRequest->SetResultCallback(reinterpret_cast<void*>(callback));
@@ -3916,7 +3963,7 @@ void PlayFabServerAPI::UpdateCharacterData(
     
     HttpRequest* httpRequest = new HttpRequest("POST", PlayFabSettings::getURL("/Server/UpdateCharacterData"));
     httpRequest->SetHeader("Content-Type", "application/json");
-    httpRequest->SetHeader("X-PlayFabSDK", PlayFabVersionString);
+    httpRequest->SetHeader("X-PlayFabSDK", PlayFabSettings::versionString);
     httpRequest->SetHeader("X-SecretKey", PlayFabSettings::developerSecretKey);
 
     httpRequest->SetResultCallback(reinterpret_cast<void*>(callback));
@@ -3964,7 +4011,7 @@ void PlayFabServerAPI::UpdateCharacterInternalData(
     
     HttpRequest* httpRequest = new HttpRequest("POST", PlayFabSettings::getURL("/Server/UpdateCharacterInternalData"));
     httpRequest->SetHeader("Content-Type", "application/json");
-    httpRequest->SetHeader("X-PlayFabSDK", PlayFabVersionString);
+    httpRequest->SetHeader("X-PlayFabSDK", PlayFabSettings::versionString);
     httpRequest->SetHeader("X-SecretKey", PlayFabSettings::developerSecretKey);
 
     httpRequest->SetResultCallback(reinterpret_cast<void*>(callback));
@@ -4012,7 +4059,7 @@ void PlayFabServerAPI::UpdateCharacterReadOnlyData(
     
     HttpRequest* httpRequest = new HttpRequest("POST", PlayFabSettings::getURL("/Server/UpdateCharacterReadOnlyData"));
     httpRequest->SetHeader("Content-Type", "application/json");
-    httpRequest->SetHeader("X-PlayFabSDK", PlayFabVersionString);
+    httpRequest->SetHeader("X-PlayFabSDK", PlayFabSettings::versionString);
     httpRequest->SetHeader("X-SecretKey", PlayFabSettings::developerSecretKey);
 
     httpRequest->SetResultCallback(reinterpret_cast<void*>(callback));

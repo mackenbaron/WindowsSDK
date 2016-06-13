@@ -1,7 +1,7 @@
 #include "playfab/PlayFabMatchmakerDataModels.h"
 
 using namespace PlayFab;
-using namespace PlayFab::MatchmakerModels;
+using namespace MatchmakerModels;
 using namespace rapidjson;
 
 AuthUserRequest::~AuthUserRequest()

@@ -248,28 +248,12 @@ namespace UnittestRunner
             if (PlayFabClientAPI::IsClientLoggedIn())
                 return; // This test has to have passed at least once for this case to happen
 
-            LoginWithEmailAddressRequest loginRequest;
-            loginRequest.TitleId = PlayFabSettings::titleId;
-            loginRequest.Email = USER_EMAIL;
-            loginRequest.Password = USER_PASSWORD;
+            LoginWithCustomIDRequest loginRequest;
+            loginRequest.CustomId = PlayFabSettings::buildIdentifier;
+            loginRequest.CreateAccount = true;
 
-            PlayFabClientAPI::LoginWithEmailAddress(loginRequest, &LoginCallback, &LoginFailedCallback, nullptr);
+            PlayFabClientAPI::LoginWithCustomID(loginRequest, &LoginCallback, &LoginFailedCallback, nullptr);
             ClientApiWait();
-
-            if (testMessageReturn.compare("Login_Success") == 0 && PlayFabClientAPI::IsClientLoggedIn())
-                return;
-
-            // If the setup failed to log in a user, we need to create one.
-            RegisterPlayFabUserRequest registerRequest;
-            registerRequest.TitleId = PlayFabSettings::titleId;
-            registerRequest.Username = USER_NAME;
-            registerRequest.Email = USER_EMAIL;
-            registerRequest.Password = USER_PASSWORD;
-
-            PlayFabClientAPI::RegisterPlayFabUser(registerRequest, &RegisterCallback, &SharedFailedCallback, nullptr);
-            ClientApiWait();
-
-            Assert::IsTrue(testMessageReturn.compare("Register_Success") == 0, L"Check that RegisterPlayFabUser was successful");
             Assert::IsTrue(PlayFabClientAPI::IsClientLoggedIn(), L"Check that a user is logged in");
         }
         static void RegisterCallback(RegisterPlayFabUserResult& result, void* userData)
@@ -287,12 +271,11 @@ namespace UnittestRunner
             PlayFabSettings::advertisingIdType = PlayFabSettings::AD_TYPE_ANDROID_ID;
             PlayFabSettings::advertisingIdValue = "PlayFabTestId";
 
-            LoginWithEmailAddressRequest loginRequest;
-            loginRequest.TitleId = PlayFabSettings::titleId;
-            loginRequest.Email = USER_EMAIL;
-            loginRequest.Password = USER_PASSWORD;
+            LoginWithCustomIDRequest loginRequest;
+            loginRequest.CustomId = PlayFabSettings::buildIdentifier;
+            loginRequest.CreateAccount = true;
 
-            PlayFabClientAPI::LoginWithEmailAddress(loginRequest, &LoginCallback, &LoginFailedCallback, nullptr);
+            PlayFabClientAPI::LoginWithCustomID(loginRequest, &LoginCallback, &LoginFailedCallback, nullptr);
             ClientApiWait();
 
             string targetValue = PlayFabSettings::AD_TYPE_ANDROID_ID + "_Successful";
@@ -544,34 +527,31 @@ namespace UnittestRunner
         {
             LoginOrRegister();
 
-            if (PlayFabSettings::logicServerURL.length() == 0)
-            {
-                GetCloudScriptUrlRequest urlRequest;
-                PlayFabClientAPI::GetCloudScriptUrl(urlRequest, &CloudUrlCallback, &SharedFailedCallback, nullptr);
-                ClientApiWait();
-                Assert::IsTrue(testMessageReturn.compare("CloudUrl retrieved") == 0);
-            }
-
-            RunCloudScriptRequest hwRequest;
-            hwRequest.ActionId = "helloWorld";
-            PlayFabClientAPI::RunCloudScript(hwRequest, &CloudHelloWorldCallback, &SharedFailedCallback, nullptr);
+            ExecuteCloudScriptRequest hwRequest;
+            hwRequest.FunctionName = "helloWorld";
+            PlayFabClientAPI::ExecuteCloudScript(hwRequest, &CloudHelloWorldCallback, &SharedFailedCallback, nullptr);
             ClientApiWait();
-            Assert::IsTrue(testMessageReturn.compare("Hello " + playFabId + "!") == 0);
+
+            bool success = (testMessageReturn.find("Hello " + playFabId + "!") != -1);
+            Assert::IsTrue(success);
         }
-        static void CloudUrlCallback(GetCloudScriptUrlResult& result, void* userData)
+        static void CloudHelloWorldCallback(ClientModels::ExecuteCloudScriptResult& result, void* userData)
         {
-            testMessageReturn = (result.Url.length() > 0) ? "CloudUrl retrieved" : "CloudUrl failed";
-        }
-        static void CloudHelloWorldCallback(RunCloudScriptResult& result, void* userData)
-        {
-            // KNOWN ISSUE: result.Results does not get populated/decoded correctly!!!
+            // KNOWN ISSUE: result.FunctionResult does not get populated/decoded correctly!!!
             //if (result.Results.isNull())
             //    testMessageReturn = "Cloud Decode Failure";
 
-            // Temporary: Just evaluate the ResultsEncoded json directly for the target message
-            //   The call seems to go through and return correctly, it's just not decoded into result.Results properly
+            // Temporary: Just search logs for indication of success
+            //   The call executes and returns correctly, it's just not decoded into result.FunctionResult properly
+            //   A real customer may have to use a more significant workaround
+            testMessageReturn = "";
+            if (result.Error != nullptr)
+                testMessageReturn = result.Error->Error + ": " + result.Error->Message;
+            for (auto it = result.Logs.begin(); it != result.Logs.end(); ++it)
+                testMessageReturn += "\n" + (*it).Message;
+
             testMessageReturn =
-                (result.ResultsEncoded.find("Hello " + playFabId + "!") == string::npos)
+                (testMessageReturn.find("Hello " + playFabId + "!") == string::npos)
                 ? "CloudCall failed"
                 : "Hello " + playFabId + "!";
         }
