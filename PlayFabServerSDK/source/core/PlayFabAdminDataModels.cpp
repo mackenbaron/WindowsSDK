@@ -1,7 +1,7 @@
 #include "playfab/PlayFabAdminDataModels.h"
 
 using namespace PlayFab;
-using namespace PlayFab::AdminModels;
+using namespace AdminModels;
 using namespace rapidjson;
 
 AddNewsRequest::~AddNewsRequest()

@@ -9,6 +9,10 @@ namespace PlayFab
     class PlayFabSettings
     {
     public:
+        static const std::string sdkVersion;
+        static const std::string buildIdentifier;
+        static const std::string versionString;
+
         static bool useDevelopmentEnvironment;
         static std::string serverURL;
         static std::string developmentEnvironmentURL;
@@ -16,7 +20,7 @@ namespace PlayFab
         static std::string titleId; // You must set this value for PlayFabSdk to work properly (Found in the Game Manager for your title, at the PlayFab Website)
         static ErrorCallback globalErrorHandler;
         static std::string developerSecretKey; // You must set this value for PlayFabSdk to work properly (Found in the Game Manager for your title, at the PlayFab Website)
-        static std::string logicServerURL; // Assigned by GetCloudScriptUrl, used by RunCloudScript
+        static std::string logicServerURL; // Deprecated
         static std::string advertisingIdType; // Set this to the appropriate AD_TYPE_X constant below
         static std::string advertisingIdValue; // Set this to corresponding device value
 
