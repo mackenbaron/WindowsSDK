@@ -2604,7 +2604,8 @@ namespace PlayFab
             UserOriginationGameCenter,
             UserOriginationCustomId,
             UserOriginationXboxLive,
-            UserOriginationParse
+            UserOriginationParse,
+            UserOriginationTwitch
         };
 
         void writeUserOriginationEnumJSON(UserOrigination enumVal, PFStringJsonWriter& writer);
@@ -2852,6 +2853,34 @@ namespace PlayFab
             bool readFromValue(const rapidjson::Value& obj) override;
         };
 
+        struct UserTwitchInfo : public PlayFabBaseModel
+        {
+            std::string TwitchId;
+            std::string TwitchUserName;
+
+            UserTwitchInfo() :
+                PlayFabBaseModel(),
+                TwitchId(),
+                TwitchUserName()
+            {}
+
+            UserTwitchInfo(const UserTwitchInfo& src) :
+                PlayFabBaseModel(),
+                TwitchId(src.TwitchId),
+                TwitchUserName(src.TwitchUserName)
+            {}
+
+            UserTwitchInfo(const rapidjson::Value& obj) : UserTwitchInfo()
+            {
+                readFromValue(obj);
+            }
+
+            ~UserTwitchInfo();
+
+            void writeJSON(PFStringJsonWriter& writer) override;
+            bool readFromValue(const rapidjson::Value& obj) override;
+        };
+
         struct UserPsnInfo : public PlayFabBaseModel
         {
             std::string PsnAccountId;
@@ -2977,6 +3006,7 @@ namespace PlayFab
             UserIosDeviceInfo* IosDeviceInfo;
             UserAndroidDeviceInfo* AndroidDeviceInfo;
             UserKongregateInfo* KongregateInfo;
+            UserTwitchInfo* TwitchInfo;
             UserPsnInfo* PsnInfo;
             UserGoogleInfo* GoogleInfo;
             UserXboxInfo* XboxInfo;
@@ -2995,6 +3025,7 @@ namespace PlayFab
                 IosDeviceInfo(nullptr),
                 AndroidDeviceInfo(nullptr),
                 KongregateInfo(nullptr),
+                TwitchInfo(nullptr),
                 PsnInfo(nullptr),
                 GoogleInfo(nullptr),
                 XboxInfo(nullptr),
@@ -3014,6 +3045,7 @@ namespace PlayFab
                 IosDeviceInfo(src.IosDeviceInfo ? new UserIosDeviceInfo(*src.IosDeviceInfo) : nullptr),
                 AndroidDeviceInfo(src.AndroidDeviceInfo ? new UserAndroidDeviceInfo(*src.AndroidDeviceInfo) : nullptr),
                 KongregateInfo(src.KongregateInfo ? new UserKongregateInfo(*src.KongregateInfo) : nullptr),
+                TwitchInfo(src.TwitchInfo ? new UserTwitchInfo(*src.TwitchInfo) : nullptr),
                 PsnInfo(src.PsnInfo ? new UserPsnInfo(*src.PsnInfo) : nullptr),
                 GoogleInfo(src.GoogleInfo ? new UserGoogleInfo(*src.GoogleInfo) : nullptr),
                 XboxInfo(src.XboxInfo ? new UserXboxInfo(*src.XboxInfo) : nullptr),
