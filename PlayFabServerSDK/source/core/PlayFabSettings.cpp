@@ -3,9 +3,9 @@
 
 namespace PlayFab
 {
-    const std::string PlayFabSettings::sdkVersion = "0.33.160801";
+    const std::string PlayFabSettings::sdkVersion = "0.34.160815";
     const std::string PlayFabSettings::buildIdentifier = "jbuild_windowssdk_0";
-    const std::string PlayFabSettings::versionString = "WindowsSDK-0.33.160801";
+    const std::string PlayFabSettings::versionString = "WindowsSDK-0.34.160815";
 
     bool PlayFabSettings::useDevelopmentEnvironment = false;
     std::string PlayFabSettings::serverURL;
