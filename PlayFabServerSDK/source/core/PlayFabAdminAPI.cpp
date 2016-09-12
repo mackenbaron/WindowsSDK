@@ -3473,6 +3473,54 @@ void PlayFabAdminAPI::OnAddPlayerTagResult(int httpStatus, HttpRequest* request,
     delete request;
 }
 
+void PlayFabAdminAPI::GetAllActionGroups(
+    
+    ProcessApiCallback<GetAllActionGroupsResult> callback,
+    ErrorCallback errorCallback,
+    void* userData
+    )
+{
+    
+    HttpRequest* httpRequest = new HttpRequest("POST", PlayFabSettings::getURL("/Admin/GetAllActionGroups"));
+    httpRequest->SetHeader("Content-Type", "application/json");
+    httpRequest->SetHeader("X-PlayFabSDK", PlayFabSettings::versionString);
+    httpRequest->SetHeader("X-SecretKey", PlayFabSettings::developerSecretKey);
+
+    httpRequest->SetResultCallback(reinterpret_cast<void*>(callback));
+    httpRequest->SetErrorCallback(errorCallback);
+    httpRequest->SetUserData(userData);
+
+    httpRequest->SetBody("{}");
+    httpRequest->CompressBody();
+
+    mHttpRequester->AddRequest(httpRequest, OnGetAllActionGroupsResult, nullptr);
+}
+
+void PlayFabAdminAPI::OnGetAllActionGroupsResult(int httpStatus, HttpRequest* request, void* userData)
+{
+    GetAllActionGroupsResult outResult;
+    PlayFabError errorResult;
+
+    if (PlayFabRequestHandler::DecodeRequest(httpStatus, request, userData, outResult, errorResult))
+    {
+
+        if (request->GetResultCallback() != nullptr)
+        {
+            ProcessApiCallback<GetAllActionGroupsResult> successCallback = reinterpret_cast<ProcessApiCallback<GetAllActionGroupsResult>>(request->GetResultCallback());
+            successCallback(outResult, request->GetUserData());
+        }
+    }
+    else
+    {
+        if (PlayFabSettings::globalErrorHandler != nullptr)
+            PlayFabSettings::globalErrorHandler(errorResult, request->GetUserData());
+        if (request->GetErrorCallback() != nullptr)
+            request->GetErrorCallback()(errorResult, request->GetUserData());
+    }
+
+    delete request;
+}
+
 void PlayFabAdminAPI::GetAllSegments(
     
     ProcessApiCallback<GetAllSegmentsResult> callback,
