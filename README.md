@@ -5,7 +5,8 @@ Windows C++ SDK for PlayFab README
 This document describes the process of configuring and building the PlayFab C++ SDK.
 
 2. Prerequisites:
-----
+---
+* Visual Studio 2013 (2015 does not currently work)
 * Users should be very familiar with the topics covered in our [getting started guide](https://playfab.com/docs/getting-started-with-playfab/).
 
 To connect to the PlayFab service, your machine must be running TLS v1.2 or better.
