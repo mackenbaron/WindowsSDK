@@ -72,6 +72,43 @@ namespace PlayFab
             bool readFromValue(const rapidjson::Value& obj) override;
         };
 
+        struct AddFriendRequest : public PlayFabBaseModel
+        {
+            std::string PlayFabId;
+            std::string FriendPlayFabId;
+            std::string FriendUsername;
+            std::string FriendEmail;
+            std::string FriendTitleDisplayName;
+
+            AddFriendRequest() :
+                PlayFabBaseModel(),
+                PlayFabId(),
+                FriendPlayFabId(),
+                FriendUsername(),
+                FriendEmail(),
+                FriendTitleDisplayName()
+            {}
+
+            AddFriendRequest(const AddFriendRequest& src) :
+                PlayFabBaseModel(),
+                PlayFabId(src.PlayFabId),
+                FriendPlayFabId(src.FriendPlayFabId),
+                FriendUsername(src.FriendUsername),
+                FriendEmail(src.FriendEmail),
+                FriendTitleDisplayName(src.FriendTitleDisplayName)
+            {}
+
+            AddFriendRequest(const rapidjson::Value& obj) : AddFriendRequest()
+            {
+                readFromValue(obj);
+            }
+
+            ~AddFriendRequest();
+
+            void writeJSON(PFStringJsonWriter& writer) override;
+            bool readFromValue(const rapidjson::Value& obj) override;
+        };
+
         struct AddPlayerTagRequest : public PlayFabBaseModel
         {
             std::string PlayFabId;
@@ -1703,6 +1740,53 @@ namespace PlayFab
             bool readFromValue(const rapidjson::Value& obj) override;
         };
 
+        struct DeregisterGameRequest : public PlayFabBaseModel
+        {
+            std::string LobbyId;
+
+            DeregisterGameRequest() :
+                PlayFabBaseModel(),
+                LobbyId()
+            {}
+
+            DeregisterGameRequest(const DeregisterGameRequest& src) :
+                PlayFabBaseModel(),
+                LobbyId(src.LobbyId)
+            {}
+
+            DeregisterGameRequest(const rapidjson::Value& obj) : DeregisterGameRequest()
+            {
+                readFromValue(obj);
+            }
+
+            ~DeregisterGameRequest();
+
+            void writeJSON(PFStringJsonWriter& writer) override;
+            bool readFromValue(const rapidjson::Value& obj) override;
+        };
+
+        struct DeregisterGameResponse : public PlayFabBaseModel
+        {
+
+            DeregisterGameResponse() :
+                PlayFabBaseModel()
+            {}
+
+            DeregisterGameResponse(const DeregisterGameResponse& src) :
+                PlayFabBaseModel()
+            {}
+
+            DeregisterGameResponse(const rapidjson::Value& obj) : DeregisterGameResponse()
+            {
+                readFromValue(obj);
+            }
+
+            ~DeregisterGameResponse();
+
+            void writeJSON(PFStringJsonWriter& writer) override;
+            bool readFromValue(const rapidjson::Value& obj) override;
+        };
+
         struct EmptyResult : public PlayFabBaseModel
         {
 
@@ -2597,6 +2681,102 @@ namespace PlayFab
             }
 
             ~GetContentDownloadUrlResult();
+
+            void writeJSON(PFStringJsonWriter& writer) override;
+            bool readFromValue(const rapidjson::Value& obj) override;
+        };
+
+        struct GetFriendLeaderboardRequest : public PlayFabBaseModel
+        {
+            std::string PlayFabId;
+            std::string StatisticName;
+            Int32 StartPosition;
+            Int32 MaxResultsCount;
+            OptionalBool IncludeSteamFriends;
+            OptionalBool IncludeFacebookFriends;
+
+            GetFriendLeaderboardRequest() :
+                PlayFabBaseModel(),
+                PlayFabId(),
+                StatisticName(),
+                StartPosition(0),
+                MaxResultsCount(0),
+                IncludeSteamFriends(),
+                IncludeFacebookFriends()
+            {}
+
+            GetFriendLeaderboardRequest(const GetFriendLeaderboardRequest& src) :
+                PlayFabBaseModel(),
+                PlayFabId(src.PlayFabId),
+                StatisticName(src.StatisticName),
+                StartPosition(src.StartPosition),
+                MaxResultsCount(src.MaxResultsCount),
+                IncludeSteamFriends(src.IncludeSteamFriends),
+                IncludeFacebookFriends(src.IncludeFacebookFriends)
+            {}
+
+            GetFriendLeaderboardRequest(const rapidjson::Value& obj) : GetFriendLeaderboardRequest()
+            {
+                readFromValue(obj);
+            }
+
+            ~GetFriendLeaderboardRequest();
+
+            void writeJSON(PFStringJsonWriter& writer) override;
+            bool readFromValue(const rapidjson::Value& obj) override;
+        };
+
+        struct GetFriendsListRequest : public PlayFabBaseModel
+        {
+            std::string PlayFabId;
+            OptionalBool IncludeSteamFriends;
+            OptionalBool IncludeFacebookFriends;
+
+            GetFriendsListRequest() :
+                PlayFabBaseModel(),
+                PlayFabId(),
+                IncludeSteamFriends(),
+                IncludeFacebookFriends()
+            {}
+
+            GetFriendsListRequest(const GetFriendsListRequest& src) :
+                PlayFabBaseModel(),
+                PlayFabId(src.PlayFabId),
+                IncludeSteamFriends(src.IncludeSteamFriends),
+                IncludeFacebookFriends(src.IncludeFacebookFriends)
+            {}
+
+            GetFriendsListRequest(const rapidjson::Value& obj) : GetFriendsListRequest()
+            {
+                readFromValue(obj);
+            }
+
+            ~GetFriendsListRequest();
+
+            void writeJSON(PFStringJsonWriter& writer) override;
+            bool readFromValue(const rapidjson::Value& obj) override;
+        };
+
+        struct GetFriendsListResult : public PlayFabBaseModel
+        {
+            std::list<FriendInfo> Friends;
+
+            GetFriendsListResult() :
+                PlayFabBaseModel(),
+                Friends()
+            {}
+
+            GetFriendsListResult(const GetFriendsListResult& src) :
+                PlayFabBaseModel(),
+                Friends(src.Friends)
+            {}
+
+            GetFriendsListResult(const rapidjson::Value& obj) : GetFriendsListResult()
+            {
+                readFromValue(obj);
+            }
+
+            ~GetFriendsListResult();
 
             void writeJSON(PFStringJsonWriter& writer) override;
             bool readFromValue(const rapidjson::Value& obj) override;
@@ -5357,6 +5537,160 @@ namespace PlayFab
             bool readFromValue(const rapidjson::Value& obj) override;
         };
 
+        struct RefreshGameServerInstanceHeartbeatRequest : public PlayFabBaseModel
+        {
+            std::string LobbyId;
+
+            RefreshGameServerInstanceHeartbeatRequest() :
+                PlayFabBaseModel(),
+                LobbyId()
+            {}
+
+            RefreshGameServerInstanceHeartbeatRequest(const RefreshGameServerInstanceHeartbeatRequest& src) :
+                PlayFabBaseModel(),
+                LobbyId(src.LobbyId)
+            {}
+
+            RefreshGameServerInstanceHeartbeatRequest(const rapidjson::Value& obj) : RefreshGameServerInstanceHeartbeatRequest()
+            {
+                readFromValue(obj);
+            }
+
+            ~RefreshGameServerInstanceHeartbeatRequest();
+
+            void writeJSON(PFStringJsonWriter& writer) override;
+            bool readFromValue(const rapidjson::Value& obj) override;
+        };
+
+        struct RefreshGameServerInstanceHeartbeatResult : public PlayFabBaseModel
+        {
+
+            RefreshGameServerInstanceHeartbeatResult() :
+                PlayFabBaseModel()
+            {}
+
+            RefreshGameServerInstanceHeartbeatResult(const RefreshGameServerInstanceHeartbeatResult& src) :
+                PlayFabBaseModel()
+            {}
+
+            RefreshGameServerInstanceHeartbeatResult(const rapidjson::Value& obj) : RefreshGameServerInstanceHeartbeatResult()
+            {
+                readFromValue(obj);
+            }
+
+            ~RefreshGameServerInstanceHeartbeatResult();
+
+            void writeJSON(PFStringJsonWriter& writer) override;
+            bool readFromValue(const rapidjson::Value& obj) override;
+        };
+
+        enum Region
+        {
+            RegionUSCentral,
+            RegionUSEast,
+            RegionEUWest,
+            RegionSingapore,
+            RegionJapan,
+            RegionBrazil,
+            RegionAustralia
+        };
+
+        void writeRegionEnumJSON(Region enumVal, PFStringJsonWriter& writer);
+        Region readRegionFromValue(const rapidjson::Value& obj);
+
+        struct RegisterGameRequest : public PlayFabBaseModel
+        {
+            std::string ServerHost;
+            std::string ServerPort;
+            std::string Build;
+            Region pfRegion;
+            std::string GameMode;
+            std::map<std::string, std::string> Tags;
+
+            RegisterGameRequest() :
+                PlayFabBaseModel(),
+                ServerHost(),
+                ServerPort(),
+                Build(),
+                pfRegion(),
+                GameMode(),
+                Tags()
+            {}
+
+            RegisterGameRequest(const RegisterGameRequest& src) :
+                PlayFabBaseModel(),
+                ServerHost(src.ServerHost),
+                ServerPort(src.ServerPort),
+                Build(src.Build),
+                pfRegion(src.pfRegion),
+                GameMode(src.GameMode),
+                Tags(src.Tags)
+            {}
+
+            RegisterGameRequest(const rapidjson::Value& obj) : RegisterGameRequest()
+            {
+                readFromValue(obj);
+            }
+
+            ~RegisterGameRequest();
+
+            void writeJSON(PFStringJsonWriter& writer) override;
+            bool readFromValue(const rapidjson::Value& obj) override;
+        };
+
+        struct RegisterGameResponse : public PlayFabBaseModel
+        {
+            std::string LobbyId;
+
+            RegisterGameResponse() :
+                PlayFabBaseModel(),
+                LobbyId()
+            {}
+
+            RegisterGameResponse(const RegisterGameResponse& src) :
+                PlayFabBaseModel(),
+                LobbyId(src.LobbyId)
+            {}
+
+            RegisterGameResponse(const rapidjson::Value& obj) : RegisterGameResponse()
+            {
+                readFromValue(obj);
+            }
+
+            ~RegisterGameResponse();
+
+            void writeJSON(PFStringJsonWriter& writer) override;
+            bool readFromValue(const rapidjson::Value& obj) override;
+        };
+
+        struct RemoveFriendRequest : public PlayFabBaseModel
+        {
+            std::string FriendPlayFabId;
+            std::string PlayFabId;
+
+            RemoveFriendRequest() :
+                PlayFabBaseModel(),
+                FriendPlayFabId(),
+                PlayFabId()
+            {}
+
+            RemoveFriendRequest(const RemoveFriendRequest& src) :
+                PlayFabBaseModel(),
+                FriendPlayFabId(src.FriendPlayFabId),
+                PlayFabId(src.PlayFabId)
+            {}
+
+            RemoveFriendRequest(const rapidjson::Value& obj) : RemoveFriendRequest()
+            {
+                readFromValue(obj);
+            }
+
+            ~RemoveFriendRequest();
+
+            void writeJSON(PFStringJsonWriter& writer) override;
+            bool readFromValue(const rapidjson::Value& obj) override;
+        };
+
         struct RemovePlayerTagRequest : public PlayFabBaseModel
         {
             std::string PlayFabId;
@@ -5820,6 +6154,56 @@ namespace PlayFab
             }
 
             ~SetGameServerInstanceStateResult();
+
+            void writeJSON(PFStringJsonWriter& writer) override;
+            bool readFromValue(const rapidjson::Value& obj) override;
+        };
+
+        struct SetGameServerInstanceTagsRequest : public PlayFabBaseModel
+        {
+            std::string LobbyId;
+            std::map<std::string, std::string> Tags;
+
+            SetGameServerInstanceTagsRequest() :
+                PlayFabBaseModel(),
+                LobbyId(),
+                Tags()
+            {}
+
+            SetGameServerInstanceTagsRequest(const SetGameServerInstanceTagsRequest& src) :
+                PlayFabBaseModel(),
+                LobbyId(src.LobbyId),
+                Tags(src.Tags)
+            {}
+
+            SetGameServerInstanceTagsRequest(const rapidjson::Value& obj) : SetGameServerInstanceTagsRequest()
+            {
+                readFromValue(obj);
+            }
+
+            ~SetGameServerInstanceTagsRequest();
+
+            void writeJSON(PFStringJsonWriter& writer) override;
+            bool readFromValue(const rapidjson::Value& obj) override;
+        };
+
+        struct SetGameServerInstanceTagsResult : public PlayFabBaseModel
+        {
+
+            SetGameServerInstanceTagsResult() :
+                PlayFabBaseModel()
+            {}
+
+            SetGameServerInstanceTagsResult(const SetGameServerInstanceTagsResult& src) :
+                PlayFabBaseModel()
+            {}
+
+            SetGameServerInstanceTagsResult(const rapidjson::Value& obj) : SetGameServerInstanceTagsResult()
+            {
+                readFromValue(obj);
+            }
+
+            ~SetGameServerInstanceTagsResult();
 
             void writeJSON(PFStringJsonWriter& writer) override;
             bool readFromValue(const rapidjson::Value& obj) override;
