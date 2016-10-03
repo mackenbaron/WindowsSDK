@@ -3282,6 +3282,54 @@ void PlayFabClientAPI::OnGetStoreItemsResult(int httpStatus, HttpRequest* reques
     delete request;
 }
 
+void PlayFabClientAPI::GetTime(
+    
+    ProcessApiCallback<GetTimeResult> callback,
+    ErrorCallback errorCallback,
+    void* userData
+    )
+{
+    
+    HttpRequest* httpRequest = new HttpRequest("POST", PlayFabSettings::getURL("/Client/GetTime"));
+    httpRequest->SetHeader("Content-Type", "application/json");
+    httpRequest->SetHeader("X-PlayFabSDK", PlayFabSettings::versionString);
+    httpRequest->SetHeader("X-Authorization", mUserSessionTicket);
+
+    httpRequest->SetResultCallback(reinterpret_cast<void*>(callback));
+    httpRequest->SetErrorCallback(errorCallback);
+    httpRequest->SetUserData(userData);
+
+    httpRequest->SetBody("{}");
+    httpRequest->CompressBody();
+
+    mHttpRequester->AddRequest(httpRequest, OnGetTimeResult, nullptr);
+}
+
+void PlayFabClientAPI::OnGetTimeResult(int httpStatus, HttpRequest* request, void* userData)
+{
+    GetTimeResult outResult;
+    PlayFabError errorResult;
+
+    if (PlayFabRequestHandler::DecodeRequest(httpStatus, request, userData, outResult, errorResult))
+    {
+
+        if (request->GetResultCallback() != nullptr)
+        {
+            ProcessApiCallback<GetTimeResult> successCallback = reinterpret_cast<ProcessApiCallback<GetTimeResult>>(request->GetResultCallback());
+            successCallback(outResult, request->GetUserData());
+        }
+    }
+    else
+    {
+        if (PlayFabSettings::globalErrorHandler != nullptr)
+            PlayFabSettings::globalErrorHandler(errorResult, request->GetUserData());
+        if (request->GetErrorCallback() != nullptr)
+            request->GetErrorCallback()(errorResult, request->GetUserData());
+    }
+
+    delete request;
+}
+
 void PlayFabClientAPI::GetTitleData(
     GetTitleDataRequest& request,
     ProcessApiCallback<GetTitleDataResult> callback,
