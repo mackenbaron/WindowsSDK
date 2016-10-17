@@ -5290,7 +5290,7 @@ void UserCredentials::writeJSON(PFStringJsonWriter& writer)
     writer.StartObject();
 
     writer.String("Username"); writer.String(Username.c_str());
-    writer.String("Password"); writer.String(Password.c_str());
+    if (Password.length() > 0) { writer.String("Password"); writer.String(Password.c_str()); }
 
     writer.EndObject();
 }
@@ -6064,7 +6064,6 @@ void UpdateCloudScriptRequest::writeJSON(PFStringJsonWriter& writer)
 {
     writer.StartObject();
 
-    if (Version.notNull()) { writer.String("Version"); writer.Int(Version); }
     writer.String("Files");
     writer.StartArray();
     for (std::list<CloudScriptFile>::iterator iter = Files.begin(); iter != Files.end(); ++iter) {
@@ -6080,8 +6079,6 @@ void UpdateCloudScriptRequest::writeJSON(PFStringJsonWriter& writer)
 
 bool UpdateCloudScriptRequest::readFromValue(const rapidjson::Value& obj)
 {
-    const Value::ConstMemberIterator Version_member = obj.FindMember("Version");
-    if (Version_member != obj.MemberEnd() && !Version_member->value.IsNull()) Version = Version_member->value.GetInt();
     const Value::ConstMemberIterator Files_member = obj.FindMember("Files");
     if (Files_member != obj.MemberEnd()) {
         const rapidjson::Value& memberList = Files_member->value;
