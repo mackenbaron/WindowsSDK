@@ -3,9 +3,9 @@
 
 namespace PlayFab
 {
-    const std::string PlayFabSettings::sdkVersion = "0.39.161003";
-    const std::string PlayFabSettings::buildIdentifier = "jbuild_windowssdk_1";
-    const std::string PlayFabSettings::versionString = "WindowsSDK-0.39.161003";
+    const std::string PlayFabSettings::sdkVersion = "0.40.161017";
+    const std::string PlayFabSettings::buildIdentifier = "jbuild_windowssdk_0";
+    const std::string PlayFabSettings::versionString = "WindowsSDK-0.40.161017";
 
     bool PlayFabSettings::useDevelopmentEnvironment = false;
     std::string PlayFabSettings::serverURL;
@@ -14,11 +14,10 @@ namespace PlayFab
     std::string PlayFabSettings::titleId;
     ErrorCallback PlayFabSettings::globalErrorHandler = nullptr;
     std::string PlayFabSettings::developerSecretKey;
-    std::string PlayFabSettings::logicServerURL = "";
     std::string PlayFabSettings::advertisingIdType = "";
     std::string PlayFabSettings::advertisingIdValue = "";
 
     bool PlayFabSettings::disableAdvertising = false;
     const std::string PlayFabSettings::AD_TYPE_IDFA = "Idfa";
-    const std::string PlayFabSettings::AD_TYPE_ANDROID_ID = "Android_Id";
+    const std::string PlayFabSettings::AD_TYPE_ANDROID_ID = "Adid";
 }

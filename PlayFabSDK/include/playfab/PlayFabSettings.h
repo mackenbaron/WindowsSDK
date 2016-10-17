@@ -20,7 +20,6 @@ namespace PlayFab
         static std::string titleId; // You must set this value for PlayFabSdk to work properly (Found in the Game Manager for your title, at the PlayFab Website)
         static ErrorCallback globalErrorHandler;
         static std::string developerSecretKey; // You must set this value for PlayFabSdk to work properly (Found in the Game Manager for your title, at the PlayFab Website)
-        static std::string logicServerURL; // Deprecated
         static std::string advertisingIdType; // Set this to the appropriate AD_TYPE_X constant below
         static std::string advertisingIdValue; // Set this to corresponding device value
 
@@ -29,11 +28,6 @@ namespace PlayFab
         static bool disableAdvertising;
         static const std::string AD_TYPE_IDFA;
         static const std::string AD_TYPE_ANDROID_ID;
-
-        static std::string getLogicURL(const std::string& callPath)
-        {
-            return logicServerURL + callPath;
-        }
 
         static std::string getURL(const std::string& callPath)
         {
