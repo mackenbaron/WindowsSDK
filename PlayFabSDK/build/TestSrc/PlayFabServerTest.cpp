@@ -137,7 +137,7 @@ namespace UnittestRunner
 
     string PlayFabServerTest::TEST_TITLE_DATA_LOC = "testTitleData.json"; // default to local file if PF_TEST_TITLE_DATA_JSON env-var does not exist
 
-                                                                          // Variables for specific tests
+    // Variables for specific tests
     string PlayFabServerTest::testMessageReturn;
 }
 
