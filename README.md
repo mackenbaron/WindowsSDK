@@ -2,95 +2,59 @@ Windows C++ SDK for PlayFab README
 ========
 1. Overview:
 ----
-This document describes the process of configuring and building the PlayFab C++ SDK.
+
+This document describes the process of configuring and building the PlayFab Windows/C++ SDK.
+
+If you have any difficulties upgrading from the earlier V0.x version of this sdk, see our [Upgrade Guide](UpgradeGuide.md) for assistance, or [contact us](https://community.playfab.com/index.html).
+
 
 2. Prerequisites:
 ---
-* Visual Studio 2013 (2015 does not currently work)
+
+* Visual Studio 2013 or 2015
 * Users should be very familiar with the topics covered in our [getting started guide](https://playfab.com/docs/getting-started-with-playfab/).
 
 To connect to the PlayFab service, your machine must be running TLS v1.2 or better.
+
 * For Windows, this means Windows 7 and above
 * [Official Microsoft Documentation](https://msdn.microsoft.com/en-us/library/windows/desktop/aa380516%28v=vs.85%29.aspx)
 * [Support for SSL/TLS protocols on Windows](http://blogs.msdn.com/b/kaushal/archive/2011/10/02/support-for-ssl-tls-protocols-on-windows.aspx)
 
 
-3. Source Code & Key Repository Components:
-----
-This package contains three different versions of the PlayFab SDK.
-* PlayFabClientSDK - This version contains only client libraries and is designed for integration with your game client
-* PlayFabServerSDK - Contains server and admin APIs designed to be called from your custom logic server or build process
-* PlayFabSDK - Contains all APIs in one SDK, as well as a unit-test project
-
-
-4. Installation & Configuration Instructions:
-----
-To integrate the PlayFab SDK into your Visual Studio project, follow these steps.
-
-#### Linker Settings
-
-1.
-
-Under your project's Properties panel, open up "Configuration Properties\Linker". Add the following to the "Additional Linker Directories" line:
-
-```
-$(PlayFabRoot)\PlayFabSDK\lib\Win32;$(PlayFabRoot)\PlayFabSDK\dependencies\lib\Win32;
-```
-Substitute $(PlayFabRoot) for wherever you have the PlayFabSDK installed in your project. If you have a x64 target in your project, substitute x64 for Win32 in the above path.
-
-2.
-
-In the Properties panel, switch to "Configuration Properties\Linker\Input"
-
-Add the following libraries to the "Additional Dependencies" line:
-```
-zlibd.lib;libeay32d.lib;ssleay32d.lib;libcurld.lib;PlayFabAPI.lib;ws2_32.lib;wldap32.lib;
-```
-
-#### Preprocessor settings
-
-Open your project's Properties panel and switch to "Configuration Properties\C/C++".
-
-Add the following paths to the line "Additional Include Directories":
-
-```
-$(PlayFabRoot)\PlayFabSDK\include;$(PlayFabRoot)\PlayFabSDK\dependencies\include;
-```
-
-Substitute $(PlayFabRoot) for wherever you have the PlayFabSDK installed in your project.
-
-#### Done
-
-Your project should now be ready to compile and link against the PlayFabSDK.
-
-### Alternative approach
-
-If you'd prefer, another approach is to add the PlayFabSDK's vcproj to your solution. This makes it easier to browse and debug the SDK's source code as you develop with it.
-
-1. Right click your solution select "Add\Existing Project..."
-2. Navigate to your PlayFabSDK location and choose PlayFabSDK\build\VC12\PlayFabAPI\PlayFabAPI.vcxproj
-3. Add a dependency from your game project to the PlayFabAPI project.
-4. On your project properties, make sure "Configuration Properties\Linker\Link Library Depndencies" is set to true.
-
-You must then follow all the steps above to setup dependent libs and headers, but you would leave out "PlayFabAPI.lib" when you add the additional dependencies line.
-
-
-5. testTitleData.json file required for "StartTest" custom event
+3. Installation & Configuration Instructions:
 ----
 
-This sdk includes an optional Visual Studio Test Project (UnittestRunner) that is used by PlayFab to verify sdk features are fully functional.
+To install client APIs into your game client:
+
+* Open your existing Visual Studio game project, or create a new one
+* Open the "Manage NuGet packages..." window for your game project
+  * Search "playfab", and install the C++ package that matches your Visual Studio version
+
+
+4. Server & Admin APIs
+
+To install server and admin APIs, follow the instructions above, with a few extra steps:
+
+* Find the following Visual Studio option:
+  * Project Settings -> C/C++ -> Preprocessor -> Preprocessor Definitions
+* For server or matchmaker apis, add ENABLE_PLAYFABSERVER_API to this field
+* For admin utility APIs, add ENABLE_PLAYFABADMIN_API to this field
+
+These APIs are suitable for private game servers and internal admin tools which are not published to customers.
+
+
+5. WindowsSDK includes an optional Testing project
+----
+
+This sdk includes an optional Visual Studio Test Project (Testing) that is used by PlayFab to verify sdk features are fully functional.
 
 Please read about the testTitleData.json format, and purpose here:
 * https://github.com/PlayFab/SDKGenerator/blob/master/JenkinsConsoleUtility/testTitleData.md
 The file location is read from the hard-coded loction of: TEST_TITLE_DATA_LOC in PlayFabApiTest.cpp, you can redirect this to an input that matches your file location
 
 
-5. Troubleshooting:
+6. Troubleshooting:
 ----
-On Feb 16, 2016, we did some repo cleaning, removing 20GB of excessive .lib files. As a consequence, everything except the latest 0.18 release have lost their pre-built lib files. The older versions should still be capable of rebuilding their .lib files for that release. For the future, our automated process has been updated to only check in .lib files for scheduled releases. Also, as a consequence, the old nightly and versioned branches are dead-ended, and re-branched from master.
-
-If you have a fork/clone of the repo from before Feb 16, 2016, you will need to delete and re-fork/re-clone it. If you were using the nightly or versioned branches (not recommended), you may also need to update to the new re-branching of these identifiers.
-
 For a complete list of available APIs, check out the [online documentation](http://api.playfab.com/Documentation/).
 
 #### Contact Us
@@ -102,7 +66,7 @@ Our Developer Success Team can assist with answering any questions as well as pr
 [Forums, Support and Knowledge Base](https://community.playfab.com/index.html)
 
 
-6. Copyright and Licensing Information:
+7. Copyright and Licensing Information:
 ----
   Apache License --
   Version 2.0, January 2004

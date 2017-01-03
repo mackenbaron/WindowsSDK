@@ -1,15 +1,12 @@
-#ifndef PLAYFAB_PLAYFABERROR_H_
-#define PLAYFAB_PLAYFABERROR_H_
+#pragma once
 
-#include <string>
-#include <map>
+#include "PlayFabBaseModel.h"
 
 namespace PlayFab
 {
-
     enum PlayFabErrorCode
     {
-        PlayFabErrorHostnameNotFound=1,
+        PlayFabErrorHostnameNotFound = 1,
         PlayFabErrorConnectionTimeout,
         PlayFabErrorConnectionRefused,
         PlayFabErrorSocketError,
@@ -268,20 +265,31 @@ namespace PlayFab
         PlayFabErrorTaskInstanceNotFound = 1262,
         PlayFabErrorInvalidIdentityProviderId = 1263,
         PlayFabErrorMisconfiguredIdentityProvider = 1264,
-        PlayFabErrorInvalidScheduledTaskType = 1265
+        PlayFabErrorInvalidScheduledTaskType = 1265,
     };
 
-    struct PlayFabError
+    /// <summary>
+    /// The wrapper around all PlayFab responses, and all fields needed in the case of an error
+    /// </summary>
+    struct PlayFabError : public PlayFabBaseModel
     {
+        // Serialized fields
         int HttpCode;
         std::string HttpStatus;
-        int ErrorCode;
+        PlayFabErrorCode ErrorCode;
         std::string ErrorName;
         std::string ErrorMessage;
-        std::multimap< std::string, std::string > ErrorDetails;
+        web::json::value ErrorDetails;
+        web::json::value Data;
+        // Non-serialized fields
+        std::string UrlPath;
+        web::json::value Request;
+
+        void FromJson(web::json::value& input) override;
+        web::json::value ToJson() const override;
+
+        std::string GenerateReport() const;
     };
 
-
-    typedef void(*ErrorCallback)(PlayFabError& error, void* userData);
+    typedef std::function<void(const PlayFabError& error, void* customData)> ErrorCallback;
 }
-#endif

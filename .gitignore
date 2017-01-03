@@ -1,8 +1,21 @@
-Debug/
-Release/
+Debug*/
+Release*/
+Packages/
+ipch/
 
 *.opensdf
 *.sdf
 *.suo
+*.db
 *.user
 *.db
+*.opendb
+*.filters
+*.obj
+*.nupkg
+*.tlog
+*.log
+*.idb
+*.pdb
+*.dll
+*.lib
