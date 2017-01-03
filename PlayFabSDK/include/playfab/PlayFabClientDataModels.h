@@ -1,5 +1,6 @@
-#ifndef PLAYFAB_CLIENT_DATA_MODELS_H_
-#define PLAYFAB_CLIENT_DATA_MODELS_H_
+#pragma once
+
+#ifndef DISABLE_PLAYFABCLIENT_API
 
 #include "playfab/PlayFabBaseModel.h"
 
@@ -7,949 +8,7 @@ namespace PlayFab
 {
     namespace ClientModels
     {
-        struct AcceptTradeRequest : public PlayFabBaseModel
-        {
-            std::string OfferingPlayerId;
-            std::string TradeId;
-            std::list<std::string> AcceptedInventoryInstanceIds;
-
-            AcceptTradeRequest() :
-                PlayFabBaseModel(),
-                OfferingPlayerId(),
-                TradeId(),
-                AcceptedInventoryInstanceIds()
-            {}
-
-            AcceptTradeRequest(const AcceptTradeRequest& src) :
-                PlayFabBaseModel(),
-                OfferingPlayerId(src.OfferingPlayerId),
-                TradeId(src.TradeId),
-                AcceptedInventoryInstanceIds(src.AcceptedInventoryInstanceIds)
-            {}
-
-            AcceptTradeRequest(const rapidjson::Value& obj) : AcceptTradeRequest()
-            {
-                readFromValue(obj);
-            }
-
-            ~AcceptTradeRequest();
-
-            void writeJSON(PFStringJsonWriter& writer) override;
-            bool readFromValue(const rapidjson::Value& obj) override;
-        };
-
-        enum TradeStatus
-        {
-            TradeStatusInvalid,
-            TradeStatusOpening,
-            TradeStatusOpen,
-            TradeStatusAccepting,
-            TradeStatusAccepted,
-            TradeStatusFilled,
-            TradeStatusCancelled
-        };
-
-        void writeTradeStatusEnumJSON(TradeStatus enumVal, PFStringJsonWriter& writer);
-        TradeStatus readTradeStatusFromValue(const rapidjson::Value& obj);
-
-        struct TradeInfo : public PlayFabBaseModel
-        {
-            Boxed<TradeStatus> Status;
-            std::string TradeId;
-            std::string OfferingPlayerId;
-            std::list<std::string> OfferedInventoryInstanceIds;
-            std::list<std::string> OfferedCatalogItemIds;
-            std::list<std::string> RequestedCatalogItemIds;
-            std::list<std::string> AllowedPlayerIds;
-            std::string AcceptedPlayerId;
-            std::list<std::string> AcceptedInventoryInstanceIds;
-            OptionalTime OpenedAt;
-            OptionalTime FilledAt;
-            OptionalTime CancelledAt;
-            OptionalTime InvalidatedAt;
-
-            TradeInfo() :
-                PlayFabBaseModel(),
-                Status(),
-                TradeId(),
-                OfferingPlayerId(),
-                OfferedInventoryInstanceIds(),
-                OfferedCatalogItemIds(),
-                RequestedCatalogItemIds(),
-                AllowedPlayerIds(),
-                AcceptedPlayerId(),
-                AcceptedInventoryInstanceIds(),
-                OpenedAt(),
-                FilledAt(),
-                CancelledAt(),
-                InvalidatedAt()
-            {}
-
-            TradeInfo(const TradeInfo& src) :
-                PlayFabBaseModel(),
-                Status(src.Status),
-                TradeId(src.TradeId),
-                OfferingPlayerId(src.OfferingPlayerId),
-                OfferedInventoryInstanceIds(src.OfferedInventoryInstanceIds),
-                OfferedCatalogItemIds(src.OfferedCatalogItemIds),
-                RequestedCatalogItemIds(src.RequestedCatalogItemIds),
-                AllowedPlayerIds(src.AllowedPlayerIds),
-                AcceptedPlayerId(src.AcceptedPlayerId),
-                AcceptedInventoryInstanceIds(src.AcceptedInventoryInstanceIds),
-                OpenedAt(src.OpenedAt),
-                FilledAt(src.FilledAt),
-                CancelledAt(src.CancelledAt),
-                InvalidatedAt(src.InvalidatedAt)
-            {}
-
-            TradeInfo(const rapidjson::Value& obj) : TradeInfo()
-            {
-                readFromValue(obj);
-            }
-
-            ~TradeInfo();
-
-            void writeJSON(PFStringJsonWriter& writer) override;
-            bool readFromValue(const rapidjson::Value& obj) override;
-        };
-
-        struct AcceptTradeResponse : public PlayFabBaseModel
-        {
-            TradeInfo* Trade;
-
-            AcceptTradeResponse() :
-                PlayFabBaseModel(),
-                Trade(nullptr)
-            {}
-
-            AcceptTradeResponse(const AcceptTradeResponse& src) :
-                PlayFabBaseModel(),
-                Trade(src.Trade ? new TradeInfo(*src.Trade) : nullptr)
-            {}
-
-            AcceptTradeResponse(const rapidjson::Value& obj) : AcceptTradeResponse()
-            {
-                readFromValue(obj);
-            }
-
-            ~AcceptTradeResponse();
-
-            void writeJSON(PFStringJsonWriter& writer) override;
-            bool readFromValue(const rapidjson::Value& obj) override;
-        };
-
-        struct AddFriendRequest : public PlayFabBaseModel
-        {
-            std::string FriendPlayFabId;
-            std::string FriendUsername;
-            std::string FriendEmail;
-            std::string FriendTitleDisplayName;
-
-            AddFriendRequest() :
-                PlayFabBaseModel(),
-                FriendPlayFabId(),
-                FriendUsername(),
-                FriendEmail(),
-                FriendTitleDisplayName()
-            {}
-
-            AddFriendRequest(const AddFriendRequest& src) :
-                PlayFabBaseModel(),
-                FriendPlayFabId(src.FriendPlayFabId),
-                FriendUsername(src.FriendUsername),
-                FriendEmail(src.FriendEmail),
-                FriendTitleDisplayName(src.FriendTitleDisplayName)
-            {}
-
-            AddFriendRequest(const rapidjson::Value& obj) : AddFriendRequest()
-            {
-                readFromValue(obj);
-            }
-
-            ~AddFriendRequest();
-
-            void writeJSON(PFStringJsonWriter& writer) override;
-            bool readFromValue(const rapidjson::Value& obj) override;
-        };
-
-        struct AddFriendResult : public PlayFabBaseModel
-        {
-            bool Created;
-
-            AddFriendResult() :
-                PlayFabBaseModel(),
-                Created(false)
-            {}
-
-            AddFriendResult(const AddFriendResult& src) :
-                PlayFabBaseModel(),
-                Created(src.Created)
-            {}
-
-            AddFriendResult(const rapidjson::Value& obj) : AddFriendResult()
-            {
-                readFromValue(obj);
-            }
-
-            ~AddFriendResult();
-
-            void writeJSON(PFStringJsonWriter& writer) override;
-            bool readFromValue(const rapidjson::Value& obj) override;
-        };
-
-        struct GenericServiceId : public PlayFabBaseModel
-        {
-            std::string ServiceName;
-            std::string UserId;
-
-            GenericServiceId() :
-                PlayFabBaseModel(),
-                ServiceName(),
-                UserId()
-            {}
-
-            GenericServiceId(const GenericServiceId& src) :
-                PlayFabBaseModel(),
-                ServiceName(src.ServiceName),
-                UserId(src.UserId)
-            {}
-
-            GenericServiceId(const rapidjson::Value& obj) : GenericServiceId()
-            {
-                readFromValue(obj);
-            }
-
-            ~GenericServiceId();
-
-            void writeJSON(PFStringJsonWriter& writer) override;
-            bool readFromValue(const rapidjson::Value& obj) override;
-        };
-
-        struct AddGenericIDRequest : public PlayFabBaseModel
-        {
-            GenericServiceId GenericId;
-
-            AddGenericIDRequest() :
-                PlayFabBaseModel(),
-                GenericId()
-            {}
-
-            AddGenericIDRequest(const AddGenericIDRequest& src) :
-                PlayFabBaseModel(),
-                GenericId(src.GenericId)
-            {}
-
-            AddGenericIDRequest(const rapidjson::Value& obj) : AddGenericIDRequest()
-            {
-                readFromValue(obj);
-            }
-
-            ~AddGenericIDRequest();
-
-            void writeJSON(PFStringJsonWriter& writer) override;
-            bool readFromValue(const rapidjson::Value& obj) override;
-        };
-
-        struct AddGenericIDResult : public PlayFabBaseModel
-        {
-
-            AddGenericIDResult() :
-                PlayFabBaseModel()
-            {}
-
-            AddGenericIDResult(const AddGenericIDResult& src) :
-                PlayFabBaseModel()
-            {}
-
-            AddGenericIDResult(const rapidjson::Value& obj) : AddGenericIDResult()
-            {
-                readFromValue(obj);
-            }
-
-            ~AddGenericIDResult();
-
-            void writeJSON(PFStringJsonWriter& writer) override;
-            bool readFromValue(const rapidjson::Value& obj) override;
-        };
-
-        struct AddSharedGroupMembersRequest : public PlayFabBaseModel
-        {
-            std::string SharedGroupId;
-            std::list<std::string> PlayFabIds;
-
-            AddSharedGroupMembersRequest() :
-                PlayFabBaseModel(),
-                SharedGroupId(),
-                PlayFabIds()
-            {}
-
-            AddSharedGroupMembersRequest(const AddSharedGroupMembersRequest& src) :
-                PlayFabBaseModel(),
-                SharedGroupId(src.SharedGroupId),
-                PlayFabIds(src.PlayFabIds)
-            {}
-
-            AddSharedGroupMembersRequest(const rapidjson::Value& obj) : AddSharedGroupMembersRequest()
-            {
-                readFromValue(obj);
-            }
-
-            ~AddSharedGroupMembersRequest();
-
-            void writeJSON(PFStringJsonWriter& writer) override;
-            bool readFromValue(const rapidjson::Value& obj) override;
-        };
-
-        struct AddSharedGroupMembersResult : public PlayFabBaseModel
-        {
-
-            AddSharedGroupMembersResult() :
-                PlayFabBaseModel()
-            {}
-
-            AddSharedGroupMembersResult(const AddSharedGroupMembersResult& src) :
-                PlayFabBaseModel()
-            {}
-
-            AddSharedGroupMembersResult(const rapidjson::Value& obj) : AddSharedGroupMembersResult()
-            {
-                readFromValue(obj);
-            }
-
-            ~AddSharedGroupMembersResult();
-
-            void writeJSON(PFStringJsonWriter& writer) override;
-            bool readFromValue(const rapidjson::Value& obj) override;
-        };
-
-        struct AddUsernamePasswordRequest : public PlayFabBaseModel
-        {
-            std::string Username;
-            std::string Email;
-            std::string Password;
-
-            AddUsernamePasswordRequest() :
-                PlayFabBaseModel(),
-                Username(),
-                Email(),
-                Password()
-            {}
-
-            AddUsernamePasswordRequest(const AddUsernamePasswordRequest& src) :
-                PlayFabBaseModel(),
-                Username(src.Username),
-                Email(src.Email),
-                Password(src.Password)
-            {}
-
-            AddUsernamePasswordRequest(const rapidjson::Value& obj) : AddUsernamePasswordRequest()
-            {
-                readFromValue(obj);
-            }
-
-            ~AddUsernamePasswordRequest();
-
-            void writeJSON(PFStringJsonWriter& writer) override;
-            bool readFromValue(const rapidjson::Value& obj) override;
-        };
-
-        struct AddUsernamePasswordResult : public PlayFabBaseModel
-        {
-            std::string Username;
-
-            AddUsernamePasswordResult() :
-                PlayFabBaseModel(),
-                Username()
-            {}
-
-            AddUsernamePasswordResult(const AddUsernamePasswordResult& src) :
-                PlayFabBaseModel(),
-                Username(src.Username)
-            {}
-
-            AddUsernamePasswordResult(const rapidjson::Value& obj) : AddUsernamePasswordResult()
-            {
-                readFromValue(obj);
-            }
-
-            ~AddUsernamePasswordResult();
-
-            void writeJSON(PFStringJsonWriter& writer) override;
-            bool readFromValue(const rapidjson::Value& obj) override;
-        };
-
-        struct AddUserVirtualCurrencyRequest : public PlayFabBaseModel
-        {
-            std::string VirtualCurrency;
-            Int32 Amount;
-
-            AddUserVirtualCurrencyRequest() :
-                PlayFabBaseModel(),
-                VirtualCurrency(),
-                Amount(0)
-            {}
-
-            AddUserVirtualCurrencyRequest(const AddUserVirtualCurrencyRequest& src) :
-                PlayFabBaseModel(),
-                VirtualCurrency(src.VirtualCurrency),
-                Amount(src.Amount)
-            {}
-
-            AddUserVirtualCurrencyRequest(const rapidjson::Value& obj) : AddUserVirtualCurrencyRequest()
-            {
-                readFromValue(obj);
-            }
-
-            ~AddUserVirtualCurrencyRequest();
-
-            void writeJSON(PFStringJsonWriter& writer) override;
-            bool readFromValue(const rapidjson::Value& obj) override;
-        };
-
-        struct AndroidDevicePushNotificationRegistrationRequest : public PlayFabBaseModel
-        {
-            std::string DeviceToken;
-            OptionalBool SendPushNotificationConfirmation;
-            std::string ConfirmationMessage;
-
-            AndroidDevicePushNotificationRegistrationRequest() :
-                PlayFabBaseModel(),
-                DeviceToken(),
-                SendPushNotificationConfirmation(),
-                ConfirmationMessage()
-            {}
-
-            AndroidDevicePushNotificationRegistrationRequest(const AndroidDevicePushNotificationRegistrationRequest& src) :
-                PlayFabBaseModel(),
-                DeviceToken(src.DeviceToken),
-                SendPushNotificationConfirmation(src.SendPushNotificationConfirmation),
-                ConfirmationMessage(src.ConfirmationMessage)
-            {}
-
-            AndroidDevicePushNotificationRegistrationRequest(const rapidjson::Value& obj) : AndroidDevicePushNotificationRegistrationRequest()
-            {
-                readFromValue(obj);
-            }
-
-            ~AndroidDevicePushNotificationRegistrationRequest();
-
-            void writeJSON(PFStringJsonWriter& writer) override;
-            bool readFromValue(const rapidjson::Value& obj) override;
-        };
-
-        struct AndroidDevicePushNotificationRegistrationResult : public PlayFabBaseModel
-        {
-
-            AndroidDevicePushNotificationRegistrationResult() :
-                PlayFabBaseModel()
-            {}
-
-            AndroidDevicePushNotificationRegistrationResult(const AndroidDevicePushNotificationRegistrationResult& src) :
-                PlayFabBaseModel()
-            {}
-
-            AndroidDevicePushNotificationRegistrationResult(const rapidjson::Value& obj) : AndroidDevicePushNotificationRegistrationResult()
-            {
-                readFromValue(obj);
-            }
-
-            ~AndroidDevicePushNotificationRegistrationResult();
-
-            void writeJSON(PFStringJsonWriter& writer) override;
-            bool readFromValue(const rapidjson::Value& obj) override;
-        };
-
-        struct AttributeInstallRequest : public PlayFabBaseModel
-        {
-            std::string Idfa;
-            // Deprecated - Use 'Adid' instead
-            std::string Android_Id;
-            std::string Adid;
-
-            AttributeInstallRequest() :
-                PlayFabBaseModel(),
-                Idfa(),
-                Android_Id(),
-                Adid()
-            {}
-
-            AttributeInstallRequest(const AttributeInstallRequest& src) :
-                PlayFabBaseModel(),
-                Idfa(src.Idfa),
-                Android_Id(src.Android_Id),
-                Adid(src.Adid)
-            {}
-
-            AttributeInstallRequest(const rapidjson::Value& obj) : AttributeInstallRequest()
-            {
-                readFromValue(obj);
-            }
-
-            ~AttributeInstallRequest();
-
-            void writeJSON(PFStringJsonWriter& writer) override;
-            bool readFromValue(const rapidjson::Value& obj) override;
-        };
-
-        struct AttributeInstallResult : public PlayFabBaseModel
-        {
-
-            AttributeInstallResult() :
-                PlayFabBaseModel()
-            {}
-
-            AttributeInstallResult(const AttributeInstallResult& src) :
-                PlayFabBaseModel()
-            {}
-
-            AttributeInstallResult(const rapidjson::Value& obj) : AttributeInstallResult()
-            {
-                readFromValue(obj);
-            }
-
-            ~AttributeInstallResult();
-
-            void writeJSON(PFStringJsonWriter& writer) override;
-            bool readFromValue(const rapidjson::Value& obj) override;
-        };
-
-        struct CancelTradeRequest : public PlayFabBaseModel
-        {
-            std::string TradeId;
-
-            CancelTradeRequest() :
-                PlayFabBaseModel(),
-                TradeId()
-            {}
-
-            CancelTradeRequest(const CancelTradeRequest& src) :
-                PlayFabBaseModel(),
-                TradeId(src.TradeId)
-            {}
-
-            CancelTradeRequest(const rapidjson::Value& obj) : CancelTradeRequest()
-            {
-                readFromValue(obj);
-            }
-
-            ~CancelTradeRequest();
-
-            void writeJSON(PFStringJsonWriter& writer) override;
-            bool readFromValue(const rapidjson::Value& obj) override;
-        };
-
-        struct CancelTradeResponse : public PlayFabBaseModel
-        {
-            TradeInfo* Trade;
-
-            CancelTradeResponse() :
-                PlayFabBaseModel(),
-                Trade(nullptr)
-            {}
-
-            CancelTradeResponse(const CancelTradeResponse& src) :
-                PlayFabBaseModel(),
-                Trade(src.Trade ? new TradeInfo(*src.Trade) : nullptr)
-            {}
-
-            CancelTradeResponse(const rapidjson::Value& obj) : CancelTradeResponse()
-            {
-                readFromValue(obj);
-            }
-
-            ~CancelTradeResponse();
-
-            void writeJSON(PFStringJsonWriter& writer) override;
-            bool readFromValue(const rapidjson::Value& obj) override;
-        };
-
-        struct CartItem : public PlayFabBaseModel
-        {
-            std::string ItemId;
-            std::string ItemClass;
-            std::string ItemInstanceId;
-            std::string DisplayName;
-            std::string Description;
-            std::map<std::string, Uint32> VirtualCurrencyPrices;
-            std::map<std::string, Uint32> RealCurrencyPrices;
-            std::map<std::string, Uint32> VCAmount;
-
-            CartItem() :
-                PlayFabBaseModel(),
-                ItemId(),
-                ItemClass(),
-                ItemInstanceId(),
-                DisplayName(),
-                Description(),
-                VirtualCurrencyPrices(),
-                RealCurrencyPrices(),
-                VCAmount()
-            {}
-
-            CartItem(const CartItem& src) :
-                PlayFabBaseModel(),
-                ItemId(src.ItemId),
-                ItemClass(src.ItemClass),
-                ItemInstanceId(src.ItemInstanceId),
-                DisplayName(src.DisplayName),
-                Description(src.Description),
-                VirtualCurrencyPrices(src.VirtualCurrencyPrices),
-                RealCurrencyPrices(src.RealCurrencyPrices),
-                VCAmount(src.VCAmount)
-            {}
-
-            CartItem(const rapidjson::Value& obj) : CartItem()
-            {
-                readFromValue(obj);
-            }
-
-            ~CartItem();
-
-            void writeJSON(PFStringJsonWriter& writer) override;
-            bool readFromValue(const rapidjson::Value& obj) override;
-        };
-
-        struct CatalogItemConsumableInfo : public PlayFabBaseModel
-        {
-            OptionalUint32 UsageCount;
-            OptionalUint32 UsagePeriod;
-            std::string UsagePeriodGroup;
-
-            CatalogItemConsumableInfo() :
-                PlayFabBaseModel(),
-                UsageCount(),
-                UsagePeriod(),
-                UsagePeriodGroup()
-            {}
-
-            CatalogItemConsumableInfo(const CatalogItemConsumableInfo& src) :
-                PlayFabBaseModel(),
-                UsageCount(src.UsageCount),
-                UsagePeriod(src.UsagePeriod),
-                UsagePeriodGroup(src.UsagePeriodGroup)
-            {}
-
-            CatalogItemConsumableInfo(const rapidjson::Value& obj) : CatalogItemConsumableInfo()
-            {
-                readFromValue(obj);
-            }
-
-            ~CatalogItemConsumableInfo();
-
-            void writeJSON(PFStringJsonWriter& writer) override;
-            bool readFromValue(const rapidjson::Value& obj) override;
-        };
-
-        struct CatalogItemContainerInfo : public PlayFabBaseModel
-        {
-            std::string KeyItemId;
-            std::list<std::string> ItemContents;
-            std::list<std::string> ResultTableContents;
-            std::map<std::string, Uint32> VirtualCurrencyContents;
-
-            CatalogItemContainerInfo() :
-                PlayFabBaseModel(),
-                KeyItemId(),
-                ItemContents(),
-                ResultTableContents(),
-                VirtualCurrencyContents()
-            {}
-
-            CatalogItemContainerInfo(const CatalogItemContainerInfo& src) :
-                PlayFabBaseModel(),
-                KeyItemId(src.KeyItemId),
-                ItemContents(src.ItemContents),
-                ResultTableContents(src.ResultTableContents),
-                VirtualCurrencyContents(src.VirtualCurrencyContents)
-            {}
-
-            CatalogItemContainerInfo(const rapidjson::Value& obj) : CatalogItemContainerInfo()
-            {
-                readFromValue(obj);
-            }
-
-            ~CatalogItemContainerInfo();
-
-            void writeJSON(PFStringJsonWriter& writer) override;
-            bool readFromValue(const rapidjson::Value& obj) override;
-        };
-
-        struct CatalogItemBundleInfo : public PlayFabBaseModel
-        {
-            std::list<std::string> BundledItems;
-            std::list<std::string> BundledResultTables;
-            std::map<std::string, Uint32> BundledVirtualCurrencies;
-
-            CatalogItemBundleInfo() :
-                PlayFabBaseModel(),
-                BundledItems(),
-                BundledResultTables(),
-                BundledVirtualCurrencies()
-            {}
-
-            CatalogItemBundleInfo(const CatalogItemBundleInfo& src) :
-                PlayFabBaseModel(),
-                BundledItems(src.BundledItems),
-                BundledResultTables(src.BundledResultTables),
-                BundledVirtualCurrencies(src.BundledVirtualCurrencies)
-            {}
-
-            CatalogItemBundleInfo(const rapidjson::Value& obj) : CatalogItemBundleInfo()
-            {
-                readFromValue(obj);
-            }
-
-            ~CatalogItemBundleInfo();
-
-            void writeJSON(PFStringJsonWriter& writer) override;
-            bool readFromValue(const rapidjson::Value& obj) override;
-        };
-
-        struct CatalogItem : public PlayFabBaseModel
-        {
-            std::string ItemId;
-            std::string ItemClass;
-            std::string CatalogVersion;
-            std::string DisplayName;
-            std::string Description;
-            std::map<std::string, Uint32> VirtualCurrencyPrices;
-            std::map<std::string, Uint32> RealCurrencyPrices;
-            std::list<std::string> Tags;
-            std::string CustomData;
-            CatalogItemConsumableInfo* Consumable;
-            CatalogItemContainerInfo* Container;
-            CatalogItemBundleInfo* Bundle;
-            bool CanBecomeCharacter;
-            bool IsStackable;
-            bool IsTradable;
-            std::string ItemImageUrl;
-            bool IsLimitedEdition;
-            Int32 InitialLimitedEditionCount;
-
-            CatalogItem() :
-                PlayFabBaseModel(),
-                ItemId(),
-                ItemClass(),
-                CatalogVersion(),
-                DisplayName(),
-                Description(),
-                VirtualCurrencyPrices(),
-                RealCurrencyPrices(),
-                Tags(),
-                CustomData(),
-                Consumable(nullptr),
-                Container(nullptr),
-                Bundle(nullptr),
-                CanBecomeCharacter(false),
-                IsStackable(false),
-                IsTradable(false),
-                ItemImageUrl(),
-                IsLimitedEdition(false),
-                InitialLimitedEditionCount(0)
-            {}
-
-            CatalogItem(const CatalogItem& src) :
-                PlayFabBaseModel(),
-                ItemId(src.ItemId),
-                ItemClass(src.ItemClass),
-                CatalogVersion(src.CatalogVersion),
-                DisplayName(src.DisplayName),
-                Description(src.Description),
-                VirtualCurrencyPrices(src.VirtualCurrencyPrices),
-                RealCurrencyPrices(src.RealCurrencyPrices),
-                Tags(src.Tags),
-                CustomData(src.CustomData),
-                Consumable(src.Consumable ? new CatalogItemConsumableInfo(*src.Consumable) : nullptr),
-                Container(src.Container ? new CatalogItemContainerInfo(*src.Container) : nullptr),
-                Bundle(src.Bundle ? new CatalogItemBundleInfo(*src.Bundle) : nullptr),
-                CanBecomeCharacter(src.CanBecomeCharacter),
-                IsStackable(src.IsStackable),
-                IsTradable(src.IsTradable),
-                ItemImageUrl(src.ItemImageUrl),
-                IsLimitedEdition(src.IsLimitedEdition),
-                InitialLimitedEditionCount(src.InitialLimitedEditionCount)
-            {}
-
-            CatalogItem(const rapidjson::Value& obj) : CatalogItem()
-            {
-                readFromValue(obj);
-            }
-
-            ~CatalogItem();
-
-            void writeJSON(PFStringJsonWriter& writer) override;
-            bool readFromValue(const rapidjson::Value& obj) override;
-        };
-
-        struct ItemInstance : public PlayFabBaseModel
-        {
-            std::string ItemId;
-            std::string ItemInstanceId;
-            std::string ItemClass;
-            OptionalTime PurchaseDate;
-            OptionalTime Expiration;
-            OptionalInt32 RemainingUses;
-            OptionalInt32 UsesIncrementedBy;
-            std::string Annotation;
-            std::string CatalogVersion;
-            std::string BundleParent;
-            std::string DisplayName;
-            std::string UnitCurrency;
-            Uint32 UnitPrice;
-            std::list<std::string> BundleContents;
-            std::map<std::string, std::string> CustomData;
-
-            ItemInstance() :
-                PlayFabBaseModel(),
-                ItemId(),
-                ItemInstanceId(),
-                ItemClass(),
-                PurchaseDate(),
-                Expiration(),
-                RemainingUses(),
-                UsesIncrementedBy(),
-                Annotation(),
-                CatalogVersion(),
-                BundleParent(),
-                DisplayName(),
-                UnitCurrency(),
-                UnitPrice(0),
-                BundleContents(),
-                CustomData()
-            {}
-
-            ItemInstance(const ItemInstance& src) :
-                PlayFabBaseModel(),
-                ItemId(src.ItemId),
-                ItemInstanceId(src.ItemInstanceId),
-                ItemClass(src.ItemClass),
-                PurchaseDate(src.PurchaseDate),
-                Expiration(src.Expiration),
-                RemainingUses(src.RemainingUses),
-                UsesIncrementedBy(src.UsesIncrementedBy),
-                Annotation(src.Annotation),
-                CatalogVersion(src.CatalogVersion),
-                BundleParent(src.BundleParent),
-                DisplayName(src.DisplayName),
-                UnitCurrency(src.UnitCurrency),
-                UnitPrice(src.UnitPrice),
-                BundleContents(src.BundleContents),
-                CustomData(src.CustomData)
-            {}
-
-            ItemInstance(const rapidjson::Value& obj) : ItemInstance()
-            {
-                readFromValue(obj);
-            }
-
-            ~ItemInstance();
-
-            void writeJSON(PFStringJsonWriter& writer) override;
-            bool readFromValue(const rapidjson::Value& obj) override;
-        };
-
-        struct CharacterInventory : public PlayFabBaseModel
-        {
-            std::string CharacterId;
-            std::list<ItemInstance> Inventory;
-
-            CharacterInventory() :
-                PlayFabBaseModel(),
-                CharacterId(),
-                Inventory()
-            {}
-
-            CharacterInventory(const CharacterInventory& src) :
-                PlayFabBaseModel(),
-                CharacterId(src.CharacterId),
-                Inventory(src.Inventory)
-            {}
-
-            CharacterInventory(const rapidjson::Value& obj) : CharacterInventory()
-            {
-                readFromValue(obj);
-            }
-
-            ~CharacterInventory();
-
-            void writeJSON(PFStringJsonWriter& writer) override;
-            bool readFromValue(const rapidjson::Value& obj) override;
-        };
-
-        struct CharacterLeaderboardEntry : public PlayFabBaseModel
-        {
-            std::string PlayFabId;
-            std::string CharacterId;
-            std::string CharacterName;
-            std::string DisplayName;
-            std::string CharacterType;
-            Int32 StatValue;
-            Int32 Position;
-
-            CharacterLeaderboardEntry() :
-                PlayFabBaseModel(),
-                PlayFabId(),
-                CharacterId(),
-                CharacterName(),
-                DisplayName(),
-                CharacterType(),
-                StatValue(0),
-                Position(0)
-            {}
-
-            CharacterLeaderboardEntry(const CharacterLeaderboardEntry& src) :
-                PlayFabBaseModel(),
-                PlayFabId(src.PlayFabId),
-                CharacterId(src.CharacterId),
-                CharacterName(src.CharacterName),
-                DisplayName(src.DisplayName),
-                CharacterType(src.CharacterType),
-                StatValue(src.StatValue),
-                Position(src.Position)
-            {}
-
-            CharacterLeaderboardEntry(const rapidjson::Value& obj) : CharacterLeaderboardEntry()
-            {
-                readFromValue(obj);
-            }
-
-            ~CharacterLeaderboardEntry();
-
-            void writeJSON(PFStringJsonWriter& writer) override;
-            bool readFromValue(const rapidjson::Value& obj) override;
-        };
-
-        struct CharacterResult : public PlayFabBaseModel
-        {
-            std::string CharacterId;
-            std::string CharacterName;
-            std::string CharacterType;
-
-            CharacterResult() :
-                PlayFabBaseModel(),
-                CharacterId(),
-                CharacterName(),
-                CharacterType()
-            {}
-
-            CharacterResult(const CharacterResult& src) :
-                PlayFabBaseModel(),
-                CharacterId(src.CharacterId),
-                CharacterName(src.CharacterName),
-                CharacterType(src.CharacterType)
-            {}
-
-            CharacterResult(const rapidjson::Value& obj) : CharacterResult()
-            {
-                readFromValue(obj);
-            }
-
-            ~CharacterResult();
-
-            void writeJSON(PFStringJsonWriter& writer) override;
-            bool readFromValue(const rapidjson::Value& obj) override;
-        };
-
+        // Client Enums
         enum CloudScriptRevisionOption
         {
             CloudScriptRevisionOptionLive,
@@ -957,226 +16,20 @@ namespace PlayFab
             CloudScriptRevisionOptionSpecific
         };
 
-        void writeCloudScriptRevisionOptionEnumJSON(CloudScriptRevisionOption enumVal, PFStringJsonWriter& writer);
-        CloudScriptRevisionOption readCloudScriptRevisionOptionFromValue(const rapidjson::Value& obj);
-
-        struct Container_Dictionary_String_String : public PlayFabBaseModel
+        inline void ToJsonEnum(const CloudScriptRevisionOption input, web::json::value& output)
         {
-            std::map<std::string, std::string> Data;
-
-            Container_Dictionary_String_String() :
-                PlayFabBaseModel(),
-                Data()
-            {}
-
-            Container_Dictionary_String_String(const Container_Dictionary_String_String& src) :
-                PlayFabBaseModel(),
-                Data(src.Data)
-            {}
-
-            Container_Dictionary_String_String(const rapidjson::Value& obj) : Container_Dictionary_String_String()
-            {
-                readFromValue(obj);
-            }
-
-            ~Container_Dictionary_String_String();
-
-            void writeJSON(PFStringJsonWriter& writer) override;
-            bool readFromValue(const rapidjson::Value& obj) override;
-        };
-
-        struct CollectionFilter : public PlayFabBaseModel
+            if (input == CloudScriptRevisionOptionLive) output = web::json::value(U("Live"));
+            if (input == CloudScriptRevisionOptionLatest) output = web::json::value(U("Latest"));
+            if (input == CloudScriptRevisionOptionSpecific) output = web::json::value(U("Specific"));
+        }
+        inline void FromJsonEnum(const web::json::value& input, CloudScriptRevisionOption& output)
         {
-            std::list<Container_Dictionary_String_String> Includes;
-            std::list<Container_Dictionary_String_String> Excludes;
-
-            CollectionFilter() :
-                PlayFabBaseModel(),
-                Includes(),
-                Excludes()
-            {}
-
-            CollectionFilter(const CollectionFilter& src) :
-                PlayFabBaseModel(),
-                Includes(src.Includes),
-                Excludes(src.Excludes)
-            {}
-
-            CollectionFilter(const rapidjson::Value& obj) : CollectionFilter()
-            {
-                readFromValue(obj);
-            }
-
-            ~CollectionFilter();
-
-            void writeJSON(PFStringJsonWriter& writer) override;
-            bool readFromValue(const rapidjson::Value& obj) override;
-        };
-
-        struct ConfirmPurchaseRequest : public PlayFabBaseModel
-        {
-            std::string OrderId;
-
-            ConfirmPurchaseRequest() :
-                PlayFabBaseModel(),
-                OrderId()
-            {}
-
-            ConfirmPurchaseRequest(const ConfirmPurchaseRequest& src) :
-                PlayFabBaseModel(),
-                OrderId(src.OrderId)
-            {}
-
-            ConfirmPurchaseRequest(const rapidjson::Value& obj) : ConfirmPurchaseRequest()
-            {
-                readFromValue(obj);
-            }
-
-            ~ConfirmPurchaseRequest();
-
-            void writeJSON(PFStringJsonWriter& writer) override;
-            bool readFromValue(const rapidjson::Value& obj) override;
-        };
-
-        struct ConfirmPurchaseResult : public PlayFabBaseModel
-        {
-            std::string OrderId;
-            time_t PurchaseDate;
-            std::list<ItemInstance> Items;
-
-            ConfirmPurchaseResult() :
-                PlayFabBaseModel(),
-                OrderId(),
-                PurchaseDate(0),
-                Items()
-            {}
-
-            ConfirmPurchaseResult(const ConfirmPurchaseResult& src) :
-                PlayFabBaseModel(),
-                OrderId(src.OrderId),
-                PurchaseDate(src.PurchaseDate),
-                Items(src.Items)
-            {}
-
-            ConfirmPurchaseResult(const rapidjson::Value& obj) : ConfirmPurchaseResult()
-            {
-                readFromValue(obj);
-            }
-
-            ~ConfirmPurchaseResult();
-
-            void writeJSON(PFStringJsonWriter& writer) override;
-            bool readFromValue(const rapidjson::Value& obj) override;
-        };
-
-        struct ConsumeItemRequest : public PlayFabBaseModel
-        {
-            std::string ItemInstanceId;
-            Int32 ConsumeCount;
-            std::string CharacterId;
-
-            ConsumeItemRequest() :
-                PlayFabBaseModel(),
-                ItemInstanceId(),
-                ConsumeCount(0),
-                CharacterId()
-            {}
-
-            ConsumeItemRequest(const ConsumeItemRequest& src) :
-                PlayFabBaseModel(),
-                ItemInstanceId(src.ItemInstanceId),
-                ConsumeCount(src.ConsumeCount),
-                CharacterId(src.CharacterId)
-            {}
-
-            ConsumeItemRequest(const rapidjson::Value& obj) : ConsumeItemRequest()
-            {
-                readFromValue(obj);
-            }
-
-            ~ConsumeItemRequest();
-
-            void writeJSON(PFStringJsonWriter& writer) override;
-            bool readFromValue(const rapidjson::Value& obj) override;
-        };
-
-        struct ConsumeItemResult : public PlayFabBaseModel
-        {
-            std::string ItemInstanceId;
-            Int32 RemainingUses;
-
-            ConsumeItemResult() :
-                PlayFabBaseModel(),
-                ItemInstanceId(),
-                RemainingUses(0)
-            {}
-
-            ConsumeItemResult(const ConsumeItemResult& src) :
-                PlayFabBaseModel(),
-                ItemInstanceId(src.ItemInstanceId),
-                RemainingUses(src.RemainingUses)
-            {}
-
-            ConsumeItemResult(const rapidjson::Value& obj) : ConsumeItemResult()
-            {
-                readFromValue(obj);
-            }
-
-            ~ConsumeItemResult();
-
-            void writeJSON(PFStringJsonWriter& writer) override;
-            bool readFromValue(const rapidjson::Value& obj) override;
-        };
-
-        struct CreateSharedGroupRequest : public PlayFabBaseModel
-        {
-            std::string SharedGroupId;
-
-            CreateSharedGroupRequest() :
-                PlayFabBaseModel(),
-                SharedGroupId()
-            {}
-
-            CreateSharedGroupRequest(const CreateSharedGroupRequest& src) :
-                PlayFabBaseModel(),
-                SharedGroupId(src.SharedGroupId)
-            {}
-
-            CreateSharedGroupRequest(const rapidjson::Value& obj) : CreateSharedGroupRequest()
-            {
-                readFromValue(obj);
-            }
-
-            ~CreateSharedGroupRequest();
-
-            void writeJSON(PFStringJsonWriter& writer) override;
-            bool readFromValue(const rapidjson::Value& obj) override;
-        };
-
-        struct CreateSharedGroupResult : public PlayFabBaseModel
-        {
-            std::string SharedGroupId;
-
-            CreateSharedGroupResult() :
-                PlayFabBaseModel(),
-                SharedGroupId()
-            {}
-
-            CreateSharedGroupResult(const CreateSharedGroupResult& src) :
-                PlayFabBaseModel(),
-                SharedGroupId(src.SharedGroupId)
-            {}
-
-            CreateSharedGroupResult(const rapidjson::Value& obj) : CreateSharedGroupResult()
-            {
-                readFromValue(obj);
-            }
-
-            ~CreateSharedGroupResult();
-
-            void writeJSON(PFStringJsonWriter& writer) override;
-            bool readFromValue(const rapidjson::Value& obj) override;
-        };
+            if (!input.is_string()) return;
+            const utility::string_t& inputStr = input.as_string();
+            if (inputStr == U("Live")) output = CloudScriptRevisionOptionLive;
+            if (inputStr == U("Latest")) output = CloudScriptRevisionOptionLatest;
+            if (inputStr == U("Specific")) output = CloudScriptRevisionOptionSpecific;
+        }
 
         enum Currency
         {
@@ -1344,8 +197,385 @@ namespace PlayFab
             CurrencyZWD
         };
 
-        void writeCurrencyEnumJSON(Currency enumVal, PFStringJsonWriter& writer);
-        Currency readCurrencyFromValue(const rapidjson::Value& obj);
+        inline void ToJsonEnum(const Currency input, web::json::value& output)
+        {
+            if (input == CurrencyAED) output = web::json::value(U("AED"));
+            if (input == CurrencyAFN) output = web::json::value(U("AFN"));
+            if (input == CurrencyALL) output = web::json::value(U("ALL"));
+            if (input == CurrencyAMD) output = web::json::value(U("AMD"));
+            if (input == CurrencyANG) output = web::json::value(U("ANG"));
+            if (input == CurrencyAOA) output = web::json::value(U("AOA"));
+            if (input == CurrencyARS) output = web::json::value(U("ARS"));
+            if (input == CurrencyAUD) output = web::json::value(U("AUD"));
+            if (input == CurrencyAWG) output = web::json::value(U("AWG"));
+            if (input == CurrencyAZN) output = web::json::value(U("AZN"));
+            if (input == CurrencyBAM) output = web::json::value(U("BAM"));
+            if (input == CurrencyBBD) output = web::json::value(U("BBD"));
+            if (input == CurrencyBDT) output = web::json::value(U("BDT"));
+            if (input == CurrencyBGN) output = web::json::value(U("BGN"));
+            if (input == CurrencyBHD) output = web::json::value(U("BHD"));
+            if (input == CurrencyBIF) output = web::json::value(U("BIF"));
+            if (input == CurrencyBMD) output = web::json::value(U("BMD"));
+            if (input == CurrencyBND) output = web::json::value(U("BND"));
+            if (input == CurrencyBOB) output = web::json::value(U("BOB"));
+            if (input == CurrencyBRL) output = web::json::value(U("BRL"));
+            if (input == CurrencyBSD) output = web::json::value(U("BSD"));
+            if (input == CurrencyBTN) output = web::json::value(U("BTN"));
+            if (input == CurrencyBWP) output = web::json::value(U("BWP"));
+            if (input == CurrencyBYR) output = web::json::value(U("BYR"));
+            if (input == CurrencyBZD) output = web::json::value(U("BZD"));
+            if (input == CurrencyCAD) output = web::json::value(U("CAD"));
+            if (input == CurrencyCDF) output = web::json::value(U("CDF"));
+            if (input == CurrencyCHF) output = web::json::value(U("CHF"));
+            if (input == CurrencyCLP) output = web::json::value(U("CLP"));
+            if (input == CurrencyCNY) output = web::json::value(U("CNY"));
+            if (input == CurrencyCOP) output = web::json::value(U("COP"));
+            if (input == CurrencyCRC) output = web::json::value(U("CRC"));
+            if (input == CurrencyCUC) output = web::json::value(U("CUC"));
+            if (input == CurrencyCUP) output = web::json::value(U("CUP"));
+            if (input == CurrencyCVE) output = web::json::value(U("CVE"));
+            if (input == CurrencyCZK) output = web::json::value(U("CZK"));
+            if (input == CurrencyDJF) output = web::json::value(U("DJF"));
+            if (input == CurrencyDKK) output = web::json::value(U("DKK"));
+            if (input == CurrencyDOP) output = web::json::value(U("DOP"));
+            if (input == CurrencyDZD) output = web::json::value(U("DZD"));
+            if (input == CurrencyEGP) output = web::json::value(U("EGP"));
+            if (input == CurrencyERN) output = web::json::value(U("ERN"));
+            if (input == CurrencyETB) output = web::json::value(U("ETB"));
+            if (input == CurrencyEUR) output = web::json::value(U("EUR"));
+            if (input == CurrencyFJD) output = web::json::value(U("FJD"));
+            if (input == CurrencyFKP) output = web::json::value(U("FKP"));
+            if (input == CurrencyGBP) output = web::json::value(U("GBP"));
+            if (input == CurrencyGEL) output = web::json::value(U("GEL"));
+            if (input == CurrencyGGP) output = web::json::value(U("GGP"));
+            if (input == CurrencyGHS) output = web::json::value(U("GHS"));
+            if (input == CurrencyGIP) output = web::json::value(U("GIP"));
+            if (input == CurrencyGMD) output = web::json::value(U("GMD"));
+            if (input == CurrencyGNF) output = web::json::value(U("GNF"));
+            if (input == CurrencyGTQ) output = web::json::value(U("GTQ"));
+            if (input == CurrencyGYD) output = web::json::value(U("GYD"));
+            if (input == CurrencyHKD) output = web::json::value(U("HKD"));
+            if (input == CurrencyHNL) output = web::json::value(U("HNL"));
+            if (input == CurrencyHRK) output = web::json::value(U("HRK"));
+            if (input == CurrencyHTG) output = web::json::value(U("HTG"));
+            if (input == CurrencyHUF) output = web::json::value(U("HUF"));
+            if (input == CurrencyIDR) output = web::json::value(U("IDR"));
+            if (input == CurrencyILS) output = web::json::value(U("ILS"));
+            if (input == CurrencyIMP) output = web::json::value(U("IMP"));
+            if (input == CurrencyINR) output = web::json::value(U("INR"));
+            if (input == CurrencyIQD) output = web::json::value(U("IQD"));
+            if (input == CurrencyIRR) output = web::json::value(U("IRR"));
+            if (input == CurrencyISK) output = web::json::value(U("ISK"));
+            if (input == CurrencyJEP) output = web::json::value(U("JEP"));
+            if (input == CurrencyJMD) output = web::json::value(U("JMD"));
+            if (input == CurrencyJOD) output = web::json::value(U("JOD"));
+            if (input == CurrencyJPY) output = web::json::value(U("JPY"));
+            if (input == CurrencyKES) output = web::json::value(U("KES"));
+            if (input == CurrencyKGS) output = web::json::value(U("KGS"));
+            if (input == CurrencyKHR) output = web::json::value(U("KHR"));
+            if (input == CurrencyKMF) output = web::json::value(U("KMF"));
+            if (input == CurrencyKPW) output = web::json::value(U("KPW"));
+            if (input == CurrencyKRW) output = web::json::value(U("KRW"));
+            if (input == CurrencyKWD) output = web::json::value(U("KWD"));
+            if (input == CurrencyKYD) output = web::json::value(U("KYD"));
+            if (input == CurrencyKZT) output = web::json::value(U("KZT"));
+            if (input == CurrencyLAK) output = web::json::value(U("LAK"));
+            if (input == CurrencyLBP) output = web::json::value(U("LBP"));
+            if (input == CurrencyLKR) output = web::json::value(U("LKR"));
+            if (input == CurrencyLRD) output = web::json::value(U("LRD"));
+            if (input == CurrencyLSL) output = web::json::value(U("LSL"));
+            if (input == CurrencyLYD) output = web::json::value(U("LYD"));
+            if (input == CurrencyMAD) output = web::json::value(U("MAD"));
+            if (input == CurrencyMDL) output = web::json::value(U("MDL"));
+            if (input == CurrencyMGA) output = web::json::value(U("MGA"));
+            if (input == CurrencyMKD) output = web::json::value(U("MKD"));
+            if (input == CurrencyMMK) output = web::json::value(U("MMK"));
+            if (input == CurrencyMNT) output = web::json::value(U("MNT"));
+            if (input == CurrencyMOP) output = web::json::value(U("MOP"));
+            if (input == CurrencyMRO) output = web::json::value(U("MRO"));
+            if (input == CurrencyMUR) output = web::json::value(U("MUR"));
+            if (input == CurrencyMVR) output = web::json::value(U("MVR"));
+            if (input == CurrencyMWK) output = web::json::value(U("MWK"));
+            if (input == CurrencyMXN) output = web::json::value(U("MXN"));
+            if (input == CurrencyMYR) output = web::json::value(U("MYR"));
+            if (input == CurrencyMZN) output = web::json::value(U("MZN"));
+            if (input == CurrencyNAD) output = web::json::value(U("NAD"));
+            if (input == CurrencyNGN) output = web::json::value(U("NGN"));
+            if (input == CurrencyNIO) output = web::json::value(U("NIO"));
+            if (input == CurrencyNOK) output = web::json::value(U("NOK"));
+            if (input == CurrencyNPR) output = web::json::value(U("NPR"));
+            if (input == CurrencyNZD) output = web::json::value(U("NZD"));
+            if (input == CurrencyOMR) output = web::json::value(U("OMR"));
+            if (input == CurrencyPAB) output = web::json::value(U("PAB"));
+            if (input == CurrencyPEN) output = web::json::value(U("PEN"));
+            if (input == CurrencyPGK) output = web::json::value(U("PGK"));
+            if (input == CurrencyPHP) output = web::json::value(U("PHP"));
+            if (input == CurrencyPKR) output = web::json::value(U("PKR"));
+            if (input == CurrencyPLN) output = web::json::value(U("PLN"));
+            if (input == CurrencyPYG) output = web::json::value(U("PYG"));
+            if (input == CurrencyQAR) output = web::json::value(U("QAR"));
+            if (input == CurrencyRON) output = web::json::value(U("RON"));
+            if (input == CurrencyRSD) output = web::json::value(U("RSD"));
+            if (input == CurrencyRUB) output = web::json::value(U("RUB"));
+            if (input == CurrencyRWF) output = web::json::value(U("RWF"));
+            if (input == CurrencySAR) output = web::json::value(U("SAR"));
+            if (input == CurrencySBD) output = web::json::value(U("SBD"));
+            if (input == CurrencySCR) output = web::json::value(U("SCR"));
+            if (input == CurrencySDG) output = web::json::value(U("SDG"));
+            if (input == CurrencySEK) output = web::json::value(U("SEK"));
+            if (input == CurrencySGD) output = web::json::value(U("SGD"));
+            if (input == CurrencySHP) output = web::json::value(U("SHP"));
+            if (input == CurrencySLL) output = web::json::value(U("SLL"));
+            if (input == CurrencySOS) output = web::json::value(U("SOS"));
+            if (input == CurrencySPL) output = web::json::value(U("SPL"));
+            if (input == CurrencySRD) output = web::json::value(U("SRD"));
+            if (input == CurrencySTD) output = web::json::value(U("STD"));
+            if (input == CurrencySVC) output = web::json::value(U("SVC"));
+            if (input == CurrencySYP) output = web::json::value(U("SYP"));
+            if (input == CurrencySZL) output = web::json::value(U("SZL"));
+            if (input == CurrencyTHB) output = web::json::value(U("THB"));
+            if (input == CurrencyTJS) output = web::json::value(U("TJS"));
+            if (input == CurrencyTMT) output = web::json::value(U("TMT"));
+            if (input == CurrencyTND) output = web::json::value(U("TND"));
+            if (input == CurrencyTOP) output = web::json::value(U("TOP"));
+            if (input == CurrencyTRY) output = web::json::value(U("TRY"));
+            if (input == CurrencyTTD) output = web::json::value(U("TTD"));
+            if (input == CurrencyTVD) output = web::json::value(U("TVD"));
+            if (input == CurrencyTWD) output = web::json::value(U("TWD"));
+            if (input == CurrencyTZS) output = web::json::value(U("TZS"));
+            if (input == CurrencyUAH) output = web::json::value(U("UAH"));
+            if (input == CurrencyUGX) output = web::json::value(U("UGX"));
+            if (input == CurrencyUSD) output = web::json::value(U("USD"));
+            if (input == CurrencyUYU) output = web::json::value(U("UYU"));
+            if (input == CurrencyUZS) output = web::json::value(U("UZS"));
+            if (input == CurrencyVEF) output = web::json::value(U("VEF"));
+            if (input == CurrencyVND) output = web::json::value(U("VND"));
+            if (input == CurrencyVUV) output = web::json::value(U("VUV"));
+            if (input == CurrencyWST) output = web::json::value(U("WST"));
+            if (input == CurrencyXAF) output = web::json::value(U("XAF"));
+            if (input == CurrencyXCD) output = web::json::value(U("XCD"));
+            if (input == CurrencyXDR) output = web::json::value(U("XDR"));
+            if (input == CurrencyXOF) output = web::json::value(U("XOF"));
+            if (input == CurrencyXPF) output = web::json::value(U("XPF"));
+            if (input == CurrencyYER) output = web::json::value(U("YER"));
+            if (input == CurrencyZAR) output = web::json::value(U("ZAR"));
+            if (input == CurrencyZMW) output = web::json::value(U("ZMW"));
+            if (input == CurrencyZWD) output = web::json::value(U("ZWD"));
+        }
+        inline void FromJsonEnum(const web::json::value& input, Currency& output)
+        {
+            if (!input.is_string()) return;
+            const utility::string_t& inputStr = input.as_string();
+            if (inputStr == U("AED")) output = CurrencyAED;
+            if (inputStr == U("AFN")) output = CurrencyAFN;
+            if (inputStr == U("ALL")) output = CurrencyALL;
+            if (inputStr == U("AMD")) output = CurrencyAMD;
+            if (inputStr == U("ANG")) output = CurrencyANG;
+            if (inputStr == U("AOA")) output = CurrencyAOA;
+            if (inputStr == U("ARS")) output = CurrencyARS;
+            if (inputStr == U("AUD")) output = CurrencyAUD;
+            if (inputStr == U("AWG")) output = CurrencyAWG;
+            if (inputStr == U("AZN")) output = CurrencyAZN;
+            if (inputStr == U("BAM")) output = CurrencyBAM;
+            if (inputStr == U("BBD")) output = CurrencyBBD;
+            if (inputStr == U("BDT")) output = CurrencyBDT;
+            if (inputStr == U("BGN")) output = CurrencyBGN;
+            if (inputStr == U("BHD")) output = CurrencyBHD;
+            if (inputStr == U("BIF")) output = CurrencyBIF;
+            if (inputStr == U("BMD")) output = CurrencyBMD;
+            if (inputStr == U("BND")) output = CurrencyBND;
+            if (inputStr == U("BOB")) output = CurrencyBOB;
+            if (inputStr == U("BRL")) output = CurrencyBRL;
+            if (inputStr == U("BSD")) output = CurrencyBSD;
+            if (inputStr == U("BTN")) output = CurrencyBTN;
+            if (inputStr == U("BWP")) output = CurrencyBWP;
+            if (inputStr == U("BYR")) output = CurrencyBYR;
+            if (inputStr == U("BZD")) output = CurrencyBZD;
+            if (inputStr == U("CAD")) output = CurrencyCAD;
+            if (inputStr == U("CDF")) output = CurrencyCDF;
+            if (inputStr == U("CHF")) output = CurrencyCHF;
+            if (inputStr == U("CLP")) output = CurrencyCLP;
+            if (inputStr == U("CNY")) output = CurrencyCNY;
+            if (inputStr == U("COP")) output = CurrencyCOP;
+            if (inputStr == U("CRC")) output = CurrencyCRC;
+            if (inputStr == U("CUC")) output = CurrencyCUC;
+            if (inputStr == U("CUP")) output = CurrencyCUP;
+            if (inputStr == U("CVE")) output = CurrencyCVE;
+            if (inputStr == U("CZK")) output = CurrencyCZK;
+            if (inputStr == U("DJF")) output = CurrencyDJF;
+            if (inputStr == U("DKK")) output = CurrencyDKK;
+            if (inputStr == U("DOP")) output = CurrencyDOP;
+            if (inputStr == U("DZD")) output = CurrencyDZD;
+            if (inputStr == U("EGP")) output = CurrencyEGP;
+            if (inputStr == U("ERN")) output = CurrencyERN;
+            if (inputStr == U("ETB")) output = CurrencyETB;
+            if (inputStr == U("EUR")) output = CurrencyEUR;
+            if (inputStr == U("FJD")) output = CurrencyFJD;
+            if (inputStr == U("FKP")) output = CurrencyFKP;
+            if (inputStr == U("GBP")) output = CurrencyGBP;
+            if (inputStr == U("GEL")) output = CurrencyGEL;
+            if (inputStr == U("GGP")) output = CurrencyGGP;
+            if (inputStr == U("GHS")) output = CurrencyGHS;
+            if (inputStr == U("GIP")) output = CurrencyGIP;
+            if (inputStr == U("GMD")) output = CurrencyGMD;
+            if (inputStr == U("GNF")) output = CurrencyGNF;
+            if (inputStr == U("GTQ")) output = CurrencyGTQ;
+            if (inputStr == U("GYD")) output = CurrencyGYD;
+            if (inputStr == U("HKD")) output = CurrencyHKD;
+            if (inputStr == U("HNL")) output = CurrencyHNL;
+            if (inputStr == U("HRK")) output = CurrencyHRK;
+            if (inputStr == U("HTG")) output = CurrencyHTG;
+            if (inputStr == U("HUF")) output = CurrencyHUF;
+            if (inputStr == U("IDR")) output = CurrencyIDR;
+            if (inputStr == U("ILS")) output = CurrencyILS;
+            if (inputStr == U("IMP")) output = CurrencyIMP;
+            if (inputStr == U("INR")) output = CurrencyINR;
+            if (inputStr == U("IQD")) output = CurrencyIQD;
+            if (inputStr == U("IRR")) output = CurrencyIRR;
+            if (inputStr == U("ISK")) output = CurrencyISK;
+            if (inputStr == U("JEP")) output = CurrencyJEP;
+            if (inputStr == U("JMD")) output = CurrencyJMD;
+            if (inputStr == U("JOD")) output = CurrencyJOD;
+            if (inputStr == U("JPY")) output = CurrencyJPY;
+            if (inputStr == U("KES")) output = CurrencyKES;
+            if (inputStr == U("KGS")) output = CurrencyKGS;
+            if (inputStr == U("KHR")) output = CurrencyKHR;
+            if (inputStr == U("KMF")) output = CurrencyKMF;
+            if (inputStr == U("KPW")) output = CurrencyKPW;
+            if (inputStr == U("KRW")) output = CurrencyKRW;
+            if (inputStr == U("KWD")) output = CurrencyKWD;
+            if (inputStr == U("KYD")) output = CurrencyKYD;
+            if (inputStr == U("KZT")) output = CurrencyKZT;
+            if (inputStr == U("LAK")) output = CurrencyLAK;
+            if (inputStr == U("LBP")) output = CurrencyLBP;
+            if (inputStr == U("LKR")) output = CurrencyLKR;
+            if (inputStr == U("LRD")) output = CurrencyLRD;
+            if (inputStr == U("LSL")) output = CurrencyLSL;
+            if (inputStr == U("LYD")) output = CurrencyLYD;
+            if (inputStr == U("MAD")) output = CurrencyMAD;
+            if (inputStr == U("MDL")) output = CurrencyMDL;
+            if (inputStr == U("MGA")) output = CurrencyMGA;
+            if (inputStr == U("MKD")) output = CurrencyMKD;
+            if (inputStr == U("MMK")) output = CurrencyMMK;
+            if (inputStr == U("MNT")) output = CurrencyMNT;
+            if (inputStr == U("MOP")) output = CurrencyMOP;
+            if (inputStr == U("MRO")) output = CurrencyMRO;
+            if (inputStr == U("MUR")) output = CurrencyMUR;
+            if (inputStr == U("MVR")) output = CurrencyMVR;
+            if (inputStr == U("MWK")) output = CurrencyMWK;
+            if (inputStr == U("MXN")) output = CurrencyMXN;
+            if (inputStr == U("MYR")) output = CurrencyMYR;
+            if (inputStr == U("MZN")) output = CurrencyMZN;
+            if (inputStr == U("NAD")) output = CurrencyNAD;
+            if (inputStr == U("NGN")) output = CurrencyNGN;
+            if (inputStr == U("NIO")) output = CurrencyNIO;
+            if (inputStr == U("NOK")) output = CurrencyNOK;
+            if (inputStr == U("NPR")) output = CurrencyNPR;
+            if (inputStr == U("NZD")) output = CurrencyNZD;
+            if (inputStr == U("OMR")) output = CurrencyOMR;
+            if (inputStr == U("PAB")) output = CurrencyPAB;
+            if (inputStr == U("PEN")) output = CurrencyPEN;
+            if (inputStr == U("PGK")) output = CurrencyPGK;
+            if (inputStr == U("PHP")) output = CurrencyPHP;
+            if (inputStr == U("PKR")) output = CurrencyPKR;
+            if (inputStr == U("PLN")) output = CurrencyPLN;
+            if (inputStr == U("PYG")) output = CurrencyPYG;
+            if (inputStr == U("QAR")) output = CurrencyQAR;
+            if (inputStr == U("RON")) output = CurrencyRON;
+            if (inputStr == U("RSD")) output = CurrencyRSD;
+            if (inputStr == U("RUB")) output = CurrencyRUB;
+            if (inputStr == U("RWF")) output = CurrencyRWF;
+            if (inputStr == U("SAR")) output = CurrencySAR;
+            if (inputStr == U("SBD")) output = CurrencySBD;
+            if (inputStr == U("SCR")) output = CurrencySCR;
+            if (inputStr == U("SDG")) output = CurrencySDG;
+            if (inputStr == U("SEK")) output = CurrencySEK;
+            if (inputStr == U("SGD")) output = CurrencySGD;
+            if (inputStr == U("SHP")) output = CurrencySHP;
+            if (inputStr == U("SLL")) output = CurrencySLL;
+            if (inputStr == U("SOS")) output = CurrencySOS;
+            if (inputStr == U("SPL")) output = CurrencySPL;
+            if (inputStr == U("SRD")) output = CurrencySRD;
+            if (inputStr == U("STD")) output = CurrencySTD;
+            if (inputStr == U("SVC")) output = CurrencySVC;
+            if (inputStr == U("SYP")) output = CurrencySYP;
+            if (inputStr == U("SZL")) output = CurrencySZL;
+            if (inputStr == U("THB")) output = CurrencyTHB;
+            if (inputStr == U("TJS")) output = CurrencyTJS;
+            if (inputStr == U("TMT")) output = CurrencyTMT;
+            if (inputStr == U("TND")) output = CurrencyTND;
+            if (inputStr == U("TOP")) output = CurrencyTOP;
+            if (inputStr == U("TRY")) output = CurrencyTRY;
+            if (inputStr == U("TTD")) output = CurrencyTTD;
+            if (inputStr == U("TVD")) output = CurrencyTVD;
+            if (inputStr == U("TWD")) output = CurrencyTWD;
+            if (inputStr == U("TZS")) output = CurrencyTZS;
+            if (inputStr == U("UAH")) output = CurrencyUAH;
+            if (inputStr == U("UGX")) output = CurrencyUGX;
+            if (inputStr == U("USD")) output = CurrencyUSD;
+            if (inputStr == U("UYU")) output = CurrencyUYU;
+            if (inputStr == U("UZS")) output = CurrencyUZS;
+            if (inputStr == U("VEF")) output = CurrencyVEF;
+            if (inputStr == U("VND")) output = CurrencyVND;
+            if (inputStr == U("VUV")) output = CurrencyVUV;
+            if (inputStr == U("WST")) output = CurrencyWST;
+            if (inputStr == U("XAF")) output = CurrencyXAF;
+            if (inputStr == U("XCD")) output = CurrencyXCD;
+            if (inputStr == U("XDR")) output = CurrencyXDR;
+            if (inputStr == U("XOF")) output = CurrencyXOF;
+            if (inputStr == U("XPF")) output = CurrencyXPF;
+            if (inputStr == U("YER")) output = CurrencyYER;
+            if (inputStr == U("ZAR")) output = CurrencyZAR;
+            if (inputStr == U("ZMW")) output = CurrencyZMW;
+            if (inputStr == U("ZWD")) output = CurrencyZWD;
+        }
+
+        enum GameInstanceState
+        {
+            GameInstanceStateOpen,
+            GameInstanceStateClosed
+        };
+
+        inline void ToJsonEnum(const GameInstanceState input, web::json::value& output)
+        {
+            if (input == GameInstanceStateOpen) output = web::json::value(U("Open"));
+            if (input == GameInstanceStateClosed) output = web::json::value(U("Closed"));
+        }
+        inline void FromJsonEnum(const web::json::value& input, GameInstanceState& output)
+        {
+            if (!input.is_string()) return;
+            const utility::string_t& inputStr = input.as_string();
+            if (inputStr == U("Open")) output = GameInstanceStateOpen;
+            if (inputStr == U("Closed")) output = GameInstanceStateClosed;
+        }
+
+        enum MatchmakeStatus
+        {
+            MatchmakeStatusComplete,
+            MatchmakeStatusWaiting,
+            MatchmakeStatusGameNotFound,
+            MatchmakeStatusNoAvailableSlots,
+            MatchmakeStatusSessionClosed
+        };
+
+        inline void ToJsonEnum(const MatchmakeStatus input, web::json::value& output)
+        {
+            if (input == MatchmakeStatusComplete) output = web::json::value(U("Complete"));
+            if (input == MatchmakeStatusWaiting) output = web::json::value(U("Waiting"));
+            if (input == MatchmakeStatusGameNotFound) output = web::json::value(U("GameNotFound"));
+            if (input == MatchmakeStatusNoAvailableSlots) output = web::json::value(U("NoAvailableSlots"));
+            if (input == MatchmakeStatusSessionClosed) output = web::json::value(U("SessionClosed"));
+        }
+        inline void FromJsonEnum(const web::json::value& input, MatchmakeStatus& output)
+        {
+            if (!input.is_string()) return;
+            const utility::string_t& inputStr = input.as_string();
+            if (inputStr == U("Complete")) output = MatchmakeStatusComplete;
+            if (inputStr == U("Waiting")) output = MatchmakeStatusWaiting;
+            if (inputStr == U("GameNotFound")) output = MatchmakeStatusGameNotFound;
+            if (inputStr == U("NoAvailableSlots")) output = MatchmakeStatusNoAvailableSlots;
+            if (inputStr == U("SessionClosed")) output = MatchmakeStatusSessionClosed;
+        }
 
         enum Region
         {
@@ -1358,54 +588,1778 @@ namespace PlayFab
             RegionAustralia
         };
 
-        void writeRegionEnumJSON(Region enumVal, PFStringJsonWriter& writer);
-        Region readRegionFromValue(const rapidjson::Value& obj);
+        inline void ToJsonEnum(const Region input, web::json::value& output)
+        {
+            if (input == RegionUSCentral) output = web::json::value(U("USCentral"));
+            if (input == RegionUSEast) output = web::json::value(U("USEast"));
+            if (input == RegionEUWest) output = web::json::value(U("EUWest"));
+            if (input == RegionSingapore) output = web::json::value(U("Singapore"));
+            if (input == RegionJapan) output = web::json::value(U("Japan"));
+            if (input == RegionBrazil) output = web::json::value(U("Brazil"));
+            if (input == RegionAustralia) output = web::json::value(U("Australia"));
+        }
+        inline void FromJsonEnum(const web::json::value& input, Region& output)
+        {
+            if (!input.is_string()) return;
+            const utility::string_t& inputStr = input.as_string();
+            if (inputStr == U("USCentral")) output = RegionUSCentral;
+            if (inputStr == U("USEast")) output = RegionUSEast;
+            if (inputStr == U("EUWest")) output = RegionEUWest;
+            if (inputStr == U("Singapore")) output = RegionSingapore;
+            if (inputStr == U("Japan")) output = RegionJapan;
+            if (inputStr == U("Brazil")) output = RegionBrazil;
+            if (inputStr == U("Australia")) output = RegionAustralia;
+        }
 
-        struct CurrentGamesRequest : public PlayFabBaseModel
+        enum SourceType
+        {
+            SourceTypeAdmin,
+            SourceTypeBackEnd,
+            SourceTypeGameClient,
+            SourceTypeGameServer,
+            SourceTypePartner
+        };
+
+        inline void ToJsonEnum(const SourceType input, web::json::value& output)
+        {
+            if (input == SourceTypeAdmin) output = web::json::value(U("Admin"));
+            if (input == SourceTypeBackEnd) output = web::json::value(U("BackEnd"));
+            if (input == SourceTypeGameClient) output = web::json::value(U("GameClient"));
+            if (input == SourceTypeGameServer) output = web::json::value(U("GameServer"));
+            if (input == SourceTypePartner) output = web::json::value(U("Partner"));
+        }
+        inline void FromJsonEnum(const web::json::value& input, SourceType& output)
+        {
+            if (!input.is_string()) return;
+            const utility::string_t& inputStr = input.as_string();
+            if (inputStr == U("Admin")) output = SourceTypeAdmin;
+            if (inputStr == U("BackEnd")) output = SourceTypeBackEnd;
+            if (inputStr == U("GameClient")) output = SourceTypeGameClient;
+            if (inputStr == U("GameServer")) output = SourceTypeGameServer;
+            if (inputStr == U("Partner")) output = SourceTypePartner;
+        }
+
+        enum TitleActivationStatus
+        {
+            TitleActivationStatusNone,
+            TitleActivationStatusActivatedTitleKey,
+            TitleActivationStatusPendingSteam,
+            TitleActivationStatusActivatedSteam,
+            TitleActivationStatusRevokedSteam
+        };
+
+        inline void ToJsonEnum(const TitleActivationStatus input, web::json::value& output)
+        {
+            if (input == TitleActivationStatusNone) output = web::json::value(U("None"));
+            if (input == TitleActivationStatusActivatedTitleKey) output = web::json::value(U("ActivatedTitleKey"));
+            if (input == TitleActivationStatusPendingSteam) output = web::json::value(U("PendingSteam"));
+            if (input == TitleActivationStatusActivatedSteam) output = web::json::value(U("ActivatedSteam"));
+            if (input == TitleActivationStatusRevokedSteam) output = web::json::value(U("RevokedSteam"));
+        }
+        inline void FromJsonEnum(const web::json::value& input, TitleActivationStatus& output)
+        {
+            if (!input.is_string()) return;
+            const utility::string_t& inputStr = input.as_string();
+            if (inputStr == U("None")) output = TitleActivationStatusNone;
+            if (inputStr == U("ActivatedTitleKey")) output = TitleActivationStatusActivatedTitleKey;
+            if (inputStr == U("PendingSteam")) output = TitleActivationStatusPendingSteam;
+            if (inputStr == U("ActivatedSteam")) output = TitleActivationStatusActivatedSteam;
+            if (inputStr == U("RevokedSteam")) output = TitleActivationStatusRevokedSteam;
+        }
+
+        enum TradeStatus
+        {
+            TradeStatusInvalid,
+            TradeStatusOpening,
+            TradeStatusOpen,
+            TradeStatusAccepting,
+            TradeStatusAccepted,
+            TradeStatusFilled,
+            TradeStatusCancelled
+        };
+
+        inline void ToJsonEnum(const TradeStatus input, web::json::value& output)
+        {
+            if (input == TradeStatusInvalid) output = web::json::value(U("Invalid"));
+            if (input == TradeStatusOpening) output = web::json::value(U("Opening"));
+            if (input == TradeStatusOpen) output = web::json::value(U("Open"));
+            if (input == TradeStatusAccepting) output = web::json::value(U("Accepting"));
+            if (input == TradeStatusAccepted) output = web::json::value(U("Accepted"));
+            if (input == TradeStatusFilled) output = web::json::value(U("Filled"));
+            if (input == TradeStatusCancelled) output = web::json::value(U("Cancelled"));
+        }
+        inline void FromJsonEnum(const web::json::value& input, TradeStatus& output)
+        {
+            if (!input.is_string()) return;
+            const utility::string_t& inputStr = input.as_string();
+            if (inputStr == U("Invalid")) output = TradeStatusInvalid;
+            if (inputStr == U("Opening")) output = TradeStatusOpening;
+            if (inputStr == U("Open")) output = TradeStatusOpen;
+            if (inputStr == U("Accepting")) output = TradeStatusAccepting;
+            if (inputStr == U("Accepted")) output = TradeStatusAccepted;
+            if (inputStr == U("Filled")) output = TradeStatusFilled;
+            if (inputStr == U("Cancelled")) output = TradeStatusCancelled;
+        }
+
+        enum TransactionStatus
+        {
+            TransactionStatusCreateCart,
+            TransactionStatusInit,
+            TransactionStatusApproved,
+            TransactionStatusSucceeded,
+            TransactionStatusFailedByProvider,
+            TransactionStatusDisputePending,
+            TransactionStatusRefundPending,
+            TransactionStatusRefunded,
+            TransactionStatusRefundFailed,
+            TransactionStatusChargedBack,
+            TransactionStatusFailedByUber,
+            TransactionStatusFailedByPlayFab,
+            TransactionStatusRevoked,
+            TransactionStatusTradePending,
+            TransactionStatusTraded,
+            TransactionStatusUpgraded,
+            TransactionStatusStackPending,
+            TransactionStatusStacked,
+            TransactionStatusOther,
+            TransactionStatusFailed
+        };
+
+        inline void ToJsonEnum(const TransactionStatus input, web::json::value& output)
+        {
+            if (input == TransactionStatusCreateCart) output = web::json::value(U("CreateCart"));
+            if (input == TransactionStatusInit) output = web::json::value(U("Init"));
+            if (input == TransactionStatusApproved) output = web::json::value(U("Approved"));
+            if (input == TransactionStatusSucceeded) output = web::json::value(U("Succeeded"));
+            if (input == TransactionStatusFailedByProvider) output = web::json::value(U("FailedByProvider"));
+            if (input == TransactionStatusDisputePending) output = web::json::value(U("DisputePending"));
+            if (input == TransactionStatusRefundPending) output = web::json::value(U("RefundPending"));
+            if (input == TransactionStatusRefunded) output = web::json::value(U("Refunded"));
+            if (input == TransactionStatusRefundFailed) output = web::json::value(U("RefundFailed"));
+            if (input == TransactionStatusChargedBack) output = web::json::value(U("ChargedBack"));
+            if (input == TransactionStatusFailedByUber) output = web::json::value(U("FailedByUber"));
+            if (input == TransactionStatusFailedByPlayFab) output = web::json::value(U("FailedByPlayFab"));
+            if (input == TransactionStatusRevoked) output = web::json::value(U("Revoked"));
+            if (input == TransactionStatusTradePending) output = web::json::value(U("TradePending"));
+            if (input == TransactionStatusTraded) output = web::json::value(U("Traded"));
+            if (input == TransactionStatusUpgraded) output = web::json::value(U("Upgraded"));
+            if (input == TransactionStatusStackPending) output = web::json::value(U("StackPending"));
+            if (input == TransactionStatusStacked) output = web::json::value(U("Stacked"));
+            if (input == TransactionStatusOther) output = web::json::value(U("Other"));
+            if (input == TransactionStatusFailed) output = web::json::value(U("Failed"));
+        }
+        inline void FromJsonEnum(const web::json::value& input, TransactionStatus& output)
+        {
+            if (!input.is_string()) return;
+            const utility::string_t& inputStr = input.as_string();
+            if (inputStr == U("CreateCart")) output = TransactionStatusCreateCart;
+            if (inputStr == U("Init")) output = TransactionStatusInit;
+            if (inputStr == U("Approved")) output = TransactionStatusApproved;
+            if (inputStr == U("Succeeded")) output = TransactionStatusSucceeded;
+            if (inputStr == U("FailedByProvider")) output = TransactionStatusFailedByProvider;
+            if (inputStr == U("DisputePending")) output = TransactionStatusDisputePending;
+            if (inputStr == U("RefundPending")) output = TransactionStatusRefundPending;
+            if (inputStr == U("Refunded")) output = TransactionStatusRefunded;
+            if (inputStr == U("RefundFailed")) output = TransactionStatusRefundFailed;
+            if (inputStr == U("ChargedBack")) output = TransactionStatusChargedBack;
+            if (inputStr == U("FailedByUber")) output = TransactionStatusFailedByUber;
+            if (inputStr == U("FailedByPlayFab")) output = TransactionStatusFailedByPlayFab;
+            if (inputStr == U("Revoked")) output = TransactionStatusRevoked;
+            if (inputStr == U("TradePending")) output = TransactionStatusTradePending;
+            if (inputStr == U("Traded")) output = TransactionStatusTraded;
+            if (inputStr == U("Upgraded")) output = TransactionStatusUpgraded;
+            if (inputStr == U("StackPending")) output = TransactionStatusStackPending;
+            if (inputStr == U("Stacked")) output = TransactionStatusStacked;
+            if (inputStr == U("Other")) output = TransactionStatusOther;
+            if (inputStr == U("Failed")) output = TransactionStatusFailed;
+        }
+
+        enum UserDataPermission
+        {
+            UserDataPermissionPrivate,
+            UserDataPermissionPublic
+        };
+
+        inline void ToJsonEnum(const UserDataPermission input, web::json::value& output)
+        {
+            if (input == UserDataPermissionPrivate) output = web::json::value(U("Private"));
+            if (input == UserDataPermissionPublic) output = web::json::value(U("Public"));
+        }
+        inline void FromJsonEnum(const web::json::value& input, UserDataPermission& output)
+        {
+            if (!input.is_string()) return;
+            const utility::string_t& inputStr = input.as_string();
+            if (inputStr == U("Private")) output = UserDataPermissionPrivate;
+            if (inputStr == U("Public")) output = UserDataPermissionPublic;
+        }
+
+        enum UserOrigination
+        {
+            UserOriginationOrganic,
+            UserOriginationSteam,
+            UserOriginationGoogle,
+            UserOriginationAmazon,
+            UserOriginationFacebook,
+            UserOriginationKongregate,
+            UserOriginationGamersFirst,
+            UserOriginationUnknown,
+            UserOriginationIOS,
+            UserOriginationLoadTest,
+            UserOriginationAndroid,
+            UserOriginationPSN,
+            UserOriginationGameCenter,
+            UserOriginationCustomId,
+            UserOriginationXboxLive,
+            UserOriginationParse,
+            UserOriginationTwitch
+        };
+
+        inline void ToJsonEnum(const UserOrigination input, web::json::value& output)
+        {
+            if (input == UserOriginationOrganic) output = web::json::value(U("Organic"));
+            if (input == UserOriginationSteam) output = web::json::value(U("Steam"));
+            if (input == UserOriginationGoogle) output = web::json::value(U("Google"));
+            if (input == UserOriginationAmazon) output = web::json::value(U("Amazon"));
+            if (input == UserOriginationFacebook) output = web::json::value(U("Facebook"));
+            if (input == UserOriginationKongregate) output = web::json::value(U("Kongregate"));
+            if (input == UserOriginationGamersFirst) output = web::json::value(U("GamersFirst"));
+            if (input == UserOriginationUnknown) output = web::json::value(U("Unknown"));
+            if (input == UserOriginationIOS) output = web::json::value(U("IOS"));
+            if (input == UserOriginationLoadTest) output = web::json::value(U("LoadTest"));
+            if (input == UserOriginationAndroid) output = web::json::value(U("Android"));
+            if (input == UserOriginationPSN) output = web::json::value(U("PSN"));
+            if (input == UserOriginationGameCenter) output = web::json::value(U("GameCenter"));
+            if (input == UserOriginationCustomId) output = web::json::value(U("CustomId"));
+            if (input == UserOriginationXboxLive) output = web::json::value(U("XboxLive"));
+            if (input == UserOriginationParse) output = web::json::value(U("Parse"));
+            if (input == UserOriginationTwitch) output = web::json::value(U("Twitch"));
+        }
+        inline void FromJsonEnum(const web::json::value& input, UserOrigination& output)
+        {
+            if (!input.is_string()) return;
+            const utility::string_t& inputStr = input.as_string();
+            if (inputStr == U("Organic")) output = UserOriginationOrganic;
+            if (inputStr == U("Steam")) output = UserOriginationSteam;
+            if (inputStr == U("Google")) output = UserOriginationGoogle;
+            if (inputStr == U("Amazon")) output = UserOriginationAmazon;
+            if (inputStr == U("Facebook")) output = UserOriginationFacebook;
+            if (inputStr == U("Kongregate")) output = UserOriginationKongregate;
+            if (inputStr == U("GamersFirst")) output = UserOriginationGamersFirst;
+            if (inputStr == U("Unknown")) output = UserOriginationUnknown;
+            if (inputStr == U("IOS")) output = UserOriginationIOS;
+            if (inputStr == U("LoadTest")) output = UserOriginationLoadTest;
+            if (inputStr == U("Android")) output = UserOriginationAndroid;
+            if (inputStr == U("PSN")) output = UserOriginationPSN;
+            if (inputStr == U("GameCenter")) output = UserOriginationGameCenter;
+            if (inputStr == U("CustomId")) output = UserOriginationCustomId;
+            if (inputStr == U("XboxLive")) output = UserOriginationXboxLive;
+            if (inputStr == U("Parse")) output = UserOriginationParse;
+            if (inputStr == U("Twitch")) output = UserOriginationTwitch;
+        }
+
+        // Client Classes
+        struct AcceptTradeRequest : public PlayFabRequestCommon
+        {
+            std::string OfferingPlayerId;
+            std::string TradeId;
+            std::list<std::string> AcceptedInventoryInstanceIds;
+
+            AcceptTradeRequest() :
+                PlayFabRequestCommon(),
+                OfferingPlayerId(),
+                TradeId(),
+                AcceptedInventoryInstanceIds()
+            {}
+
+            AcceptTradeRequest(const AcceptTradeRequest& src) :
+                PlayFabRequestCommon(),
+                OfferingPlayerId(src.OfferingPlayerId),
+                TradeId(src.TradeId),
+                AcceptedInventoryInstanceIds(src.AcceptedInventoryInstanceIds)
+            {}
+
+            ~AcceptTradeRequest() { }
+
+            void FromJson(web::json::value& input) override
+            {
+                FromJsonUtilS(input[U("OfferingPlayerId")], OfferingPlayerId);
+                FromJsonUtilS(input[U("TradeId")], TradeId);
+                FromJsonUtilS(input[U("AcceptedInventoryInstanceIds")], AcceptedInventoryInstanceIds);
+            }
+
+            web::json::value ToJson() const override
+            {
+                web::json::value output;
+                web::json::value each_OfferingPlayerId; ToJsonUtilS(OfferingPlayerId, each_OfferingPlayerId); output[U("OfferingPlayerId")] = each_OfferingPlayerId;
+                web::json::value each_TradeId; ToJsonUtilS(TradeId, each_TradeId); output[U("TradeId")] = each_TradeId;
+                web::json::value each_AcceptedInventoryInstanceIds; ToJsonUtilS(AcceptedInventoryInstanceIds, each_AcceptedInventoryInstanceIds); output[U("AcceptedInventoryInstanceIds")] = each_AcceptedInventoryInstanceIds;
+                return output;
+            }
+        };
+
+        struct TradeInfo : public PlayFabBaseModel
+        {
+            Boxed<TradeStatus> Status;
+            std::string TradeId;
+            std::string OfferingPlayerId;
+            std::list<std::string> OfferedInventoryInstanceIds;
+            std::list<std::string> OfferedCatalogItemIds;
+            std::list<std::string> RequestedCatalogItemIds;
+            std::list<std::string> AllowedPlayerIds;
+            std::string AcceptedPlayerId;
+            std::list<std::string> AcceptedInventoryInstanceIds;
+            Boxed<time_t> OpenedAt;
+            Boxed<time_t> FilledAt;
+            Boxed<time_t> CancelledAt;
+            Boxed<time_t> InvalidatedAt;
+
+            TradeInfo() :
+                PlayFabBaseModel(),
+                Status(),
+                TradeId(),
+                OfferingPlayerId(),
+                OfferedInventoryInstanceIds(),
+                OfferedCatalogItemIds(),
+                RequestedCatalogItemIds(),
+                AllowedPlayerIds(),
+                AcceptedPlayerId(),
+                AcceptedInventoryInstanceIds(),
+                OpenedAt(),
+                FilledAt(),
+                CancelledAt(),
+                InvalidatedAt()
+            {}
+
+            TradeInfo(const TradeInfo& src) :
+                PlayFabBaseModel(),
+                Status(src.Status),
+                TradeId(src.TradeId),
+                OfferingPlayerId(src.OfferingPlayerId),
+                OfferedInventoryInstanceIds(src.OfferedInventoryInstanceIds),
+                OfferedCatalogItemIds(src.OfferedCatalogItemIds),
+                RequestedCatalogItemIds(src.RequestedCatalogItemIds),
+                AllowedPlayerIds(src.AllowedPlayerIds),
+                AcceptedPlayerId(src.AcceptedPlayerId),
+                AcceptedInventoryInstanceIds(src.AcceptedInventoryInstanceIds),
+                OpenedAt(src.OpenedAt),
+                FilledAt(src.FilledAt),
+                CancelledAt(src.CancelledAt),
+                InvalidatedAt(src.InvalidatedAt)
+            {}
+
+            ~TradeInfo() { }
+
+            void FromJson(web::json::value& input) override
+            {
+                FromJsonUtilE(input[U("Status")], Status);
+                FromJsonUtilS(input[U("TradeId")], TradeId);
+                FromJsonUtilS(input[U("OfferingPlayerId")], OfferingPlayerId);
+                FromJsonUtilS(input[U("OfferedInventoryInstanceIds")], OfferedInventoryInstanceIds);
+                FromJsonUtilS(input[U("OfferedCatalogItemIds")], OfferedCatalogItemIds);
+                FromJsonUtilS(input[U("RequestedCatalogItemIds")], RequestedCatalogItemIds);
+                FromJsonUtilS(input[U("AllowedPlayerIds")], AllowedPlayerIds);
+                FromJsonUtilS(input[U("AcceptedPlayerId")], AcceptedPlayerId);
+                FromJsonUtilS(input[U("AcceptedInventoryInstanceIds")], AcceptedInventoryInstanceIds);
+                FromJsonUtilT(input[U("OpenedAt")], OpenedAt);
+                FromJsonUtilT(input[U("FilledAt")], FilledAt);
+                FromJsonUtilT(input[U("CancelledAt")], CancelledAt);
+                FromJsonUtilT(input[U("InvalidatedAt")], InvalidatedAt);
+            }
+
+            web::json::value ToJson() const override
+            {
+                web::json::value output;
+                web::json::value each_Status; ToJsonUtilE(Status, each_Status); output[U("Status")] = each_Status;
+                web::json::value each_TradeId; ToJsonUtilS(TradeId, each_TradeId); output[U("TradeId")] = each_TradeId;
+                web::json::value each_OfferingPlayerId; ToJsonUtilS(OfferingPlayerId, each_OfferingPlayerId); output[U("OfferingPlayerId")] = each_OfferingPlayerId;
+                web::json::value each_OfferedInventoryInstanceIds; ToJsonUtilS(OfferedInventoryInstanceIds, each_OfferedInventoryInstanceIds); output[U("OfferedInventoryInstanceIds")] = each_OfferedInventoryInstanceIds;
+                web::json::value each_OfferedCatalogItemIds; ToJsonUtilS(OfferedCatalogItemIds, each_OfferedCatalogItemIds); output[U("OfferedCatalogItemIds")] = each_OfferedCatalogItemIds;
+                web::json::value each_RequestedCatalogItemIds; ToJsonUtilS(RequestedCatalogItemIds, each_RequestedCatalogItemIds); output[U("RequestedCatalogItemIds")] = each_RequestedCatalogItemIds;
+                web::json::value each_AllowedPlayerIds; ToJsonUtilS(AllowedPlayerIds, each_AllowedPlayerIds); output[U("AllowedPlayerIds")] = each_AllowedPlayerIds;
+                web::json::value each_AcceptedPlayerId; ToJsonUtilS(AcceptedPlayerId, each_AcceptedPlayerId); output[U("AcceptedPlayerId")] = each_AcceptedPlayerId;
+                web::json::value each_AcceptedInventoryInstanceIds; ToJsonUtilS(AcceptedInventoryInstanceIds, each_AcceptedInventoryInstanceIds); output[U("AcceptedInventoryInstanceIds")] = each_AcceptedInventoryInstanceIds;
+                web::json::value each_OpenedAt; ToJsonUtilT(OpenedAt, each_OpenedAt); output[U("OpenedAt")] = each_OpenedAt;
+                web::json::value each_FilledAt; ToJsonUtilT(FilledAt, each_FilledAt); output[U("FilledAt")] = each_FilledAt;
+                web::json::value each_CancelledAt; ToJsonUtilT(CancelledAt, each_CancelledAt); output[U("CancelledAt")] = each_CancelledAt;
+                web::json::value each_InvalidatedAt; ToJsonUtilT(InvalidatedAt, each_InvalidatedAt); output[U("InvalidatedAt")] = each_InvalidatedAt;
+                return output;
+            }
+        };
+
+        struct AcceptTradeResponse : public PlayFabRequestCommon
+        {
+            Boxed<TradeInfo> Trade;
+
+            AcceptTradeResponse() :
+                PlayFabRequestCommon(),
+                Trade()
+            {}
+
+            AcceptTradeResponse(const AcceptTradeResponse& src) :
+                PlayFabRequestCommon(),
+                Trade(src.Trade)
+            {}
+
+            ~AcceptTradeResponse() { }
+
+            void FromJson(web::json::value& input) override
+            {
+                FromJsonUtilO(input[U("Trade")], Trade);
+            }
+
+            web::json::value ToJson() const override
+            {
+                web::json::value output;
+                web::json::value each_Trade; ToJsonUtilO(Trade, each_Trade); output[U("Trade")] = each_Trade;
+                return output;
+            }
+        };
+
+        struct AddFriendRequest : public PlayFabRequestCommon
+        {
+            std::string FriendPlayFabId;
+            std::string FriendUsername;
+            std::string FriendEmail;
+            std::string FriendTitleDisplayName;
+
+            AddFriendRequest() :
+                PlayFabRequestCommon(),
+                FriendPlayFabId(),
+                FriendUsername(),
+                FriendEmail(),
+                FriendTitleDisplayName()
+            {}
+
+            AddFriendRequest(const AddFriendRequest& src) :
+                PlayFabRequestCommon(),
+                FriendPlayFabId(src.FriendPlayFabId),
+                FriendUsername(src.FriendUsername),
+                FriendEmail(src.FriendEmail),
+                FriendTitleDisplayName(src.FriendTitleDisplayName)
+            {}
+
+            ~AddFriendRequest() { }
+
+            void FromJson(web::json::value& input) override
+            {
+                FromJsonUtilS(input[U("FriendPlayFabId")], FriendPlayFabId);
+                FromJsonUtilS(input[U("FriendUsername")], FriendUsername);
+                FromJsonUtilS(input[U("FriendEmail")], FriendEmail);
+                FromJsonUtilS(input[U("FriendTitleDisplayName")], FriendTitleDisplayName);
+            }
+
+            web::json::value ToJson() const override
+            {
+                web::json::value output;
+                web::json::value each_FriendPlayFabId; ToJsonUtilS(FriendPlayFabId, each_FriendPlayFabId); output[U("FriendPlayFabId")] = each_FriendPlayFabId;
+                web::json::value each_FriendUsername; ToJsonUtilS(FriendUsername, each_FriendUsername); output[U("FriendUsername")] = each_FriendUsername;
+                web::json::value each_FriendEmail; ToJsonUtilS(FriendEmail, each_FriendEmail); output[U("FriendEmail")] = each_FriendEmail;
+                web::json::value each_FriendTitleDisplayName; ToJsonUtilS(FriendTitleDisplayName, each_FriendTitleDisplayName); output[U("FriendTitleDisplayName")] = each_FriendTitleDisplayName;
+                return output;
+            }
+        };
+
+        struct AddFriendResult : public PlayFabRequestCommon
+        {
+            bool Created;
+
+            AddFriendResult() :
+                PlayFabRequestCommon(),
+                Created()
+            {}
+
+            AddFriendResult(const AddFriendResult& src) :
+                PlayFabRequestCommon(),
+                Created(src.Created)
+            {}
+
+            ~AddFriendResult() { }
+
+            void FromJson(web::json::value& input) override
+            {
+                FromJsonUtilP(input[U("Created")], Created);
+            }
+
+            web::json::value ToJson() const override
+            {
+                web::json::value output;
+                web::json::value each_Created; ToJsonUtilP(Created, each_Created); output[U("Created")] = each_Created;
+                return output;
+            }
+        };
+
+        struct GenericServiceId : public PlayFabBaseModel
+        {
+            std::string ServiceName;
+            std::string UserId;
+
+            GenericServiceId() :
+                PlayFabBaseModel(),
+                ServiceName(),
+                UserId()
+            {}
+
+            GenericServiceId(const GenericServiceId& src) :
+                PlayFabBaseModel(),
+                ServiceName(src.ServiceName),
+                UserId(src.UserId)
+            {}
+
+            ~GenericServiceId() { }
+
+            void FromJson(web::json::value& input) override
+            {
+                FromJsonUtilS(input[U("ServiceName")], ServiceName);
+                FromJsonUtilS(input[U("UserId")], UserId);
+            }
+
+            web::json::value ToJson() const override
+            {
+                web::json::value output;
+                web::json::value each_ServiceName; ToJsonUtilS(ServiceName, each_ServiceName); output[U("ServiceName")] = each_ServiceName;
+                web::json::value each_UserId; ToJsonUtilS(UserId, each_UserId); output[U("UserId")] = each_UserId;
+                return output;
+            }
+        };
+
+        struct AddGenericIDRequest : public PlayFabRequestCommon
+        {
+            GenericServiceId GenericId;
+
+            AddGenericIDRequest() :
+                PlayFabRequestCommon(),
+                GenericId()
+            {}
+
+            AddGenericIDRequest(const AddGenericIDRequest& src) :
+                PlayFabRequestCommon(),
+                GenericId(src.GenericId)
+            {}
+
+            ~AddGenericIDRequest() { }
+
+            void FromJson(web::json::value& input) override
+            {
+                FromJsonUtilO(input[U("GenericId")], GenericId);
+            }
+
+            web::json::value ToJson() const override
+            {
+                web::json::value output;
+                web::json::value each_GenericId; ToJsonUtilO(GenericId, each_GenericId); output[U("GenericId")] = each_GenericId;
+                return output;
+            }
+        };
+
+        struct AddGenericIDResult : public PlayFabRequestCommon
+        {
+
+            AddGenericIDResult() :
+                PlayFabRequestCommon()
+            {}
+
+            AddGenericIDResult(const AddGenericIDResult& src) :
+                PlayFabRequestCommon()
+            {}
+
+            ~AddGenericIDResult() { }
+
+            void FromJson(web::json::value& input) override
+            {
+            }
+
+            web::json::value ToJson() const override
+            {
+                web::json::value output;
+                return output;
+            }
+        };
+
+        struct AddSharedGroupMembersRequest : public PlayFabRequestCommon
+        {
+            std::string SharedGroupId;
+            std::list<std::string> PlayFabIds;
+
+            AddSharedGroupMembersRequest() :
+                PlayFabRequestCommon(),
+                SharedGroupId(),
+                PlayFabIds()
+            {}
+
+            AddSharedGroupMembersRequest(const AddSharedGroupMembersRequest& src) :
+                PlayFabRequestCommon(),
+                SharedGroupId(src.SharedGroupId),
+                PlayFabIds(src.PlayFabIds)
+            {}
+
+            ~AddSharedGroupMembersRequest() { }
+
+            void FromJson(web::json::value& input) override
+            {
+                FromJsonUtilS(input[U("SharedGroupId")], SharedGroupId);
+                FromJsonUtilS(input[U("PlayFabIds")], PlayFabIds);
+            }
+
+            web::json::value ToJson() const override
+            {
+                web::json::value output;
+                web::json::value each_SharedGroupId; ToJsonUtilS(SharedGroupId, each_SharedGroupId); output[U("SharedGroupId")] = each_SharedGroupId;
+                web::json::value each_PlayFabIds; ToJsonUtilS(PlayFabIds, each_PlayFabIds); output[U("PlayFabIds")] = each_PlayFabIds;
+                return output;
+            }
+        };
+
+        struct AddSharedGroupMembersResult : public PlayFabRequestCommon
+        {
+
+            AddSharedGroupMembersResult() :
+                PlayFabRequestCommon()
+            {}
+
+            AddSharedGroupMembersResult(const AddSharedGroupMembersResult& src) :
+                PlayFabRequestCommon()
+            {}
+
+            ~AddSharedGroupMembersResult() { }
+
+            void FromJson(web::json::value& input) override
+            {
+            }
+
+            web::json::value ToJson() const override
+            {
+                web::json::value output;
+                return output;
+            }
+        };
+
+        struct AddUsernamePasswordRequest : public PlayFabRequestCommon
+        {
+            std::string Username;
+            std::string Email;
+            std::string Password;
+
+            AddUsernamePasswordRequest() :
+                PlayFabRequestCommon(),
+                Username(),
+                Email(),
+                Password()
+            {}
+
+            AddUsernamePasswordRequest(const AddUsernamePasswordRequest& src) :
+                PlayFabRequestCommon(),
+                Username(src.Username),
+                Email(src.Email),
+                Password(src.Password)
+            {}
+
+            ~AddUsernamePasswordRequest() { }
+
+            void FromJson(web::json::value& input) override
+            {
+                FromJsonUtilS(input[U("Username")], Username);
+                FromJsonUtilS(input[U("Email")], Email);
+                FromJsonUtilS(input[U("Password")], Password);
+            }
+
+            web::json::value ToJson() const override
+            {
+                web::json::value output;
+                web::json::value each_Username; ToJsonUtilS(Username, each_Username); output[U("Username")] = each_Username;
+                web::json::value each_Email; ToJsonUtilS(Email, each_Email); output[U("Email")] = each_Email;
+                web::json::value each_Password; ToJsonUtilS(Password, each_Password); output[U("Password")] = each_Password;
+                return output;
+            }
+        };
+
+        struct AddUsernamePasswordResult : public PlayFabRequestCommon
+        {
+            std::string Username;
+
+            AddUsernamePasswordResult() :
+                PlayFabRequestCommon(),
+                Username()
+            {}
+
+            AddUsernamePasswordResult(const AddUsernamePasswordResult& src) :
+                PlayFabRequestCommon(),
+                Username(src.Username)
+            {}
+
+            ~AddUsernamePasswordResult() { }
+
+            void FromJson(web::json::value& input) override
+            {
+                FromJsonUtilS(input[U("Username")], Username);
+            }
+
+            web::json::value ToJson() const override
+            {
+                web::json::value output;
+                web::json::value each_Username; ToJsonUtilS(Username, each_Username); output[U("Username")] = each_Username;
+                return output;
+            }
+        };
+
+        struct AddUserVirtualCurrencyRequest : public PlayFabRequestCommon
+        {
+            std::string VirtualCurrency;
+            Int32 Amount;
+
+            AddUserVirtualCurrencyRequest() :
+                PlayFabRequestCommon(),
+                VirtualCurrency(),
+                Amount()
+            {}
+
+            AddUserVirtualCurrencyRequest(const AddUserVirtualCurrencyRequest& src) :
+                PlayFabRequestCommon(),
+                VirtualCurrency(src.VirtualCurrency),
+                Amount(src.Amount)
+            {}
+
+            ~AddUserVirtualCurrencyRequest() { }
+
+            void FromJson(web::json::value& input) override
+            {
+                FromJsonUtilS(input[U("VirtualCurrency")], VirtualCurrency);
+                FromJsonUtilP(input[U("Amount")], Amount);
+            }
+
+            web::json::value ToJson() const override
+            {
+                web::json::value output;
+                web::json::value each_VirtualCurrency; ToJsonUtilS(VirtualCurrency, each_VirtualCurrency); output[U("VirtualCurrency")] = each_VirtualCurrency;
+                web::json::value each_Amount; ToJsonUtilP(Amount, each_Amount); output[U("Amount")] = each_Amount;
+                return output;
+            }
+        };
+
+        struct AndroidDevicePushNotificationRegistrationRequest : public PlayFabRequestCommon
+        {
+            std::string DeviceToken;
+            Boxed<bool> SendPushNotificationConfirmation;
+            std::string ConfirmationMessage;
+
+            AndroidDevicePushNotificationRegistrationRequest() :
+                PlayFabRequestCommon(),
+                DeviceToken(),
+                SendPushNotificationConfirmation(),
+                ConfirmationMessage()
+            {}
+
+            AndroidDevicePushNotificationRegistrationRequest(const AndroidDevicePushNotificationRegistrationRequest& src) :
+                PlayFabRequestCommon(),
+                DeviceToken(src.DeviceToken),
+                SendPushNotificationConfirmation(src.SendPushNotificationConfirmation),
+                ConfirmationMessage(src.ConfirmationMessage)
+            {}
+
+            ~AndroidDevicePushNotificationRegistrationRequest() { }
+
+            void FromJson(web::json::value& input) override
+            {
+                FromJsonUtilS(input[U("DeviceToken")], DeviceToken);
+                FromJsonUtilP(input[U("SendPushNotificationConfirmation")], SendPushNotificationConfirmation);
+                FromJsonUtilS(input[U("ConfirmationMessage")], ConfirmationMessage);
+            }
+
+            web::json::value ToJson() const override
+            {
+                web::json::value output;
+                web::json::value each_DeviceToken; ToJsonUtilS(DeviceToken, each_DeviceToken); output[U("DeviceToken")] = each_DeviceToken;
+                web::json::value each_SendPushNotificationConfirmation; ToJsonUtilP(SendPushNotificationConfirmation, each_SendPushNotificationConfirmation); output[U("SendPushNotificationConfirmation")] = each_SendPushNotificationConfirmation;
+                web::json::value each_ConfirmationMessage; ToJsonUtilS(ConfirmationMessage, each_ConfirmationMessage); output[U("ConfirmationMessage")] = each_ConfirmationMessage;
+                return output;
+            }
+        };
+
+        struct AndroidDevicePushNotificationRegistrationResult : public PlayFabRequestCommon
+        {
+
+            AndroidDevicePushNotificationRegistrationResult() :
+                PlayFabRequestCommon()
+            {}
+
+            AndroidDevicePushNotificationRegistrationResult(const AndroidDevicePushNotificationRegistrationResult& src) :
+                PlayFabRequestCommon()
+            {}
+
+            ~AndroidDevicePushNotificationRegistrationResult() { }
+
+            void FromJson(web::json::value& input) override
+            {
+            }
+
+            web::json::value ToJson() const override
+            {
+                web::json::value output;
+                return output;
+            }
+        };
+
+        struct AttributeInstallRequest : public PlayFabRequestCommon
+        {
+            std::string Idfa;
+            std::string Android_Id;
+            std::string Adid;
+
+            AttributeInstallRequest() :
+                PlayFabRequestCommon(),
+                Idfa(),
+                Android_Id(),
+                Adid()
+            {}
+
+            AttributeInstallRequest(const AttributeInstallRequest& src) :
+                PlayFabRequestCommon(),
+                Idfa(src.Idfa),
+                Android_Id(src.Android_Id),
+                Adid(src.Adid)
+            {}
+
+            ~AttributeInstallRequest() { }
+
+            void FromJson(web::json::value& input) override
+            {
+                FromJsonUtilS(input[U("Idfa")], Idfa);
+                FromJsonUtilS(input[U("Android_Id")], Android_Id);
+                FromJsonUtilS(input[U("Adid")], Adid);
+            }
+
+            web::json::value ToJson() const override
+            {
+                web::json::value output;
+                web::json::value each_Idfa; ToJsonUtilS(Idfa, each_Idfa); output[U("Idfa")] = each_Idfa;
+                web::json::value each_Android_Id; ToJsonUtilS(Android_Id, each_Android_Id); output[U("Android_Id")] = each_Android_Id;
+                web::json::value each_Adid; ToJsonUtilS(Adid, each_Adid); output[U("Adid")] = each_Adid;
+                return output;
+            }
+        };
+
+        struct AttributeInstallResult : public PlayFabRequestCommon
+        {
+
+            AttributeInstallResult() :
+                PlayFabRequestCommon()
+            {}
+
+            AttributeInstallResult(const AttributeInstallResult& src) :
+                PlayFabRequestCommon()
+            {}
+
+            ~AttributeInstallResult() { }
+
+            void FromJson(web::json::value& input) override
+            {
+            }
+
+            web::json::value ToJson() const override
+            {
+                web::json::value output;
+                return output;
+            }
+        };
+
+        struct CancelTradeRequest : public PlayFabRequestCommon
+        {
+            std::string TradeId;
+
+            CancelTradeRequest() :
+                PlayFabRequestCommon(),
+                TradeId()
+            {}
+
+            CancelTradeRequest(const CancelTradeRequest& src) :
+                PlayFabRequestCommon(),
+                TradeId(src.TradeId)
+            {}
+
+            ~CancelTradeRequest() { }
+
+            void FromJson(web::json::value& input) override
+            {
+                FromJsonUtilS(input[U("TradeId")], TradeId);
+            }
+
+            web::json::value ToJson() const override
+            {
+                web::json::value output;
+                web::json::value each_TradeId; ToJsonUtilS(TradeId, each_TradeId); output[U("TradeId")] = each_TradeId;
+                return output;
+            }
+        };
+
+        struct CancelTradeResponse : public PlayFabRequestCommon
+        {
+            Boxed<TradeInfo> Trade;
+
+            CancelTradeResponse() :
+                PlayFabRequestCommon(),
+                Trade()
+            {}
+
+            CancelTradeResponse(const CancelTradeResponse& src) :
+                PlayFabRequestCommon(),
+                Trade(src.Trade)
+            {}
+
+            ~CancelTradeResponse() { }
+
+            void FromJson(web::json::value& input) override
+            {
+                FromJsonUtilO(input[U("Trade")], Trade);
+            }
+
+            web::json::value ToJson() const override
+            {
+                web::json::value output;
+                web::json::value each_Trade; ToJsonUtilO(Trade, each_Trade); output[U("Trade")] = each_Trade;
+                return output;
+            }
+        };
+
+        struct CartItem : public PlayFabBaseModel
+        {
+            std::string ItemId;
+            std::string ItemClass;
+            std::string ItemInstanceId;
+            std::string DisplayName;
+            std::string Description;
+            std::map<std::string, Uint32> VirtualCurrencyPrices;
+            std::map<std::string, Uint32> RealCurrencyPrices;
+            std::map<std::string, Uint32> VCAmount;
+
+            CartItem() :
+                PlayFabBaseModel(),
+                ItemId(),
+                ItemClass(),
+                ItemInstanceId(),
+                DisplayName(),
+                Description(),
+                VirtualCurrencyPrices(),
+                RealCurrencyPrices(),
+                VCAmount()
+            {}
+
+            CartItem(const CartItem& src) :
+                PlayFabBaseModel(),
+                ItemId(src.ItemId),
+                ItemClass(src.ItemClass),
+                ItemInstanceId(src.ItemInstanceId),
+                DisplayName(src.DisplayName),
+                Description(src.Description),
+                VirtualCurrencyPrices(src.VirtualCurrencyPrices),
+                RealCurrencyPrices(src.RealCurrencyPrices),
+                VCAmount(src.VCAmount)
+            {}
+
+            ~CartItem() { }
+
+            void FromJson(web::json::value& input) override
+            {
+                FromJsonUtilS(input[U("ItemId")], ItemId);
+                FromJsonUtilS(input[U("ItemClass")], ItemClass);
+                FromJsonUtilS(input[U("ItemInstanceId")], ItemInstanceId);
+                FromJsonUtilS(input[U("DisplayName")], DisplayName);
+                FromJsonUtilS(input[U("Description")], Description);
+                FromJsonUtilP(input[U("VirtualCurrencyPrices")], VirtualCurrencyPrices);
+                FromJsonUtilP(input[U("RealCurrencyPrices")], RealCurrencyPrices);
+                FromJsonUtilP(input[U("VCAmount")], VCAmount);
+            }
+
+            web::json::value ToJson() const override
+            {
+                web::json::value output;
+                web::json::value each_ItemId; ToJsonUtilS(ItemId, each_ItemId); output[U("ItemId")] = each_ItemId;
+                web::json::value each_ItemClass; ToJsonUtilS(ItemClass, each_ItemClass); output[U("ItemClass")] = each_ItemClass;
+                web::json::value each_ItemInstanceId; ToJsonUtilS(ItemInstanceId, each_ItemInstanceId); output[U("ItemInstanceId")] = each_ItemInstanceId;
+                web::json::value each_DisplayName; ToJsonUtilS(DisplayName, each_DisplayName); output[U("DisplayName")] = each_DisplayName;
+                web::json::value each_Description; ToJsonUtilS(Description, each_Description); output[U("Description")] = each_Description;
+                web::json::value each_VirtualCurrencyPrices; ToJsonUtilP(VirtualCurrencyPrices, each_VirtualCurrencyPrices); output[U("VirtualCurrencyPrices")] = each_VirtualCurrencyPrices;
+                web::json::value each_RealCurrencyPrices; ToJsonUtilP(RealCurrencyPrices, each_RealCurrencyPrices); output[U("RealCurrencyPrices")] = each_RealCurrencyPrices;
+                web::json::value each_VCAmount; ToJsonUtilP(VCAmount, each_VCAmount); output[U("VCAmount")] = each_VCAmount;
+                return output;
+            }
+        };
+
+        struct CatalogItemConsumableInfo : public PlayFabBaseModel
+        {
+            Boxed<Uint32> UsageCount;
+            Boxed<Uint32> UsagePeriod;
+            std::string UsagePeriodGroup;
+
+            CatalogItemConsumableInfo() :
+                PlayFabBaseModel(),
+                UsageCount(),
+                UsagePeriod(),
+                UsagePeriodGroup()
+            {}
+
+            CatalogItemConsumableInfo(const CatalogItemConsumableInfo& src) :
+                PlayFabBaseModel(),
+                UsageCount(src.UsageCount),
+                UsagePeriod(src.UsagePeriod),
+                UsagePeriodGroup(src.UsagePeriodGroup)
+            {}
+
+            ~CatalogItemConsumableInfo() { }
+
+            void FromJson(web::json::value& input) override
+            {
+                FromJsonUtilP(input[U("UsageCount")], UsageCount);
+                FromJsonUtilP(input[U("UsagePeriod")], UsagePeriod);
+                FromJsonUtilS(input[U("UsagePeriodGroup")], UsagePeriodGroup);
+            }
+
+            web::json::value ToJson() const override
+            {
+                web::json::value output;
+                web::json::value each_UsageCount; ToJsonUtilP(UsageCount, each_UsageCount); output[U("UsageCount")] = each_UsageCount;
+                web::json::value each_UsagePeriod; ToJsonUtilP(UsagePeriod, each_UsagePeriod); output[U("UsagePeriod")] = each_UsagePeriod;
+                web::json::value each_UsagePeriodGroup; ToJsonUtilS(UsagePeriodGroup, each_UsagePeriodGroup); output[U("UsagePeriodGroup")] = each_UsagePeriodGroup;
+                return output;
+            }
+        };
+
+        struct CatalogItemContainerInfo : public PlayFabBaseModel
+        {
+            std::string KeyItemId;
+            std::list<std::string> ItemContents;
+            std::list<std::string> ResultTableContents;
+            std::map<std::string, Uint32> VirtualCurrencyContents;
+
+            CatalogItemContainerInfo() :
+                PlayFabBaseModel(),
+                KeyItemId(),
+                ItemContents(),
+                ResultTableContents(),
+                VirtualCurrencyContents()
+            {}
+
+            CatalogItemContainerInfo(const CatalogItemContainerInfo& src) :
+                PlayFabBaseModel(),
+                KeyItemId(src.KeyItemId),
+                ItemContents(src.ItemContents),
+                ResultTableContents(src.ResultTableContents),
+                VirtualCurrencyContents(src.VirtualCurrencyContents)
+            {}
+
+            ~CatalogItemContainerInfo() { }
+
+            void FromJson(web::json::value& input) override
+            {
+                FromJsonUtilS(input[U("KeyItemId")], KeyItemId);
+                FromJsonUtilS(input[U("ItemContents")], ItemContents);
+                FromJsonUtilS(input[U("ResultTableContents")], ResultTableContents);
+                FromJsonUtilP(input[U("VirtualCurrencyContents")], VirtualCurrencyContents);
+            }
+
+            web::json::value ToJson() const override
+            {
+                web::json::value output;
+                web::json::value each_KeyItemId; ToJsonUtilS(KeyItemId, each_KeyItemId); output[U("KeyItemId")] = each_KeyItemId;
+                web::json::value each_ItemContents; ToJsonUtilS(ItemContents, each_ItemContents); output[U("ItemContents")] = each_ItemContents;
+                web::json::value each_ResultTableContents; ToJsonUtilS(ResultTableContents, each_ResultTableContents); output[U("ResultTableContents")] = each_ResultTableContents;
+                web::json::value each_VirtualCurrencyContents; ToJsonUtilP(VirtualCurrencyContents, each_VirtualCurrencyContents); output[U("VirtualCurrencyContents")] = each_VirtualCurrencyContents;
+                return output;
+            }
+        };
+
+        struct CatalogItemBundleInfo : public PlayFabBaseModel
+        {
+            std::list<std::string> BundledItems;
+            std::list<std::string> BundledResultTables;
+            std::map<std::string, Uint32> BundledVirtualCurrencies;
+
+            CatalogItemBundleInfo() :
+                PlayFabBaseModel(),
+                BundledItems(),
+                BundledResultTables(),
+                BundledVirtualCurrencies()
+            {}
+
+            CatalogItemBundleInfo(const CatalogItemBundleInfo& src) :
+                PlayFabBaseModel(),
+                BundledItems(src.BundledItems),
+                BundledResultTables(src.BundledResultTables),
+                BundledVirtualCurrencies(src.BundledVirtualCurrencies)
+            {}
+
+            ~CatalogItemBundleInfo() { }
+
+            void FromJson(web::json::value& input) override
+            {
+                FromJsonUtilS(input[U("BundledItems")], BundledItems);
+                FromJsonUtilS(input[U("BundledResultTables")], BundledResultTables);
+                FromJsonUtilP(input[U("BundledVirtualCurrencies")], BundledVirtualCurrencies);
+            }
+
+            web::json::value ToJson() const override
+            {
+                web::json::value output;
+                web::json::value each_BundledItems; ToJsonUtilS(BundledItems, each_BundledItems); output[U("BundledItems")] = each_BundledItems;
+                web::json::value each_BundledResultTables; ToJsonUtilS(BundledResultTables, each_BundledResultTables); output[U("BundledResultTables")] = each_BundledResultTables;
+                web::json::value each_BundledVirtualCurrencies; ToJsonUtilP(BundledVirtualCurrencies, each_BundledVirtualCurrencies); output[U("BundledVirtualCurrencies")] = each_BundledVirtualCurrencies;
+                return output;
+            }
+        };
+
+        struct CatalogItem : public PlayFabBaseModel
+        {
+            std::string ItemId;
+            std::string ItemClass;
+            std::string CatalogVersion;
+            std::string DisplayName;
+            std::string Description;
+            std::map<std::string, Uint32> VirtualCurrencyPrices;
+            std::map<std::string, Uint32> RealCurrencyPrices;
+            std::list<std::string> Tags;
+            std::string CustomData;
+            Boxed<CatalogItemConsumableInfo> Consumable;
+            Boxed<CatalogItemContainerInfo> Container;
+            Boxed<CatalogItemBundleInfo> Bundle;
+            bool CanBecomeCharacter;
+            bool IsStackable;
+            bool IsTradable;
+            std::string ItemImageUrl;
+            bool IsLimitedEdition;
+            Int32 InitialLimitedEditionCount;
+
+            CatalogItem() :
+                PlayFabBaseModel(),
+                ItemId(),
+                ItemClass(),
+                CatalogVersion(),
+                DisplayName(),
+                Description(),
+                VirtualCurrencyPrices(),
+                RealCurrencyPrices(),
+                Tags(),
+                CustomData(),
+                Consumable(),
+                Container(),
+                Bundle(),
+                CanBecomeCharacter(),
+                IsStackable(),
+                IsTradable(),
+                ItemImageUrl(),
+                IsLimitedEdition(),
+                InitialLimitedEditionCount()
+            {}
+
+            CatalogItem(const CatalogItem& src) :
+                PlayFabBaseModel(),
+                ItemId(src.ItemId),
+                ItemClass(src.ItemClass),
+                CatalogVersion(src.CatalogVersion),
+                DisplayName(src.DisplayName),
+                Description(src.Description),
+                VirtualCurrencyPrices(src.VirtualCurrencyPrices),
+                RealCurrencyPrices(src.RealCurrencyPrices),
+                Tags(src.Tags),
+                CustomData(src.CustomData),
+                Consumable(src.Consumable),
+                Container(src.Container),
+                Bundle(src.Bundle),
+                CanBecomeCharacter(src.CanBecomeCharacter),
+                IsStackable(src.IsStackable),
+                IsTradable(src.IsTradable),
+                ItemImageUrl(src.ItemImageUrl),
+                IsLimitedEdition(src.IsLimitedEdition),
+                InitialLimitedEditionCount(src.InitialLimitedEditionCount)
+            {}
+
+            ~CatalogItem() { }
+
+            void FromJson(web::json::value& input) override
+            {
+                FromJsonUtilS(input[U("ItemId")], ItemId);
+                FromJsonUtilS(input[U("ItemClass")], ItemClass);
+                FromJsonUtilS(input[U("CatalogVersion")], CatalogVersion);
+                FromJsonUtilS(input[U("DisplayName")], DisplayName);
+                FromJsonUtilS(input[U("Description")], Description);
+                FromJsonUtilP(input[U("VirtualCurrencyPrices")], VirtualCurrencyPrices);
+                FromJsonUtilP(input[U("RealCurrencyPrices")], RealCurrencyPrices);
+                FromJsonUtilS(input[U("Tags")], Tags);
+                FromJsonUtilS(input[U("CustomData")], CustomData);
+                FromJsonUtilO(input[U("Consumable")], Consumable);
+                FromJsonUtilO(input[U("Container")], Container);
+                FromJsonUtilO(input[U("Bundle")], Bundle);
+                FromJsonUtilP(input[U("CanBecomeCharacter")], CanBecomeCharacter);
+                FromJsonUtilP(input[U("IsStackable")], IsStackable);
+                FromJsonUtilP(input[U("IsTradable")], IsTradable);
+                FromJsonUtilS(input[U("ItemImageUrl")], ItemImageUrl);
+                FromJsonUtilP(input[U("IsLimitedEdition")], IsLimitedEdition);
+                FromJsonUtilP(input[U("InitialLimitedEditionCount")], InitialLimitedEditionCount);
+            }
+
+            web::json::value ToJson() const override
+            {
+                web::json::value output;
+                web::json::value each_ItemId; ToJsonUtilS(ItemId, each_ItemId); output[U("ItemId")] = each_ItemId;
+                web::json::value each_ItemClass; ToJsonUtilS(ItemClass, each_ItemClass); output[U("ItemClass")] = each_ItemClass;
+                web::json::value each_CatalogVersion; ToJsonUtilS(CatalogVersion, each_CatalogVersion); output[U("CatalogVersion")] = each_CatalogVersion;
+                web::json::value each_DisplayName; ToJsonUtilS(DisplayName, each_DisplayName); output[U("DisplayName")] = each_DisplayName;
+                web::json::value each_Description; ToJsonUtilS(Description, each_Description); output[U("Description")] = each_Description;
+                web::json::value each_VirtualCurrencyPrices; ToJsonUtilP(VirtualCurrencyPrices, each_VirtualCurrencyPrices); output[U("VirtualCurrencyPrices")] = each_VirtualCurrencyPrices;
+                web::json::value each_RealCurrencyPrices; ToJsonUtilP(RealCurrencyPrices, each_RealCurrencyPrices); output[U("RealCurrencyPrices")] = each_RealCurrencyPrices;
+                web::json::value each_Tags; ToJsonUtilS(Tags, each_Tags); output[U("Tags")] = each_Tags;
+                web::json::value each_CustomData; ToJsonUtilS(CustomData, each_CustomData); output[U("CustomData")] = each_CustomData;
+                web::json::value each_Consumable; ToJsonUtilO(Consumable, each_Consumable); output[U("Consumable")] = each_Consumable;
+                web::json::value each_Container; ToJsonUtilO(Container, each_Container); output[U("Container")] = each_Container;
+                web::json::value each_Bundle; ToJsonUtilO(Bundle, each_Bundle); output[U("Bundle")] = each_Bundle;
+                web::json::value each_CanBecomeCharacter; ToJsonUtilP(CanBecomeCharacter, each_CanBecomeCharacter); output[U("CanBecomeCharacter")] = each_CanBecomeCharacter;
+                web::json::value each_IsStackable; ToJsonUtilP(IsStackable, each_IsStackable); output[U("IsStackable")] = each_IsStackable;
+                web::json::value each_IsTradable; ToJsonUtilP(IsTradable, each_IsTradable); output[U("IsTradable")] = each_IsTradable;
+                web::json::value each_ItemImageUrl; ToJsonUtilS(ItemImageUrl, each_ItemImageUrl); output[U("ItemImageUrl")] = each_ItemImageUrl;
+                web::json::value each_IsLimitedEdition; ToJsonUtilP(IsLimitedEdition, each_IsLimitedEdition); output[U("IsLimitedEdition")] = each_IsLimitedEdition;
+                web::json::value each_InitialLimitedEditionCount; ToJsonUtilP(InitialLimitedEditionCount, each_InitialLimitedEditionCount); output[U("InitialLimitedEditionCount")] = each_InitialLimitedEditionCount;
+                return output;
+            }
+        };
+
+        struct ItemInstance : public PlayFabBaseModel
+        {
+            std::string ItemId;
+            std::string ItemInstanceId;
+            std::string ItemClass;
+            Boxed<time_t> PurchaseDate;
+            Boxed<time_t> Expiration;
+            Boxed<Int32> RemainingUses;
+            Boxed<Int32> UsesIncrementedBy;
+            std::string Annotation;
+            std::string CatalogVersion;
+            std::string BundleParent;
+            std::string DisplayName;
+            std::string UnitCurrency;
+            Uint32 UnitPrice;
+            std::list<std::string> BundleContents;
+            std::map<std::string, std::string> CustomData;
+
+            ItemInstance() :
+                PlayFabBaseModel(),
+                ItemId(),
+                ItemInstanceId(),
+                ItemClass(),
+                PurchaseDate(),
+                Expiration(),
+                RemainingUses(),
+                UsesIncrementedBy(),
+                Annotation(),
+                CatalogVersion(),
+                BundleParent(),
+                DisplayName(),
+                UnitCurrency(),
+                UnitPrice(),
+                BundleContents(),
+                CustomData()
+            {}
+
+            ItemInstance(const ItemInstance& src) :
+                PlayFabBaseModel(),
+                ItemId(src.ItemId),
+                ItemInstanceId(src.ItemInstanceId),
+                ItemClass(src.ItemClass),
+                PurchaseDate(src.PurchaseDate),
+                Expiration(src.Expiration),
+                RemainingUses(src.RemainingUses),
+                UsesIncrementedBy(src.UsesIncrementedBy),
+                Annotation(src.Annotation),
+                CatalogVersion(src.CatalogVersion),
+                BundleParent(src.BundleParent),
+                DisplayName(src.DisplayName),
+                UnitCurrency(src.UnitCurrency),
+                UnitPrice(src.UnitPrice),
+                BundleContents(src.BundleContents),
+                CustomData(src.CustomData)
+            {}
+
+            ~ItemInstance() { }
+
+            void FromJson(web::json::value& input) override
+            {
+                FromJsonUtilS(input[U("ItemId")], ItemId);
+                FromJsonUtilS(input[U("ItemInstanceId")], ItemInstanceId);
+                FromJsonUtilS(input[U("ItemClass")], ItemClass);
+                FromJsonUtilT(input[U("PurchaseDate")], PurchaseDate);
+                FromJsonUtilT(input[U("Expiration")], Expiration);
+                FromJsonUtilP(input[U("RemainingUses")], RemainingUses);
+                FromJsonUtilP(input[U("UsesIncrementedBy")], UsesIncrementedBy);
+                FromJsonUtilS(input[U("Annotation")], Annotation);
+                FromJsonUtilS(input[U("CatalogVersion")], CatalogVersion);
+                FromJsonUtilS(input[U("BundleParent")], BundleParent);
+                FromJsonUtilS(input[U("DisplayName")], DisplayName);
+                FromJsonUtilS(input[U("UnitCurrency")], UnitCurrency);
+                FromJsonUtilP(input[U("UnitPrice")], UnitPrice);
+                FromJsonUtilS(input[U("BundleContents")], BundleContents);
+                FromJsonUtilS(input[U("CustomData")], CustomData);
+            }
+
+            web::json::value ToJson() const override
+            {
+                web::json::value output;
+                web::json::value each_ItemId; ToJsonUtilS(ItemId, each_ItemId); output[U("ItemId")] = each_ItemId;
+                web::json::value each_ItemInstanceId; ToJsonUtilS(ItemInstanceId, each_ItemInstanceId); output[U("ItemInstanceId")] = each_ItemInstanceId;
+                web::json::value each_ItemClass; ToJsonUtilS(ItemClass, each_ItemClass); output[U("ItemClass")] = each_ItemClass;
+                web::json::value each_PurchaseDate; ToJsonUtilT(PurchaseDate, each_PurchaseDate); output[U("PurchaseDate")] = each_PurchaseDate;
+                web::json::value each_Expiration; ToJsonUtilT(Expiration, each_Expiration); output[U("Expiration")] = each_Expiration;
+                web::json::value each_RemainingUses; ToJsonUtilP(RemainingUses, each_RemainingUses); output[U("RemainingUses")] = each_RemainingUses;
+                web::json::value each_UsesIncrementedBy; ToJsonUtilP(UsesIncrementedBy, each_UsesIncrementedBy); output[U("UsesIncrementedBy")] = each_UsesIncrementedBy;
+                web::json::value each_Annotation; ToJsonUtilS(Annotation, each_Annotation); output[U("Annotation")] = each_Annotation;
+                web::json::value each_CatalogVersion; ToJsonUtilS(CatalogVersion, each_CatalogVersion); output[U("CatalogVersion")] = each_CatalogVersion;
+                web::json::value each_BundleParent; ToJsonUtilS(BundleParent, each_BundleParent); output[U("BundleParent")] = each_BundleParent;
+                web::json::value each_DisplayName; ToJsonUtilS(DisplayName, each_DisplayName); output[U("DisplayName")] = each_DisplayName;
+                web::json::value each_UnitCurrency; ToJsonUtilS(UnitCurrency, each_UnitCurrency); output[U("UnitCurrency")] = each_UnitCurrency;
+                web::json::value each_UnitPrice; ToJsonUtilP(UnitPrice, each_UnitPrice); output[U("UnitPrice")] = each_UnitPrice;
+                web::json::value each_BundleContents; ToJsonUtilS(BundleContents, each_BundleContents); output[U("BundleContents")] = each_BundleContents;
+                web::json::value each_CustomData; ToJsonUtilS(CustomData, each_CustomData); output[U("CustomData")] = each_CustomData;
+                return output;
+            }
+        };
+
+        struct CharacterInventory : public PlayFabBaseModel
+        {
+            std::string CharacterId;
+            std::list<ItemInstance> Inventory;
+
+            CharacterInventory() :
+                PlayFabBaseModel(),
+                CharacterId(),
+                Inventory()
+            {}
+
+            CharacterInventory(const CharacterInventory& src) :
+                PlayFabBaseModel(),
+                CharacterId(src.CharacterId),
+                Inventory(src.Inventory)
+            {}
+
+            ~CharacterInventory() { }
+
+            void FromJson(web::json::value& input) override
+            {
+                FromJsonUtilS(input[U("CharacterId")], CharacterId);
+                FromJsonUtilO(input[U("Inventory")], Inventory);
+            }
+
+            web::json::value ToJson() const override
+            {
+                web::json::value output;
+                web::json::value each_CharacterId; ToJsonUtilS(CharacterId, each_CharacterId); output[U("CharacterId")] = each_CharacterId;
+                web::json::value each_Inventory; ToJsonUtilO(Inventory, each_Inventory); output[U("Inventory")] = each_Inventory;
+                return output;
+            }
+        };
+
+        struct CharacterLeaderboardEntry : public PlayFabBaseModel
+        {
+            std::string PlayFabId;
+            std::string CharacterId;
+            std::string CharacterName;
+            std::string DisplayName;
+            std::string CharacterType;
+            Int32 StatValue;
+            Int32 Position;
+
+            CharacterLeaderboardEntry() :
+                PlayFabBaseModel(),
+                PlayFabId(),
+                CharacterId(),
+                CharacterName(),
+                DisplayName(),
+                CharacterType(),
+                StatValue(),
+                Position()
+            {}
+
+            CharacterLeaderboardEntry(const CharacterLeaderboardEntry& src) :
+                PlayFabBaseModel(),
+                PlayFabId(src.PlayFabId),
+                CharacterId(src.CharacterId),
+                CharacterName(src.CharacterName),
+                DisplayName(src.DisplayName),
+                CharacterType(src.CharacterType),
+                StatValue(src.StatValue),
+                Position(src.Position)
+            {}
+
+            ~CharacterLeaderboardEntry() { }
+
+            void FromJson(web::json::value& input) override
+            {
+                FromJsonUtilS(input[U("PlayFabId")], PlayFabId);
+                FromJsonUtilS(input[U("CharacterId")], CharacterId);
+                FromJsonUtilS(input[U("CharacterName")], CharacterName);
+                FromJsonUtilS(input[U("DisplayName")], DisplayName);
+                FromJsonUtilS(input[U("CharacterType")], CharacterType);
+                FromJsonUtilP(input[U("StatValue")], StatValue);
+                FromJsonUtilP(input[U("Position")], Position);
+            }
+
+            web::json::value ToJson() const override
+            {
+                web::json::value output;
+                web::json::value each_PlayFabId; ToJsonUtilS(PlayFabId, each_PlayFabId); output[U("PlayFabId")] = each_PlayFabId;
+                web::json::value each_CharacterId; ToJsonUtilS(CharacterId, each_CharacterId); output[U("CharacterId")] = each_CharacterId;
+                web::json::value each_CharacterName; ToJsonUtilS(CharacterName, each_CharacterName); output[U("CharacterName")] = each_CharacterName;
+                web::json::value each_DisplayName; ToJsonUtilS(DisplayName, each_DisplayName); output[U("DisplayName")] = each_DisplayName;
+                web::json::value each_CharacterType; ToJsonUtilS(CharacterType, each_CharacterType); output[U("CharacterType")] = each_CharacterType;
+                web::json::value each_StatValue; ToJsonUtilP(StatValue, each_StatValue); output[U("StatValue")] = each_StatValue;
+                web::json::value each_Position; ToJsonUtilP(Position, each_Position); output[U("Position")] = each_Position;
+                return output;
+            }
+        };
+
+        struct CharacterResult : public PlayFabRequestCommon
+        {
+            std::string CharacterId;
+            std::string CharacterName;
+            std::string CharacterType;
+
+            CharacterResult() :
+                PlayFabRequestCommon(),
+                CharacterId(),
+                CharacterName(),
+                CharacterType()
+            {}
+
+            CharacterResult(const CharacterResult& src) :
+                PlayFabRequestCommon(),
+                CharacterId(src.CharacterId),
+                CharacterName(src.CharacterName),
+                CharacterType(src.CharacterType)
+            {}
+
+            ~CharacterResult() { }
+
+            void FromJson(web::json::value& input) override
+            {
+                FromJsonUtilS(input[U("CharacterId")], CharacterId);
+                FromJsonUtilS(input[U("CharacterName")], CharacterName);
+                FromJsonUtilS(input[U("CharacterType")], CharacterType);
+            }
+
+            web::json::value ToJson() const override
+            {
+                web::json::value output;
+                web::json::value each_CharacterId; ToJsonUtilS(CharacterId, each_CharacterId); output[U("CharacterId")] = each_CharacterId;
+                web::json::value each_CharacterName; ToJsonUtilS(CharacterName, each_CharacterName); output[U("CharacterName")] = each_CharacterName;
+                web::json::value each_CharacterType; ToJsonUtilS(CharacterType, each_CharacterType); output[U("CharacterType")] = each_CharacterType;
+                return output;
+            }
+        };
+
+        struct Container_Dictionary_String_String : public PlayFabBaseModel
+        {
+            std::map<std::string, std::string> Data;
+
+            Container_Dictionary_String_String() :
+                PlayFabBaseModel(),
+                Data()
+            {}
+
+            Container_Dictionary_String_String(const Container_Dictionary_String_String& src) :
+                PlayFabBaseModel(),
+                Data(src.Data)
+            {}
+
+            ~Container_Dictionary_String_String() { }
+
+            void FromJson(web::json::value& input) override
+            {
+                FromJsonUtilS(input[U("Data")], Data);
+            }
+
+            web::json::value ToJson() const override
+            {
+                web::json::value output;
+                web::json::value each_Data; ToJsonUtilS(Data, each_Data); output[U("Data")] = each_Data;
+                return output;
+            }
+        };
+
+        struct CollectionFilter : public PlayFabBaseModel
+        {
+            std::list<Container_Dictionary_String_String> Includes;
+            std::list<Container_Dictionary_String_String> Excludes;
+
+            CollectionFilter() :
+                PlayFabBaseModel(),
+                Includes(),
+                Excludes()
+            {}
+
+            CollectionFilter(const CollectionFilter& src) :
+                PlayFabBaseModel(),
+                Includes(src.Includes),
+                Excludes(src.Excludes)
+            {}
+
+            ~CollectionFilter() { }
+
+            void FromJson(web::json::value& input) override
+            {
+                FromJsonUtilO(input[U("Includes")], Includes);
+                FromJsonUtilO(input[U("Excludes")], Excludes);
+            }
+
+            web::json::value ToJson() const override
+            {
+                web::json::value output;
+                web::json::value each_Includes; ToJsonUtilO(Includes, each_Includes); output[U("Includes")] = each_Includes;
+                web::json::value each_Excludes; ToJsonUtilO(Excludes, each_Excludes); output[U("Excludes")] = each_Excludes;
+                return output;
+            }
+        };
+
+        struct ConfirmPurchaseRequest : public PlayFabRequestCommon
+        {
+            std::string OrderId;
+
+            ConfirmPurchaseRequest() :
+                PlayFabRequestCommon(),
+                OrderId()
+            {}
+
+            ConfirmPurchaseRequest(const ConfirmPurchaseRequest& src) :
+                PlayFabRequestCommon(),
+                OrderId(src.OrderId)
+            {}
+
+            ~ConfirmPurchaseRequest() { }
+
+            void FromJson(web::json::value& input) override
+            {
+                FromJsonUtilS(input[U("OrderId")], OrderId);
+            }
+
+            web::json::value ToJson() const override
+            {
+                web::json::value output;
+                web::json::value each_OrderId; ToJsonUtilS(OrderId, each_OrderId); output[U("OrderId")] = each_OrderId;
+                return output;
+            }
+        };
+
+        struct ConfirmPurchaseResult : public PlayFabRequestCommon
+        {
+            std::string OrderId;
+            time_t PurchaseDate;
+            std::list<ItemInstance> Items;
+
+            ConfirmPurchaseResult() :
+                PlayFabRequestCommon(),
+                OrderId(),
+                PurchaseDate(),
+                Items()
+            {}
+
+            ConfirmPurchaseResult(const ConfirmPurchaseResult& src) :
+                PlayFabRequestCommon(),
+                OrderId(src.OrderId),
+                PurchaseDate(src.PurchaseDate),
+                Items(src.Items)
+            {}
+
+            ~ConfirmPurchaseResult() { }
+
+            void FromJson(web::json::value& input) override
+            {
+                FromJsonUtilS(input[U("OrderId")], OrderId);
+                FromJsonUtilT(input[U("PurchaseDate")], PurchaseDate);
+                FromJsonUtilO(input[U("Items")], Items);
+            }
+
+            web::json::value ToJson() const override
+            {
+                web::json::value output;
+                web::json::value each_OrderId; ToJsonUtilS(OrderId, each_OrderId); output[U("OrderId")] = each_OrderId;
+                web::json::value each_PurchaseDate; ToJsonUtilT(PurchaseDate, each_PurchaseDate); output[U("PurchaseDate")] = each_PurchaseDate;
+                web::json::value each_Items; ToJsonUtilO(Items, each_Items); output[U("Items")] = each_Items;
+                return output;
+            }
+        };
+
+        struct ConsumeItemRequest : public PlayFabRequestCommon
+        {
+            std::string ItemInstanceId;
+            Int32 ConsumeCount;
+            std::string CharacterId;
+
+            ConsumeItemRequest() :
+                PlayFabRequestCommon(),
+                ItemInstanceId(),
+                ConsumeCount(),
+                CharacterId()
+            {}
+
+            ConsumeItemRequest(const ConsumeItemRequest& src) :
+                PlayFabRequestCommon(),
+                ItemInstanceId(src.ItemInstanceId),
+                ConsumeCount(src.ConsumeCount),
+                CharacterId(src.CharacterId)
+            {}
+
+            ~ConsumeItemRequest() { }
+
+            void FromJson(web::json::value& input) override
+            {
+                FromJsonUtilS(input[U("ItemInstanceId")], ItemInstanceId);
+                FromJsonUtilP(input[U("ConsumeCount")], ConsumeCount);
+                FromJsonUtilS(input[U("CharacterId")], CharacterId);
+            }
+
+            web::json::value ToJson() const override
+            {
+                web::json::value output;
+                web::json::value each_ItemInstanceId; ToJsonUtilS(ItemInstanceId, each_ItemInstanceId); output[U("ItemInstanceId")] = each_ItemInstanceId;
+                web::json::value each_ConsumeCount; ToJsonUtilP(ConsumeCount, each_ConsumeCount); output[U("ConsumeCount")] = each_ConsumeCount;
+                web::json::value each_CharacterId; ToJsonUtilS(CharacterId, each_CharacterId); output[U("CharacterId")] = each_CharacterId;
+                return output;
+            }
+        };
+
+        struct ConsumeItemResult : public PlayFabRequestCommon
+        {
+            std::string ItemInstanceId;
+            Int32 RemainingUses;
+
+            ConsumeItemResult() :
+                PlayFabRequestCommon(),
+                ItemInstanceId(),
+                RemainingUses()
+            {}
+
+            ConsumeItemResult(const ConsumeItemResult& src) :
+                PlayFabRequestCommon(),
+                ItemInstanceId(src.ItemInstanceId),
+                RemainingUses(src.RemainingUses)
+            {}
+
+            ~ConsumeItemResult() { }
+
+            void FromJson(web::json::value& input) override
+            {
+                FromJsonUtilS(input[U("ItemInstanceId")], ItemInstanceId);
+                FromJsonUtilP(input[U("RemainingUses")], RemainingUses);
+            }
+
+            web::json::value ToJson() const override
+            {
+                web::json::value output;
+                web::json::value each_ItemInstanceId; ToJsonUtilS(ItemInstanceId, each_ItemInstanceId); output[U("ItemInstanceId")] = each_ItemInstanceId;
+                web::json::value each_RemainingUses; ToJsonUtilP(RemainingUses, each_RemainingUses); output[U("RemainingUses")] = each_RemainingUses;
+                return output;
+            }
+        };
+
+        struct CreateSharedGroupRequest : public PlayFabRequestCommon
+        {
+            std::string SharedGroupId;
+
+            CreateSharedGroupRequest() :
+                PlayFabRequestCommon(),
+                SharedGroupId()
+            {}
+
+            CreateSharedGroupRequest(const CreateSharedGroupRequest& src) :
+                PlayFabRequestCommon(),
+                SharedGroupId(src.SharedGroupId)
+            {}
+
+            ~CreateSharedGroupRequest() { }
+
+            void FromJson(web::json::value& input) override
+            {
+                FromJsonUtilS(input[U("SharedGroupId")], SharedGroupId);
+            }
+
+            web::json::value ToJson() const override
+            {
+                web::json::value output;
+                web::json::value each_SharedGroupId; ToJsonUtilS(SharedGroupId, each_SharedGroupId); output[U("SharedGroupId")] = each_SharedGroupId;
+                return output;
+            }
+        };
+
+        struct CreateSharedGroupResult : public PlayFabRequestCommon
+        {
+            std::string SharedGroupId;
+
+            CreateSharedGroupResult() :
+                PlayFabRequestCommon(),
+                SharedGroupId()
+            {}
+
+            CreateSharedGroupResult(const CreateSharedGroupResult& src) :
+                PlayFabRequestCommon(),
+                SharedGroupId(src.SharedGroupId)
+            {}
+
+            ~CreateSharedGroupResult() { }
+
+            void FromJson(web::json::value& input) override
+            {
+                FromJsonUtilS(input[U("SharedGroupId")], SharedGroupId);
+            }
+
+            web::json::value ToJson() const override
+            {
+                web::json::value output;
+                web::json::value each_SharedGroupId; ToJsonUtilS(SharedGroupId, each_SharedGroupId); output[U("SharedGroupId")] = each_SharedGroupId;
+                return output;
+            }
+        };
+
+        struct CurrentGamesRequest : public PlayFabRequestCommon
         {
             Boxed<Region> pfRegion;
             std::string BuildVersion;
             std::string GameMode;
             std::string StatisticName;
-            CollectionFilter* TagFilter;
+            Boxed<CollectionFilter> TagFilter;
 
             CurrentGamesRequest() :
-                PlayFabBaseModel(),
+                PlayFabRequestCommon(),
                 pfRegion(),
                 BuildVersion(),
                 GameMode(),
                 StatisticName(),
-                TagFilter(nullptr)
+                TagFilter()
             {}
 
             CurrentGamesRequest(const CurrentGamesRequest& src) :
-                PlayFabBaseModel(),
+                PlayFabRequestCommon(),
                 pfRegion(src.pfRegion),
                 BuildVersion(src.BuildVersion),
                 GameMode(src.GameMode),
                 StatisticName(src.StatisticName),
-                TagFilter(src.TagFilter ? new CollectionFilter(*src.TagFilter) : nullptr)
+                TagFilter(src.TagFilter)
             {}
 
-            CurrentGamesRequest(const rapidjson::Value& obj) : CurrentGamesRequest()
+            ~CurrentGamesRequest() { }
+
+            void FromJson(web::json::value& input) override
             {
-                readFromValue(obj);
+                FromJsonUtilE(input[U("pfRegion")], pfRegion);
+                FromJsonUtilS(input[U("BuildVersion")], BuildVersion);
+                FromJsonUtilS(input[U("GameMode")], GameMode);
+                FromJsonUtilS(input[U("StatisticName")], StatisticName);
+                FromJsonUtilO(input[U("TagFilter")], TagFilter);
             }
 
-            ~CurrentGamesRequest();
-
-            void writeJSON(PFStringJsonWriter& writer) override;
-            bool readFromValue(const rapidjson::Value& obj) override;
+            web::json::value ToJson() const override
+            {
+                web::json::value output;
+                web::json::value each_pfRegion; ToJsonUtilE(pfRegion, each_pfRegion); output[U("Region")] = each_pfRegion;
+                web::json::value each_BuildVersion; ToJsonUtilS(BuildVersion, each_BuildVersion); output[U("BuildVersion")] = each_BuildVersion;
+                web::json::value each_GameMode; ToJsonUtilS(GameMode, each_GameMode); output[U("GameMode")] = each_GameMode;
+                web::json::value each_StatisticName; ToJsonUtilS(StatisticName, each_StatisticName); output[U("StatisticName")] = each_StatisticName;
+                web::json::value each_TagFilter; ToJsonUtilO(TagFilter, each_TagFilter); output[U("TagFilter")] = each_TagFilter;
+                return output;
+            }
         };
-
-        enum GameInstanceState
-        {
-            GameInstanceStateOpen,
-            GameInstanceStateClosed
-        };
-
-        void writeGameInstanceStateEnumJSON(GameInstanceState enumVal, PFStringJsonWriter& writer);
-        GameInstanceState readGameInstanceStateFromValue(const rapidjson::Value& obj);
 
         struct GameInfo : public PlayFabBaseModel
         {
@@ -1414,15 +2368,15 @@ namespace PlayFab
             std::string BuildVersion;
             std::string GameMode;
             std::string StatisticName;
-            OptionalInt32 MaxPlayers;
+            Boxed<Int32> MaxPlayers;
             std::list<std::string> PlayerUserIds;
             Uint32 RunTime;
             Boxed<GameInstanceState> GameServerState;
             std::string GameServerData;
             std::map<std::string, std::string> Tags;
-            OptionalTime LastHeartbeat;
+            Boxed<time_t> LastHeartbeat;
             std::string ServerHostname;
-            OptionalInt32 ServerPort;
+            Boxed<Int32> ServerPort;
 
             GameInfo() :
                 PlayFabBaseModel(),
@@ -1433,7 +2387,7 @@ namespace PlayFab
                 StatisticName(),
                 MaxPlayers(),
                 PlayerUserIds(),
-                RunTime(0),
+                RunTime(),
                 GameServerState(),
                 GameServerData(),
                 Tags(),
@@ -1460,80 +2414,120 @@ namespace PlayFab
                 ServerPort(src.ServerPort)
             {}
 
-            GameInfo(const rapidjson::Value& obj) : GameInfo()
+            ~GameInfo() { }
+
+            void FromJson(web::json::value& input) override
             {
-                readFromValue(obj);
+                FromJsonUtilE(input[U("pfRegion")], pfRegion);
+                FromJsonUtilS(input[U("LobbyID")], LobbyID);
+                FromJsonUtilS(input[U("BuildVersion")], BuildVersion);
+                FromJsonUtilS(input[U("GameMode")], GameMode);
+                FromJsonUtilS(input[U("StatisticName")], StatisticName);
+                FromJsonUtilP(input[U("MaxPlayers")], MaxPlayers);
+                FromJsonUtilS(input[U("PlayerUserIds")], PlayerUserIds);
+                FromJsonUtilP(input[U("RunTime")], RunTime);
+                FromJsonUtilE(input[U("GameServerState")], GameServerState);
+                FromJsonUtilS(input[U("GameServerData")], GameServerData);
+                FromJsonUtilS(input[U("Tags")], Tags);
+                FromJsonUtilT(input[U("LastHeartbeat")], LastHeartbeat);
+                FromJsonUtilS(input[U("ServerHostname")], ServerHostname);
+                FromJsonUtilP(input[U("ServerPort")], ServerPort);
             }
 
-            ~GameInfo();
-
-            void writeJSON(PFStringJsonWriter& writer) override;
-            bool readFromValue(const rapidjson::Value& obj) override;
+            web::json::value ToJson() const override
+            {
+                web::json::value output;
+                web::json::value each_pfRegion; ToJsonUtilE(pfRegion, each_pfRegion); output[U("Region")] = each_pfRegion;
+                web::json::value each_LobbyID; ToJsonUtilS(LobbyID, each_LobbyID); output[U("LobbyID")] = each_LobbyID;
+                web::json::value each_BuildVersion; ToJsonUtilS(BuildVersion, each_BuildVersion); output[U("BuildVersion")] = each_BuildVersion;
+                web::json::value each_GameMode; ToJsonUtilS(GameMode, each_GameMode); output[U("GameMode")] = each_GameMode;
+                web::json::value each_StatisticName; ToJsonUtilS(StatisticName, each_StatisticName); output[U("StatisticName")] = each_StatisticName;
+                web::json::value each_MaxPlayers; ToJsonUtilP(MaxPlayers, each_MaxPlayers); output[U("MaxPlayers")] = each_MaxPlayers;
+                web::json::value each_PlayerUserIds; ToJsonUtilS(PlayerUserIds, each_PlayerUserIds); output[U("PlayerUserIds")] = each_PlayerUserIds;
+                web::json::value each_RunTime; ToJsonUtilP(RunTime, each_RunTime); output[U("RunTime")] = each_RunTime;
+                web::json::value each_GameServerState; ToJsonUtilE(GameServerState, each_GameServerState); output[U("GameServerState")] = each_GameServerState;
+                web::json::value each_GameServerData; ToJsonUtilS(GameServerData, each_GameServerData); output[U("GameServerData")] = each_GameServerData;
+                web::json::value each_Tags; ToJsonUtilS(Tags, each_Tags); output[U("Tags")] = each_Tags;
+                web::json::value each_LastHeartbeat; ToJsonUtilT(LastHeartbeat, each_LastHeartbeat); output[U("LastHeartbeat")] = each_LastHeartbeat;
+                web::json::value each_ServerHostname; ToJsonUtilS(ServerHostname, each_ServerHostname); output[U("ServerHostname")] = each_ServerHostname;
+                web::json::value each_ServerPort; ToJsonUtilP(ServerPort, each_ServerPort); output[U("ServerPort")] = each_ServerPort;
+                return output;
+            }
         };
 
-        struct CurrentGamesResult : public PlayFabBaseModel
+        struct CurrentGamesResult : public PlayFabRequestCommon
         {
             std::list<GameInfo> Games;
             Int32 PlayerCount;
             Int32 GameCount;
 
             CurrentGamesResult() :
-                PlayFabBaseModel(),
+                PlayFabRequestCommon(),
                 Games(),
-                PlayerCount(0),
-                GameCount(0)
+                PlayerCount(),
+                GameCount()
             {}
 
             CurrentGamesResult(const CurrentGamesResult& src) :
-                PlayFabBaseModel(),
+                PlayFabRequestCommon(),
                 Games(src.Games),
                 PlayerCount(src.PlayerCount),
                 GameCount(src.GameCount)
             {}
 
-            CurrentGamesResult(const rapidjson::Value& obj) : CurrentGamesResult()
+            ~CurrentGamesResult() { }
+
+            void FromJson(web::json::value& input) override
             {
-                readFromValue(obj);
+                FromJsonUtilO(input[U("Games")], Games);
+                FromJsonUtilP(input[U("PlayerCount")], PlayerCount);
+                FromJsonUtilP(input[U("GameCount")], GameCount);
             }
 
-            ~CurrentGamesResult();
-
-            void writeJSON(PFStringJsonWriter& writer) override;
-            bool readFromValue(const rapidjson::Value& obj) override;
+            web::json::value ToJson() const override
+            {
+                web::json::value output;
+                web::json::value each_Games; ToJsonUtilO(Games, each_Games); output[U("Games")] = each_Games;
+                web::json::value each_PlayerCount; ToJsonUtilP(PlayerCount, each_PlayerCount); output[U("PlayerCount")] = each_PlayerCount;
+                web::json::value each_GameCount; ToJsonUtilP(GameCount, each_GameCount); output[U("GameCount")] = each_GameCount;
+                return output;
+            }
         };
 
-        struct EmptyResult : public PlayFabBaseModel
+        struct EmptyResult : public PlayFabRequestCommon
         {
 
             EmptyResult() :
-                PlayFabBaseModel()
+                PlayFabRequestCommon()
             {}
 
             EmptyResult(const EmptyResult& src) :
-                PlayFabBaseModel()
+                PlayFabRequestCommon()
             {}
 
-            EmptyResult(const rapidjson::Value& obj) : EmptyResult()
+            ~EmptyResult() { }
+
+            void FromJson(web::json::value& input) override
             {
-                readFromValue(obj);
             }
 
-            ~EmptyResult();
-
-            void writeJSON(PFStringJsonWriter& writer) override;
-            bool readFromValue(const rapidjson::Value& obj) override;
+            web::json::value ToJson() const override
+            {
+                web::json::value output;
+                return output;
+            }
         };
 
-        struct ExecuteCloudScriptRequest : public PlayFabBaseModel
+        struct ExecuteCloudScriptRequest : public PlayFabRequestCommon
         {
             std::string FunctionName;
-            MultitypeVar FunctionParameter;
+            web::json::value FunctionParameter;
             Boxed<CloudScriptRevisionOption> RevisionSelection;
-            OptionalInt32 SpecificRevision;
-            OptionalBool GeneratePlayStreamEvent;
+            Boxed<Int32> SpecificRevision;
+            Boxed<bool> GeneratePlayStreamEvent;
 
             ExecuteCloudScriptRequest() :
-                PlayFabBaseModel(),
+                PlayFabRequestCommon(),
                 FunctionName(),
                 FunctionParameter(),
                 RevisionSelection(),
@@ -1542,7 +2536,7 @@ namespace PlayFab
             {}
 
             ExecuteCloudScriptRequest(const ExecuteCloudScriptRequest& src) :
-                PlayFabBaseModel(),
+                PlayFabRequestCommon(),
                 FunctionName(src.FunctionName),
                 FunctionParameter(src.FunctionParameter),
                 RevisionSelection(src.RevisionSelection),
@@ -1550,22 +2544,34 @@ namespace PlayFab
                 GeneratePlayStreamEvent(src.GeneratePlayStreamEvent)
             {}
 
-            ExecuteCloudScriptRequest(const rapidjson::Value& obj) : ExecuteCloudScriptRequest()
+            ~ExecuteCloudScriptRequest() { }
+
+            void FromJson(web::json::value& input) override
             {
-                readFromValue(obj);
+                FromJsonUtilS(input[U("FunctionName")], FunctionName);
+                FunctionParameter = input[U("FunctionParameter")];
+                FromJsonUtilE(input[U("RevisionSelection")], RevisionSelection);
+                FromJsonUtilP(input[U("SpecificRevision")], SpecificRevision);
+                FromJsonUtilP(input[U("GeneratePlayStreamEvent")], GeneratePlayStreamEvent);
             }
 
-            ~ExecuteCloudScriptRequest();
-
-            void writeJSON(PFStringJsonWriter& writer) override;
-            bool readFromValue(const rapidjson::Value& obj) override;
+            web::json::value ToJson() const override
+            {
+                web::json::value output;
+                web::json::value each_FunctionName; ToJsonUtilS(FunctionName, each_FunctionName); output[U("FunctionName")] = each_FunctionName;
+                output[U("FunctionParameter")] = FunctionParameter;
+                web::json::value each_RevisionSelection; ToJsonUtilE(RevisionSelection, each_RevisionSelection); output[U("RevisionSelection")] = each_RevisionSelection;
+                web::json::value each_SpecificRevision; ToJsonUtilP(SpecificRevision, each_SpecificRevision); output[U("SpecificRevision")] = each_SpecificRevision;
+                web::json::value each_GeneratePlayStreamEvent; ToJsonUtilP(GeneratePlayStreamEvent, each_GeneratePlayStreamEvent); output[U("GeneratePlayStreamEvent")] = each_GeneratePlayStreamEvent;
+                return output;
+            }
         };
 
         struct LogStatement : public PlayFabBaseModel
         {
             std::string Level;
             std::string Message;
-            MultitypeVar Data;
+            web::json::value Data;
 
             LogStatement() :
                 PlayFabBaseModel(),
@@ -1581,15 +2587,23 @@ namespace PlayFab
                 Data(src.Data)
             {}
 
-            LogStatement(const rapidjson::Value& obj) : LogStatement()
+            ~LogStatement() { }
+
+            void FromJson(web::json::value& input) override
             {
-                readFromValue(obj);
+                FromJsonUtilS(input[U("Level")], Level);
+                FromJsonUtilS(input[U("Message")], Message);
+                Data = input[U("Data")];
             }
 
-            ~LogStatement();
-
-            void writeJSON(PFStringJsonWriter& writer) override;
-            bool readFromValue(const rapidjson::Value& obj) override;
+            web::json::value ToJson() const override
+            {
+                web::json::value output;
+                web::json::value each_Level; ToJsonUtilS(Level, each_Level); output[U("Level")] = each_Level;
+                web::json::value each_Message; ToJsonUtilS(Message, each_Message); output[U("Message")] = each_Message;
+                output[U("Data")] = Data;
+                return output;
+            }
         };
 
         struct ScriptExecutionError : public PlayFabBaseModel
@@ -1612,46 +2626,54 @@ namespace PlayFab
                 StackTrace(src.StackTrace)
             {}
 
-            ScriptExecutionError(const rapidjson::Value& obj) : ScriptExecutionError()
+            ~ScriptExecutionError() { }
+
+            void FromJson(web::json::value& input) override
             {
-                readFromValue(obj);
+                FromJsonUtilS(input[U("Error")], Error);
+                FromJsonUtilS(input[U("Message")], Message);
+                FromJsonUtilS(input[U("StackTrace")], StackTrace);
             }
 
-            ~ScriptExecutionError();
-
-            void writeJSON(PFStringJsonWriter& writer) override;
-            bool readFromValue(const rapidjson::Value& obj) override;
+            web::json::value ToJson() const override
+            {
+                web::json::value output;
+                web::json::value each_Error; ToJsonUtilS(Error, each_Error); output[U("Error")] = each_Error;
+                web::json::value each_Message; ToJsonUtilS(Message, each_Message); output[U("Message")] = each_Message;
+                web::json::value each_StackTrace; ToJsonUtilS(StackTrace, each_StackTrace); output[U("StackTrace")] = each_StackTrace;
+                return output;
+            }
         };
 
-        struct ExecuteCloudScriptResult : public PlayFabBaseModel
+        struct ExecuteCloudScriptResult : public PlayFabRequestCommon
         {
             std::string FunctionName;
             Int32 Revision;
-            MultitypeVar FunctionResult;
+            web::json::value FunctionResult;
             std::list<LogStatement> Logs;
             double ExecutionTimeSeconds;
             double ProcessorTimeSeconds;
             Uint32 MemoryConsumedBytes;
             Int32 APIRequestsIssued;
             Int32 HttpRequestsIssued;
-            ScriptExecutionError* Error;
+            Boxed<ScriptExecutionError> Error;
 
             ExecuteCloudScriptResult() :
-                PlayFabBaseModel(),
+                PlayFabRequestCommon(),
                 FunctionName(),
-                Revision(0),
+                Revision(),
                 FunctionResult(),
                 Logs(),
-                ExecutionTimeSeconds(0),
-                ProcessorTimeSeconds(0),
-                MemoryConsumedBytes(0),
-                APIRequestsIssued(0),
-                HttpRequestsIssued(0),
-                Error(nullptr)
+                ExecutionTimeSeconds(),
+                ProcessorTimeSeconds(),
+                MemoryConsumedBytes(),
+                APIRequestsIssued(),
+                HttpRequestsIssued(),
+                Error()
             {}
 
             ExecuteCloudScriptResult(const ExecuteCloudScriptResult& src) :
-                PlayFabBaseModel(),
+                PlayFabRequestCommon(),
                 FunctionName(src.FunctionName),
                 Revision(src.Revision),
                 FunctionResult(src.FunctionResult),
@@ -1661,18 +2683,40 @@ namespace PlayFab
                 MemoryConsumedBytes(src.MemoryConsumedBytes),
                 APIRequestsIssued(src.APIRequestsIssued),
                 HttpRequestsIssued(src.HttpRequestsIssued),
-                Error(src.Error ? new ScriptExecutionError(*src.Error) : nullptr)
+                Error(src.Error)
             {}
 
-            ExecuteCloudScriptResult(const rapidjson::Value& obj) : ExecuteCloudScriptResult()
+            ~ExecuteCloudScriptResult() { }
+
+            void FromJson(web::json::value& input) override
             {
-                readFromValue(obj);
+                FromJsonUtilS(input[U("FunctionName")], FunctionName);
+                FromJsonUtilP(input[U("Revision")], Revision);
+                FunctionResult = input[U("FunctionResult")];
+                FromJsonUtilO(input[U("Logs")], Logs);
+                FromJsonUtilP(input[U("ExecutionTimeSeconds")], ExecutionTimeSeconds);
+                FromJsonUtilP(input[U("ProcessorTimeSeconds")], ProcessorTimeSeconds);
+                FromJsonUtilP(input[U("MemoryConsumedBytes")], MemoryConsumedBytes);
+                FromJsonUtilP(input[U("APIRequestsIssued")], APIRequestsIssued);
+                FromJsonUtilP(input[U("HttpRequestsIssued")], HttpRequestsIssued);
+                FromJsonUtilO(input[U("Error")], Error);
             }
 
-            ~ExecuteCloudScriptResult();
-
-            void writeJSON(PFStringJsonWriter& writer) override;
-            bool readFromValue(const rapidjson::Value& obj) override;
+            web::json::value ToJson() const override
+            {
+                web::json::value output;
+                web::json::value each_FunctionName; ToJsonUtilS(FunctionName, each_FunctionName); output[U("FunctionName")] = each_FunctionName;
+                web::json::value each_Revision; ToJsonUtilP(Revision, each_Revision); output[U("Revision")] = each_Revision;
+                output[U("FunctionResult")] = FunctionResult;
+                web::json::value each_Logs; ToJsonUtilO(Logs, each_Logs); output[U("Logs")] = each_Logs;
+                web::json::value each_ExecutionTimeSeconds; ToJsonUtilP(ExecutionTimeSeconds, each_ExecutionTimeSeconds); output[U("ExecutionTimeSeconds")] = each_ExecutionTimeSeconds;
+                web::json::value each_ProcessorTimeSeconds; ToJsonUtilP(ProcessorTimeSeconds, each_ProcessorTimeSeconds); output[U("ProcessorTimeSeconds")] = each_ProcessorTimeSeconds;
+                web::json::value each_MemoryConsumedBytes; ToJsonUtilP(MemoryConsumedBytes, each_MemoryConsumedBytes); output[U("MemoryConsumedBytes")] = each_MemoryConsumedBytes;
+                web::json::value each_APIRequestsIssued; ToJsonUtilP(APIRequestsIssued, each_APIRequestsIssued); output[U("APIRequestsIssued")] = each_APIRequestsIssued;
+                web::json::value each_HttpRequestsIssued; ToJsonUtilP(HttpRequestsIssued, each_HttpRequestsIssued); output[U("HttpRequestsIssued")] = each_HttpRequestsIssued;
+                web::json::value each_Error; ToJsonUtilO(Error, each_Error); output[U("Error")] = each_Error;
+                return output;
+            }
         };
 
         struct FacebookPlayFabIdPair : public PlayFabBaseModel
@@ -1692,15 +2736,21 @@ namespace PlayFab
                 PlayFabId(src.PlayFabId)
             {}
 
-            FacebookPlayFabIdPair(const rapidjson::Value& obj) : FacebookPlayFabIdPair()
+            ~FacebookPlayFabIdPair() { }
+
+            void FromJson(web::json::value& input) override
             {
-                readFromValue(obj);
+                FromJsonUtilS(input[U("FacebookId")], FacebookId);
+                FromJsonUtilS(input[U("PlayFabId")], PlayFabId);
             }
 
-            ~FacebookPlayFabIdPair();
-
-            void writeJSON(PFStringJsonWriter& writer) override;
-            bool readFromValue(const rapidjson::Value& obj) override;
+            web::json::value ToJson() const override
+            {
+                web::json::value output;
+                web::json::value each_FacebookId; ToJsonUtilS(FacebookId, each_FacebookId); output[U("FacebookId")] = each_FacebookId;
+                web::json::value each_PlayFabId; ToJsonUtilS(PlayFabId, each_PlayFabId); output[U("PlayFabId")] = each_PlayFabId;
+                return output;
+            }
         };
 
         struct UserFacebookInfo : public PlayFabBaseModel
@@ -1720,28 +2770,22 @@ namespace PlayFab
                 FullName(src.FullName)
             {}
 
-            UserFacebookInfo(const rapidjson::Value& obj) : UserFacebookInfo()
+            ~UserFacebookInfo() { }
+
+            void FromJson(web::json::value& input) override
             {
-                readFromValue(obj);
+                FromJsonUtilS(input[U("FacebookId")], FacebookId);
+                FromJsonUtilS(input[U("FullName")], FullName);
             }
 
-            ~UserFacebookInfo();
-
-            void writeJSON(PFStringJsonWriter& writer) override;
-            bool readFromValue(const rapidjson::Value& obj) override;
+            web::json::value ToJson() const override
+            {
+                web::json::value output;
+                web::json::value each_FacebookId; ToJsonUtilS(FacebookId, each_FacebookId); output[U("FacebookId")] = each_FacebookId;
+                web::json::value each_FullName; ToJsonUtilS(FullName, each_FullName); output[U("FullName")] = each_FullName;
+                return output;
+            }
         };
-
-        enum TitleActivationStatus
-        {
-            TitleActivationStatusNone,
-            TitleActivationStatusActivatedTitleKey,
-            TitleActivationStatusPendingSteam,
-            TitleActivationStatusActivatedSteam,
-            TitleActivationStatusRevokedSteam
-        };
-
-        void writeTitleActivationStatusEnumJSON(TitleActivationStatus enumVal, PFStringJsonWriter& writer);
-        TitleActivationStatus readTitleActivationStatusFromValue(const rapidjson::Value& obj);
 
         struct UserSteamInfo : public PlayFabBaseModel
         {
@@ -1766,15 +2810,25 @@ namespace PlayFab
                 SteamActivationStatus(src.SteamActivationStatus)
             {}
 
-            UserSteamInfo(const rapidjson::Value& obj) : UserSteamInfo()
+            ~UserSteamInfo() { }
+
+            void FromJson(web::json::value& input) override
             {
-                readFromValue(obj);
+                FromJsonUtilS(input[U("SteamId")], SteamId);
+                FromJsonUtilS(input[U("SteamCountry")], SteamCountry);
+                FromJsonUtilE(input[U("SteamCurrency")], SteamCurrency);
+                FromJsonUtilE(input[U("SteamActivationStatus")], SteamActivationStatus);
             }
 
-            ~UserSteamInfo();
-
-            void writeJSON(PFStringJsonWriter& writer) override;
-            bool readFromValue(const rapidjson::Value& obj) override;
+            web::json::value ToJson() const override
+            {
+                web::json::value output;
+                web::json::value each_SteamId; ToJsonUtilS(SteamId, each_SteamId); output[U("SteamId")] = each_SteamId;
+                web::json::value each_SteamCountry; ToJsonUtilS(SteamCountry, each_SteamCountry); output[U("SteamCountry")] = each_SteamCountry;
+                web::json::value each_SteamCurrency; ToJsonUtilE(SteamCurrency, each_SteamCurrency); output[U("SteamCurrency")] = each_SteamCurrency;
+                web::json::value each_SteamActivationStatus; ToJsonUtilE(SteamActivationStatus, each_SteamActivationStatus); output[U("SteamActivationStatus")] = each_SteamActivationStatus;
+                return output;
+            }
         };
 
         struct UserGameCenterInfo : public PlayFabBaseModel
@@ -1791,15 +2845,19 @@ namespace PlayFab
                 GameCenterId(src.GameCenterId)
             {}
 
-            UserGameCenterInfo(const rapidjson::Value& obj) : UserGameCenterInfo()
+            ~UserGameCenterInfo() { }
+
+            void FromJson(web::json::value& input) override
             {
-                readFromValue(obj);
+                FromJsonUtilS(input[U("GameCenterId")], GameCenterId);
             }
 
-            ~UserGameCenterInfo();
-
-            void writeJSON(PFStringJsonWriter& writer) override;
-            bool readFromValue(const rapidjson::Value& obj) override;
+            web::json::value ToJson() const override
+            {
+                web::json::value output;
+                web::json::value each_GameCenterId; ToJsonUtilS(GameCenterId, each_GameCenterId); output[U("GameCenterId")] = each_GameCenterId;
+                return output;
+            }
         };
 
         struct FriendInfo : public PlayFabBaseModel
@@ -1809,9 +2867,9 @@ namespace PlayFab
             std::string TitleDisplayName;
             std::list<std::string> Tags;
             std::string CurrentMatchmakerLobbyId;
-            UserFacebookInfo* FacebookInfo;
-            UserSteamInfo* SteamInfo;
-            UserGameCenterInfo* GameCenterInfo;
+            Boxed<UserFacebookInfo> FacebookInfo;
+            Boxed<UserSteamInfo> SteamInfo;
+            Boxed<UserGameCenterInfo> GameCenterInfo;
 
             FriendInfo() :
                 PlayFabBaseModel(),
@@ -1820,9 +2878,9 @@ namespace PlayFab
                 TitleDisplayName(),
                 Tags(),
                 CurrentMatchmakerLobbyId(),
-                FacebookInfo(nullptr),
-                SteamInfo(nullptr),
-                GameCenterInfo(nullptr)
+                FacebookInfo(),
+                SteamInfo(),
+                GameCenterInfo()
             {}
 
             FriendInfo(const FriendInfo& src) :
@@ -1832,20 +2890,38 @@ namespace PlayFab
                 TitleDisplayName(src.TitleDisplayName),
                 Tags(src.Tags),
                 CurrentMatchmakerLobbyId(src.CurrentMatchmakerLobbyId),
-                FacebookInfo(src.FacebookInfo ? new UserFacebookInfo(*src.FacebookInfo) : nullptr),
-                SteamInfo(src.SteamInfo ? new UserSteamInfo(*src.SteamInfo) : nullptr),
-                GameCenterInfo(src.GameCenterInfo ? new UserGameCenterInfo(*src.GameCenterInfo) : nullptr)
+                FacebookInfo(src.FacebookInfo),
+                SteamInfo(src.SteamInfo),
+                GameCenterInfo(src.GameCenterInfo)
             {}
 
-            FriendInfo(const rapidjson::Value& obj) : FriendInfo()
+            ~FriendInfo() { }
+
+            void FromJson(web::json::value& input) override
             {
-                readFromValue(obj);
+                FromJsonUtilS(input[U("FriendPlayFabId")], FriendPlayFabId);
+                FromJsonUtilS(input[U("Username")], Username);
+                FromJsonUtilS(input[U("TitleDisplayName")], TitleDisplayName);
+                FromJsonUtilS(input[U("Tags")], Tags);
+                FromJsonUtilS(input[U("CurrentMatchmakerLobbyId")], CurrentMatchmakerLobbyId);
+                FromJsonUtilO(input[U("FacebookInfo")], FacebookInfo);
+                FromJsonUtilO(input[U("SteamInfo")], SteamInfo);
+                FromJsonUtilO(input[U("GameCenterInfo")], GameCenterInfo);
             }
 
-            ~FriendInfo();
-
-            void writeJSON(PFStringJsonWriter& writer) override;
-            bool readFromValue(const rapidjson::Value& obj) override;
+            web::json::value ToJson() const override
+            {
+                web::json::value output;
+                web::json::value each_FriendPlayFabId; ToJsonUtilS(FriendPlayFabId, each_FriendPlayFabId); output[U("FriendPlayFabId")] = each_FriendPlayFabId;
+                web::json::value each_Username; ToJsonUtilS(Username, each_Username); output[U("Username")] = each_Username;
+                web::json::value each_TitleDisplayName; ToJsonUtilS(TitleDisplayName, each_TitleDisplayName); output[U("TitleDisplayName")] = each_TitleDisplayName;
+                web::json::value each_Tags; ToJsonUtilS(Tags, each_Tags); output[U("Tags")] = each_Tags;
+                web::json::value each_CurrentMatchmakerLobbyId; ToJsonUtilS(CurrentMatchmakerLobbyId, each_CurrentMatchmakerLobbyId); output[U("CurrentMatchmakerLobbyId")] = each_CurrentMatchmakerLobbyId;
+                web::json::value each_FacebookInfo; ToJsonUtilO(FacebookInfo, each_FacebookInfo); output[U("FacebookInfo")] = each_FacebookInfo;
+                web::json::value each_SteamInfo; ToJsonUtilO(SteamInfo, each_SteamInfo); output[U("SteamInfo")] = each_SteamInfo;
+                web::json::value each_GameCenterInfo; ToJsonUtilO(GameCenterInfo, each_GameCenterInfo); output[U("GameCenterInfo")] = each_GameCenterInfo;
+                return output;
+            }
         };
 
         struct GameCenterPlayFabIdPair : public PlayFabBaseModel
@@ -1865,43 +2941,55 @@ namespace PlayFab
                 PlayFabId(src.PlayFabId)
             {}
 
-            GameCenterPlayFabIdPair(const rapidjson::Value& obj) : GameCenterPlayFabIdPair()
+            ~GameCenterPlayFabIdPair() { }
+
+            void FromJson(web::json::value& input) override
             {
-                readFromValue(obj);
+                FromJsonUtilS(input[U("GameCenterId")], GameCenterId);
+                FromJsonUtilS(input[U("PlayFabId")], PlayFabId);
             }
 
-            ~GameCenterPlayFabIdPair();
-
-            void writeJSON(PFStringJsonWriter& writer) override;
-            bool readFromValue(const rapidjson::Value& obj) override;
+            web::json::value ToJson() const override
+            {
+                web::json::value output;
+                web::json::value each_GameCenterId; ToJsonUtilS(GameCenterId, each_GameCenterId); output[U("GameCenterId")] = each_GameCenterId;
+                web::json::value each_PlayFabId; ToJsonUtilS(PlayFabId, each_PlayFabId); output[U("PlayFabId")] = each_PlayFabId;
+                return output;
+            }
         };
 
-        struct GameServerRegionsRequest : public PlayFabBaseModel
+        struct GameServerRegionsRequest : public PlayFabRequestCommon
         {
             std::string BuildVersion;
             std::string TitleId;
 
             GameServerRegionsRequest() :
-                PlayFabBaseModel(),
+                PlayFabRequestCommon(),
                 BuildVersion(),
                 TitleId()
             {}
 
             GameServerRegionsRequest(const GameServerRegionsRequest& src) :
-                PlayFabBaseModel(),
+                PlayFabRequestCommon(),
                 BuildVersion(src.BuildVersion),
                 TitleId(src.TitleId)
             {}
 
-            GameServerRegionsRequest(const rapidjson::Value& obj) : GameServerRegionsRequest()
+            ~GameServerRegionsRequest() { }
+
+            void FromJson(web::json::value& input) override
             {
-                readFromValue(obj);
+                FromJsonUtilS(input[U("BuildVersion")], BuildVersion);
+                FromJsonUtilS(input[U("TitleId")], TitleId);
             }
 
-            ~GameServerRegionsRequest();
-
-            void writeJSON(PFStringJsonWriter& writer) override;
-            bool readFromValue(const rapidjson::Value& obj) override;
+            web::json::value ToJson() const override
+            {
+                web::json::value output;
+                web::json::value each_BuildVersion; ToJsonUtilS(BuildVersion, each_BuildVersion); output[U("BuildVersion")] = each_BuildVersion;
+                web::json::value each_TitleId; ToJsonUtilS(TitleId, each_TitleId); output[U("TitleId")] = each_TitleId;
+                return output;
+            }
         };
 
         struct RegionInfo : public PlayFabBaseModel
@@ -1915,7 +3003,7 @@ namespace PlayFab
                 PlayFabBaseModel(),
                 pfRegion(),
                 Name(),
-                Available(false),
+                Available(),
                 PingUrl()
             {}
 
@@ -1927,71 +3015,91 @@ namespace PlayFab
                 PingUrl(src.PingUrl)
             {}
 
-            RegionInfo(const rapidjson::Value& obj) : RegionInfo()
+            ~RegionInfo() { }
+
+            void FromJson(web::json::value& input) override
             {
-                readFromValue(obj);
+                FromJsonUtilE(input[U("pfRegion")], pfRegion);
+                FromJsonUtilS(input[U("Name")], Name);
+                FromJsonUtilP(input[U("Available")], Available);
+                FromJsonUtilS(input[U("PingUrl")], PingUrl);
             }
 
-            ~RegionInfo();
-
-            void writeJSON(PFStringJsonWriter& writer) override;
-            bool readFromValue(const rapidjson::Value& obj) override;
+            web::json::value ToJson() const override
+            {
+                web::json::value output;
+                web::json::value each_pfRegion; ToJsonUtilE(pfRegion, each_pfRegion); output[U("Region")] = each_pfRegion;
+                web::json::value each_Name; ToJsonUtilS(Name, each_Name); output[U("Name")] = each_Name;
+                web::json::value each_Available; ToJsonUtilP(Available, each_Available); output[U("Available")] = each_Available;
+                web::json::value each_PingUrl; ToJsonUtilS(PingUrl, each_PingUrl); output[U("PingUrl")] = each_PingUrl;
+                return output;
+            }
         };
 
-        struct GameServerRegionsResult : public PlayFabBaseModel
+        struct GameServerRegionsResult : public PlayFabRequestCommon
         {
             std::list<RegionInfo> Regions;
 
             GameServerRegionsResult() :
-                PlayFabBaseModel(),
+                PlayFabRequestCommon(),
                 Regions()
             {}
 
             GameServerRegionsResult(const GameServerRegionsResult& src) :
-                PlayFabBaseModel(),
+                PlayFabRequestCommon(),
                 Regions(src.Regions)
             {}
 
-            GameServerRegionsResult(const rapidjson::Value& obj) : GameServerRegionsResult()
+            ~GameServerRegionsResult() { }
+
+            void FromJson(web::json::value& input) override
             {
-                readFromValue(obj);
+                FromJsonUtilO(input[U("Regions")], Regions);
             }
 
-            ~GameServerRegionsResult();
-
-            void writeJSON(PFStringJsonWriter& writer) override;
-            bool readFromValue(const rapidjson::Value& obj) override;
+            web::json::value ToJson() const override
+            {
+                web::json::value output;
+                web::json::value each_Regions; ToJsonUtilO(Regions, each_Regions); output[U("Regions")] = each_Regions;
+                return output;
+            }
         };
 
         struct GenericPlayFabIdPair : public PlayFabBaseModel
         {
-            GenericServiceId* GenericId;
+            Boxed<GenericServiceId> GenericId;
             std::string PlayFabId;
 
             GenericPlayFabIdPair() :
                 PlayFabBaseModel(),
-                GenericId(nullptr),
+                GenericId(),
                 PlayFabId()
             {}
 
             GenericPlayFabIdPair(const GenericPlayFabIdPair& src) :
                 PlayFabBaseModel(),
-                GenericId(src.GenericId ? new GenericServiceId(*src.GenericId) : nullptr),
+                GenericId(src.GenericId),
                 PlayFabId(src.PlayFabId)
             {}
 
-            GenericPlayFabIdPair(const rapidjson::Value& obj) : GenericPlayFabIdPair()
+            ~GenericPlayFabIdPair() { }
+
+            void FromJson(web::json::value& input) override
             {
-                readFromValue(obj);
+                FromJsonUtilO(input[U("GenericId")], GenericId);
+                FromJsonUtilS(input[U("PlayFabId")], PlayFabId);
             }
 
-            ~GenericPlayFabIdPair();
-
-            void writeJSON(PFStringJsonWriter& writer) override;
-            bool readFromValue(const rapidjson::Value& obj) override;
+            web::json::value ToJson() const override
+            {
+                web::json::value output;
+                web::json::value each_GenericId; ToJsonUtilO(GenericId, each_GenericId); output[U("GenericId")] = each_GenericId;
+                web::json::value each_PlayFabId; ToJsonUtilS(PlayFabId, each_PlayFabId); output[U("PlayFabId")] = each_PlayFabId;
+                return output;
+            }
         };
 
-        struct GetAccountInfoRequest : public PlayFabBaseModel
+        struct GetAccountInfoRequest : public PlayFabRequestCommon
         {
             std::string PlayFabId;
             std::string Username;
@@ -1999,7 +3107,7 @@ namespace PlayFab
             std::string TitleDisplayName;
 
             GetAccountInfoRequest() :
-                PlayFabBaseModel(),
+                PlayFabRequestCommon(),
                 PlayFabId(),
                 Username(),
                 Email(),
@@ -2007,62 +3115,48 @@ namespace PlayFab
             {}
 
             GetAccountInfoRequest(const GetAccountInfoRequest& src) :
-                PlayFabBaseModel(),
+                PlayFabRequestCommon(),
                 PlayFabId(src.PlayFabId),
                 Username(src.Username),
                 Email(src.Email),
                 TitleDisplayName(src.TitleDisplayName)
             {}
 
-            GetAccountInfoRequest(const rapidjson::Value& obj) : GetAccountInfoRequest()
+            ~GetAccountInfoRequest() { }
+
+            void FromJson(web::json::value& input) override
             {
-                readFromValue(obj);
+                FromJsonUtilS(input[U("PlayFabId")], PlayFabId);
+                FromJsonUtilS(input[U("Username")], Username);
+                FromJsonUtilS(input[U("Email")], Email);
+                FromJsonUtilS(input[U("TitleDisplayName")], TitleDisplayName);
             }
 
-            ~GetAccountInfoRequest();
-
-            void writeJSON(PFStringJsonWriter& writer) override;
-            bool readFromValue(const rapidjson::Value& obj) override;
+            web::json::value ToJson() const override
+            {
+                web::json::value output;
+                web::json::value each_PlayFabId; ToJsonUtilS(PlayFabId, each_PlayFabId); output[U("PlayFabId")] = each_PlayFabId;
+                web::json::value each_Username; ToJsonUtilS(Username, each_Username); output[U("Username")] = each_Username;
+                web::json::value each_Email; ToJsonUtilS(Email, each_Email); output[U("Email")] = each_Email;
+                web::json::value each_TitleDisplayName; ToJsonUtilS(TitleDisplayName, each_TitleDisplayName); output[U("TitleDisplayName")] = each_TitleDisplayName;
+                return output;
+            }
         };
-
-        enum UserOrigination
-        {
-            UserOriginationOrganic,
-            UserOriginationSteam,
-            UserOriginationGoogle,
-            UserOriginationAmazon,
-            UserOriginationFacebook,
-            UserOriginationKongregate,
-            UserOriginationGamersFirst,
-            UserOriginationUnknown,
-            UserOriginationIOS,
-            UserOriginationLoadTest,
-            UserOriginationAndroid,
-            UserOriginationPSN,
-            UserOriginationGameCenter,
-            UserOriginationCustomId,
-            UserOriginationXboxLive,
-            UserOriginationParse,
-            UserOriginationTwitch
-        };
-
-        void writeUserOriginationEnumJSON(UserOrigination enumVal, PFStringJsonWriter& writer);
-        UserOrigination readUserOriginationFromValue(const rapidjson::Value& obj);
 
         struct UserTitleInfo : public PlayFabBaseModel
         {
             std::string DisplayName;
             Boxed<UserOrigination> Origination;
             time_t Created;
-            OptionalTime LastLogin;
-            OptionalTime FirstLogin;
-            OptionalBool isBanned;
+            Boxed<time_t> LastLogin;
+            Boxed<time_t> FirstLogin;
+            Boxed<bool> isBanned;
 
             UserTitleInfo() :
                 PlayFabBaseModel(),
                 DisplayName(),
                 Origination(),
-                Created(0),
+                Created(),
                 LastLogin(),
                 FirstLogin(),
                 isBanned()
@@ -2078,15 +3172,29 @@ namespace PlayFab
                 isBanned(src.isBanned)
             {}
 
-            UserTitleInfo(const rapidjson::Value& obj) : UserTitleInfo()
+            ~UserTitleInfo() { }
+
+            void FromJson(web::json::value& input) override
             {
-                readFromValue(obj);
+                FromJsonUtilS(input[U("DisplayName")], DisplayName);
+                FromJsonUtilE(input[U("Origination")], Origination);
+                FromJsonUtilT(input[U("Created")], Created);
+                FromJsonUtilT(input[U("LastLogin")], LastLogin);
+                FromJsonUtilT(input[U("FirstLogin")], FirstLogin);
+                FromJsonUtilP(input[U("isBanned")], isBanned);
             }
 
-            ~UserTitleInfo();
-
-            void writeJSON(PFStringJsonWriter& writer) override;
-            bool readFromValue(const rapidjson::Value& obj) override;
+            web::json::value ToJson() const override
+            {
+                web::json::value output;
+                web::json::value each_DisplayName; ToJsonUtilS(DisplayName, each_DisplayName); output[U("DisplayName")] = each_DisplayName;
+                web::json::value each_Origination; ToJsonUtilE(Origination, each_Origination); output[U("Origination")] = each_Origination;
+                web::json::value each_Created; ToJsonUtilT(Created, each_Created); output[U("Created")] = each_Created;
+                web::json::value each_LastLogin; ToJsonUtilT(LastLogin, each_LastLogin); output[U("LastLogin")] = each_LastLogin;
+                web::json::value each_FirstLogin; ToJsonUtilT(FirstLogin, each_FirstLogin); output[U("FirstLogin")] = each_FirstLogin;
+                web::json::value each_isBanned; ToJsonUtilP(isBanned, each_isBanned); output[U("isBanned")] = each_isBanned;
+                return output;
+            }
         };
 
         struct UserPrivateAccountInfo : public PlayFabBaseModel
@@ -2103,15 +3211,19 @@ namespace PlayFab
                 Email(src.Email)
             {}
 
-            UserPrivateAccountInfo(const rapidjson::Value& obj) : UserPrivateAccountInfo()
+            ~UserPrivateAccountInfo() { }
+
+            void FromJson(web::json::value& input) override
             {
-                readFromValue(obj);
+                FromJsonUtilS(input[U("Email")], Email);
             }
 
-            ~UserPrivateAccountInfo();
-
-            void writeJSON(PFStringJsonWriter& writer) override;
-            bool readFromValue(const rapidjson::Value& obj) override;
+            web::json::value ToJson() const override
+            {
+                web::json::value output;
+                web::json::value each_Email; ToJsonUtilS(Email, each_Email); output[U("Email")] = each_Email;
+                return output;
+            }
         };
 
         struct UserIosDeviceInfo : public PlayFabBaseModel
@@ -2128,15 +3240,19 @@ namespace PlayFab
                 IosDeviceId(src.IosDeviceId)
             {}
 
-            UserIosDeviceInfo(const rapidjson::Value& obj) : UserIosDeviceInfo()
+            ~UserIosDeviceInfo() { }
+
+            void FromJson(web::json::value& input) override
             {
-                readFromValue(obj);
+                FromJsonUtilS(input[U("IosDeviceId")], IosDeviceId);
             }
 
-            ~UserIosDeviceInfo();
-
-            void writeJSON(PFStringJsonWriter& writer) override;
-            bool readFromValue(const rapidjson::Value& obj) override;
+            web::json::value ToJson() const override
+            {
+                web::json::value output;
+                web::json::value each_IosDeviceId; ToJsonUtilS(IosDeviceId, each_IosDeviceId); output[U("IosDeviceId")] = each_IosDeviceId;
+                return output;
+            }
         };
 
         struct UserAndroidDeviceInfo : public PlayFabBaseModel
@@ -2153,15 +3269,19 @@ namespace PlayFab
                 AndroidDeviceId(src.AndroidDeviceId)
             {}
 
-            UserAndroidDeviceInfo(const rapidjson::Value& obj) : UserAndroidDeviceInfo()
+            ~UserAndroidDeviceInfo() { }
+
+            void FromJson(web::json::value& input) override
             {
-                readFromValue(obj);
+                FromJsonUtilS(input[U("AndroidDeviceId")], AndroidDeviceId);
             }
 
-            ~UserAndroidDeviceInfo();
-
-            void writeJSON(PFStringJsonWriter& writer) override;
-            bool readFromValue(const rapidjson::Value& obj) override;
+            web::json::value ToJson() const override
+            {
+                web::json::value output;
+                web::json::value each_AndroidDeviceId; ToJsonUtilS(AndroidDeviceId, each_AndroidDeviceId); output[U("AndroidDeviceId")] = each_AndroidDeviceId;
+                return output;
+            }
         };
 
         struct UserKongregateInfo : public PlayFabBaseModel
@@ -2181,15 +3301,21 @@ namespace PlayFab
                 KongregateName(src.KongregateName)
             {}
 
-            UserKongregateInfo(const rapidjson::Value& obj) : UserKongregateInfo()
+            ~UserKongregateInfo() { }
+
+            void FromJson(web::json::value& input) override
             {
-                readFromValue(obj);
+                FromJsonUtilS(input[U("KongregateId")], KongregateId);
+                FromJsonUtilS(input[U("KongregateName")], KongregateName);
             }
 
-            ~UserKongregateInfo();
-
-            void writeJSON(PFStringJsonWriter& writer) override;
-            bool readFromValue(const rapidjson::Value& obj) override;
+            web::json::value ToJson() const override
+            {
+                web::json::value output;
+                web::json::value each_KongregateId; ToJsonUtilS(KongregateId, each_KongregateId); output[U("KongregateId")] = each_KongregateId;
+                web::json::value each_KongregateName; ToJsonUtilS(KongregateName, each_KongregateName); output[U("KongregateName")] = each_KongregateName;
+                return output;
+            }
         };
 
         struct UserTwitchInfo : public PlayFabBaseModel
@@ -2209,15 +3335,21 @@ namespace PlayFab
                 TwitchUserName(src.TwitchUserName)
             {}
 
-            UserTwitchInfo(const rapidjson::Value& obj) : UserTwitchInfo()
+            ~UserTwitchInfo() { }
+
+            void FromJson(web::json::value& input) override
             {
-                readFromValue(obj);
+                FromJsonUtilS(input[U("TwitchId")], TwitchId);
+                FromJsonUtilS(input[U("TwitchUserName")], TwitchUserName);
             }
 
-            ~UserTwitchInfo();
-
-            void writeJSON(PFStringJsonWriter& writer) override;
-            bool readFromValue(const rapidjson::Value& obj) override;
+            web::json::value ToJson() const override
+            {
+                web::json::value output;
+                web::json::value each_TwitchId; ToJsonUtilS(TwitchId, each_TwitchId); output[U("TwitchId")] = each_TwitchId;
+                web::json::value each_TwitchUserName; ToJsonUtilS(TwitchUserName, each_TwitchUserName); output[U("TwitchUserName")] = each_TwitchUserName;
+                return output;
+            }
         };
 
         struct UserPsnInfo : public PlayFabBaseModel
@@ -2237,15 +3369,21 @@ namespace PlayFab
                 PsnOnlineId(src.PsnOnlineId)
             {}
 
-            UserPsnInfo(const rapidjson::Value& obj) : UserPsnInfo()
+            ~UserPsnInfo() { }
+
+            void FromJson(web::json::value& input) override
             {
-                readFromValue(obj);
+                FromJsonUtilS(input[U("PsnAccountId")], PsnAccountId);
+                FromJsonUtilS(input[U("PsnOnlineId")], PsnOnlineId);
             }
 
-            ~UserPsnInfo();
-
-            void writeJSON(PFStringJsonWriter& writer) override;
-            bool readFromValue(const rapidjson::Value& obj) override;
+            web::json::value ToJson() const override
+            {
+                web::json::value output;
+                web::json::value each_PsnAccountId; ToJsonUtilS(PsnAccountId, each_PsnAccountId); output[U("PsnAccountId")] = each_PsnAccountId;
+                web::json::value each_PsnOnlineId; ToJsonUtilS(PsnOnlineId, each_PsnOnlineId); output[U("PsnOnlineId")] = each_PsnOnlineId;
+                return output;
+            }
         };
 
         struct UserGoogleInfo : public PlayFabBaseModel
@@ -2271,15 +3409,25 @@ namespace PlayFab
                 GoogleGender(src.GoogleGender)
             {}
 
-            UserGoogleInfo(const rapidjson::Value& obj) : UserGoogleInfo()
+            ~UserGoogleInfo() { }
+
+            void FromJson(web::json::value& input) override
             {
-                readFromValue(obj);
+                FromJsonUtilS(input[U("GoogleId")], GoogleId);
+                FromJsonUtilS(input[U("GoogleEmail")], GoogleEmail);
+                FromJsonUtilS(input[U("GoogleLocale")], GoogleLocale);
+                FromJsonUtilS(input[U("GoogleGender")], GoogleGender);
             }
 
-            ~UserGoogleInfo();
-
-            void writeJSON(PFStringJsonWriter& writer) override;
-            bool readFromValue(const rapidjson::Value& obj) override;
+            web::json::value ToJson() const override
+            {
+                web::json::value output;
+                web::json::value each_GoogleId; ToJsonUtilS(GoogleId, each_GoogleId); output[U("GoogleId")] = each_GoogleId;
+                web::json::value each_GoogleEmail; ToJsonUtilS(GoogleEmail, each_GoogleEmail); output[U("GoogleEmail")] = each_GoogleEmail;
+                web::json::value each_GoogleLocale; ToJsonUtilS(GoogleLocale, each_GoogleLocale); output[U("GoogleLocale")] = each_GoogleLocale;
+                web::json::value each_GoogleGender; ToJsonUtilS(GoogleGender, each_GoogleGender); output[U("GoogleGender")] = each_GoogleGender;
+                return output;
+            }
         };
 
         struct UserXboxInfo : public PlayFabBaseModel
@@ -2296,15 +3444,19 @@ namespace PlayFab
                 XboxUserId(src.XboxUserId)
             {}
 
-            UserXboxInfo(const rapidjson::Value& obj) : UserXboxInfo()
+            ~UserXboxInfo() { }
+
+            void FromJson(web::json::value& input) override
             {
-                readFromValue(obj);
+                FromJsonUtilS(input[U("XboxUserId")], XboxUserId);
             }
 
-            ~UserXboxInfo();
-
-            void writeJSON(PFStringJsonWriter& writer) override;
-            bool readFromValue(const rapidjson::Value& obj) override;
+            web::json::value ToJson() const override
+            {
+                web::json::value output;
+                web::json::value each_XboxUserId; ToJsonUtilS(XboxUserId, each_XboxUserId); output[U("XboxUserId")] = each_XboxUserId;
+                return output;
+            }
         };
 
         struct UserCustomIdInfo : public PlayFabBaseModel
@@ -2321,15 +3473,19 @@ namespace PlayFab
                 CustomId(src.CustomId)
             {}
 
-            UserCustomIdInfo(const rapidjson::Value& obj) : UserCustomIdInfo()
+            ~UserCustomIdInfo() { }
+
+            void FromJson(web::json::value& input) override
             {
-                readFromValue(obj);
+                FromJsonUtilS(input[U("CustomId")], CustomId);
             }
 
-            ~UserCustomIdInfo();
-
-            void writeJSON(PFStringJsonWriter& writer) override;
-            bool readFromValue(const rapidjson::Value& obj) override;
+            web::json::value ToJson() const override
+            {
+                web::json::value output;
+                web::json::value each_CustomId; ToJsonUtilS(CustomId, each_CustomId); output[U("CustomId")] = each_CustomId;
+                return output;
+            }
         };
 
         struct UserAccountInfo : public PlayFabBaseModel
@@ -2337,38 +3493,38 @@ namespace PlayFab
             std::string PlayFabId;
             time_t Created;
             std::string Username;
-            UserTitleInfo* TitleInfo;
-            UserPrivateAccountInfo* PrivateInfo;
-            UserFacebookInfo* FacebookInfo;
-            UserSteamInfo* SteamInfo;
-            UserGameCenterInfo* GameCenterInfo;
-            UserIosDeviceInfo* IosDeviceInfo;
-            UserAndroidDeviceInfo* AndroidDeviceInfo;
-            UserKongregateInfo* KongregateInfo;
-            UserTwitchInfo* TwitchInfo;
-            UserPsnInfo* PsnInfo;
-            UserGoogleInfo* GoogleInfo;
-            UserXboxInfo* XboxInfo;
-            UserCustomIdInfo* CustomIdInfo;
+            Boxed<UserTitleInfo> TitleInfo;
+            Boxed<UserPrivateAccountInfo> PrivateInfo;
+            Boxed<UserFacebookInfo> FacebookInfo;
+            Boxed<UserSteamInfo> SteamInfo;
+            Boxed<UserGameCenterInfo> GameCenterInfo;
+            Boxed<UserIosDeviceInfo> IosDeviceInfo;
+            Boxed<UserAndroidDeviceInfo> AndroidDeviceInfo;
+            Boxed<UserKongregateInfo> KongregateInfo;
+            Boxed<UserTwitchInfo> TwitchInfo;
+            Boxed<UserPsnInfo> PsnInfo;
+            Boxed<UserGoogleInfo> GoogleInfo;
+            Boxed<UserXboxInfo> XboxInfo;
+            Boxed<UserCustomIdInfo> CustomIdInfo;
 
             UserAccountInfo() :
                 PlayFabBaseModel(),
                 PlayFabId(),
-                Created(0),
+                Created(),
                 Username(),
-                TitleInfo(nullptr),
-                PrivateInfo(nullptr),
-                FacebookInfo(nullptr),
-                SteamInfo(nullptr),
-                GameCenterInfo(nullptr),
-                IosDeviceInfo(nullptr),
-                AndroidDeviceInfo(nullptr),
-                KongregateInfo(nullptr),
-                TwitchInfo(nullptr),
-                PsnInfo(nullptr),
-                GoogleInfo(nullptr),
-                XboxInfo(nullptr),
-                CustomIdInfo(nullptr)
+                TitleInfo(),
+                PrivateInfo(),
+                FacebookInfo(),
+                SteamInfo(),
+                GameCenterInfo(),
+                IosDeviceInfo(),
+                AndroidDeviceInfo(),
+                KongregateInfo(),
+                TwitchInfo(),
+                PsnInfo(),
+                GoogleInfo(),
+                XboxInfo(),
+                CustomIdInfo()
             {}
 
             UserAccountInfo(const UserAccountInfo& src) :
@@ -2376,116 +3532,162 @@ namespace PlayFab
                 PlayFabId(src.PlayFabId),
                 Created(src.Created),
                 Username(src.Username),
-                TitleInfo(src.TitleInfo ? new UserTitleInfo(*src.TitleInfo) : nullptr),
-                PrivateInfo(src.PrivateInfo ? new UserPrivateAccountInfo(*src.PrivateInfo) : nullptr),
-                FacebookInfo(src.FacebookInfo ? new UserFacebookInfo(*src.FacebookInfo) : nullptr),
-                SteamInfo(src.SteamInfo ? new UserSteamInfo(*src.SteamInfo) : nullptr),
-                GameCenterInfo(src.GameCenterInfo ? new UserGameCenterInfo(*src.GameCenterInfo) : nullptr),
-                IosDeviceInfo(src.IosDeviceInfo ? new UserIosDeviceInfo(*src.IosDeviceInfo) : nullptr),
-                AndroidDeviceInfo(src.AndroidDeviceInfo ? new UserAndroidDeviceInfo(*src.AndroidDeviceInfo) : nullptr),
-                KongregateInfo(src.KongregateInfo ? new UserKongregateInfo(*src.KongregateInfo) : nullptr),
-                TwitchInfo(src.TwitchInfo ? new UserTwitchInfo(*src.TwitchInfo) : nullptr),
-                PsnInfo(src.PsnInfo ? new UserPsnInfo(*src.PsnInfo) : nullptr),
-                GoogleInfo(src.GoogleInfo ? new UserGoogleInfo(*src.GoogleInfo) : nullptr),
-                XboxInfo(src.XboxInfo ? new UserXboxInfo(*src.XboxInfo) : nullptr),
-                CustomIdInfo(src.CustomIdInfo ? new UserCustomIdInfo(*src.CustomIdInfo) : nullptr)
+                TitleInfo(src.TitleInfo),
+                PrivateInfo(src.PrivateInfo),
+                FacebookInfo(src.FacebookInfo),
+                SteamInfo(src.SteamInfo),
+                GameCenterInfo(src.GameCenterInfo),
+                IosDeviceInfo(src.IosDeviceInfo),
+                AndroidDeviceInfo(src.AndroidDeviceInfo),
+                KongregateInfo(src.KongregateInfo),
+                TwitchInfo(src.TwitchInfo),
+                PsnInfo(src.PsnInfo),
+                GoogleInfo(src.GoogleInfo),
+                XboxInfo(src.XboxInfo),
+                CustomIdInfo(src.CustomIdInfo)
             {}
 
-            UserAccountInfo(const rapidjson::Value& obj) : UserAccountInfo()
+            ~UserAccountInfo() { }
+
+            void FromJson(web::json::value& input) override
             {
-                readFromValue(obj);
+                FromJsonUtilS(input[U("PlayFabId")], PlayFabId);
+                FromJsonUtilT(input[U("Created")], Created);
+                FromJsonUtilS(input[U("Username")], Username);
+                FromJsonUtilO(input[U("TitleInfo")], TitleInfo);
+                FromJsonUtilO(input[U("PrivateInfo")], PrivateInfo);
+                FromJsonUtilO(input[U("FacebookInfo")], FacebookInfo);
+                FromJsonUtilO(input[U("SteamInfo")], SteamInfo);
+                FromJsonUtilO(input[U("GameCenterInfo")], GameCenterInfo);
+                FromJsonUtilO(input[U("IosDeviceInfo")], IosDeviceInfo);
+                FromJsonUtilO(input[U("AndroidDeviceInfo")], AndroidDeviceInfo);
+                FromJsonUtilO(input[U("KongregateInfo")], KongregateInfo);
+                FromJsonUtilO(input[U("TwitchInfo")], TwitchInfo);
+                FromJsonUtilO(input[U("PsnInfo")], PsnInfo);
+                FromJsonUtilO(input[U("GoogleInfo")], GoogleInfo);
+                FromJsonUtilO(input[U("XboxInfo")], XboxInfo);
+                FromJsonUtilO(input[U("CustomIdInfo")], CustomIdInfo);
             }
 
-            ~UserAccountInfo();
-
-            void writeJSON(PFStringJsonWriter& writer) override;
-            bool readFromValue(const rapidjson::Value& obj) override;
+            web::json::value ToJson() const override
+            {
+                web::json::value output;
+                web::json::value each_PlayFabId; ToJsonUtilS(PlayFabId, each_PlayFabId); output[U("PlayFabId")] = each_PlayFabId;
+                web::json::value each_Created; ToJsonUtilT(Created, each_Created); output[U("Created")] = each_Created;
+                web::json::value each_Username; ToJsonUtilS(Username, each_Username); output[U("Username")] = each_Username;
+                web::json::value each_TitleInfo; ToJsonUtilO(TitleInfo, each_TitleInfo); output[U("TitleInfo")] = each_TitleInfo;
+                web::json::value each_PrivateInfo; ToJsonUtilO(PrivateInfo, each_PrivateInfo); output[U("PrivateInfo")] = each_PrivateInfo;
+                web::json::value each_FacebookInfo; ToJsonUtilO(FacebookInfo, each_FacebookInfo); output[U("FacebookInfo")] = each_FacebookInfo;
+                web::json::value each_SteamInfo; ToJsonUtilO(SteamInfo, each_SteamInfo); output[U("SteamInfo")] = each_SteamInfo;
+                web::json::value each_GameCenterInfo; ToJsonUtilO(GameCenterInfo, each_GameCenterInfo); output[U("GameCenterInfo")] = each_GameCenterInfo;
+                web::json::value each_IosDeviceInfo; ToJsonUtilO(IosDeviceInfo, each_IosDeviceInfo); output[U("IosDeviceInfo")] = each_IosDeviceInfo;
+                web::json::value each_AndroidDeviceInfo; ToJsonUtilO(AndroidDeviceInfo, each_AndroidDeviceInfo); output[U("AndroidDeviceInfo")] = each_AndroidDeviceInfo;
+                web::json::value each_KongregateInfo; ToJsonUtilO(KongregateInfo, each_KongregateInfo); output[U("KongregateInfo")] = each_KongregateInfo;
+                web::json::value each_TwitchInfo; ToJsonUtilO(TwitchInfo, each_TwitchInfo); output[U("TwitchInfo")] = each_TwitchInfo;
+                web::json::value each_PsnInfo; ToJsonUtilO(PsnInfo, each_PsnInfo); output[U("PsnInfo")] = each_PsnInfo;
+                web::json::value each_GoogleInfo; ToJsonUtilO(GoogleInfo, each_GoogleInfo); output[U("GoogleInfo")] = each_GoogleInfo;
+                web::json::value each_XboxInfo; ToJsonUtilO(XboxInfo, each_XboxInfo); output[U("XboxInfo")] = each_XboxInfo;
+                web::json::value each_CustomIdInfo; ToJsonUtilO(CustomIdInfo, each_CustomIdInfo); output[U("CustomIdInfo")] = each_CustomIdInfo;
+                return output;
+            }
         };
 
-        struct GetAccountInfoResult : public PlayFabBaseModel
+        struct GetAccountInfoResult : public PlayFabRequestCommon
         {
-            UserAccountInfo* AccountInfo;
+            Boxed<UserAccountInfo> AccountInfo;
 
             GetAccountInfoResult() :
-                PlayFabBaseModel(),
-                AccountInfo(nullptr)
+                PlayFabRequestCommon(),
+                AccountInfo()
             {}
 
             GetAccountInfoResult(const GetAccountInfoResult& src) :
-                PlayFabBaseModel(),
-                AccountInfo(src.AccountInfo ? new UserAccountInfo(*src.AccountInfo) : nullptr)
+                PlayFabRequestCommon(),
+                AccountInfo(src.AccountInfo)
             {}
 
-            GetAccountInfoResult(const rapidjson::Value& obj) : GetAccountInfoResult()
+            ~GetAccountInfoResult() { }
+
+            void FromJson(web::json::value& input) override
             {
-                readFromValue(obj);
+                FromJsonUtilO(input[U("AccountInfo")], AccountInfo);
             }
 
-            ~GetAccountInfoResult();
-
-            void writeJSON(PFStringJsonWriter& writer) override;
-            bool readFromValue(const rapidjson::Value& obj) override;
+            web::json::value ToJson() const override
+            {
+                web::json::value output;
+                web::json::value each_AccountInfo; ToJsonUtilO(AccountInfo, each_AccountInfo); output[U("AccountInfo")] = each_AccountInfo;
+                return output;
+            }
         };
 
-        struct GetCatalogItemsRequest : public PlayFabBaseModel
+        struct GetCatalogItemsRequest : public PlayFabRequestCommon
         {
             std::string CatalogVersion;
 
             GetCatalogItemsRequest() :
-                PlayFabBaseModel(),
+                PlayFabRequestCommon(),
                 CatalogVersion()
             {}
 
             GetCatalogItemsRequest(const GetCatalogItemsRequest& src) :
-                PlayFabBaseModel(),
+                PlayFabRequestCommon(),
                 CatalogVersion(src.CatalogVersion)
             {}
 
-            GetCatalogItemsRequest(const rapidjson::Value& obj) : GetCatalogItemsRequest()
+            ~GetCatalogItemsRequest() { }
+
+            void FromJson(web::json::value& input) override
             {
-                readFromValue(obj);
+                FromJsonUtilS(input[U("CatalogVersion")], CatalogVersion);
             }
 
-            ~GetCatalogItemsRequest();
-
-            void writeJSON(PFStringJsonWriter& writer) override;
-            bool readFromValue(const rapidjson::Value& obj) override;
+            web::json::value ToJson() const override
+            {
+                web::json::value output;
+                web::json::value each_CatalogVersion; ToJsonUtilS(CatalogVersion, each_CatalogVersion); output[U("CatalogVersion")] = each_CatalogVersion;
+                return output;
+            }
         };
 
-        struct GetCatalogItemsResult : public PlayFabBaseModel
+        struct GetCatalogItemsResult : public PlayFabRequestCommon
         {
             std::list<CatalogItem> Catalog;
 
             GetCatalogItemsResult() :
-                PlayFabBaseModel(),
+                PlayFabRequestCommon(),
                 Catalog()
             {}
 
             GetCatalogItemsResult(const GetCatalogItemsResult& src) :
-                PlayFabBaseModel(),
+                PlayFabRequestCommon(),
                 Catalog(src.Catalog)
             {}
 
-            GetCatalogItemsResult(const rapidjson::Value& obj) : GetCatalogItemsResult()
+            ~GetCatalogItemsResult() { }
+
+            void FromJson(web::json::value& input) override
             {
-                readFromValue(obj);
+                FromJsonUtilO(input[U("Catalog")], Catalog);
             }
 
-            ~GetCatalogItemsResult();
-
-            void writeJSON(PFStringJsonWriter& writer) override;
-            bool readFromValue(const rapidjson::Value& obj) override;
+            web::json::value ToJson() const override
+            {
+                web::json::value output;
+                web::json::value each_Catalog; ToJsonUtilO(Catalog, each_Catalog); output[U("Catalog")] = each_Catalog;
+                return output;
+            }
         };
 
-        struct GetCharacterDataRequest : public PlayFabBaseModel
+        struct GetCharacterDataRequest : public PlayFabRequestCommon
         {
             std::string PlayFabId;
             std::string CharacterId;
             std::list<std::string> Keys;
-            OptionalUint32 IfChangedFromDataVersion;
+            Boxed<Uint32> IfChangedFromDataVersion;
 
             GetCharacterDataRequest() :
-                PlayFabBaseModel(),
+                PlayFabRequestCommon(),
                 PlayFabId(),
                 CharacterId(),
                 Keys(),
@@ -2493,32 +3695,33 @@ namespace PlayFab
             {}
 
             GetCharacterDataRequest(const GetCharacterDataRequest& src) :
-                PlayFabBaseModel(),
+                PlayFabRequestCommon(),
                 PlayFabId(src.PlayFabId),
                 CharacterId(src.CharacterId),
                 Keys(src.Keys),
                 IfChangedFromDataVersion(src.IfChangedFromDataVersion)
             {}
 
-            GetCharacterDataRequest(const rapidjson::Value& obj) : GetCharacterDataRequest()
+            ~GetCharacterDataRequest() { }
+
+            void FromJson(web::json::value& input) override
             {
-                readFromValue(obj);
+                FromJsonUtilS(input[U("PlayFabId")], PlayFabId);
+                FromJsonUtilS(input[U("CharacterId")], CharacterId);
+                FromJsonUtilS(input[U("Keys")], Keys);
+                FromJsonUtilP(input[U("IfChangedFromDataVersion")], IfChangedFromDataVersion);
             }
 
-            ~GetCharacterDataRequest();
-
-            void writeJSON(PFStringJsonWriter& writer) override;
-            bool readFromValue(const rapidjson::Value& obj) override;
+            web::json::value ToJson() const override
+            {
+                web::json::value output;
+                web::json::value each_PlayFabId; ToJsonUtilS(PlayFabId, each_PlayFabId); output[U("PlayFabId")] = each_PlayFabId;
+                web::json::value each_CharacterId; ToJsonUtilS(CharacterId, each_CharacterId); output[U("CharacterId")] = each_CharacterId;
+                web::json::value each_Keys; ToJsonUtilS(Keys, each_Keys); output[U("Keys")] = each_Keys;
+                web::json::value each_IfChangedFromDataVersion; ToJsonUtilP(IfChangedFromDataVersion, each_IfChangedFromDataVersion); output[U("IfChangedFromDataVersion")] = each_IfChangedFromDataVersion;
+                return output;
+            }
         };
-
-        enum UserDataPermission
-        {
-            UserDataPermissionPrivate,
-            UserDataPermissionPublic
-        };
-
-        void writeUserDataPermissionEnumJSON(UserDataPermission enumVal, PFStringJsonWriter& writer);
-        UserDataPermission readUserDataPermissionFromValue(const rapidjson::Value& obj);
 
         struct UserDataRecord : public PlayFabBaseModel
         {
@@ -2529,7 +3732,7 @@ namespace PlayFab
             UserDataRecord() :
                 PlayFabBaseModel(),
                 Value(),
-                LastUpdated(0),
+                LastUpdated(),
                 Permission()
             {}
 
@@ -2540,74 +3743,96 @@ namespace PlayFab
                 Permission(src.Permission)
             {}
 
-            UserDataRecord(const rapidjson::Value& obj) : UserDataRecord()
+            ~UserDataRecord() { }
+
+            void FromJson(web::json::value& input) override
             {
-                readFromValue(obj);
+                FromJsonUtilS(input[U("Value")], Value);
+                FromJsonUtilT(input[U("LastUpdated")], LastUpdated);
+                FromJsonUtilE(input[U("Permission")], Permission);
             }
 
-            ~UserDataRecord();
-
-            void writeJSON(PFStringJsonWriter& writer) override;
-            bool readFromValue(const rapidjson::Value& obj) override;
+            web::json::value ToJson() const override
+            {
+                web::json::value output;
+                web::json::value each_Value; ToJsonUtilS(Value, each_Value); output[U("Value")] = each_Value;
+                web::json::value each_LastUpdated; ToJsonUtilT(LastUpdated, each_LastUpdated); output[U("LastUpdated")] = each_LastUpdated;
+                web::json::value each_Permission; ToJsonUtilE(Permission, each_Permission); output[U("Permission")] = each_Permission;
+                return output;
+            }
         };
 
-        struct GetCharacterDataResult : public PlayFabBaseModel
+        struct GetCharacterDataResult : public PlayFabRequestCommon
         {
             std::string CharacterId;
             std::map<std::string, UserDataRecord> Data;
             Uint32 DataVersion;
 
             GetCharacterDataResult() :
-                PlayFabBaseModel(),
+                PlayFabRequestCommon(),
                 CharacterId(),
                 Data(),
-                DataVersion(0)
+                DataVersion()
             {}
 
             GetCharacterDataResult(const GetCharacterDataResult& src) :
-                PlayFabBaseModel(),
+                PlayFabRequestCommon(),
                 CharacterId(src.CharacterId),
                 Data(src.Data),
                 DataVersion(src.DataVersion)
             {}
 
-            GetCharacterDataResult(const rapidjson::Value& obj) : GetCharacterDataResult()
+            ~GetCharacterDataResult() { }
+
+            void FromJson(web::json::value& input) override
             {
-                readFromValue(obj);
+                FromJsonUtilS(input[U("CharacterId")], CharacterId);
+                FromJsonUtilO(input[U("Data")], Data);
+                FromJsonUtilP(input[U("DataVersion")], DataVersion);
             }
 
-            ~GetCharacterDataResult();
-
-            void writeJSON(PFStringJsonWriter& writer) override;
-            bool readFromValue(const rapidjson::Value& obj) override;
+            web::json::value ToJson() const override
+            {
+                web::json::value output;
+                web::json::value each_CharacterId; ToJsonUtilS(CharacterId, each_CharacterId); output[U("CharacterId")] = each_CharacterId;
+                web::json::value each_Data; ToJsonUtilO(Data, each_Data); output[U("Data")] = each_Data;
+                web::json::value each_DataVersion; ToJsonUtilP(DataVersion, each_DataVersion); output[U("DataVersion")] = each_DataVersion;
+                return output;
+            }
         };
 
-        struct GetCharacterInventoryRequest : public PlayFabBaseModel
+        struct GetCharacterInventoryRequest : public PlayFabRequestCommon
         {
             std::string CharacterId;
             std::string CatalogVersion;
 
             GetCharacterInventoryRequest() :
-                PlayFabBaseModel(),
+                PlayFabRequestCommon(),
                 CharacterId(),
                 CatalogVersion()
             {}
 
             GetCharacterInventoryRequest(const GetCharacterInventoryRequest& src) :
-                PlayFabBaseModel(),
+                PlayFabRequestCommon(),
                 CharacterId(src.CharacterId),
                 CatalogVersion(src.CatalogVersion)
             {}
 
-            GetCharacterInventoryRequest(const rapidjson::Value& obj) : GetCharacterInventoryRequest()
+            ~GetCharacterInventoryRequest() { }
+
+            void FromJson(web::json::value& input) override
             {
-                readFromValue(obj);
+                FromJsonUtilS(input[U("CharacterId")], CharacterId);
+                FromJsonUtilS(input[U("CatalogVersion")], CatalogVersion);
             }
 
-            ~GetCharacterInventoryRequest();
-
-            void writeJSON(PFStringJsonWriter& writer) override;
-            bool readFromValue(const rapidjson::Value& obj) override;
+            web::json::value ToJson() const override
+            {
+                web::json::value output;
+                web::json::value each_CharacterId; ToJsonUtilS(CharacterId, each_CharacterId); output[U("CharacterId")] = each_CharacterId;
+                web::json::value each_CatalogVersion; ToJsonUtilS(CatalogVersion, each_CatalogVersion); output[U("CatalogVersion")] = each_CatalogVersion;
+                return output;
+            }
         };
 
         struct VirtualCurrencyRechargeTime : public PlayFabBaseModel
@@ -2618,9 +3843,9 @@ namespace PlayFab
 
             VirtualCurrencyRechargeTime() :
                 PlayFabBaseModel(),
-                SecondsToRecharge(0),
-                RechargeTime(0),
-                RechargeMax(0)
+                SecondsToRecharge(),
+                RechargeTime(),
+                RechargeMax()
             {}
 
             VirtualCurrencyRechargeTime(const VirtualCurrencyRechargeTime& src) :
@@ -2630,18 +3855,26 @@ namespace PlayFab
                 RechargeMax(src.RechargeMax)
             {}
 
-            VirtualCurrencyRechargeTime(const rapidjson::Value& obj) : VirtualCurrencyRechargeTime()
+            ~VirtualCurrencyRechargeTime() { }
+
+            void FromJson(web::json::value& input) override
             {
-                readFromValue(obj);
+                FromJsonUtilP(input[U("SecondsToRecharge")], SecondsToRecharge);
+                FromJsonUtilT(input[U("RechargeTime")], RechargeTime);
+                FromJsonUtilP(input[U("RechargeMax")], RechargeMax);
             }
 
-            ~VirtualCurrencyRechargeTime();
-
-            void writeJSON(PFStringJsonWriter& writer) override;
-            bool readFromValue(const rapidjson::Value& obj) override;
+            web::json::value ToJson() const override
+            {
+                web::json::value output;
+                web::json::value each_SecondsToRecharge; ToJsonUtilP(SecondsToRecharge, each_SecondsToRecharge); output[U("SecondsToRecharge")] = each_SecondsToRecharge;
+                web::json::value each_RechargeTime; ToJsonUtilT(RechargeTime, each_RechargeTime); output[U("RechargeTime")] = each_RechargeTime;
+                web::json::value each_RechargeMax; ToJsonUtilP(RechargeMax, each_RechargeMax); output[U("RechargeMax")] = each_RechargeMax;
+                return output;
+            }
         };
 
-        struct GetCharacterInventoryResult : public PlayFabBaseModel
+        struct GetCharacterInventoryResult : public PlayFabRequestCommon
         {
             std::string CharacterId;
             std::list<ItemInstance> Inventory;
@@ -2649,7 +3882,7 @@ namespace PlayFab
             std::map<std::string, VirtualCurrencyRechargeTime> VirtualCurrencyRechargeTimes;
 
             GetCharacterInventoryResult() :
-                PlayFabBaseModel(),
+                PlayFabRequestCommon(),
                 CharacterId(),
                 Inventory(),
                 VirtualCurrency(),
@@ -2657,199 +3890,243 @@ namespace PlayFab
             {}
 
             GetCharacterInventoryResult(const GetCharacterInventoryResult& src) :
-                PlayFabBaseModel(),
+                PlayFabRequestCommon(),
                 CharacterId(src.CharacterId),
                 Inventory(src.Inventory),
                 VirtualCurrency(src.VirtualCurrency),
                 VirtualCurrencyRechargeTimes(src.VirtualCurrencyRechargeTimes)
             {}
 
-            GetCharacterInventoryResult(const rapidjson::Value& obj) : GetCharacterInventoryResult()
+            ~GetCharacterInventoryResult() { }
+
+            void FromJson(web::json::value& input) override
             {
-                readFromValue(obj);
+                FromJsonUtilS(input[U("CharacterId")], CharacterId);
+                FromJsonUtilO(input[U("Inventory")], Inventory);
+                FromJsonUtilP(input[U("VirtualCurrency")], VirtualCurrency);
+                FromJsonUtilO(input[U("VirtualCurrencyRechargeTimes")], VirtualCurrencyRechargeTimes);
             }
 
-            ~GetCharacterInventoryResult();
-
-            void writeJSON(PFStringJsonWriter& writer) override;
-            bool readFromValue(const rapidjson::Value& obj) override;
+            web::json::value ToJson() const override
+            {
+                web::json::value output;
+                web::json::value each_CharacterId; ToJsonUtilS(CharacterId, each_CharacterId); output[U("CharacterId")] = each_CharacterId;
+                web::json::value each_Inventory; ToJsonUtilO(Inventory, each_Inventory); output[U("Inventory")] = each_Inventory;
+                web::json::value each_VirtualCurrency; ToJsonUtilP(VirtualCurrency, each_VirtualCurrency); output[U("VirtualCurrency")] = each_VirtualCurrency;
+                web::json::value each_VirtualCurrencyRechargeTimes; ToJsonUtilO(VirtualCurrencyRechargeTimes, each_VirtualCurrencyRechargeTimes); output[U("VirtualCurrencyRechargeTimes")] = each_VirtualCurrencyRechargeTimes;
+                return output;
+            }
         };
 
-        struct GetCharacterLeaderboardRequest : public PlayFabBaseModel
+        struct GetCharacterLeaderboardRequest : public PlayFabRequestCommon
         {
             std::string CharacterType;
             std::string StatisticName;
             Int32 StartPosition;
-            OptionalInt32 MaxResultsCount;
+            Boxed<Int32> MaxResultsCount;
 
             GetCharacterLeaderboardRequest() :
-                PlayFabBaseModel(),
+                PlayFabRequestCommon(),
                 CharacterType(),
                 StatisticName(),
-                StartPosition(0),
+                StartPosition(),
                 MaxResultsCount()
             {}
 
             GetCharacterLeaderboardRequest(const GetCharacterLeaderboardRequest& src) :
-                PlayFabBaseModel(),
+                PlayFabRequestCommon(),
                 CharacterType(src.CharacterType),
                 StatisticName(src.StatisticName),
                 StartPosition(src.StartPosition),
                 MaxResultsCount(src.MaxResultsCount)
             {}
 
-            GetCharacterLeaderboardRequest(const rapidjson::Value& obj) : GetCharacterLeaderboardRequest()
+            ~GetCharacterLeaderboardRequest() { }
+
+            void FromJson(web::json::value& input) override
             {
-                readFromValue(obj);
+                FromJsonUtilS(input[U("CharacterType")], CharacterType);
+                FromJsonUtilS(input[U("StatisticName")], StatisticName);
+                FromJsonUtilP(input[U("StartPosition")], StartPosition);
+                FromJsonUtilP(input[U("MaxResultsCount")], MaxResultsCount);
             }
 
-            ~GetCharacterLeaderboardRequest();
-
-            void writeJSON(PFStringJsonWriter& writer) override;
-            bool readFromValue(const rapidjson::Value& obj) override;
+            web::json::value ToJson() const override
+            {
+                web::json::value output;
+                web::json::value each_CharacterType; ToJsonUtilS(CharacterType, each_CharacterType); output[U("CharacterType")] = each_CharacterType;
+                web::json::value each_StatisticName; ToJsonUtilS(StatisticName, each_StatisticName); output[U("StatisticName")] = each_StatisticName;
+                web::json::value each_StartPosition; ToJsonUtilP(StartPosition, each_StartPosition); output[U("StartPosition")] = each_StartPosition;
+                web::json::value each_MaxResultsCount; ToJsonUtilP(MaxResultsCount, each_MaxResultsCount); output[U("MaxResultsCount")] = each_MaxResultsCount;
+                return output;
+            }
         };
 
-        struct GetCharacterLeaderboardResult : public PlayFabBaseModel
+        struct GetCharacterLeaderboardResult : public PlayFabRequestCommon
         {
             std::list<CharacterLeaderboardEntry> Leaderboard;
 
             GetCharacterLeaderboardResult() :
-                PlayFabBaseModel(),
+                PlayFabRequestCommon(),
                 Leaderboard()
             {}
 
             GetCharacterLeaderboardResult(const GetCharacterLeaderboardResult& src) :
-                PlayFabBaseModel(),
+                PlayFabRequestCommon(),
                 Leaderboard(src.Leaderboard)
             {}
 
-            GetCharacterLeaderboardResult(const rapidjson::Value& obj) : GetCharacterLeaderboardResult()
+            ~GetCharacterLeaderboardResult() { }
+
+            void FromJson(web::json::value& input) override
             {
-                readFromValue(obj);
+                FromJsonUtilO(input[U("Leaderboard")], Leaderboard);
             }
 
-            ~GetCharacterLeaderboardResult();
-
-            void writeJSON(PFStringJsonWriter& writer) override;
-            bool readFromValue(const rapidjson::Value& obj) override;
+            web::json::value ToJson() const override
+            {
+                web::json::value output;
+                web::json::value each_Leaderboard; ToJsonUtilO(Leaderboard, each_Leaderboard); output[U("Leaderboard")] = each_Leaderboard;
+                return output;
+            }
         };
 
-        struct GetCharacterStatisticsRequest : public PlayFabBaseModel
+        struct GetCharacterStatisticsRequest : public PlayFabRequestCommon
         {
             std::string CharacterId;
 
             GetCharacterStatisticsRequest() :
-                PlayFabBaseModel(),
+                PlayFabRequestCommon(),
                 CharacterId()
             {}
 
             GetCharacterStatisticsRequest(const GetCharacterStatisticsRequest& src) :
-                PlayFabBaseModel(),
+                PlayFabRequestCommon(),
                 CharacterId(src.CharacterId)
             {}
 
-            GetCharacterStatisticsRequest(const rapidjson::Value& obj) : GetCharacterStatisticsRequest()
+            ~GetCharacterStatisticsRequest() { }
+
+            void FromJson(web::json::value& input) override
             {
-                readFromValue(obj);
+                FromJsonUtilS(input[U("CharacterId")], CharacterId);
             }
 
-            ~GetCharacterStatisticsRequest();
-
-            void writeJSON(PFStringJsonWriter& writer) override;
-            bool readFromValue(const rapidjson::Value& obj) override;
+            web::json::value ToJson() const override
+            {
+                web::json::value output;
+                web::json::value each_CharacterId; ToJsonUtilS(CharacterId, each_CharacterId); output[U("CharacterId")] = each_CharacterId;
+                return output;
+            }
         };
 
-        struct GetCharacterStatisticsResult : public PlayFabBaseModel
+        struct GetCharacterStatisticsResult : public PlayFabRequestCommon
         {
             std::map<std::string, Int32> CharacterStatistics;
 
             GetCharacterStatisticsResult() :
-                PlayFabBaseModel(),
+                PlayFabRequestCommon(),
                 CharacterStatistics()
             {}
 
             GetCharacterStatisticsResult(const GetCharacterStatisticsResult& src) :
-                PlayFabBaseModel(),
+                PlayFabRequestCommon(),
                 CharacterStatistics(src.CharacterStatistics)
             {}
 
-            GetCharacterStatisticsResult(const rapidjson::Value& obj) : GetCharacterStatisticsResult()
+            ~GetCharacterStatisticsResult() { }
+
+            void FromJson(web::json::value& input) override
             {
-                readFromValue(obj);
+                FromJsonUtilP(input[U("CharacterStatistics")], CharacterStatistics);
             }
 
-            ~GetCharacterStatisticsResult();
-
-            void writeJSON(PFStringJsonWriter& writer) override;
-            bool readFromValue(const rapidjson::Value& obj) override;
+            web::json::value ToJson() const override
+            {
+                web::json::value output;
+                web::json::value each_CharacterStatistics; ToJsonUtilP(CharacterStatistics, each_CharacterStatistics); output[U("CharacterStatistics")] = each_CharacterStatistics;
+                return output;
+            }
         };
 
-        struct GetContentDownloadUrlRequest : public PlayFabBaseModel
+        struct GetContentDownloadUrlRequest : public PlayFabRequestCommon
         {
             std::string Key;
             std::string HttpMethod;
-            OptionalBool ThruCDN;
+            Boxed<bool> ThruCDN;
 
             GetContentDownloadUrlRequest() :
-                PlayFabBaseModel(),
+                PlayFabRequestCommon(),
                 Key(),
                 HttpMethod(),
                 ThruCDN()
             {}
 
             GetContentDownloadUrlRequest(const GetContentDownloadUrlRequest& src) :
-                PlayFabBaseModel(),
+                PlayFabRequestCommon(),
                 Key(src.Key),
                 HttpMethod(src.HttpMethod),
                 ThruCDN(src.ThruCDN)
             {}
 
-            GetContentDownloadUrlRequest(const rapidjson::Value& obj) : GetContentDownloadUrlRequest()
+            ~GetContentDownloadUrlRequest() { }
+
+            void FromJson(web::json::value& input) override
             {
-                readFromValue(obj);
+                FromJsonUtilS(input[U("Key")], Key);
+                FromJsonUtilS(input[U("HttpMethod")], HttpMethod);
+                FromJsonUtilP(input[U("ThruCDN")], ThruCDN);
             }
 
-            ~GetContentDownloadUrlRequest();
-
-            void writeJSON(PFStringJsonWriter& writer) override;
-            bool readFromValue(const rapidjson::Value& obj) override;
+            web::json::value ToJson() const override
+            {
+                web::json::value output;
+                web::json::value each_Key; ToJsonUtilS(Key, each_Key); output[U("Key")] = each_Key;
+                web::json::value each_HttpMethod; ToJsonUtilS(HttpMethod, each_HttpMethod); output[U("HttpMethod")] = each_HttpMethod;
+                web::json::value each_ThruCDN; ToJsonUtilP(ThruCDN, each_ThruCDN); output[U("ThruCDN")] = each_ThruCDN;
+                return output;
+            }
         };
 
-        struct GetContentDownloadUrlResult : public PlayFabBaseModel
+        struct GetContentDownloadUrlResult : public PlayFabRequestCommon
         {
             std::string URL;
 
             GetContentDownloadUrlResult() :
-                PlayFabBaseModel(),
+                PlayFabRequestCommon(),
                 URL()
             {}
 
             GetContentDownloadUrlResult(const GetContentDownloadUrlResult& src) :
-                PlayFabBaseModel(),
+                PlayFabRequestCommon(),
                 URL(src.URL)
             {}
 
-            GetContentDownloadUrlResult(const rapidjson::Value& obj) : GetContentDownloadUrlResult()
+            ~GetContentDownloadUrlResult() { }
+
+            void FromJson(web::json::value& input) override
             {
-                readFromValue(obj);
+                FromJsonUtilS(input[U("URL")], URL);
             }
 
-            ~GetContentDownloadUrlResult();
-
-            void writeJSON(PFStringJsonWriter& writer) override;
-            bool readFromValue(const rapidjson::Value& obj) override;
+            web::json::value ToJson() const override
+            {
+                web::json::value output;
+                web::json::value each_URL; ToJsonUtilS(URL, each_URL); output[U("URL")] = each_URL;
+                return output;
+            }
         };
 
-        struct GetFriendLeaderboardAroundPlayerRequest : public PlayFabBaseModel
+        struct GetFriendLeaderboardAroundPlayerRequest : public PlayFabRequestCommon
         {
             std::string StatisticName;
-            OptionalInt32 MaxResultsCount;
+            Boxed<Int32> MaxResultsCount;
             std::string PlayFabId;
-            OptionalBool IncludeSteamFriends;
-            OptionalBool IncludeFacebookFriends;
+            Boxed<bool> IncludeSteamFriends;
+            Boxed<bool> IncludeFacebookFriends;
 
             GetFriendLeaderboardAroundPlayerRequest() :
-                PlayFabBaseModel(),
+                PlayFabRequestCommon(),
                 StatisticName(),
                 MaxResultsCount(),
                 PlayFabId(),
@@ -2858,7 +4135,7 @@ namespace PlayFab
             {}
 
             GetFriendLeaderboardAroundPlayerRequest(const GetFriendLeaderboardAroundPlayerRequest& src) :
-                PlayFabBaseModel(),
+                PlayFabRequestCommon(),
                 StatisticName(src.StatisticName),
                 MaxResultsCount(src.MaxResultsCount),
                 PlayFabId(src.PlayFabId),
@@ -2866,15 +4143,27 @@ namespace PlayFab
                 IncludeFacebookFriends(src.IncludeFacebookFriends)
             {}
 
-            GetFriendLeaderboardAroundPlayerRequest(const rapidjson::Value& obj) : GetFriendLeaderboardAroundPlayerRequest()
+            ~GetFriendLeaderboardAroundPlayerRequest() { }
+
+            void FromJson(web::json::value& input) override
             {
-                readFromValue(obj);
+                FromJsonUtilS(input[U("StatisticName")], StatisticName);
+                FromJsonUtilP(input[U("MaxResultsCount")], MaxResultsCount);
+                FromJsonUtilS(input[U("PlayFabId")], PlayFabId);
+                FromJsonUtilP(input[U("IncludeSteamFriends")], IncludeSteamFriends);
+                FromJsonUtilP(input[U("IncludeFacebookFriends")], IncludeFacebookFriends);
             }
 
-            ~GetFriendLeaderboardAroundPlayerRequest();
-
-            void writeJSON(PFStringJsonWriter& writer) override;
-            bool readFromValue(const rapidjson::Value& obj) override;
+            web::json::value ToJson() const override
+            {
+                web::json::value output;
+                web::json::value each_StatisticName; ToJsonUtilS(StatisticName, each_StatisticName); output[U("StatisticName")] = each_StatisticName;
+                web::json::value each_MaxResultsCount; ToJsonUtilP(MaxResultsCount, each_MaxResultsCount); output[U("MaxResultsCount")] = each_MaxResultsCount;
+                web::json::value each_PlayFabId; ToJsonUtilS(PlayFabId, each_PlayFabId); output[U("PlayFabId")] = each_PlayFabId;
+                web::json::value each_IncludeSteamFriends; ToJsonUtilP(IncludeSteamFriends, each_IncludeSteamFriends); output[U("IncludeSteamFriends")] = each_IncludeSteamFriends;
+                web::json::value each_IncludeFacebookFriends; ToJsonUtilP(IncludeFacebookFriends, each_IncludeFacebookFriends); output[U("IncludeFacebookFriends")] = each_IncludeFacebookFriends;
+                return output;
+            }
         };
 
         struct PlayerLeaderboardEntry : public PlayFabBaseModel
@@ -2888,8 +4177,8 @@ namespace PlayFab
                 PlayFabBaseModel(),
                 PlayFabId(),
                 DisplayName(),
-                StatValue(0),
-                Position(0)
+                StatValue(),
+                Position()
             {}
 
             PlayerLeaderboardEntry(const PlayerLeaderboardEntry& src) :
@@ -2900,61 +4189,75 @@ namespace PlayFab
                 Position(src.Position)
             {}
 
-            PlayerLeaderboardEntry(const rapidjson::Value& obj) : PlayerLeaderboardEntry()
+            ~PlayerLeaderboardEntry() { }
+
+            void FromJson(web::json::value& input) override
             {
-                readFromValue(obj);
+                FromJsonUtilS(input[U("PlayFabId")], PlayFabId);
+                FromJsonUtilS(input[U("DisplayName")], DisplayName);
+                FromJsonUtilP(input[U("StatValue")], StatValue);
+                FromJsonUtilP(input[U("Position")], Position);
             }
 
-            ~PlayerLeaderboardEntry();
-
-            void writeJSON(PFStringJsonWriter& writer) override;
-            bool readFromValue(const rapidjson::Value& obj) override;
+            web::json::value ToJson() const override
+            {
+                web::json::value output;
+                web::json::value each_PlayFabId; ToJsonUtilS(PlayFabId, each_PlayFabId); output[U("PlayFabId")] = each_PlayFabId;
+                web::json::value each_DisplayName; ToJsonUtilS(DisplayName, each_DisplayName); output[U("DisplayName")] = each_DisplayName;
+                web::json::value each_StatValue; ToJsonUtilP(StatValue, each_StatValue); output[U("StatValue")] = each_StatValue;
+                web::json::value each_Position; ToJsonUtilP(Position, each_Position); output[U("Position")] = each_Position;
+                return output;
+            }
         };
 
-        struct GetFriendLeaderboardAroundPlayerResult : public PlayFabBaseModel
+        struct GetFriendLeaderboardAroundPlayerResult : public PlayFabRequestCommon
         {
             std::list<PlayerLeaderboardEntry> Leaderboard;
 
             GetFriendLeaderboardAroundPlayerResult() :
-                PlayFabBaseModel(),
+                PlayFabRequestCommon(),
                 Leaderboard()
             {}
 
             GetFriendLeaderboardAroundPlayerResult(const GetFriendLeaderboardAroundPlayerResult& src) :
-                PlayFabBaseModel(),
+                PlayFabRequestCommon(),
                 Leaderboard(src.Leaderboard)
             {}
 
-            GetFriendLeaderboardAroundPlayerResult(const rapidjson::Value& obj) : GetFriendLeaderboardAroundPlayerResult()
+            ~GetFriendLeaderboardAroundPlayerResult() { }
+
+            void FromJson(web::json::value& input) override
             {
-                readFromValue(obj);
+                FromJsonUtilO(input[U("Leaderboard")], Leaderboard);
             }
 
-            ~GetFriendLeaderboardAroundPlayerResult();
-
-            void writeJSON(PFStringJsonWriter& writer) override;
-            bool readFromValue(const rapidjson::Value& obj) override;
+            web::json::value ToJson() const override
+            {
+                web::json::value output;
+                web::json::value each_Leaderboard; ToJsonUtilO(Leaderboard, each_Leaderboard); output[U("Leaderboard")] = each_Leaderboard;
+                return output;
+            }
         };
 
-        struct GetFriendLeaderboardRequest : public PlayFabBaseModel
+        struct GetFriendLeaderboardRequest : public PlayFabRequestCommon
         {
             std::string StatisticName;
             Int32 StartPosition;
-            OptionalInt32 MaxResultsCount;
-            OptionalBool IncludeSteamFriends;
-            OptionalBool IncludeFacebookFriends;
+            Boxed<Int32> MaxResultsCount;
+            Boxed<bool> IncludeSteamFriends;
+            Boxed<bool> IncludeFacebookFriends;
 
             GetFriendLeaderboardRequest() :
-                PlayFabBaseModel(),
+                PlayFabRequestCommon(),
                 StatisticName(),
-                StartPosition(0),
+                StartPosition(),
                 MaxResultsCount(),
                 IncludeSteamFriends(),
                 IncludeFacebookFriends()
             {}
 
             GetFriendLeaderboardRequest(const GetFriendLeaderboardRequest& src) :
-                PlayFabBaseModel(),
+                PlayFabRequestCommon(),
                 StatisticName(src.StatisticName),
                 StartPosition(src.StartPosition),
                 MaxResultsCount(src.MaxResultsCount),
@@ -2962,79 +4265,101 @@ namespace PlayFab
                 IncludeFacebookFriends(src.IncludeFacebookFriends)
             {}
 
-            GetFriendLeaderboardRequest(const rapidjson::Value& obj) : GetFriendLeaderboardRequest()
+            ~GetFriendLeaderboardRequest() { }
+
+            void FromJson(web::json::value& input) override
             {
-                readFromValue(obj);
+                FromJsonUtilS(input[U("StatisticName")], StatisticName);
+                FromJsonUtilP(input[U("StartPosition")], StartPosition);
+                FromJsonUtilP(input[U("MaxResultsCount")], MaxResultsCount);
+                FromJsonUtilP(input[U("IncludeSteamFriends")], IncludeSteamFriends);
+                FromJsonUtilP(input[U("IncludeFacebookFriends")], IncludeFacebookFriends);
             }
 
-            ~GetFriendLeaderboardRequest();
-
-            void writeJSON(PFStringJsonWriter& writer) override;
-            bool readFromValue(const rapidjson::Value& obj) override;
+            web::json::value ToJson() const override
+            {
+                web::json::value output;
+                web::json::value each_StatisticName; ToJsonUtilS(StatisticName, each_StatisticName); output[U("StatisticName")] = each_StatisticName;
+                web::json::value each_StartPosition; ToJsonUtilP(StartPosition, each_StartPosition); output[U("StartPosition")] = each_StartPosition;
+                web::json::value each_MaxResultsCount; ToJsonUtilP(MaxResultsCount, each_MaxResultsCount); output[U("MaxResultsCount")] = each_MaxResultsCount;
+                web::json::value each_IncludeSteamFriends; ToJsonUtilP(IncludeSteamFriends, each_IncludeSteamFriends); output[U("IncludeSteamFriends")] = each_IncludeSteamFriends;
+                web::json::value each_IncludeFacebookFriends; ToJsonUtilP(IncludeFacebookFriends, each_IncludeFacebookFriends); output[U("IncludeFacebookFriends")] = each_IncludeFacebookFriends;
+                return output;
+            }
         };
 
-        struct GetFriendsListRequest : public PlayFabBaseModel
+        struct GetFriendsListRequest : public PlayFabRequestCommon
         {
-            OptionalBool IncludeSteamFriends;
-            OptionalBool IncludeFacebookFriends;
+            Boxed<bool> IncludeSteamFriends;
+            Boxed<bool> IncludeFacebookFriends;
 
             GetFriendsListRequest() :
-                PlayFabBaseModel(),
+                PlayFabRequestCommon(),
                 IncludeSteamFriends(),
                 IncludeFacebookFriends()
             {}
 
             GetFriendsListRequest(const GetFriendsListRequest& src) :
-                PlayFabBaseModel(),
+                PlayFabRequestCommon(),
                 IncludeSteamFriends(src.IncludeSteamFriends),
                 IncludeFacebookFriends(src.IncludeFacebookFriends)
             {}
 
-            GetFriendsListRequest(const rapidjson::Value& obj) : GetFriendsListRequest()
+            ~GetFriendsListRequest() { }
+
+            void FromJson(web::json::value& input) override
             {
-                readFromValue(obj);
+                FromJsonUtilP(input[U("IncludeSteamFriends")], IncludeSteamFriends);
+                FromJsonUtilP(input[U("IncludeFacebookFriends")], IncludeFacebookFriends);
             }
 
-            ~GetFriendsListRequest();
-
-            void writeJSON(PFStringJsonWriter& writer) override;
-            bool readFromValue(const rapidjson::Value& obj) override;
+            web::json::value ToJson() const override
+            {
+                web::json::value output;
+                web::json::value each_IncludeSteamFriends; ToJsonUtilP(IncludeSteamFriends, each_IncludeSteamFriends); output[U("IncludeSteamFriends")] = each_IncludeSteamFriends;
+                web::json::value each_IncludeFacebookFriends; ToJsonUtilP(IncludeFacebookFriends, each_IncludeFacebookFriends); output[U("IncludeFacebookFriends")] = each_IncludeFacebookFriends;
+                return output;
+            }
         };
 
-        struct GetFriendsListResult : public PlayFabBaseModel
+        struct GetFriendsListResult : public PlayFabRequestCommon
         {
             std::list<FriendInfo> Friends;
 
             GetFriendsListResult() :
-                PlayFabBaseModel(),
+                PlayFabRequestCommon(),
                 Friends()
             {}
 
             GetFriendsListResult(const GetFriendsListResult& src) :
-                PlayFabBaseModel(),
+                PlayFabRequestCommon(),
                 Friends(src.Friends)
             {}
 
-            GetFriendsListResult(const rapidjson::Value& obj) : GetFriendsListResult()
+            ~GetFriendsListResult() { }
+
+            void FromJson(web::json::value& input) override
             {
-                readFromValue(obj);
+                FromJsonUtilO(input[U("Friends")], Friends);
             }
 
-            ~GetFriendsListResult();
-
-            void writeJSON(PFStringJsonWriter& writer) override;
-            bool readFromValue(const rapidjson::Value& obj) override;
+            web::json::value ToJson() const override
+            {
+                web::json::value output;
+                web::json::value each_Friends; ToJsonUtilO(Friends, each_Friends); output[U("Friends")] = each_Friends;
+                return output;
+            }
         };
 
-        struct GetLeaderboardAroundCharacterRequest : public PlayFabBaseModel
+        struct GetLeaderboardAroundCharacterRequest : public PlayFabRequestCommon
         {
             std::string StatisticName;
             std::string CharacterId;
             std::string CharacterType;
-            OptionalInt32 MaxResultsCount;
+            Boxed<Int32> MaxResultsCount;
 
             GetLeaderboardAroundCharacterRequest() :
-                PlayFabBaseModel(),
+                PlayFabRequestCommon(),
                 StatisticName(),
                 CharacterId(),
                 CharacterType(),
@@ -3042,262 +4367,318 @@ namespace PlayFab
             {}
 
             GetLeaderboardAroundCharacterRequest(const GetLeaderboardAroundCharacterRequest& src) :
-                PlayFabBaseModel(),
+                PlayFabRequestCommon(),
                 StatisticName(src.StatisticName),
                 CharacterId(src.CharacterId),
                 CharacterType(src.CharacterType),
                 MaxResultsCount(src.MaxResultsCount)
             {}
 
-            GetLeaderboardAroundCharacterRequest(const rapidjson::Value& obj) : GetLeaderboardAroundCharacterRequest()
+            ~GetLeaderboardAroundCharacterRequest() { }
+
+            void FromJson(web::json::value& input) override
             {
-                readFromValue(obj);
+                FromJsonUtilS(input[U("StatisticName")], StatisticName);
+                FromJsonUtilS(input[U("CharacterId")], CharacterId);
+                FromJsonUtilS(input[U("CharacterType")], CharacterType);
+                FromJsonUtilP(input[U("MaxResultsCount")], MaxResultsCount);
             }
 
-            ~GetLeaderboardAroundCharacterRequest();
-
-            void writeJSON(PFStringJsonWriter& writer) override;
-            bool readFromValue(const rapidjson::Value& obj) override;
+            web::json::value ToJson() const override
+            {
+                web::json::value output;
+                web::json::value each_StatisticName; ToJsonUtilS(StatisticName, each_StatisticName); output[U("StatisticName")] = each_StatisticName;
+                web::json::value each_CharacterId; ToJsonUtilS(CharacterId, each_CharacterId); output[U("CharacterId")] = each_CharacterId;
+                web::json::value each_CharacterType; ToJsonUtilS(CharacterType, each_CharacterType); output[U("CharacterType")] = each_CharacterType;
+                web::json::value each_MaxResultsCount; ToJsonUtilP(MaxResultsCount, each_MaxResultsCount); output[U("MaxResultsCount")] = each_MaxResultsCount;
+                return output;
+            }
         };
 
-        struct GetLeaderboardAroundCharacterResult : public PlayFabBaseModel
+        struct GetLeaderboardAroundCharacterResult : public PlayFabRequestCommon
         {
             std::list<CharacterLeaderboardEntry> Leaderboard;
 
             GetLeaderboardAroundCharacterResult() :
-                PlayFabBaseModel(),
+                PlayFabRequestCommon(),
                 Leaderboard()
             {}
 
             GetLeaderboardAroundCharacterResult(const GetLeaderboardAroundCharacterResult& src) :
-                PlayFabBaseModel(),
+                PlayFabRequestCommon(),
                 Leaderboard(src.Leaderboard)
             {}
 
-            GetLeaderboardAroundCharacterResult(const rapidjson::Value& obj) : GetLeaderboardAroundCharacterResult()
+            ~GetLeaderboardAroundCharacterResult() { }
+
+            void FromJson(web::json::value& input) override
             {
-                readFromValue(obj);
+                FromJsonUtilO(input[U("Leaderboard")], Leaderboard);
             }
 
-            ~GetLeaderboardAroundCharacterResult();
-
-            void writeJSON(PFStringJsonWriter& writer) override;
-            bool readFromValue(const rapidjson::Value& obj) override;
+            web::json::value ToJson() const override
+            {
+                web::json::value output;
+                web::json::value each_Leaderboard; ToJsonUtilO(Leaderboard, each_Leaderboard); output[U("Leaderboard")] = each_Leaderboard;
+                return output;
+            }
         };
 
-        struct GetLeaderboardAroundPlayerRequest : public PlayFabBaseModel
+        struct GetLeaderboardAroundPlayerRequest : public PlayFabRequestCommon
         {
             std::string PlayFabId;
             std::string StatisticName;
-            OptionalInt32 MaxResultsCount;
+            Boxed<Int32> MaxResultsCount;
 
             GetLeaderboardAroundPlayerRequest() :
-                PlayFabBaseModel(),
+                PlayFabRequestCommon(),
                 PlayFabId(),
                 StatisticName(),
                 MaxResultsCount()
             {}
 
             GetLeaderboardAroundPlayerRequest(const GetLeaderboardAroundPlayerRequest& src) :
-                PlayFabBaseModel(),
+                PlayFabRequestCommon(),
                 PlayFabId(src.PlayFabId),
                 StatisticName(src.StatisticName),
                 MaxResultsCount(src.MaxResultsCount)
             {}
 
-            GetLeaderboardAroundPlayerRequest(const rapidjson::Value& obj) : GetLeaderboardAroundPlayerRequest()
+            ~GetLeaderboardAroundPlayerRequest() { }
+
+            void FromJson(web::json::value& input) override
             {
-                readFromValue(obj);
+                FromJsonUtilS(input[U("PlayFabId")], PlayFabId);
+                FromJsonUtilS(input[U("StatisticName")], StatisticName);
+                FromJsonUtilP(input[U("MaxResultsCount")], MaxResultsCount);
             }
 
-            ~GetLeaderboardAroundPlayerRequest();
-
-            void writeJSON(PFStringJsonWriter& writer) override;
-            bool readFromValue(const rapidjson::Value& obj) override;
+            web::json::value ToJson() const override
+            {
+                web::json::value output;
+                web::json::value each_PlayFabId; ToJsonUtilS(PlayFabId, each_PlayFabId); output[U("PlayFabId")] = each_PlayFabId;
+                web::json::value each_StatisticName; ToJsonUtilS(StatisticName, each_StatisticName); output[U("StatisticName")] = each_StatisticName;
+                web::json::value each_MaxResultsCount; ToJsonUtilP(MaxResultsCount, each_MaxResultsCount); output[U("MaxResultsCount")] = each_MaxResultsCount;
+                return output;
+            }
         };
 
-        struct GetLeaderboardAroundPlayerResult : public PlayFabBaseModel
+        struct GetLeaderboardAroundPlayerResult : public PlayFabRequestCommon
         {
             std::list<PlayerLeaderboardEntry> Leaderboard;
 
             GetLeaderboardAroundPlayerResult() :
-                PlayFabBaseModel(),
+                PlayFabRequestCommon(),
                 Leaderboard()
             {}
 
             GetLeaderboardAroundPlayerResult(const GetLeaderboardAroundPlayerResult& src) :
-                PlayFabBaseModel(),
+                PlayFabRequestCommon(),
                 Leaderboard(src.Leaderboard)
             {}
 
-            GetLeaderboardAroundPlayerResult(const rapidjson::Value& obj) : GetLeaderboardAroundPlayerResult()
+            ~GetLeaderboardAroundPlayerResult() { }
+
+            void FromJson(web::json::value& input) override
             {
-                readFromValue(obj);
+                FromJsonUtilO(input[U("Leaderboard")], Leaderboard);
             }
 
-            ~GetLeaderboardAroundPlayerResult();
-
-            void writeJSON(PFStringJsonWriter& writer) override;
-            bool readFromValue(const rapidjson::Value& obj) override;
+            web::json::value ToJson() const override
+            {
+                web::json::value output;
+                web::json::value each_Leaderboard; ToJsonUtilO(Leaderboard, each_Leaderboard); output[U("Leaderboard")] = each_Leaderboard;
+                return output;
+            }
         };
 
-        struct GetLeaderboardForUsersCharactersRequest : public PlayFabBaseModel
+        struct GetLeaderboardForUsersCharactersRequest : public PlayFabRequestCommon
         {
             std::string StatisticName;
             Int32 MaxResultsCount;
 
             GetLeaderboardForUsersCharactersRequest() :
-                PlayFabBaseModel(),
+                PlayFabRequestCommon(),
                 StatisticName(),
-                MaxResultsCount(0)
+                MaxResultsCount()
             {}
 
             GetLeaderboardForUsersCharactersRequest(const GetLeaderboardForUsersCharactersRequest& src) :
-                PlayFabBaseModel(),
+                PlayFabRequestCommon(),
                 StatisticName(src.StatisticName),
                 MaxResultsCount(src.MaxResultsCount)
             {}
 
-            GetLeaderboardForUsersCharactersRequest(const rapidjson::Value& obj) : GetLeaderboardForUsersCharactersRequest()
+            ~GetLeaderboardForUsersCharactersRequest() { }
+
+            void FromJson(web::json::value& input) override
             {
-                readFromValue(obj);
+                FromJsonUtilS(input[U("StatisticName")], StatisticName);
+                FromJsonUtilP(input[U("MaxResultsCount")], MaxResultsCount);
             }
 
-            ~GetLeaderboardForUsersCharactersRequest();
-
-            void writeJSON(PFStringJsonWriter& writer) override;
-            bool readFromValue(const rapidjson::Value& obj) override;
+            web::json::value ToJson() const override
+            {
+                web::json::value output;
+                web::json::value each_StatisticName; ToJsonUtilS(StatisticName, each_StatisticName); output[U("StatisticName")] = each_StatisticName;
+                web::json::value each_MaxResultsCount; ToJsonUtilP(MaxResultsCount, each_MaxResultsCount); output[U("MaxResultsCount")] = each_MaxResultsCount;
+                return output;
+            }
         };
 
-        struct GetLeaderboardForUsersCharactersResult : public PlayFabBaseModel
+        struct GetLeaderboardForUsersCharactersResult : public PlayFabRequestCommon
         {
             std::list<CharacterLeaderboardEntry> Leaderboard;
 
             GetLeaderboardForUsersCharactersResult() :
-                PlayFabBaseModel(),
+                PlayFabRequestCommon(),
                 Leaderboard()
             {}
 
             GetLeaderboardForUsersCharactersResult(const GetLeaderboardForUsersCharactersResult& src) :
-                PlayFabBaseModel(),
+                PlayFabRequestCommon(),
                 Leaderboard(src.Leaderboard)
             {}
 
-            GetLeaderboardForUsersCharactersResult(const rapidjson::Value& obj) : GetLeaderboardForUsersCharactersResult()
+            ~GetLeaderboardForUsersCharactersResult() { }
+
+            void FromJson(web::json::value& input) override
             {
-                readFromValue(obj);
+                FromJsonUtilO(input[U("Leaderboard")], Leaderboard);
             }
 
-            ~GetLeaderboardForUsersCharactersResult();
-
-            void writeJSON(PFStringJsonWriter& writer) override;
-            bool readFromValue(const rapidjson::Value& obj) override;
+            web::json::value ToJson() const override
+            {
+                web::json::value output;
+                web::json::value each_Leaderboard; ToJsonUtilO(Leaderboard, each_Leaderboard); output[U("Leaderboard")] = each_Leaderboard;
+                return output;
+            }
         };
 
-        struct GetLeaderboardRequest : public PlayFabBaseModel
+        struct GetLeaderboardRequest : public PlayFabRequestCommon
         {
             std::string StatisticName;
             Int32 StartPosition;
-            OptionalInt32 MaxResultsCount;
+            Boxed<Int32> MaxResultsCount;
 
             GetLeaderboardRequest() :
-                PlayFabBaseModel(),
+                PlayFabRequestCommon(),
                 StatisticName(),
-                StartPosition(0),
+                StartPosition(),
                 MaxResultsCount()
             {}
 
             GetLeaderboardRequest(const GetLeaderboardRequest& src) :
-                PlayFabBaseModel(),
+                PlayFabRequestCommon(),
                 StatisticName(src.StatisticName),
                 StartPosition(src.StartPosition),
                 MaxResultsCount(src.MaxResultsCount)
             {}
 
-            GetLeaderboardRequest(const rapidjson::Value& obj) : GetLeaderboardRequest()
+            ~GetLeaderboardRequest() { }
+
+            void FromJson(web::json::value& input) override
             {
-                readFromValue(obj);
+                FromJsonUtilS(input[U("StatisticName")], StatisticName);
+                FromJsonUtilP(input[U("StartPosition")], StartPosition);
+                FromJsonUtilP(input[U("MaxResultsCount")], MaxResultsCount);
             }
 
-            ~GetLeaderboardRequest();
-
-            void writeJSON(PFStringJsonWriter& writer) override;
-            bool readFromValue(const rapidjson::Value& obj) override;
+            web::json::value ToJson() const override
+            {
+                web::json::value output;
+                web::json::value each_StatisticName; ToJsonUtilS(StatisticName, each_StatisticName); output[U("StatisticName")] = each_StatisticName;
+                web::json::value each_StartPosition; ToJsonUtilP(StartPosition, each_StartPosition); output[U("StartPosition")] = each_StartPosition;
+                web::json::value each_MaxResultsCount; ToJsonUtilP(MaxResultsCount, each_MaxResultsCount); output[U("MaxResultsCount")] = each_MaxResultsCount;
+                return output;
+            }
         };
 
-        struct GetLeaderboardResult : public PlayFabBaseModel
+        struct GetLeaderboardResult : public PlayFabRequestCommon
         {
             std::list<PlayerLeaderboardEntry> Leaderboard;
 
             GetLeaderboardResult() :
-                PlayFabBaseModel(),
+                PlayFabRequestCommon(),
                 Leaderboard()
             {}
 
             GetLeaderboardResult(const GetLeaderboardResult& src) :
-                PlayFabBaseModel(),
+                PlayFabRequestCommon(),
                 Leaderboard(src.Leaderboard)
             {}
 
-            GetLeaderboardResult(const rapidjson::Value& obj) : GetLeaderboardResult()
+            ~GetLeaderboardResult() { }
+
+            void FromJson(web::json::value& input) override
             {
-                readFromValue(obj);
+                FromJsonUtilO(input[U("Leaderboard")], Leaderboard);
             }
 
-            ~GetLeaderboardResult();
-
-            void writeJSON(PFStringJsonWriter& writer) override;
-            bool readFromValue(const rapidjson::Value& obj) override;
+            web::json::value ToJson() const override
+            {
+                web::json::value output;
+                web::json::value each_Leaderboard; ToJsonUtilO(Leaderboard, each_Leaderboard); output[U("Leaderboard")] = each_Leaderboard;
+                return output;
+            }
         };
 
-        struct GetPhotonAuthenticationTokenRequest : public PlayFabBaseModel
+        struct GetPhotonAuthenticationTokenRequest : public PlayFabRequestCommon
         {
             std::string PhotonApplicationId;
 
             GetPhotonAuthenticationTokenRequest() :
-                PlayFabBaseModel(),
+                PlayFabRequestCommon(),
                 PhotonApplicationId()
             {}
 
             GetPhotonAuthenticationTokenRequest(const GetPhotonAuthenticationTokenRequest& src) :
-                PlayFabBaseModel(),
+                PlayFabRequestCommon(),
                 PhotonApplicationId(src.PhotonApplicationId)
             {}
 
-            GetPhotonAuthenticationTokenRequest(const rapidjson::Value& obj) : GetPhotonAuthenticationTokenRequest()
+            ~GetPhotonAuthenticationTokenRequest() { }
+
+            void FromJson(web::json::value& input) override
             {
-                readFromValue(obj);
+                FromJsonUtilS(input[U("PhotonApplicationId")], PhotonApplicationId);
             }
 
-            ~GetPhotonAuthenticationTokenRequest();
-
-            void writeJSON(PFStringJsonWriter& writer) override;
-            bool readFromValue(const rapidjson::Value& obj) override;
+            web::json::value ToJson() const override
+            {
+                web::json::value output;
+                web::json::value each_PhotonApplicationId; ToJsonUtilS(PhotonApplicationId, each_PhotonApplicationId); output[U("PhotonApplicationId")] = each_PhotonApplicationId;
+                return output;
+            }
         };
 
-        struct GetPhotonAuthenticationTokenResult : public PlayFabBaseModel
+        struct GetPhotonAuthenticationTokenResult : public PlayFabRequestCommon
         {
             std::string PhotonCustomAuthenticationToken;
 
             GetPhotonAuthenticationTokenResult() :
-                PlayFabBaseModel(),
+                PlayFabRequestCommon(),
                 PhotonCustomAuthenticationToken()
             {}
 
             GetPhotonAuthenticationTokenResult(const GetPhotonAuthenticationTokenResult& src) :
-                PlayFabBaseModel(),
+                PlayFabRequestCommon(),
                 PhotonCustomAuthenticationToken(src.PhotonCustomAuthenticationToken)
             {}
 
-            GetPhotonAuthenticationTokenResult(const rapidjson::Value& obj) : GetPhotonAuthenticationTokenResult()
+            ~GetPhotonAuthenticationTokenResult() { }
+
+            void FromJson(web::json::value& input) override
             {
-                readFromValue(obj);
+                FromJsonUtilS(input[U("PhotonCustomAuthenticationToken")], PhotonCustomAuthenticationToken);
             }
 
-            ~GetPhotonAuthenticationTokenResult();
-
-            void writeJSON(PFStringJsonWriter& writer) override;
-            bool readFromValue(const rapidjson::Value& obj) override;
+            web::json::value ToJson() const override
+            {
+                web::json::value output;
+                web::json::value each_PhotonCustomAuthenticationToken; ToJsonUtilS(PhotonCustomAuthenticationToken, each_PhotonCustomAuthenticationToken); output[U("PhotonCustomAuthenticationToken")] = each_PhotonCustomAuthenticationToken;
+                return output;
+            }
         };
 
         struct GetPlayerCombinedInfoRequestParams : public PlayFabBaseModel
@@ -3318,18 +4699,18 @@ namespace PlayFab
 
             GetPlayerCombinedInfoRequestParams() :
                 PlayFabBaseModel(),
-                GetUserAccountInfo(false),
-                GetUserInventory(false),
-                GetUserVirtualCurrency(false),
-                GetUserData(false),
+                GetUserAccountInfo(),
+                GetUserInventory(),
+                GetUserVirtualCurrency(),
+                GetUserData(),
                 UserDataKeys(),
-                GetUserReadOnlyData(false),
+                GetUserReadOnlyData(),
                 UserReadOnlyDataKeys(),
-                GetCharacterInventories(false),
-                GetCharacterList(false),
-                GetTitleData(false),
+                GetCharacterInventories(),
+                GetCharacterList(),
+                GetTitleData(),
                 TitleDataKeys(),
-                GetPlayerStatistics(false),
+                GetPlayerStatistics(),
                 PlayerStatisticNames()
             {}
 
@@ -3350,43 +4731,77 @@ namespace PlayFab
                 PlayerStatisticNames(src.PlayerStatisticNames)
             {}
 
-            GetPlayerCombinedInfoRequestParams(const rapidjson::Value& obj) : GetPlayerCombinedInfoRequestParams()
+            ~GetPlayerCombinedInfoRequestParams() { }
+
+            void FromJson(web::json::value& input) override
             {
-                readFromValue(obj);
+                FromJsonUtilP(input[U("GetUserAccountInfo")], GetUserAccountInfo);
+                FromJsonUtilP(input[U("GetUserInventory")], GetUserInventory);
+                FromJsonUtilP(input[U("GetUserVirtualCurrency")], GetUserVirtualCurrency);
+                FromJsonUtilP(input[U("GetUserData")], GetUserData);
+                FromJsonUtilS(input[U("UserDataKeys")], UserDataKeys);
+                FromJsonUtilP(input[U("GetUserReadOnlyData")], GetUserReadOnlyData);
+                FromJsonUtilS(input[U("UserReadOnlyDataKeys")], UserReadOnlyDataKeys);
+                FromJsonUtilP(input[U("GetCharacterInventories")], GetCharacterInventories);
+                FromJsonUtilP(input[U("GetCharacterList")], GetCharacterList);
+                FromJsonUtilP(input[U("GetTitleData")], GetTitleData);
+                FromJsonUtilS(input[U("TitleDataKeys")], TitleDataKeys);
+                FromJsonUtilP(input[U("GetPlayerStatistics")], GetPlayerStatistics);
+                FromJsonUtilS(input[U("PlayerStatisticNames")], PlayerStatisticNames);
             }
 
-            ~GetPlayerCombinedInfoRequestParams();
-
-            void writeJSON(PFStringJsonWriter& writer) override;
-            bool readFromValue(const rapidjson::Value& obj) override;
+            web::json::value ToJson() const override
+            {
+                web::json::value output;
+                web::json::value each_GetUserAccountInfo; ToJsonUtilP(GetUserAccountInfo, each_GetUserAccountInfo); output[U("GetUserAccountInfo")] = each_GetUserAccountInfo;
+                web::json::value each_GetUserInventory; ToJsonUtilP(GetUserInventory, each_GetUserInventory); output[U("GetUserInventory")] = each_GetUserInventory;
+                web::json::value each_GetUserVirtualCurrency; ToJsonUtilP(GetUserVirtualCurrency, each_GetUserVirtualCurrency); output[U("GetUserVirtualCurrency")] = each_GetUserVirtualCurrency;
+                web::json::value each_GetUserData; ToJsonUtilP(GetUserData, each_GetUserData); output[U("GetUserData")] = each_GetUserData;
+                web::json::value each_UserDataKeys; ToJsonUtilS(UserDataKeys, each_UserDataKeys); output[U("UserDataKeys")] = each_UserDataKeys;
+                web::json::value each_GetUserReadOnlyData; ToJsonUtilP(GetUserReadOnlyData, each_GetUserReadOnlyData); output[U("GetUserReadOnlyData")] = each_GetUserReadOnlyData;
+                web::json::value each_UserReadOnlyDataKeys; ToJsonUtilS(UserReadOnlyDataKeys, each_UserReadOnlyDataKeys); output[U("UserReadOnlyDataKeys")] = each_UserReadOnlyDataKeys;
+                web::json::value each_GetCharacterInventories; ToJsonUtilP(GetCharacterInventories, each_GetCharacterInventories); output[U("GetCharacterInventories")] = each_GetCharacterInventories;
+                web::json::value each_GetCharacterList; ToJsonUtilP(GetCharacterList, each_GetCharacterList); output[U("GetCharacterList")] = each_GetCharacterList;
+                web::json::value each_GetTitleData; ToJsonUtilP(GetTitleData, each_GetTitleData); output[U("GetTitleData")] = each_GetTitleData;
+                web::json::value each_TitleDataKeys; ToJsonUtilS(TitleDataKeys, each_TitleDataKeys); output[U("TitleDataKeys")] = each_TitleDataKeys;
+                web::json::value each_GetPlayerStatistics; ToJsonUtilP(GetPlayerStatistics, each_GetPlayerStatistics); output[U("GetPlayerStatistics")] = each_GetPlayerStatistics;
+                web::json::value each_PlayerStatisticNames; ToJsonUtilS(PlayerStatisticNames, each_PlayerStatisticNames); output[U("PlayerStatisticNames")] = each_PlayerStatisticNames;
+                return output;
+            }
         };
 
-        struct GetPlayerCombinedInfoRequest : public PlayFabBaseModel
+        struct GetPlayerCombinedInfoRequest : public PlayFabRequestCommon
         {
             std::string PlayFabId;
             GetPlayerCombinedInfoRequestParams InfoRequestParameters;
 
             GetPlayerCombinedInfoRequest() :
-                PlayFabBaseModel(),
+                PlayFabRequestCommon(),
                 PlayFabId(),
                 InfoRequestParameters()
             {}
 
             GetPlayerCombinedInfoRequest(const GetPlayerCombinedInfoRequest& src) :
-                PlayFabBaseModel(),
+                PlayFabRequestCommon(),
                 PlayFabId(src.PlayFabId),
                 InfoRequestParameters(src.InfoRequestParameters)
             {}
 
-            GetPlayerCombinedInfoRequest(const rapidjson::Value& obj) : GetPlayerCombinedInfoRequest()
+            ~GetPlayerCombinedInfoRequest() { }
+
+            void FromJson(web::json::value& input) override
             {
-                readFromValue(obj);
+                FromJsonUtilS(input[U("PlayFabId")], PlayFabId);
+                FromJsonUtilO(input[U("InfoRequestParameters")], InfoRequestParameters);
             }
 
-            ~GetPlayerCombinedInfoRequest();
-
-            void writeJSON(PFStringJsonWriter& writer) override;
-            bool readFromValue(const rapidjson::Value& obj) override;
+            web::json::value ToJson() const override
+            {
+                web::json::value output;
+                web::json::value each_PlayFabId; ToJsonUtilS(PlayFabId, each_PlayFabId); output[U("PlayFabId")] = each_PlayFabId;
+                web::json::value each_InfoRequestParameters; ToJsonUtilO(InfoRequestParameters, each_InfoRequestParameters); output[U("InfoRequestParameters")] = each_InfoRequestParameters;
+                return output;
+            }
         };
 
         struct StatisticValue : public PlayFabBaseModel
@@ -3398,8 +4813,8 @@ namespace PlayFab
             StatisticValue() :
                 PlayFabBaseModel(),
                 StatisticName(),
-                Value(0),
-                Version(0)
+                Value(),
+                Version()
             {}
 
             StatisticValue(const StatisticValue& src) :
@@ -3409,20 +4824,28 @@ namespace PlayFab
                 Version(src.Version)
             {}
 
-            StatisticValue(const rapidjson::Value& obj) : StatisticValue()
+            ~StatisticValue() { }
+
+            void FromJson(web::json::value& input) override
             {
-                readFromValue(obj);
+                FromJsonUtilS(input[U("StatisticName")], StatisticName);
+                FromJsonUtilP(input[U("Value")], Value);
+                FromJsonUtilP(input[U("Version")], Version);
             }
 
-            ~StatisticValue();
-
-            void writeJSON(PFStringJsonWriter& writer) override;
-            bool readFromValue(const rapidjson::Value& obj) override;
+            web::json::value ToJson() const override
+            {
+                web::json::value output;
+                web::json::value each_StatisticName; ToJsonUtilS(StatisticName, each_StatisticName); output[U("StatisticName")] = each_StatisticName;
+                web::json::value each_Value; ToJsonUtilP(Value, each_Value); output[U("Value")] = each_Value;
+                web::json::value each_Version; ToJsonUtilP(Version, each_Version); output[U("Version")] = each_Version;
+                return output;
+            }
         };
 
         struct GetPlayerCombinedInfoResultPayload : public PlayFabBaseModel
         {
-            UserAccountInfo* AccountInfo;
+            Boxed<UserAccountInfo> AccountInfo;
             std::list<ItemInstance> UserInventory;
             std::map<std::string, Int32> UserVirtualCurrency;
             std::map<std::string, VirtualCurrencyRechargeTime> UserVirtualCurrencyRechargeTimes;
@@ -3437,14 +4860,14 @@ namespace PlayFab
 
             GetPlayerCombinedInfoResultPayload() :
                 PlayFabBaseModel(),
-                AccountInfo(nullptr),
+                AccountInfo(),
                 UserInventory(),
                 UserVirtualCurrency(),
                 UserVirtualCurrencyRechargeTimes(),
                 UserData(),
-                UserDataVersion(0),
+                UserDataVersion(),
                 UserReadOnlyData(),
-                UserReadOnlyDataVersion(0),
+                UserReadOnlyDataVersion(),
                 CharacterList(),
                 CharacterInventories(),
                 TitleData(),
@@ -3453,7 +4876,7 @@ namespace PlayFab
 
             GetPlayerCombinedInfoResultPayload(const GetPlayerCombinedInfoResultPayload& src) :
                 PlayFabBaseModel(),
-                AccountInfo(src.AccountInfo ? new UserAccountInfo(*src.AccountInfo) : nullptr),
+                AccountInfo(src.AccountInfo),
                 UserInventory(src.UserInventory),
                 UserVirtualCurrency(src.UserVirtualCurrency),
                 UserVirtualCurrencyRechargeTimes(src.UserVirtualCurrencyRechargeTimes),
@@ -3467,121 +4890,167 @@ namespace PlayFab
                 PlayerStatistics(src.PlayerStatistics)
             {}
 
-            GetPlayerCombinedInfoResultPayload(const rapidjson::Value& obj) : GetPlayerCombinedInfoResultPayload()
+            ~GetPlayerCombinedInfoResultPayload() { }
+
+            void FromJson(web::json::value& input) override
             {
-                readFromValue(obj);
+                FromJsonUtilO(input[U("AccountInfo")], AccountInfo);
+                FromJsonUtilO(input[U("UserInventory")], UserInventory);
+                FromJsonUtilP(input[U("UserVirtualCurrency")], UserVirtualCurrency);
+                FromJsonUtilO(input[U("UserVirtualCurrencyRechargeTimes")], UserVirtualCurrencyRechargeTimes);
+                FromJsonUtilO(input[U("UserData")], UserData);
+                FromJsonUtilP(input[U("UserDataVersion")], UserDataVersion);
+                FromJsonUtilO(input[U("UserReadOnlyData")], UserReadOnlyData);
+                FromJsonUtilP(input[U("UserReadOnlyDataVersion")], UserReadOnlyDataVersion);
+                FromJsonUtilO(input[U("CharacterList")], CharacterList);
+                FromJsonUtilO(input[U("CharacterInventories")], CharacterInventories);
+                FromJsonUtilS(input[U("TitleData")], TitleData);
+                FromJsonUtilO(input[U("PlayerStatistics")], PlayerStatistics);
             }
 
-            ~GetPlayerCombinedInfoResultPayload();
-
-            void writeJSON(PFStringJsonWriter& writer) override;
-            bool readFromValue(const rapidjson::Value& obj) override;
+            web::json::value ToJson() const override
+            {
+                web::json::value output;
+                web::json::value each_AccountInfo; ToJsonUtilO(AccountInfo, each_AccountInfo); output[U("AccountInfo")] = each_AccountInfo;
+                web::json::value each_UserInventory; ToJsonUtilO(UserInventory, each_UserInventory); output[U("UserInventory")] = each_UserInventory;
+                web::json::value each_UserVirtualCurrency; ToJsonUtilP(UserVirtualCurrency, each_UserVirtualCurrency); output[U("UserVirtualCurrency")] = each_UserVirtualCurrency;
+                web::json::value each_UserVirtualCurrencyRechargeTimes; ToJsonUtilO(UserVirtualCurrencyRechargeTimes, each_UserVirtualCurrencyRechargeTimes); output[U("UserVirtualCurrencyRechargeTimes")] = each_UserVirtualCurrencyRechargeTimes;
+                web::json::value each_UserData; ToJsonUtilO(UserData, each_UserData); output[U("UserData")] = each_UserData;
+                web::json::value each_UserDataVersion; ToJsonUtilP(UserDataVersion, each_UserDataVersion); output[U("UserDataVersion")] = each_UserDataVersion;
+                web::json::value each_UserReadOnlyData; ToJsonUtilO(UserReadOnlyData, each_UserReadOnlyData); output[U("UserReadOnlyData")] = each_UserReadOnlyData;
+                web::json::value each_UserReadOnlyDataVersion; ToJsonUtilP(UserReadOnlyDataVersion, each_UserReadOnlyDataVersion); output[U("UserReadOnlyDataVersion")] = each_UserReadOnlyDataVersion;
+                web::json::value each_CharacterList; ToJsonUtilO(CharacterList, each_CharacterList); output[U("CharacterList")] = each_CharacterList;
+                web::json::value each_CharacterInventories; ToJsonUtilO(CharacterInventories, each_CharacterInventories); output[U("CharacterInventories")] = each_CharacterInventories;
+                web::json::value each_TitleData; ToJsonUtilS(TitleData, each_TitleData); output[U("TitleData")] = each_TitleData;
+                web::json::value each_PlayerStatistics; ToJsonUtilO(PlayerStatistics, each_PlayerStatistics); output[U("PlayerStatistics")] = each_PlayerStatistics;
+                return output;
+            }
         };
 
-        struct GetPlayerCombinedInfoResult : public PlayFabBaseModel
+        struct GetPlayerCombinedInfoResult : public PlayFabRequestCommon
         {
             std::string PlayFabId;
-            GetPlayerCombinedInfoResultPayload* InfoResultPayload;
+            Boxed<GetPlayerCombinedInfoResultPayload> InfoResultPayload;
 
             GetPlayerCombinedInfoResult() :
-                PlayFabBaseModel(),
+                PlayFabRequestCommon(),
                 PlayFabId(),
-                InfoResultPayload(nullptr)
+                InfoResultPayload()
             {}
 
             GetPlayerCombinedInfoResult(const GetPlayerCombinedInfoResult& src) :
-                PlayFabBaseModel(),
+                PlayFabRequestCommon(),
                 PlayFabId(src.PlayFabId),
-                InfoResultPayload(src.InfoResultPayload ? new GetPlayerCombinedInfoResultPayload(*src.InfoResultPayload) : nullptr)
+                InfoResultPayload(src.InfoResultPayload)
             {}
 
-            GetPlayerCombinedInfoResult(const rapidjson::Value& obj) : GetPlayerCombinedInfoResult()
+            ~GetPlayerCombinedInfoResult() { }
+
+            void FromJson(web::json::value& input) override
             {
-                readFromValue(obj);
+                FromJsonUtilS(input[U("PlayFabId")], PlayFabId);
+                FromJsonUtilO(input[U("InfoResultPayload")], InfoResultPayload);
             }
 
-            ~GetPlayerCombinedInfoResult();
-
-            void writeJSON(PFStringJsonWriter& writer) override;
-            bool readFromValue(const rapidjson::Value& obj) override;
+            web::json::value ToJson() const override
+            {
+                web::json::value output;
+                web::json::value each_PlayFabId; ToJsonUtilS(PlayFabId, each_PlayFabId); output[U("PlayFabId")] = each_PlayFabId;
+                web::json::value each_InfoResultPayload; ToJsonUtilO(InfoResultPayload, each_InfoResultPayload); output[U("InfoResultPayload")] = each_InfoResultPayload;
+                return output;
+            }
         };
 
-        struct GetPlayerSegmentsRequest : public PlayFabBaseModel
+        struct GetPlayerSegmentsRequest : public PlayFabRequestCommon
         {
 
             GetPlayerSegmentsRequest() :
-                PlayFabBaseModel()
+                PlayFabRequestCommon()
             {}
 
             GetPlayerSegmentsRequest(const GetPlayerSegmentsRequest& src) :
-                PlayFabBaseModel()
+                PlayFabRequestCommon()
             {}
 
-            GetPlayerSegmentsRequest(const rapidjson::Value& obj) : GetPlayerSegmentsRequest()
+            ~GetPlayerSegmentsRequest() { }
+
+            void FromJson(web::json::value& input) override
             {
-                readFromValue(obj);
             }
 
-            ~GetPlayerSegmentsRequest();
-
-            void writeJSON(PFStringJsonWriter& writer) override;
-            bool readFromValue(const rapidjson::Value& obj) override;
+            web::json::value ToJson() const override
+            {
+                web::json::value output;
+                return output;
+            }
         };
 
-        struct GetSegmentResult : public PlayFabBaseModel
+        struct GetSegmentResult : public PlayFabRequestCommon
         {
             std::string Id;
             std::string Name;
             std::string ABTestParent;
 
             GetSegmentResult() :
-                PlayFabBaseModel(),
+                PlayFabRequestCommon(),
                 Id(),
                 Name(),
                 ABTestParent()
             {}
 
             GetSegmentResult(const GetSegmentResult& src) :
-                PlayFabBaseModel(),
+                PlayFabRequestCommon(),
                 Id(src.Id),
                 Name(src.Name),
                 ABTestParent(src.ABTestParent)
             {}
 
-            GetSegmentResult(const rapidjson::Value& obj) : GetSegmentResult()
+            ~GetSegmentResult() { }
+
+            void FromJson(web::json::value& input) override
             {
-                readFromValue(obj);
+                FromJsonUtilS(input[U("Id")], Id);
+                FromJsonUtilS(input[U("Name")], Name);
+                FromJsonUtilS(input[U("ABTestParent")], ABTestParent);
             }
 
-            ~GetSegmentResult();
-
-            void writeJSON(PFStringJsonWriter& writer) override;
-            bool readFromValue(const rapidjson::Value& obj) override;
+            web::json::value ToJson() const override
+            {
+                web::json::value output;
+                web::json::value each_Id; ToJsonUtilS(Id, each_Id); output[U("Id")] = each_Id;
+                web::json::value each_Name; ToJsonUtilS(Name, each_Name); output[U("Name")] = each_Name;
+                web::json::value each_ABTestParent; ToJsonUtilS(ABTestParent, each_ABTestParent); output[U("ABTestParent")] = each_ABTestParent;
+                return output;
+            }
         };
 
-        struct GetPlayerSegmentsResult : public PlayFabBaseModel
+        struct GetPlayerSegmentsResult : public PlayFabRequestCommon
         {
             std::list<GetSegmentResult> Segments;
 
             GetPlayerSegmentsResult() :
-                PlayFabBaseModel(),
+                PlayFabRequestCommon(),
                 Segments()
             {}
 
             GetPlayerSegmentsResult(const GetPlayerSegmentsResult& src) :
-                PlayFabBaseModel(),
+                PlayFabRequestCommon(),
                 Segments(src.Segments)
             {}
 
-            GetPlayerSegmentsResult(const rapidjson::Value& obj) : GetPlayerSegmentsResult()
+            ~GetPlayerSegmentsResult() { }
+
+            void FromJson(web::json::value& input) override
             {
-                readFromValue(obj);
+                FromJsonUtilO(input[U("Segments")], Segments);
             }
 
-            ~GetPlayerSegmentsResult();
-
-            void writeJSON(PFStringJsonWriter& writer) override;
-            bool readFromValue(const rapidjson::Value& obj) override;
+            web::json::value ToJson() const override
+            {
+                web::json::value output;
+                web::json::value each_Segments; ToJsonUtilO(Segments, each_Segments); output[U("Segments")] = each_Segments;
+                return output;
+            }
         };
 
         struct StatisticNameVersion : public PlayFabBaseModel
@@ -3592,7 +5061,7 @@ namespace PlayFab
             StatisticNameVersion() :
                 PlayFabBaseModel(),
                 StatisticName(),
-                Version(0)
+                Version()
             {}
 
             StatisticNameVersion(const StatisticNameVersion& src) :
@@ -3601,110 +5070,130 @@ namespace PlayFab
                 Version(src.Version)
             {}
 
-            StatisticNameVersion(const rapidjson::Value& obj) : StatisticNameVersion()
+            ~StatisticNameVersion() { }
+
+            void FromJson(web::json::value& input) override
             {
-                readFromValue(obj);
+                FromJsonUtilS(input[U("StatisticName")], StatisticName);
+                FromJsonUtilP(input[U("Version")], Version);
             }
 
-            ~StatisticNameVersion();
-
-            void writeJSON(PFStringJsonWriter& writer) override;
-            bool readFromValue(const rapidjson::Value& obj) override;
+            web::json::value ToJson() const override
+            {
+                web::json::value output;
+                web::json::value each_StatisticName; ToJsonUtilS(StatisticName, each_StatisticName); output[U("StatisticName")] = each_StatisticName;
+                web::json::value each_Version; ToJsonUtilP(Version, each_Version); output[U("Version")] = each_Version;
+                return output;
+            }
         };
 
-        struct GetPlayerStatisticsRequest : public PlayFabBaseModel
+        struct GetPlayerStatisticsRequest : public PlayFabRequestCommon
         {
             std::list<std::string> StatisticNames;
             std::list<StatisticNameVersion> StatisticNameVersions;
 
             GetPlayerStatisticsRequest() :
-                PlayFabBaseModel(),
+                PlayFabRequestCommon(),
                 StatisticNames(),
                 StatisticNameVersions()
             {}
 
             GetPlayerStatisticsRequest(const GetPlayerStatisticsRequest& src) :
-                PlayFabBaseModel(),
+                PlayFabRequestCommon(),
                 StatisticNames(src.StatisticNames),
                 StatisticNameVersions(src.StatisticNameVersions)
             {}
 
-            GetPlayerStatisticsRequest(const rapidjson::Value& obj) : GetPlayerStatisticsRequest()
+            ~GetPlayerStatisticsRequest() { }
+
+            void FromJson(web::json::value& input) override
             {
-                readFromValue(obj);
+                FromJsonUtilS(input[U("StatisticNames")], StatisticNames);
+                FromJsonUtilO(input[U("StatisticNameVersions")], StatisticNameVersions);
             }
 
-            ~GetPlayerStatisticsRequest();
-
-            void writeJSON(PFStringJsonWriter& writer) override;
-            bool readFromValue(const rapidjson::Value& obj) override;
+            web::json::value ToJson() const override
+            {
+                web::json::value output;
+                web::json::value each_StatisticNames; ToJsonUtilS(StatisticNames, each_StatisticNames); output[U("StatisticNames")] = each_StatisticNames;
+                web::json::value each_StatisticNameVersions; ToJsonUtilO(StatisticNameVersions, each_StatisticNameVersions); output[U("StatisticNameVersions")] = each_StatisticNameVersions;
+                return output;
+            }
         };
 
-        struct GetPlayerStatisticsResult : public PlayFabBaseModel
+        struct GetPlayerStatisticsResult : public PlayFabRequestCommon
         {
             std::list<StatisticValue> Statistics;
 
             GetPlayerStatisticsResult() :
-                PlayFabBaseModel(),
+                PlayFabRequestCommon(),
                 Statistics()
             {}
 
             GetPlayerStatisticsResult(const GetPlayerStatisticsResult& src) :
-                PlayFabBaseModel(),
+                PlayFabRequestCommon(),
                 Statistics(src.Statistics)
             {}
 
-            GetPlayerStatisticsResult(const rapidjson::Value& obj) : GetPlayerStatisticsResult()
+            ~GetPlayerStatisticsResult() { }
+
+            void FromJson(web::json::value& input) override
             {
-                readFromValue(obj);
+                FromJsonUtilO(input[U("Statistics")], Statistics);
             }
 
-            ~GetPlayerStatisticsResult();
-
-            void writeJSON(PFStringJsonWriter& writer) override;
-            bool readFromValue(const rapidjson::Value& obj) override;
+            web::json::value ToJson() const override
+            {
+                web::json::value output;
+                web::json::value each_Statistics; ToJsonUtilO(Statistics, each_Statistics); output[U("Statistics")] = each_Statistics;
+                return output;
+            }
         };
 
-        struct GetPlayerStatisticVersionsRequest : public PlayFabBaseModel
+        struct GetPlayerStatisticVersionsRequest : public PlayFabRequestCommon
         {
             std::string StatisticName;
 
             GetPlayerStatisticVersionsRequest() :
-                PlayFabBaseModel(),
+                PlayFabRequestCommon(),
                 StatisticName()
             {}
 
             GetPlayerStatisticVersionsRequest(const GetPlayerStatisticVersionsRequest& src) :
-                PlayFabBaseModel(),
+                PlayFabRequestCommon(),
                 StatisticName(src.StatisticName)
             {}
 
-            GetPlayerStatisticVersionsRequest(const rapidjson::Value& obj) : GetPlayerStatisticVersionsRequest()
+            ~GetPlayerStatisticVersionsRequest() { }
+
+            void FromJson(web::json::value& input) override
             {
-                readFromValue(obj);
+                FromJsonUtilS(input[U("StatisticName")], StatisticName);
             }
 
-            ~GetPlayerStatisticVersionsRequest();
-
-            void writeJSON(PFStringJsonWriter& writer) override;
-            bool readFromValue(const rapidjson::Value& obj) override;
+            web::json::value ToJson() const override
+            {
+                web::json::value output;
+                web::json::value each_StatisticName; ToJsonUtilS(StatisticName, each_StatisticName); output[U("StatisticName")] = each_StatisticName;
+                return output;
+            }
         };
 
         struct PlayerStatisticVersion : public PlayFabBaseModel
         {
             std::string StatisticName;
             Uint32 Version;
-            OptionalTime ScheduledActivationTime;
+            Boxed<time_t> ScheduledActivationTime;
             time_t ActivationTime;
-            OptionalTime ScheduledDeactivationTime;
-            OptionalTime DeactivationTime;
+            Boxed<time_t> ScheduledDeactivationTime;
+            Boxed<time_t> DeactivationTime;
 
             PlayerStatisticVersion() :
                 PlayFabBaseModel(),
                 StatisticName(),
-                Version(0),
+                Version(),
                 ScheduledActivationTime(),
-                ActivationTime(0),
+                ActivationTime(),
                 ScheduledDeactivationTime(),
                 DeactivationTime()
             {}
@@ -3719,324 +5208,392 @@ namespace PlayFab
                 DeactivationTime(src.DeactivationTime)
             {}
 
-            PlayerStatisticVersion(const rapidjson::Value& obj) : PlayerStatisticVersion()
+            ~PlayerStatisticVersion() { }
+
+            void FromJson(web::json::value& input) override
             {
-                readFromValue(obj);
+                FromJsonUtilS(input[U("StatisticName")], StatisticName);
+                FromJsonUtilP(input[U("Version")], Version);
+                FromJsonUtilT(input[U("ScheduledActivationTime")], ScheduledActivationTime);
+                FromJsonUtilT(input[U("ActivationTime")], ActivationTime);
+                FromJsonUtilT(input[U("ScheduledDeactivationTime")], ScheduledDeactivationTime);
+                FromJsonUtilT(input[U("DeactivationTime")], DeactivationTime);
             }
 
-            ~PlayerStatisticVersion();
-
-            void writeJSON(PFStringJsonWriter& writer) override;
-            bool readFromValue(const rapidjson::Value& obj) override;
+            web::json::value ToJson() const override
+            {
+                web::json::value output;
+                web::json::value each_StatisticName; ToJsonUtilS(StatisticName, each_StatisticName); output[U("StatisticName")] = each_StatisticName;
+                web::json::value each_Version; ToJsonUtilP(Version, each_Version); output[U("Version")] = each_Version;
+                web::json::value each_ScheduledActivationTime; ToJsonUtilT(ScheduledActivationTime, each_ScheduledActivationTime); output[U("ScheduledActivationTime")] = each_ScheduledActivationTime;
+                web::json::value each_ActivationTime; ToJsonUtilT(ActivationTime, each_ActivationTime); output[U("ActivationTime")] = each_ActivationTime;
+                web::json::value each_ScheduledDeactivationTime; ToJsonUtilT(ScheduledDeactivationTime, each_ScheduledDeactivationTime); output[U("ScheduledDeactivationTime")] = each_ScheduledDeactivationTime;
+                web::json::value each_DeactivationTime; ToJsonUtilT(DeactivationTime, each_DeactivationTime); output[U("DeactivationTime")] = each_DeactivationTime;
+                return output;
+            }
         };
 
-        struct GetPlayerStatisticVersionsResult : public PlayFabBaseModel
+        struct GetPlayerStatisticVersionsResult : public PlayFabRequestCommon
         {
             std::list<PlayerStatisticVersion> StatisticVersions;
 
             GetPlayerStatisticVersionsResult() :
-                PlayFabBaseModel(),
+                PlayFabRequestCommon(),
                 StatisticVersions()
             {}
 
             GetPlayerStatisticVersionsResult(const GetPlayerStatisticVersionsResult& src) :
-                PlayFabBaseModel(),
+                PlayFabRequestCommon(),
                 StatisticVersions(src.StatisticVersions)
             {}
 
-            GetPlayerStatisticVersionsResult(const rapidjson::Value& obj) : GetPlayerStatisticVersionsResult()
+            ~GetPlayerStatisticVersionsResult() { }
+
+            void FromJson(web::json::value& input) override
             {
-                readFromValue(obj);
+                FromJsonUtilO(input[U("StatisticVersions")], StatisticVersions);
             }
 
-            ~GetPlayerStatisticVersionsResult();
-
-            void writeJSON(PFStringJsonWriter& writer) override;
-            bool readFromValue(const rapidjson::Value& obj) override;
+            web::json::value ToJson() const override
+            {
+                web::json::value output;
+                web::json::value each_StatisticVersions; ToJsonUtilO(StatisticVersions, each_StatisticVersions); output[U("StatisticVersions")] = each_StatisticVersions;
+                return output;
+            }
         };
 
-        struct GetPlayerTagsRequest : public PlayFabBaseModel
+        struct GetPlayerTagsRequest : public PlayFabRequestCommon
         {
             std::string PlayFabId;
             std::string Namespace;
 
             GetPlayerTagsRequest() :
-                PlayFabBaseModel(),
+                PlayFabRequestCommon(),
                 PlayFabId(),
                 Namespace()
             {}
 
             GetPlayerTagsRequest(const GetPlayerTagsRequest& src) :
-                PlayFabBaseModel(),
+                PlayFabRequestCommon(),
                 PlayFabId(src.PlayFabId),
                 Namespace(src.Namespace)
             {}
 
-            GetPlayerTagsRequest(const rapidjson::Value& obj) : GetPlayerTagsRequest()
+            ~GetPlayerTagsRequest() { }
+
+            void FromJson(web::json::value& input) override
             {
-                readFromValue(obj);
+                FromJsonUtilS(input[U("PlayFabId")], PlayFabId);
+                FromJsonUtilS(input[U("Namespace")], Namespace);
             }
 
-            ~GetPlayerTagsRequest();
-
-            void writeJSON(PFStringJsonWriter& writer) override;
-            bool readFromValue(const rapidjson::Value& obj) override;
+            web::json::value ToJson() const override
+            {
+                web::json::value output;
+                web::json::value each_PlayFabId; ToJsonUtilS(PlayFabId, each_PlayFabId); output[U("PlayFabId")] = each_PlayFabId;
+                web::json::value each_Namespace; ToJsonUtilS(Namespace, each_Namespace); output[U("Namespace")] = each_Namespace;
+                return output;
+            }
         };
 
-        struct GetPlayerTagsResult : public PlayFabBaseModel
+        struct GetPlayerTagsResult : public PlayFabRequestCommon
         {
             std::string PlayFabId;
             std::list<std::string> Tags;
 
             GetPlayerTagsResult() :
-                PlayFabBaseModel(),
+                PlayFabRequestCommon(),
                 PlayFabId(),
                 Tags()
             {}
 
             GetPlayerTagsResult(const GetPlayerTagsResult& src) :
-                PlayFabBaseModel(),
+                PlayFabRequestCommon(),
                 PlayFabId(src.PlayFabId),
                 Tags(src.Tags)
             {}
 
-            GetPlayerTagsResult(const rapidjson::Value& obj) : GetPlayerTagsResult()
+            ~GetPlayerTagsResult() { }
+
+            void FromJson(web::json::value& input) override
             {
-                readFromValue(obj);
+                FromJsonUtilS(input[U("PlayFabId")], PlayFabId);
+                FromJsonUtilS(input[U("Tags")], Tags);
             }
 
-            ~GetPlayerTagsResult();
-
-            void writeJSON(PFStringJsonWriter& writer) override;
-            bool readFromValue(const rapidjson::Value& obj) override;
+            web::json::value ToJson() const override
+            {
+                web::json::value output;
+                web::json::value each_PlayFabId; ToJsonUtilS(PlayFabId, each_PlayFabId); output[U("PlayFabId")] = each_PlayFabId;
+                web::json::value each_Tags; ToJsonUtilS(Tags, each_Tags); output[U("Tags")] = each_Tags;
+                return output;
+            }
         };
 
-        struct GetPlayerTradesRequest : public PlayFabBaseModel
+        struct GetPlayerTradesRequest : public PlayFabRequestCommon
         {
             Boxed<TradeStatus> StatusFilter;
 
             GetPlayerTradesRequest() :
-                PlayFabBaseModel(),
+                PlayFabRequestCommon(),
                 StatusFilter()
             {}
 
             GetPlayerTradesRequest(const GetPlayerTradesRequest& src) :
-                PlayFabBaseModel(),
+                PlayFabRequestCommon(),
                 StatusFilter(src.StatusFilter)
             {}
 
-            GetPlayerTradesRequest(const rapidjson::Value& obj) : GetPlayerTradesRequest()
+            ~GetPlayerTradesRequest() { }
+
+            void FromJson(web::json::value& input) override
             {
-                readFromValue(obj);
+                FromJsonUtilE(input[U("StatusFilter")], StatusFilter);
             }
 
-            ~GetPlayerTradesRequest();
-
-            void writeJSON(PFStringJsonWriter& writer) override;
-            bool readFromValue(const rapidjson::Value& obj) override;
+            web::json::value ToJson() const override
+            {
+                web::json::value output;
+                web::json::value each_StatusFilter; ToJsonUtilE(StatusFilter, each_StatusFilter); output[U("StatusFilter")] = each_StatusFilter;
+                return output;
+            }
         };
 
-        struct GetPlayerTradesResponse : public PlayFabBaseModel
+        struct GetPlayerTradesResponse : public PlayFabRequestCommon
         {
             std::list<TradeInfo> OpenedTrades;
             std::list<TradeInfo> AcceptedTrades;
 
             GetPlayerTradesResponse() :
-                PlayFabBaseModel(),
+                PlayFabRequestCommon(),
                 OpenedTrades(),
                 AcceptedTrades()
             {}
 
             GetPlayerTradesResponse(const GetPlayerTradesResponse& src) :
-                PlayFabBaseModel(),
+                PlayFabRequestCommon(),
                 OpenedTrades(src.OpenedTrades),
                 AcceptedTrades(src.AcceptedTrades)
             {}
 
-            GetPlayerTradesResponse(const rapidjson::Value& obj) : GetPlayerTradesResponse()
+            ~GetPlayerTradesResponse() { }
+
+            void FromJson(web::json::value& input) override
             {
-                readFromValue(obj);
+                FromJsonUtilO(input[U("OpenedTrades")], OpenedTrades);
+                FromJsonUtilO(input[U("AcceptedTrades")], AcceptedTrades);
             }
 
-            ~GetPlayerTradesResponse();
-
-            void writeJSON(PFStringJsonWriter& writer) override;
-            bool readFromValue(const rapidjson::Value& obj) override;
+            web::json::value ToJson() const override
+            {
+                web::json::value output;
+                web::json::value each_OpenedTrades; ToJsonUtilO(OpenedTrades, each_OpenedTrades); output[U("OpenedTrades")] = each_OpenedTrades;
+                web::json::value each_AcceptedTrades; ToJsonUtilO(AcceptedTrades, each_AcceptedTrades); output[U("AcceptedTrades")] = each_AcceptedTrades;
+                return output;
+            }
         };
 
-        struct GetPlayFabIDsFromFacebookIDsRequest : public PlayFabBaseModel
+        struct GetPlayFabIDsFromFacebookIDsRequest : public PlayFabRequestCommon
         {
             std::list<std::string> FacebookIDs;
 
             GetPlayFabIDsFromFacebookIDsRequest() :
-                PlayFabBaseModel(),
+                PlayFabRequestCommon(),
                 FacebookIDs()
             {}
 
             GetPlayFabIDsFromFacebookIDsRequest(const GetPlayFabIDsFromFacebookIDsRequest& src) :
-                PlayFabBaseModel(),
+                PlayFabRequestCommon(),
                 FacebookIDs(src.FacebookIDs)
             {}
 
-            GetPlayFabIDsFromFacebookIDsRequest(const rapidjson::Value& obj) : GetPlayFabIDsFromFacebookIDsRequest()
+            ~GetPlayFabIDsFromFacebookIDsRequest() { }
+
+            void FromJson(web::json::value& input) override
             {
-                readFromValue(obj);
+                FromJsonUtilS(input[U("FacebookIDs")], FacebookIDs);
             }
 
-            ~GetPlayFabIDsFromFacebookIDsRequest();
-
-            void writeJSON(PFStringJsonWriter& writer) override;
-            bool readFromValue(const rapidjson::Value& obj) override;
+            web::json::value ToJson() const override
+            {
+                web::json::value output;
+                web::json::value each_FacebookIDs; ToJsonUtilS(FacebookIDs, each_FacebookIDs); output[U("FacebookIDs")] = each_FacebookIDs;
+                return output;
+            }
         };
 
-        struct GetPlayFabIDsFromFacebookIDsResult : public PlayFabBaseModel
+        struct GetPlayFabIDsFromFacebookIDsResult : public PlayFabRequestCommon
         {
             std::list<FacebookPlayFabIdPair> Data;
 
             GetPlayFabIDsFromFacebookIDsResult() :
-                PlayFabBaseModel(),
+                PlayFabRequestCommon(),
                 Data()
             {}
 
             GetPlayFabIDsFromFacebookIDsResult(const GetPlayFabIDsFromFacebookIDsResult& src) :
-                PlayFabBaseModel(),
+                PlayFabRequestCommon(),
                 Data(src.Data)
             {}
 
-            GetPlayFabIDsFromFacebookIDsResult(const rapidjson::Value& obj) : GetPlayFabIDsFromFacebookIDsResult()
+            ~GetPlayFabIDsFromFacebookIDsResult() { }
+
+            void FromJson(web::json::value& input) override
             {
-                readFromValue(obj);
+                FromJsonUtilO(input[U("Data")], Data);
             }
 
-            ~GetPlayFabIDsFromFacebookIDsResult();
-
-            void writeJSON(PFStringJsonWriter& writer) override;
-            bool readFromValue(const rapidjson::Value& obj) override;
+            web::json::value ToJson() const override
+            {
+                web::json::value output;
+                web::json::value each_Data; ToJsonUtilO(Data, each_Data); output[U("Data")] = each_Data;
+                return output;
+            }
         };
 
-        struct GetPlayFabIDsFromGameCenterIDsRequest : public PlayFabBaseModel
+        struct GetPlayFabIDsFromGameCenterIDsRequest : public PlayFabRequestCommon
         {
             std::list<std::string> GameCenterIDs;
 
             GetPlayFabIDsFromGameCenterIDsRequest() :
-                PlayFabBaseModel(),
+                PlayFabRequestCommon(),
                 GameCenterIDs()
             {}
 
             GetPlayFabIDsFromGameCenterIDsRequest(const GetPlayFabIDsFromGameCenterIDsRequest& src) :
-                PlayFabBaseModel(),
+                PlayFabRequestCommon(),
                 GameCenterIDs(src.GameCenterIDs)
             {}
 
-            GetPlayFabIDsFromGameCenterIDsRequest(const rapidjson::Value& obj) : GetPlayFabIDsFromGameCenterIDsRequest()
+            ~GetPlayFabIDsFromGameCenterIDsRequest() { }
+
+            void FromJson(web::json::value& input) override
             {
-                readFromValue(obj);
+                FromJsonUtilS(input[U("GameCenterIDs")], GameCenterIDs);
             }
 
-            ~GetPlayFabIDsFromGameCenterIDsRequest();
-
-            void writeJSON(PFStringJsonWriter& writer) override;
-            bool readFromValue(const rapidjson::Value& obj) override;
+            web::json::value ToJson() const override
+            {
+                web::json::value output;
+                web::json::value each_GameCenterIDs; ToJsonUtilS(GameCenterIDs, each_GameCenterIDs); output[U("GameCenterIDs")] = each_GameCenterIDs;
+                return output;
+            }
         };
 
-        struct GetPlayFabIDsFromGameCenterIDsResult : public PlayFabBaseModel
+        struct GetPlayFabIDsFromGameCenterIDsResult : public PlayFabRequestCommon
         {
             std::list<GameCenterPlayFabIdPair> Data;
 
             GetPlayFabIDsFromGameCenterIDsResult() :
-                PlayFabBaseModel(),
+                PlayFabRequestCommon(),
                 Data()
             {}
 
             GetPlayFabIDsFromGameCenterIDsResult(const GetPlayFabIDsFromGameCenterIDsResult& src) :
-                PlayFabBaseModel(),
+                PlayFabRequestCommon(),
                 Data(src.Data)
             {}
 
-            GetPlayFabIDsFromGameCenterIDsResult(const rapidjson::Value& obj) : GetPlayFabIDsFromGameCenterIDsResult()
+            ~GetPlayFabIDsFromGameCenterIDsResult() { }
+
+            void FromJson(web::json::value& input) override
             {
-                readFromValue(obj);
+                FromJsonUtilO(input[U("Data")], Data);
             }
 
-            ~GetPlayFabIDsFromGameCenterIDsResult();
-
-            void writeJSON(PFStringJsonWriter& writer) override;
-            bool readFromValue(const rapidjson::Value& obj) override;
+            web::json::value ToJson() const override
+            {
+                web::json::value output;
+                web::json::value each_Data; ToJsonUtilO(Data, each_Data); output[U("Data")] = each_Data;
+                return output;
+            }
         };
 
-        struct GetPlayFabIDsFromGenericIDsRequest : public PlayFabBaseModel
+        struct GetPlayFabIDsFromGenericIDsRequest : public PlayFabRequestCommon
         {
             std::list<GenericServiceId> GenericIDs;
 
             GetPlayFabIDsFromGenericIDsRequest() :
-                PlayFabBaseModel(),
+                PlayFabRequestCommon(),
                 GenericIDs()
             {}
 
             GetPlayFabIDsFromGenericIDsRequest(const GetPlayFabIDsFromGenericIDsRequest& src) :
-                PlayFabBaseModel(),
+                PlayFabRequestCommon(),
                 GenericIDs(src.GenericIDs)
             {}
 
-            GetPlayFabIDsFromGenericIDsRequest(const rapidjson::Value& obj) : GetPlayFabIDsFromGenericIDsRequest()
+            ~GetPlayFabIDsFromGenericIDsRequest() { }
+
+            void FromJson(web::json::value& input) override
             {
-                readFromValue(obj);
+                FromJsonUtilO(input[U("GenericIDs")], GenericIDs);
             }
 
-            ~GetPlayFabIDsFromGenericIDsRequest();
-
-            void writeJSON(PFStringJsonWriter& writer) override;
-            bool readFromValue(const rapidjson::Value& obj) override;
+            web::json::value ToJson() const override
+            {
+                web::json::value output;
+                web::json::value each_GenericIDs; ToJsonUtilO(GenericIDs, each_GenericIDs); output[U("GenericIDs")] = each_GenericIDs;
+                return output;
+            }
         };
 
-        struct GetPlayFabIDsFromGenericIDsResult : public PlayFabBaseModel
+        struct GetPlayFabIDsFromGenericIDsResult : public PlayFabRequestCommon
         {
             std::list<GenericPlayFabIdPair> Data;
 
             GetPlayFabIDsFromGenericIDsResult() :
-                PlayFabBaseModel(),
+                PlayFabRequestCommon(),
                 Data()
             {}
 
             GetPlayFabIDsFromGenericIDsResult(const GetPlayFabIDsFromGenericIDsResult& src) :
-                PlayFabBaseModel(),
+                PlayFabRequestCommon(),
                 Data(src.Data)
             {}
 
-            GetPlayFabIDsFromGenericIDsResult(const rapidjson::Value& obj) : GetPlayFabIDsFromGenericIDsResult()
+            ~GetPlayFabIDsFromGenericIDsResult() { }
+
+            void FromJson(web::json::value& input) override
             {
-                readFromValue(obj);
+                FromJsonUtilO(input[U("Data")], Data);
             }
 
-            ~GetPlayFabIDsFromGenericIDsResult();
-
-            void writeJSON(PFStringJsonWriter& writer) override;
-            bool readFromValue(const rapidjson::Value& obj) override;
+            web::json::value ToJson() const override
+            {
+                web::json::value output;
+                web::json::value each_Data; ToJsonUtilO(Data, each_Data); output[U("Data")] = each_Data;
+                return output;
+            }
         };
 
-        struct GetPlayFabIDsFromGoogleIDsRequest : public PlayFabBaseModel
+        struct GetPlayFabIDsFromGoogleIDsRequest : public PlayFabRequestCommon
         {
             std::list<std::string> GoogleIDs;
 
             GetPlayFabIDsFromGoogleIDsRequest() :
-                PlayFabBaseModel(),
+                PlayFabRequestCommon(),
                 GoogleIDs()
             {}
 
             GetPlayFabIDsFromGoogleIDsRequest(const GetPlayFabIDsFromGoogleIDsRequest& src) :
-                PlayFabBaseModel(),
+                PlayFabRequestCommon(),
                 GoogleIDs(src.GoogleIDs)
             {}
 
-            GetPlayFabIDsFromGoogleIDsRequest(const rapidjson::Value& obj) : GetPlayFabIDsFromGoogleIDsRequest()
+            ~GetPlayFabIDsFromGoogleIDsRequest() { }
+
+            void FromJson(web::json::value& input) override
             {
-                readFromValue(obj);
+                FromJsonUtilS(input[U("GoogleIDs")], GoogleIDs);
             }
 
-            ~GetPlayFabIDsFromGoogleIDsRequest();
-
-            void writeJSON(PFStringJsonWriter& writer) override;
-            bool readFromValue(const rapidjson::Value& obj) override;
+            web::json::value ToJson() const override
+            {
+                web::json::value output;
+                web::json::value each_GoogleIDs; ToJsonUtilS(GoogleIDs, each_GoogleIDs); output[U("GoogleIDs")] = each_GoogleIDs;
+                return output;
+            }
         };
 
         struct GooglePlayFabIdPair : public PlayFabBaseModel
@@ -4056,65 +5613,79 @@ namespace PlayFab
                 PlayFabId(src.PlayFabId)
             {}
 
-            GooglePlayFabIdPair(const rapidjson::Value& obj) : GooglePlayFabIdPair()
+            ~GooglePlayFabIdPair() { }
+
+            void FromJson(web::json::value& input) override
             {
-                readFromValue(obj);
+                FromJsonUtilS(input[U("GoogleId")], GoogleId);
+                FromJsonUtilS(input[U("PlayFabId")], PlayFabId);
             }
 
-            ~GooglePlayFabIdPair();
-
-            void writeJSON(PFStringJsonWriter& writer) override;
-            bool readFromValue(const rapidjson::Value& obj) override;
+            web::json::value ToJson() const override
+            {
+                web::json::value output;
+                web::json::value each_GoogleId; ToJsonUtilS(GoogleId, each_GoogleId); output[U("GoogleId")] = each_GoogleId;
+                web::json::value each_PlayFabId; ToJsonUtilS(PlayFabId, each_PlayFabId); output[U("PlayFabId")] = each_PlayFabId;
+                return output;
+            }
         };
 
-        struct GetPlayFabIDsFromGoogleIDsResult : public PlayFabBaseModel
+        struct GetPlayFabIDsFromGoogleIDsResult : public PlayFabRequestCommon
         {
             std::list<GooglePlayFabIdPair> Data;
 
             GetPlayFabIDsFromGoogleIDsResult() :
-                PlayFabBaseModel(),
+                PlayFabRequestCommon(),
                 Data()
             {}
 
             GetPlayFabIDsFromGoogleIDsResult(const GetPlayFabIDsFromGoogleIDsResult& src) :
-                PlayFabBaseModel(),
+                PlayFabRequestCommon(),
                 Data(src.Data)
             {}
 
-            GetPlayFabIDsFromGoogleIDsResult(const rapidjson::Value& obj) : GetPlayFabIDsFromGoogleIDsResult()
+            ~GetPlayFabIDsFromGoogleIDsResult() { }
+
+            void FromJson(web::json::value& input) override
             {
-                readFromValue(obj);
+                FromJsonUtilO(input[U("Data")], Data);
             }
 
-            ~GetPlayFabIDsFromGoogleIDsResult();
-
-            void writeJSON(PFStringJsonWriter& writer) override;
-            bool readFromValue(const rapidjson::Value& obj) override;
+            web::json::value ToJson() const override
+            {
+                web::json::value output;
+                web::json::value each_Data; ToJsonUtilO(Data, each_Data); output[U("Data")] = each_Data;
+                return output;
+            }
         };
 
-        struct GetPlayFabIDsFromKongregateIDsRequest : public PlayFabBaseModel
+        struct GetPlayFabIDsFromKongregateIDsRequest : public PlayFabRequestCommon
         {
             std::list<std::string> KongregateIDs;
 
             GetPlayFabIDsFromKongregateIDsRequest() :
-                PlayFabBaseModel(),
+                PlayFabRequestCommon(),
                 KongregateIDs()
             {}
 
             GetPlayFabIDsFromKongregateIDsRequest(const GetPlayFabIDsFromKongregateIDsRequest& src) :
-                PlayFabBaseModel(),
+                PlayFabRequestCommon(),
                 KongregateIDs(src.KongregateIDs)
             {}
 
-            GetPlayFabIDsFromKongregateIDsRequest(const rapidjson::Value& obj) : GetPlayFabIDsFromKongregateIDsRequest()
+            ~GetPlayFabIDsFromKongregateIDsRequest() { }
+
+            void FromJson(web::json::value& input) override
             {
-                readFromValue(obj);
+                FromJsonUtilS(input[U("KongregateIDs")], KongregateIDs);
             }
 
-            ~GetPlayFabIDsFromKongregateIDsRequest();
-
-            void writeJSON(PFStringJsonWriter& writer) override;
-            bool readFromValue(const rapidjson::Value& obj) override;
+            web::json::value ToJson() const override
+            {
+                web::json::value output;
+                web::json::value each_KongregateIDs; ToJsonUtilS(KongregateIDs, each_KongregateIDs); output[U("KongregateIDs")] = each_KongregateIDs;
+                return output;
+            }
         };
 
         struct KongregatePlayFabIdPair : public PlayFabBaseModel
@@ -4134,65 +5705,79 @@ namespace PlayFab
                 PlayFabId(src.PlayFabId)
             {}
 
-            KongregatePlayFabIdPair(const rapidjson::Value& obj) : KongregatePlayFabIdPair()
+            ~KongregatePlayFabIdPair() { }
+
+            void FromJson(web::json::value& input) override
             {
-                readFromValue(obj);
+                FromJsonUtilS(input[U("KongregateId")], KongregateId);
+                FromJsonUtilS(input[U("PlayFabId")], PlayFabId);
             }
 
-            ~KongregatePlayFabIdPair();
-
-            void writeJSON(PFStringJsonWriter& writer) override;
-            bool readFromValue(const rapidjson::Value& obj) override;
+            web::json::value ToJson() const override
+            {
+                web::json::value output;
+                web::json::value each_KongregateId; ToJsonUtilS(KongregateId, each_KongregateId); output[U("KongregateId")] = each_KongregateId;
+                web::json::value each_PlayFabId; ToJsonUtilS(PlayFabId, each_PlayFabId); output[U("PlayFabId")] = each_PlayFabId;
+                return output;
+            }
         };
 
-        struct GetPlayFabIDsFromKongregateIDsResult : public PlayFabBaseModel
+        struct GetPlayFabIDsFromKongregateIDsResult : public PlayFabRequestCommon
         {
             std::list<KongregatePlayFabIdPair> Data;
 
             GetPlayFabIDsFromKongregateIDsResult() :
-                PlayFabBaseModel(),
+                PlayFabRequestCommon(),
                 Data()
             {}
 
             GetPlayFabIDsFromKongregateIDsResult(const GetPlayFabIDsFromKongregateIDsResult& src) :
-                PlayFabBaseModel(),
+                PlayFabRequestCommon(),
                 Data(src.Data)
             {}
 
-            GetPlayFabIDsFromKongregateIDsResult(const rapidjson::Value& obj) : GetPlayFabIDsFromKongregateIDsResult()
+            ~GetPlayFabIDsFromKongregateIDsResult() { }
+
+            void FromJson(web::json::value& input) override
             {
-                readFromValue(obj);
+                FromJsonUtilO(input[U("Data")], Data);
             }
 
-            ~GetPlayFabIDsFromKongregateIDsResult();
-
-            void writeJSON(PFStringJsonWriter& writer) override;
-            bool readFromValue(const rapidjson::Value& obj) override;
+            web::json::value ToJson() const override
+            {
+                web::json::value output;
+                web::json::value each_Data; ToJsonUtilO(Data, each_Data); output[U("Data")] = each_Data;
+                return output;
+            }
         };
 
-        struct GetPlayFabIDsFromSteamIDsRequest : public PlayFabBaseModel
+        struct GetPlayFabIDsFromSteamIDsRequest : public PlayFabRequestCommon
         {
             std::list<std::string> SteamStringIDs;
 
             GetPlayFabIDsFromSteamIDsRequest() :
-                PlayFabBaseModel(),
+                PlayFabRequestCommon(),
                 SteamStringIDs()
             {}
 
             GetPlayFabIDsFromSteamIDsRequest(const GetPlayFabIDsFromSteamIDsRequest& src) :
-                PlayFabBaseModel(),
+                PlayFabRequestCommon(),
                 SteamStringIDs(src.SteamStringIDs)
             {}
 
-            GetPlayFabIDsFromSteamIDsRequest(const rapidjson::Value& obj) : GetPlayFabIDsFromSteamIDsRequest()
+            ~GetPlayFabIDsFromSteamIDsRequest() { }
+
+            void FromJson(web::json::value& input) override
             {
-                readFromValue(obj);
+                FromJsonUtilS(input[U("SteamStringIDs")], SteamStringIDs);
             }
 
-            ~GetPlayFabIDsFromSteamIDsRequest();
-
-            void writeJSON(PFStringJsonWriter& writer) override;
-            bool readFromValue(const rapidjson::Value& obj) override;
+            web::json::value ToJson() const override
+            {
+                web::json::value output;
+                web::json::value each_SteamStringIDs; ToJsonUtilS(SteamStringIDs, each_SteamStringIDs); output[U("SteamStringIDs")] = each_SteamStringIDs;
+                return output;
+            }
         };
 
         struct SteamPlayFabIdPair : public PlayFabBaseModel
@@ -4212,65 +5797,79 @@ namespace PlayFab
                 PlayFabId(src.PlayFabId)
             {}
 
-            SteamPlayFabIdPair(const rapidjson::Value& obj) : SteamPlayFabIdPair()
+            ~SteamPlayFabIdPair() { }
+
+            void FromJson(web::json::value& input) override
             {
-                readFromValue(obj);
+                FromJsonUtilS(input[U("SteamStringId")], SteamStringId);
+                FromJsonUtilS(input[U("PlayFabId")], PlayFabId);
             }
 
-            ~SteamPlayFabIdPair();
-
-            void writeJSON(PFStringJsonWriter& writer) override;
-            bool readFromValue(const rapidjson::Value& obj) override;
+            web::json::value ToJson() const override
+            {
+                web::json::value output;
+                web::json::value each_SteamStringId; ToJsonUtilS(SteamStringId, each_SteamStringId); output[U("SteamStringId")] = each_SteamStringId;
+                web::json::value each_PlayFabId; ToJsonUtilS(PlayFabId, each_PlayFabId); output[U("PlayFabId")] = each_PlayFabId;
+                return output;
+            }
         };
 
-        struct GetPlayFabIDsFromSteamIDsResult : public PlayFabBaseModel
+        struct GetPlayFabIDsFromSteamIDsResult : public PlayFabRequestCommon
         {
             std::list<SteamPlayFabIdPair> Data;
 
             GetPlayFabIDsFromSteamIDsResult() :
-                PlayFabBaseModel(),
+                PlayFabRequestCommon(),
                 Data()
             {}
 
             GetPlayFabIDsFromSteamIDsResult(const GetPlayFabIDsFromSteamIDsResult& src) :
-                PlayFabBaseModel(),
+                PlayFabRequestCommon(),
                 Data(src.Data)
             {}
 
-            GetPlayFabIDsFromSteamIDsResult(const rapidjson::Value& obj) : GetPlayFabIDsFromSteamIDsResult()
+            ~GetPlayFabIDsFromSteamIDsResult() { }
+
+            void FromJson(web::json::value& input) override
             {
-                readFromValue(obj);
+                FromJsonUtilO(input[U("Data")], Data);
             }
 
-            ~GetPlayFabIDsFromSteamIDsResult();
-
-            void writeJSON(PFStringJsonWriter& writer) override;
-            bool readFromValue(const rapidjson::Value& obj) override;
+            web::json::value ToJson() const override
+            {
+                web::json::value output;
+                web::json::value each_Data; ToJsonUtilO(Data, each_Data); output[U("Data")] = each_Data;
+                return output;
+            }
         };
 
-        struct GetPlayFabIDsFromTwitchIDsRequest : public PlayFabBaseModel
+        struct GetPlayFabIDsFromTwitchIDsRequest : public PlayFabRequestCommon
         {
             std::list<std::string> TwitchIds;
 
             GetPlayFabIDsFromTwitchIDsRequest() :
-                PlayFabBaseModel(),
+                PlayFabRequestCommon(),
                 TwitchIds()
             {}
 
             GetPlayFabIDsFromTwitchIDsRequest(const GetPlayFabIDsFromTwitchIDsRequest& src) :
-                PlayFabBaseModel(),
+                PlayFabRequestCommon(),
                 TwitchIds(src.TwitchIds)
             {}
 
-            GetPlayFabIDsFromTwitchIDsRequest(const rapidjson::Value& obj) : GetPlayFabIDsFromTwitchIDsRequest()
+            ~GetPlayFabIDsFromTwitchIDsRequest() { }
+
+            void FromJson(web::json::value& input) override
             {
-                readFromValue(obj);
+                FromJsonUtilS(input[U("TwitchIds")], TwitchIds);
             }
 
-            ~GetPlayFabIDsFromTwitchIDsRequest();
-
-            void writeJSON(PFStringJsonWriter& writer) override;
-            bool readFromValue(const rapidjson::Value& obj) override;
+            web::json::value ToJson() const override
+            {
+                web::json::value output;
+                web::json::value each_TwitchIds; ToJsonUtilS(TwitchIds, each_TwitchIds); output[U("TwitchIds")] = each_TwitchIds;
+                return output;
+            }
         };
 
         struct TwitchPlayFabIdPair : public PlayFabBaseModel
@@ -4290,118 +5889,140 @@ namespace PlayFab
                 PlayFabId(src.PlayFabId)
             {}
 
-            TwitchPlayFabIdPair(const rapidjson::Value& obj) : TwitchPlayFabIdPair()
+            ~TwitchPlayFabIdPair() { }
+
+            void FromJson(web::json::value& input) override
             {
-                readFromValue(obj);
+                FromJsonUtilS(input[U("TwitchId")], TwitchId);
+                FromJsonUtilS(input[U("PlayFabId")], PlayFabId);
             }
 
-            ~TwitchPlayFabIdPair();
-
-            void writeJSON(PFStringJsonWriter& writer) override;
-            bool readFromValue(const rapidjson::Value& obj) override;
+            web::json::value ToJson() const override
+            {
+                web::json::value output;
+                web::json::value each_TwitchId; ToJsonUtilS(TwitchId, each_TwitchId); output[U("TwitchId")] = each_TwitchId;
+                web::json::value each_PlayFabId; ToJsonUtilS(PlayFabId, each_PlayFabId); output[U("PlayFabId")] = each_PlayFabId;
+                return output;
+            }
         };
 
-        struct GetPlayFabIDsFromTwitchIDsResult : public PlayFabBaseModel
+        struct GetPlayFabIDsFromTwitchIDsResult : public PlayFabRequestCommon
         {
             std::list<TwitchPlayFabIdPair> Data;
 
             GetPlayFabIDsFromTwitchIDsResult() :
-                PlayFabBaseModel(),
+                PlayFabRequestCommon(),
                 Data()
             {}
 
             GetPlayFabIDsFromTwitchIDsResult(const GetPlayFabIDsFromTwitchIDsResult& src) :
-                PlayFabBaseModel(),
+                PlayFabRequestCommon(),
                 Data(src.Data)
             {}
 
-            GetPlayFabIDsFromTwitchIDsResult(const rapidjson::Value& obj) : GetPlayFabIDsFromTwitchIDsResult()
+            ~GetPlayFabIDsFromTwitchIDsResult() { }
+
+            void FromJson(web::json::value& input) override
             {
-                readFromValue(obj);
+                FromJsonUtilO(input[U("Data")], Data);
             }
 
-            ~GetPlayFabIDsFromTwitchIDsResult();
-
-            void writeJSON(PFStringJsonWriter& writer) override;
-            bool readFromValue(const rapidjson::Value& obj) override;
+            web::json::value ToJson() const override
+            {
+                web::json::value output;
+                web::json::value each_Data; ToJsonUtilO(Data, each_Data); output[U("Data")] = each_Data;
+                return output;
+            }
         };
 
-        struct GetPublisherDataRequest : public PlayFabBaseModel
+        struct GetPublisherDataRequest : public PlayFabRequestCommon
         {
             std::list<std::string> Keys;
 
             GetPublisherDataRequest() :
-                PlayFabBaseModel(),
+                PlayFabRequestCommon(),
                 Keys()
             {}
 
             GetPublisherDataRequest(const GetPublisherDataRequest& src) :
-                PlayFabBaseModel(),
+                PlayFabRequestCommon(),
                 Keys(src.Keys)
             {}
 
-            GetPublisherDataRequest(const rapidjson::Value& obj) : GetPublisherDataRequest()
+            ~GetPublisherDataRequest() { }
+
+            void FromJson(web::json::value& input) override
             {
-                readFromValue(obj);
+                FromJsonUtilS(input[U("Keys")], Keys);
             }
 
-            ~GetPublisherDataRequest();
-
-            void writeJSON(PFStringJsonWriter& writer) override;
-            bool readFromValue(const rapidjson::Value& obj) override;
+            web::json::value ToJson() const override
+            {
+                web::json::value output;
+                web::json::value each_Keys; ToJsonUtilS(Keys, each_Keys); output[U("Keys")] = each_Keys;
+                return output;
+            }
         };
 
-        struct GetPublisherDataResult : public PlayFabBaseModel
+        struct GetPublisherDataResult : public PlayFabRequestCommon
         {
             std::map<std::string, std::string> Data;
 
             GetPublisherDataResult() :
-                PlayFabBaseModel(),
+                PlayFabRequestCommon(),
                 Data()
             {}
 
             GetPublisherDataResult(const GetPublisherDataResult& src) :
-                PlayFabBaseModel(),
+                PlayFabRequestCommon(),
                 Data(src.Data)
             {}
 
-            GetPublisherDataResult(const rapidjson::Value& obj) : GetPublisherDataResult()
+            ~GetPublisherDataResult() { }
+
+            void FromJson(web::json::value& input) override
             {
-                readFromValue(obj);
+                FromJsonUtilS(input[U("Data")], Data);
             }
 
-            ~GetPublisherDataResult();
-
-            void writeJSON(PFStringJsonWriter& writer) override;
-            bool readFromValue(const rapidjson::Value& obj) override;
+            web::json::value ToJson() const override
+            {
+                web::json::value output;
+                web::json::value each_Data; ToJsonUtilS(Data, each_Data); output[U("Data")] = each_Data;
+                return output;
+            }
         };
 
-        struct GetPurchaseRequest : public PlayFabBaseModel
+        struct GetPurchaseRequest : public PlayFabRequestCommon
         {
             std::string OrderId;
 
             GetPurchaseRequest() :
-                PlayFabBaseModel(),
+                PlayFabRequestCommon(),
                 OrderId()
             {}
 
             GetPurchaseRequest(const GetPurchaseRequest& src) :
-                PlayFabBaseModel(),
+                PlayFabRequestCommon(),
                 OrderId(src.OrderId)
             {}
 
-            GetPurchaseRequest(const rapidjson::Value& obj) : GetPurchaseRequest()
+            ~GetPurchaseRequest() { }
+
+            void FromJson(web::json::value& input) override
             {
-                readFromValue(obj);
+                FromJsonUtilS(input[U("OrderId")], OrderId);
             }
 
-            ~GetPurchaseRequest();
-
-            void writeJSON(PFStringJsonWriter& writer) override;
-            bool readFromValue(const rapidjson::Value& obj) override;
+            web::json::value ToJson() const override
+            {
+                web::json::value output;
+                web::json::value each_OrderId; ToJsonUtilS(OrderId, each_OrderId); output[U("OrderId")] = each_OrderId;
+                return output;
+            }
         };
 
-        struct GetPurchaseResult : public PlayFabBaseModel
+        struct GetPurchaseResult : public PlayFabRequestCommon
         {
             std::string OrderId;
             std::string PaymentProvider;
@@ -4411,17 +6032,17 @@ namespace PlayFab
             std::list<ItemInstance> Items;
 
             GetPurchaseResult() :
-                PlayFabBaseModel(),
+                PlayFabRequestCommon(),
                 OrderId(),
                 PaymentProvider(),
                 TransactionId(),
                 TransactionStatus(),
-                PurchaseDate(0),
+                PurchaseDate(),
                 Items()
             {}
 
             GetPurchaseResult(const GetPurchaseResult& src) :
-                PlayFabBaseModel(),
+                PlayFabRequestCommon(),
                 OrderId(src.OrderId),
                 PaymentProvider(src.PaymentProvider),
                 TransactionId(src.TransactionId),
@@ -4430,46 +6051,68 @@ namespace PlayFab
                 Items(src.Items)
             {}
 
-            GetPurchaseResult(const rapidjson::Value& obj) : GetPurchaseResult()
+            ~GetPurchaseResult() { }
+
+            void FromJson(web::json::value& input) override
             {
-                readFromValue(obj);
+                FromJsonUtilS(input[U("OrderId")], OrderId);
+                FromJsonUtilS(input[U("PaymentProvider")], PaymentProvider);
+                FromJsonUtilS(input[U("TransactionId")], TransactionId);
+                FromJsonUtilS(input[U("TransactionStatus")], TransactionStatus);
+                FromJsonUtilT(input[U("PurchaseDate")], PurchaseDate);
+                FromJsonUtilO(input[U("Items")], Items);
             }
 
-            ~GetPurchaseResult();
-
-            void writeJSON(PFStringJsonWriter& writer) override;
-            bool readFromValue(const rapidjson::Value& obj) override;
+            web::json::value ToJson() const override
+            {
+                web::json::value output;
+                web::json::value each_OrderId; ToJsonUtilS(OrderId, each_OrderId); output[U("OrderId")] = each_OrderId;
+                web::json::value each_PaymentProvider; ToJsonUtilS(PaymentProvider, each_PaymentProvider); output[U("PaymentProvider")] = each_PaymentProvider;
+                web::json::value each_TransactionId; ToJsonUtilS(TransactionId, each_TransactionId); output[U("TransactionId")] = each_TransactionId;
+                web::json::value each_TransactionStatus; ToJsonUtilS(TransactionStatus, each_TransactionStatus); output[U("TransactionStatus")] = each_TransactionStatus;
+                web::json::value each_PurchaseDate; ToJsonUtilT(PurchaseDate, each_PurchaseDate); output[U("PurchaseDate")] = each_PurchaseDate;
+                web::json::value each_Items; ToJsonUtilO(Items, each_Items); output[U("Items")] = each_Items;
+                return output;
+            }
         };
 
-        struct GetSharedGroupDataRequest : public PlayFabBaseModel
+        struct GetSharedGroupDataRequest : public PlayFabRequestCommon
         {
             std::string SharedGroupId;
             std::list<std::string> Keys;
-            OptionalBool GetMembers;
+            Boxed<bool> GetMembers;
 
             GetSharedGroupDataRequest() :
-                PlayFabBaseModel(),
+                PlayFabRequestCommon(),
                 SharedGroupId(),
                 Keys(),
                 GetMembers()
             {}
 
             GetSharedGroupDataRequest(const GetSharedGroupDataRequest& src) :
-                PlayFabBaseModel(),
+                PlayFabRequestCommon(),
                 SharedGroupId(src.SharedGroupId),
                 Keys(src.Keys),
                 GetMembers(src.GetMembers)
             {}
 
-            GetSharedGroupDataRequest(const rapidjson::Value& obj) : GetSharedGroupDataRequest()
+            ~GetSharedGroupDataRequest() { }
+
+            void FromJson(web::json::value& input) override
             {
-                readFromValue(obj);
+                FromJsonUtilS(input[U("SharedGroupId")], SharedGroupId);
+                FromJsonUtilS(input[U("Keys")], Keys);
+                FromJsonUtilP(input[U("GetMembers")], GetMembers);
             }
 
-            ~GetSharedGroupDataRequest();
-
-            void writeJSON(PFStringJsonWriter& writer) override;
-            bool readFromValue(const rapidjson::Value& obj) override;
+            web::json::value ToJson() const override
+            {
+                web::json::value output;
+                web::json::value each_SharedGroupId; ToJsonUtilS(SharedGroupId, each_SharedGroupId); output[U("SharedGroupId")] = each_SharedGroupId;
+                web::json::value each_Keys; ToJsonUtilS(Keys, each_Keys); output[U("Keys")] = each_Keys;
+                web::json::value each_GetMembers; ToJsonUtilP(GetMembers, each_GetMembers); output[U("GetMembers")] = each_GetMembers;
+                return output;
+            }
         };
 
         struct SharedGroupDataRecord : public PlayFabBaseModel
@@ -4483,7 +6126,7 @@ namespace PlayFab
                 PlayFabBaseModel(),
                 Value(),
                 LastUpdatedBy(),
-                LastUpdated(0),
+                LastUpdated(),
                 Permission()
             {}
 
@@ -4495,71 +6138,93 @@ namespace PlayFab
                 Permission(src.Permission)
             {}
 
-            SharedGroupDataRecord(const rapidjson::Value& obj) : SharedGroupDataRecord()
+            ~SharedGroupDataRecord() { }
+
+            void FromJson(web::json::value& input) override
             {
-                readFromValue(obj);
+                FromJsonUtilS(input[U("Value")], Value);
+                FromJsonUtilS(input[U("LastUpdatedBy")], LastUpdatedBy);
+                FromJsonUtilT(input[U("LastUpdated")], LastUpdated);
+                FromJsonUtilE(input[U("Permission")], Permission);
             }
 
-            ~SharedGroupDataRecord();
-
-            void writeJSON(PFStringJsonWriter& writer) override;
-            bool readFromValue(const rapidjson::Value& obj) override;
+            web::json::value ToJson() const override
+            {
+                web::json::value output;
+                web::json::value each_Value; ToJsonUtilS(Value, each_Value); output[U("Value")] = each_Value;
+                web::json::value each_LastUpdatedBy; ToJsonUtilS(LastUpdatedBy, each_LastUpdatedBy); output[U("LastUpdatedBy")] = each_LastUpdatedBy;
+                web::json::value each_LastUpdated; ToJsonUtilT(LastUpdated, each_LastUpdated); output[U("LastUpdated")] = each_LastUpdated;
+                web::json::value each_Permission; ToJsonUtilE(Permission, each_Permission); output[U("Permission")] = each_Permission;
+                return output;
+            }
         };
 
-        struct GetSharedGroupDataResult : public PlayFabBaseModel
+        struct GetSharedGroupDataResult : public PlayFabRequestCommon
         {
             std::map<std::string, SharedGroupDataRecord> Data;
             std::list<std::string> Members;
 
             GetSharedGroupDataResult() :
-                PlayFabBaseModel(),
+                PlayFabRequestCommon(),
                 Data(),
                 Members()
             {}
 
             GetSharedGroupDataResult(const GetSharedGroupDataResult& src) :
-                PlayFabBaseModel(),
+                PlayFabRequestCommon(),
                 Data(src.Data),
                 Members(src.Members)
             {}
 
-            GetSharedGroupDataResult(const rapidjson::Value& obj) : GetSharedGroupDataResult()
+            ~GetSharedGroupDataResult() { }
+
+            void FromJson(web::json::value& input) override
             {
-                readFromValue(obj);
+                FromJsonUtilO(input[U("Data")], Data);
+                FromJsonUtilS(input[U("Members")], Members);
             }
 
-            ~GetSharedGroupDataResult();
-
-            void writeJSON(PFStringJsonWriter& writer) override;
-            bool readFromValue(const rapidjson::Value& obj) override;
+            web::json::value ToJson() const override
+            {
+                web::json::value output;
+                web::json::value each_Data; ToJsonUtilO(Data, each_Data); output[U("Data")] = each_Data;
+                web::json::value each_Members; ToJsonUtilS(Members, each_Members); output[U("Members")] = each_Members;
+                return output;
+            }
         };
 
-        struct GetStoreItemsRequest : public PlayFabBaseModel
+        struct GetStoreItemsRequest : public PlayFabRequestCommon
         {
             std::string CatalogVersion;
             std::string StoreId;
 
             GetStoreItemsRequest() :
-                PlayFabBaseModel(),
+                PlayFabRequestCommon(),
                 CatalogVersion(),
                 StoreId()
             {}
 
             GetStoreItemsRequest(const GetStoreItemsRequest& src) :
-                PlayFabBaseModel(),
+                PlayFabRequestCommon(),
                 CatalogVersion(src.CatalogVersion),
                 StoreId(src.StoreId)
             {}
 
-            GetStoreItemsRequest(const rapidjson::Value& obj) : GetStoreItemsRequest()
+            ~GetStoreItemsRequest() { }
+
+            void FromJson(web::json::value& input) override
             {
-                readFromValue(obj);
+                FromJsonUtilS(input[U("CatalogVersion")], CatalogVersion);
+                FromJsonUtilS(input[U("StoreId")], StoreId);
             }
 
-            ~GetStoreItemsRequest();
-
-            void writeJSON(PFStringJsonWriter& writer) override;
-            bool readFromValue(const rapidjson::Value& obj) override;
+            web::json::value ToJson() const override
+            {
+                web::json::value output;
+                web::json::value each_CatalogVersion; ToJsonUtilS(CatalogVersion, each_CatalogVersion); output[U("CatalogVersion")] = each_CatalogVersion;
+                web::json::value each_StoreId; ToJsonUtilS(StoreId, each_StoreId); output[U("StoreId")] = each_StoreId;
+                return output;
+            }
         };
 
         struct StoreItem : public PlayFabBaseModel
@@ -4567,8 +6232,8 @@ namespace PlayFab
             std::string ItemId;
             std::map<std::string, Uint32> VirtualCurrencyPrices;
             std::map<std::string, Uint32> RealCurrencyPrices;
-            MultitypeVar CustomData;
-            OptionalUint32 DisplayPosition;
+            web::json::value CustomData;
+            Boxed<Uint32> DisplayPosition;
 
             StoreItem() :
                 PlayFabBaseModel(),
@@ -4588,34 +6253,34 @@ namespace PlayFab
                 DisplayPosition(src.DisplayPosition)
             {}
 
-            StoreItem(const rapidjson::Value& obj) : StoreItem()
+            ~StoreItem() { }
+
+            void FromJson(web::json::value& input) override
             {
-                readFromValue(obj);
+                FromJsonUtilS(input[U("ItemId")], ItemId);
+                FromJsonUtilP(input[U("VirtualCurrencyPrices")], VirtualCurrencyPrices);
+                FromJsonUtilP(input[U("RealCurrencyPrices")], RealCurrencyPrices);
+                CustomData = input[U("CustomData")];
+                FromJsonUtilP(input[U("DisplayPosition")], DisplayPosition);
             }
 
-            ~StoreItem();
-
-            void writeJSON(PFStringJsonWriter& writer) override;
-            bool readFromValue(const rapidjson::Value& obj) override;
+            web::json::value ToJson() const override
+            {
+                web::json::value output;
+                web::json::value each_ItemId; ToJsonUtilS(ItemId, each_ItemId); output[U("ItemId")] = each_ItemId;
+                web::json::value each_VirtualCurrencyPrices; ToJsonUtilP(VirtualCurrencyPrices, each_VirtualCurrencyPrices); output[U("VirtualCurrencyPrices")] = each_VirtualCurrencyPrices;
+                web::json::value each_RealCurrencyPrices; ToJsonUtilP(RealCurrencyPrices, each_RealCurrencyPrices); output[U("RealCurrencyPrices")] = each_RealCurrencyPrices;
+                output[U("CustomData")] = CustomData;
+                web::json::value each_DisplayPosition; ToJsonUtilP(DisplayPosition, each_DisplayPosition); output[U("DisplayPosition")] = each_DisplayPosition;
+                return output;
+            }
         };
-
-        enum SourceType
-        {
-            SourceTypeAdmin,
-            SourceTypeBackEnd,
-            SourceTypeGameClient,
-            SourceTypeGameServer,
-            SourceTypePartner
-        };
-
-        void writeSourceTypeEnumJSON(SourceType enumVal, PFStringJsonWriter& writer);
-        SourceType readSourceTypeFromValue(const rapidjson::Value& obj);
 
         struct StoreMarketingModel : public PlayFabBaseModel
         {
             std::string DisplayName;
             std::string Description;
-            MultitypeVar Metadata;
+            web::json::value Metadata;
 
             StoreMarketingModel() :
                 PlayFabBaseModel(),
@@ -4631,174 +6296,212 @@ namespace PlayFab
                 Metadata(src.Metadata)
             {}
 
-            StoreMarketingModel(const rapidjson::Value& obj) : StoreMarketingModel()
+            ~StoreMarketingModel() { }
+
+            void FromJson(web::json::value& input) override
             {
-                readFromValue(obj);
+                FromJsonUtilS(input[U("DisplayName")], DisplayName);
+                FromJsonUtilS(input[U("Description")], Description);
+                Metadata = input[U("Metadata")];
             }
 
-            ~StoreMarketingModel();
-
-            void writeJSON(PFStringJsonWriter& writer) override;
-            bool readFromValue(const rapidjson::Value& obj) override;
+            web::json::value ToJson() const override
+            {
+                web::json::value output;
+                web::json::value each_DisplayName; ToJsonUtilS(DisplayName, each_DisplayName); output[U("DisplayName")] = each_DisplayName;
+                web::json::value each_Description; ToJsonUtilS(Description, each_Description); output[U("Description")] = each_Description;
+                output[U("Metadata")] = Metadata;
+                return output;
+            }
         };
 
-        struct GetStoreItemsResult : public PlayFabBaseModel
+        struct GetStoreItemsResult : public PlayFabRequestCommon
         {
             std::list<StoreItem> Store;
             Boxed<SourceType> Source;
             std::string CatalogVersion;
             std::string StoreId;
-            StoreMarketingModel* MarketingData;
+            Boxed<StoreMarketingModel> MarketingData;
 
             GetStoreItemsResult() :
-                PlayFabBaseModel(),
+                PlayFabRequestCommon(),
                 Store(),
                 Source(),
                 CatalogVersion(),
                 StoreId(),
-                MarketingData(nullptr)
+                MarketingData()
             {}
 
             GetStoreItemsResult(const GetStoreItemsResult& src) :
-                PlayFabBaseModel(),
+                PlayFabRequestCommon(),
                 Store(src.Store),
                 Source(src.Source),
                 CatalogVersion(src.CatalogVersion),
                 StoreId(src.StoreId),
-                MarketingData(src.MarketingData ? new StoreMarketingModel(*src.MarketingData) : nullptr)
+                MarketingData(src.MarketingData)
             {}
 
-            GetStoreItemsResult(const rapidjson::Value& obj) : GetStoreItemsResult()
+            ~GetStoreItemsResult() { }
+
+            void FromJson(web::json::value& input) override
             {
-                readFromValue(obj);
+                FromJsonUtilO(input[U("Store")], Store);
+                FromJsonUtilE(input[U("Source")], Source);
+                FromJsonUtilS(input[U("CatalogVersion")], CatalogVersion);
+                FromJsonUtilS(input[U("StoreId")], StoreId);
+                FromJsonUtilO(input[U("MarketingData")], MarketingData);
             }
 
-            ~GetStoreItemsResult();
-
-            void writeJSON(PFStringJsonWriter& writer) override;
-            bool readFromValue(const rapidjson::Value& obj) override;
+            web::json::value ToJson() const override
+            {
+                web::json::value output;
+                web::json::value each_Store; ToJsonUtilO(Store, each_Store); output[U("Store")] = each_Store;
+                web::json::value each_Source; ToJsonUtilE(Source, each_Source); output[U("Source")] = each_Source;
+                web::json::value each_CatalogVersion; ToJsonUtilS(CatalogVersion, each_CatalogVersion); output[U("CatalogVersion")] = each_CatalogVersion;
+                web::json::value each_StoreId; ToJsonUtilS(StoreId, each_StoreId); output[U("StoreId")] = each_StoreId;
+                web::json::value each_MarketingData; ToJsonUtilO(MarketingData, each_MarketingData); output[U("MarketingData")] = each_MarketingData;
+                return output;
+            }
         };
 
-        struct GetTimeRequest : public PlayFabBaseModel
+        struct GetTimeRequest : public PlayFabRequestCommon
         {
 
             GetTimeRequest() :
-                PlayFabBaseModel()
+                PlayFabRequestCommon()
             {}
 
             GetTimeRequest(const GetTimeRequest& src) :
-                PlayFabBaseModel()
+                PlayFabRequestCommon()
             {}
 
-            GetTimeRequest(const rapidjson::Value& obj) : GetTimeRequest()
+            ~GetTimeRequest() { }
+
+            void FromJson(web::json::value& input) override
             {
-                readFromValue(obj);
             }
 
-            ~GetTimeRequest();
-
-            void writeJSON(PFStringJsonWriter& writer) override;
-            bool readFromValue(const rapidjson::Value& obj) override;
+            web::json::value ToJson() const override
+            {
+                web::json::value output;
+                return output;
+            }
         };
 
-        struct GetTimeResult : public PlayFabBaseModel
+        struct GetTimeResult : public PlayFabRequestCommon
         {
             time_t Time;
 
             GetTimeResult() :
-                PlayFabBaseModel(),
-                Time(0)
+                PlayFabRequestCommon(),
+                Time()
             {}
 
             GetTimeResult(const GetTimeResult& src) :
-                PlayFabBaseModel(),
+                PlayFabRequestCommon(),
                 Time(src.Time)
             {}
 
-            GetTimeResult(const rapidjson::Value& obj) : GetTimeResult()
+            ~GetTimeResult() { }
+
+            void FromJson(web::json::value& input) override
             {
-                readFromValue(obj);
+                FromJsonUtilT(input[U("Time")], Time);
             }
 
-            ~GetTimeResult();
-
-            void writeJSON(PFStringJsonWriter& writer) override;
-            bool readFromValue(const rapidjson::Value& obj) override;
+            web::json::value ToJson() const override
+            {
+                web::json::value output;
+                web::json::value each_Time; ToJsonUtilT(Time, each_Time); output[U("Time")] = each_Time;
+                return output;
+            }
         };
 
-        struct GetTitleDataRequest : public PlayFabBaseModel
+        struct GetTitleDataRequest : public PlayFabRequestCommon
         {
             std::list<std::string> Keys;
 
             GetTitleDataRequest() :
-                PlayFabBaseModel(),
+                PlayFabRequestCommon(),
                 Keys()
             {}
 
             GetTitleDataRequest(const GetTitleDataRequest& src) :
-                PlayFabBaseModel(),
+                PlayFabRequestCommon(),
                 Keys(src.Keys)
             {}
 
-            GetTitleDataRequest(const rapidjson::Value& obj) : GetTitleDataRequest()
+            ~GetTitleDataRequest() { }
+
+            void FromJson(web::json::value& input) override
             {
-                readFromValue(obj);
+                FromJsonUtilS(input[U("Keys")], Keys);
             }
 
-            ~GetTitleDataRequest();
-
-            void writeJSON(PFStringJsonWriter& writer) override;
-            bool readFromValue(const rapidjson::Value& obj) override;
+            web::json::value ToJson() const override
+            {
+                web::json::value output;
+                web::json::value each_Keys; ToJsonUtilS(Keys, each_Keys); output[U("Keys")] = each_Keys;
+                return output;
+            }
         };
 
-        struct GetTitleDataResult : public PlayFabBaseModel
+        struct GetTitleDataResult : public PlayFabRequestCommon
         {
             std::map<std::string, std::string> Data;
 
             GetTitleDataResult() :
-                PlayFabBaseModel(),
+                PlayFabRequestCommon(),
                 Data()
             {}
 
             GetTitleDataResult(const GetTitleDataResult& src) :
-                PlayFabBaseModel(),
+                PlayFabRequestCommon(),
                 Data(src.Data)
             {}
 
-            GetTitleDataResult(const rapidjson::Value& obj) : GetTitleDataResult()
+            ~GetTitleDataResult() { }
+
+            void FromJson(web::json::value& input) override
             {
-                readFromValue(obj);
+                FromJsonUtilS(input[U("Data")], Data);
             }
 
-            ~GetTitleDataResult();
-
-            void writeJSON(PFStringJsonWriter& writer) override;
-            bool readFromValue(const rapidjson::Value& obj) override;
+            web::json::value ToJson() const override
+            {
+                web::json::value output;
+                web::json::value each_Data; ToJsonUtilS(Data, each_Data); output[U("Data")] = each_Data;
+                return output;
+            }
         };
 
-        struct GetTitleNewsRequest : public PlayFabBaseModel
+        struct GetTitleNewsRequest : public PlayFabRequestCommon
         {
-            OptionalInt32 Count;
+            Boxed<Int32> Count;
 
             GetTitleNewsRequest() :
-                PlayFabBaseModel(),
+                PlayFabRequestCommon(),
                 Count()
             {}
 
             GetTitleNewsRequest(const GetTitleNewsRequest& src) :
-                PlayFabBaseModel(),
+                PlayFabRequestCommon(),
                 Count(src.Count)
             {}
 
-            GetTitleNewsRequest(const rapidjson::Value& obj) : GetTitleNewsRequest()
+            ~GetTitleNewsRequest() { }
+
+            void FromJson(web::json::value& input) override
             {
-                readFromValue(obj);
+                FromJsonUtilP(input[U("Count")], Count);
             }
 
-            ~GetTitleNewsRequest();
-
-            void writeJSON(PFStringJsonWriter& writer) override;
-            bool readFromValue(const rapidjson::Value& obj) override;
+            web::json::value ToJson() const override
+            {
+                web::json::value output;
+                web::json::value each_Count; ToJsonUtilP(Count, each_Count); output[U("Count")] = each_Count;
+                return output;
+            }
         };
 
         struct TitleNewsItem : public PlayFabBaseModel
@@ -4810,7 +6513,7 @@ namespace PlayFab
 
             TitleNewsItem() :
                 PlayFabBaseModel(),
-                Timestamp(0),
+                Timestamp(),
                 NewsId(),
                 Title(),
                 Body()
@@ -4824,270 +6527,334 @@ namespace PlayFab
                 Body(src.Body)
             {}
 
-            TitleNewsItem(const rapidjson::Value& obj) : TitleNewsItem()
+            ~TitleNewsItem() { }
+
+            void FromJson(web::json::value& input) override
             {
-                readFromValue(obj);
+                FromJsonUtilT(input[U("Timestamp")], Timestamp);
+                FromJsonUtilS(input[U("NewsId")], NewsId);
+                FromJsonUtilS(input[U("Title")], Title);
+                FromJsonUtilS(input[U("Body")], Body);
             }
 
-            ~TitleNewsItem();
-
-            void writeJSON(PFStringJsonWriter& writer) override;
-            bool readFromValue(const rapidjson::Value& obj) override;
+            web::json::value ToJson() const override
+            {
+                web::json::value output;
+                web::json::value each_Timestamp; ToJsonUtilT(Timestamp, each_Timestamp); output[U("Timestamp")] = each_Timestamp;
+                web::json::value each_NewsId; ToJsonUtilS(NewsId, each_NewsId); output[U("NewsId")] = each_NewsId;
+                web::json::value each_Title; ToJsonUtilS(Title, each_Title); output[U("Title")] = each_Title;
+                web::json::value each_Body; ToJsonUtilS(Body, each_Body); output[U("Body")] = each_Body;
+                return output;
+            }
         };
 
-        struct GetTitleNewsResult : public PlayFabBaseModel
+        struct GetTitleNewsResult : public PlayFabRequestCommon
         {
             std::list<TitleNewsItem> News;
 
             GetTitleNewsResult() :
-                PlayFabBaseModel(),
+                PlayFabRequestCommon(),
                 News()
             {}
 
             GetTitleNewsResult(const GetTitleNewsResult& src) :
-                PlayFabBaseModel(),
+                PlayFabRequestCommon(),
                 News(src.News)
             {}
 
-            GetTitleNewsResult(const rapidjson::Value& obj) : GetTitleNewsResult()
+            ~GetTitleNewsResult() { }
+
+            void FromJson(web::json::value& input) override
             {
-                readFromValue(obj);
+                FromJsonUtilO(input[U("News")], News);
             }
 
-            ~GetTitleNewsResult();
-
-            void writeJSON(PFStringJsonWriter& writer) override;
-            bool readFromValue(const rapidjson::Value& obj) override;
+            web::json::value ToJson() const override
+            {
+                web::json::value output;
+                web::json::value each_News; ToJsonUtilO(News, each_News); output[U("News")] = each_News;
+                return output;
+            }
         };
 
-        struct GetTradeStatusRequest : public PlayFabBaseModel
+        struct GetTradeStatusRequest : public PlayFabRequestCommon
         {
             std::string OfferingPlayerId;
             std::string TradeId;
 
             GetTradeStatusRequest() :
-                PlayFabBaseModel(),
+                PlayFabRequestCommon(),
                 OfferingPlayerId(),
                 TradeId()
             {}
 
             GetTradeStatusRequest(const GetTradeStatusRequest& src) :
-                PlayFabBaseModel(),
+                PlayFabRequestCommon(),
                 OfferingPlayerId(src.OfferingPlayerId),
                 TradeId(src.TradeId)
             {}
 
-            GetTradeStatusRequest(const rapidjson::Value& obj) : GetTradeStatusRequest()
+            ~GetTradeStatusRequest() { }
+
+            void FromJson(web::json::value& input) override
             {
-                readFromValue(obj);
+                FromJsonUtilS(input[U("OfferingPlayerId")], OfferingPlayerId);
+                FromJsonUtilS(input[U("TradeId")], TradeId);
             }
 
-            ~GetTradeStatusRequest();
-
-            void writeJSON(PFStringJsonWriter& writer) override;
-            bool readFromValue(const rapidjson::Value& obj) override;
+            web::json::value ToJson() const override
+            {
+                web::json::value output;
+                web::json::value each_OfferingPlayerId; ToJsonUtilS(OfferingPlayerId, each_OfferingPlayerId); output[U("OfferingPlayerId")] = each_OfferingPlayerId;
+                web::json::value each_TradeId; ToJsonUtilS(TradeId, each_TradeId); output[U("TradeId")] = each_TradeId;
+                return output;
+            }
         };
 
-        struct GetTradeStatusResponse : public PlayFabBaseModel
+        struct GetTradeStatusResponse : public PlayFabRequestCommon
         {
-            TradeInfo* Trade;
+            Boxed<TradeInfo> Trade;
 
             GetTradeStatusResponse() :
-                PlayFabBaseModel(),
-                Trade(nullptr)
+                PlayFabRequestCommon(),
+                Trade()
             {}
 
             GetTradeStatusResponse(const GetTradeStatusResponse& src) :
-                PlayFabBaseModel(),
-                Trade(src.Trade ? new TradeInfo(*src.Trade) : nullptr)
+                PlayFabRequestCommon(),
+                Trade(src.Trade)
             {}
 
-            GetTradeStatusResponse(const rapidjson::Value& obj) : GetTradeStatusResponse()
+            ~GetTradeStatusResponse() { }
+
+            void FromJson(web::json::value& input) override
             {
-                readFromValue(obj);
+                FromJsonUtilO(input[U("Trade")], Trade);
             }
 
-            ~GetTradeStatusResponse();
-
-            void writeJSON(PFStringJsonWriter& writer) override;
-            bool readFromValue(const rapidjson::Value& obj) override;
+            web::json::value ToJson() const override
+            {
+                web::json::value output;
+                web::json::value each_Trade; ToJsonUtilO(Trade, each_Trade); output[U("Trade")] = each_Trade;
+                return output;
+            }
         };
 
-        struct GetUserDataRequest : public PlayFabBaseModel
+        struct GetUserDataRequest : public PlayFabRequestCommon
         {
             std::list<std::string> Keys;
             std::string PlayFabId;
-            OptionalUint32 IfChangedFromDataVersion;
+            Boxed<Uint32> IfChangedFromDataVersion;
 
             GetUserDataRequest() :
-                PlayFabBaseModel(),
+                PlayFabRequestCommon(),
                 Keys(),
                 PlayFabId(),
                 IfChangedFromDataVersion()
             {}
 
             GetUserDataRequest(const GetUserDataRequest& src) :
-                PlayFabBaseModel(),
+                PlayFabRequestCommon(),
                 Keys(src.Keys),
                 PlayFabId(src.PlayFabId),
                 IfChangedFromDataVersion(src.IfChangedFromDataVersion)
             {}
 
-            GetUserDataRequest(const rapidjson::Value& obj) : GetUserDataRequest()
+            ~GetUserDataRequest() { }
+
+            void FromJson(web::json::value& input) override
             {
-                readFromValue(obj);
+                FromJsonUtilS(input[U("Keys")], Keys);
+                FromJsonUtilS(input[U("PlayFabId")], PlayFabId);
+                FromJsonUtilP(input[U("IfChangedFromDataVersion")], IfChangedFromDataVersion);
             }
 
-            ~GetUserDataRequest();
-
-            void writeJSON(PFStringJsonWriter& writer) override;
-            bool readFromValue(const rapidjson::Value& obj) override;
+            web::json::value ToJson() const override
+            {
+                web::json::value output;
+                web::json::value each_Keys; ToJsonUtilS(Keys, each_Keys); output[U("Keys")] = each_Keys;
+                web::json::value each_PlayFabId; ToJsonUtilS(PlayFabId, each_PlayFabId); output[U("PlayFabId")] = each_PlayFabId;
+                web::json::value each_IfChangedFromDataVersion; ToJsonUtilP(IfChangedFromDataVersion, each_IfChangedFromDataVersion); output[U("IfChangedFromDataVersion")] = each_IfChangedFromDataVersion;
+                return output;
+            }
         };
 
-        struct GetUserDataResult : public PlayFabBaseModel
+        struct GetUserDataResult : public PlayFabRequestCommon
         {
             std::map<std::string, UserDataRecord> Data;
             Uint32 DataVersion;
 
             GetUserDataResult() :
-                PlayFabBaseModel(),
+                PlayFabRequestCommon(),
                 Data(),
-                DataVersion(0)
+                DataVersion()
             {}
 
             GetUserDataResult(const GetUserDataResult& src) :
-                PlayFabBaseModel(),
+                PlayFabRequestCommon(),
                 Data(src.Data),
                 DataVersion(src.DataVersion)
             {}
 
-            GetUserDataResult(const rapidjson::Value& obj) : GetUserDataResult()
+            ~GetUserDataResult() { }
+
+            void FromJson(web::json::value& input) override
             {
-                readFromValue(obj);
+                FromJsonUtilO(input[U("Data")], Data);
+                FromJsonUtilP(input[U("DataVersion")], DataVersion);
             }
 
-            ~GetUserDataResult();
-
-            void writeJSON(PFStringJsonWriter& writer) override;
-            bool readFromValue(const rapidjson::Value& obj) override;
+            web::json::value ToJson() const override
+            {
+                web::json::value output;
+                web::json::value each_Data; ToJsonUtilO(Data, each_Data); output[U("Data")] = each_Data;
+                web::json::value each_DataVersion; ToJsonUtilP(DataVersion, each_DataVersion); output[U("DataVersion")] = each_DataVersion;
+                return output;
+            }
         };
 
-        struct GetUserInventoryRequest : public PlayFabBaseModel
+        struct GetUserInventoryRequest : public PlayFabRequestCommon
         {
 
             GetUserInventoryRequest() :
-                PlayFabBaseModel()
+                PlayFabRequestCommon()
             {}
 
             GetUserInventoryRequest(const GetUserInventoryRequest& src) :
-                PlayFabBaseModel()
+                PlayFabRequestCommon()
             {}
 
-            GetUserInventoryRequest(const rapidjson::Value& obj) : GetUserInventoryRequest()
+            ~GetUserInventoryRequest() { }
+
+            void FromJson(web::json::value& input) override
             {
-                readFromValue(obj);
             }
 
-            ~GetUserInventoryRequest();
-
-            void writeJSON(PFStringJsonWriter& writer) override;
-            bool readFromValue(const rapidjson::Value& obj) override;
+            web::json::value ToJson() const override
+            {
+                web::json::value output;
+                return output;
+            }
         };
 
-        struct GetUserInventoryResult : public PlayFabBaseModel
+        struct GetUserInventoryResult : public PlayFabRequestCommon
         {
             std::list<ItemInstance> Inventory;
             std::map<std::string, Int32> VirtualCurrency;
             std::map<std::string, VirtualCurrencyRechargeTime> VirtualCurrencyRechargeTimes;
 
             GetUserInventoryResult() :
-                PlayFabBaseModel(),
+                PlayFabRequestCommon(),
                 Inventory(),
                 VirtualCurrency(),
                 VirtualCurrencyRechargeTimes()
             {}
 
             GetUserInventoryResult(const GetUserInventoryResult& src) :
-                PlayFabBaseModel(),
+                PlayFabRequestCommon(),
                 Inventory(src.Inventory),
                 VirtualCurrency(src.VirtualCurrency),
                 VirtualCurrencyRechargeTimes(src.VirtualCurrencyRechargeTimes)
             {}
 
-            GetUserInventoryResult(const rapidjson::Value& obj) : GetUserInventoryResult()
+            ~GetUserInventoryResult() { }
+
+            void FromJson(web::json::value& input) override
             {
-                readFromValue(obj);
+                FromJsonUtilO(input[U("Inventory")], Inventory);
+                FromJsonUtilP(input[U("VirtualCurrency")], VirtualCurrency);
+                FromJsonUtilO(input[U("VirtualCurrencyRechargeTimes")], VirtualCurrencyRechargeTimes);
             }
 
-            ~GetUserInventoryResult();
-
-            void writeJSON(PFStringJsonWriter& writer) override;
-            bool readFromValue(const rapidjson::Value& obj) override;
+            web::json::value ToJson() const override
+            {
+                web::json::value output;
+                web::json::value each_Inventory; ToJsonUtilO(Inventory, each_Inventory); output[U("Inventory")] = each_Inventory;
+                web::json::value each_VirtualCurrency; ToJsonUtilP(VirtualCurrency, each_VirtualCurrency); output[U("VirtualCurrency")] = each_VirtualCurrency;
+                web::json::value each_VirtualCurrencyRechargeTimes; ToJsonUtilO(VirtualCurrencyRechargeTimes, each_VirtualCurrencyRechargeTimes); output[U("VirtualCurrencyRechargeTimes")] = each_VirtualCurrencyRechargeTimes;
+                return output;
+            }
         };
 
-        struct GrantCharacterToUserRequest : public PlayFabBaseModel
+        struct GrantCharacterToUserRequest : public PlayFabRequestCommon
         {
             std::string CatalogVersion;
             std::string ItemId;
             std::string CharacterName;
 
             GrantCharacterToUserRequest() :
-                PlayFabBaseModel(),
+                PlayFabRequestCommon(),
                 CatalogVersion(),
                 ItemId(),
                 CharacterName()
             {}
 
             GrantCharacterToUserRequest(const GrantCharacterToUserRequest& src) :
-                PlayFabBaseModel(),
+                PlayFabRequestCommon(),
                 CatalogVersion(src.CatalogVersion),
                 ItemId(src.ItemId),
                 CharacterName(src.CharacterName)
             {}
 
-            GrantCharacterToUserRequest(const rapidjson::Value& obj) : GrantCharacterToUserRequest()
+            ~GrantCharacterToUserRequest() { }
+
+            void FromJson(web::json::value& input) override
             {
-                readFromValue(obj);
+                FromJsonUtilS(input[U("CatalogVersion")], CatalogVersion);
+                FromJsonUtilS(input[U("ItemId")], ItemId);
+                FromJsonUtilS(input[U("CharacterName")], CharacterName);
             }
 
-            ~GrantCharacterToUserRequest();
-
-            void writeJSON(PFStringJsonWriter& writer) override;
-            bool readFromValue(const rapidjson::Value& obj) override;
+            web::json::value ToJson() const override
+            {
+                web::json::value output;
+                web::json::value each_CatalogVersion; ToJsonUtilS(CatalogVersion, each_CatalogVersion); output[U("CatalogVersion")] = each_CatalogVersion;
+                web::json::value each_ItemId; ToJsonUtilS(ItemId, each_ItemId); output[U("ItemId")] = each_ItemId;
+                web::json::value each_CharacterName; ToJsonUtilS(CharacterName, each_CharacterName); output[U("CharacterName")] = each_CharacterName;
+                return output;
+            }
         };
 
-        struct GrantCharacterToUserResult : public PlayFabBaseModel
+        struct GrantCharacterToUserResult : public PlayFabRequestCommon
         {
             std::string CharacterId;
             std::string CharacterType;
             bool Result;
 
             GrantCharacterToUserResult() :
-                PlayFabBaseModel(),
+                PlayFabRequestCommon(),
                 CharacterId(),
                 CharacterType(),
-                Result(false)
+                Result()
             {}
 
             GrantCharacterToUserResult(const GrantCharacterToUserResult& src) :
-                PlayFabBaseModel(),
+                PlayFabRequestCommon(),
                 CharacterId(src.CharacterId),
                 CharacterType(src.CharacterType),
                 Result(src.Result)
             {}
 
-            GrantCharacterToUserResult(const rapidjson::Value& obj) : GrantCharacterToUserResult()
+            ~GrantCharacterToUserResult() { }
+
+            void FromJson(web::json::value& input) override
             {
-                readFromValue(obj);
+                FromJsonUtilS(input[U("CharacterId")], CharacterId);
+                FromJsonUtilS(input[U("CharacterType")], CharacterType);
+                FromJsonUtilP(input[U("Result")], Result);
             }
 
-            ~GrantCharacterToUserResult();
-
-            void writeJSON(PFStringJsonWriter& writer) override;
-            bool readFromValue(const rapidjson::Value& obj) override;
+            web::json::value ToJson() const override
+            {
+                web::json::value output;
+                web::json::value each_CharacterId; ToJsonUtilS(CharacterId, each_CharacterId); output[U("CharacterId")] = each_CharacterId;
+                web::json::value each_CharacterType; ToJsonUtilS(CharacterType, each_CharacterType); output[U("CharacterType")] = each_CharacterType;
+                web::json::value each_Result; ToJsonUtilP(Result, each_Result); output[U("Result")] = each_Result;
+                return output;
+            }
         };
 
-        struct ItemPurchaseRequest : public PlayFabBaseModel
+        struct ItemPurchaseRequest : public PlayFabRequestCommon
         {
             std::string ItemId;
             Uint32 Quantity;
@@ -5095,41 +6862,51 @@ namespace PlayFab
             std::list<std::string> UpgradeFromItems;
 
             ItemPurchaseRequest() :
-                PlayFabBaseModel(),
+                PlayFabRequestCommon(),
                 ItemId(),
-                Quantity(0),
+                Quantity(),
                 Annotation(),
                 UpgradeFromItems()
             {}
 
             ItemPurchaseRequest(const ItemPurchaseRequest& src) :
-                PlayFabBaseModel(),
+                PlayFabRequestCommon(),
                 ItemId(src.ItemId),
                 Quantity(src.Quantity),
                 Annotation(src.Annotation),
                 UpgradeFromItems(src.UpgradeFromItems)
             {}
 
-            ItemPurchaseRequest(const rapidjson::Value& obj) : ItemPurchaseRequest()
+            ~ItemPurchaseRequest() { }
+
+            void FromJson(web::json::value& input) override
             {
-                readFromValue(obj);
+                FromJsonUtilS(input[U("ItemId")], ItemId);
+                FromJsonUtilP(input[U("Quantity")], Quantity);
+                FromJsonUtilS(input[U("Annotation")], Annotation);
+                FromJsonUtilS(input[U("UpgradeFromItems")], UpgradeFromItems);
             }
 
-            ~ItemPurchaseRequest();
-
-            void writeJSON(PFStringJsonWriter& writer) override;
-            bool readFromValue(const rapidjson::Value& obj) override;
+            web::json::value ToJson() const override
+            {
+                web::json::value output;
+                web::json::value each_ItemId; ToJsonUtilS(ItemId, each_ItemId); output[U("ItemId")] = each_ItemId;
+                web::json::value each_Quantity; ToJsonUtilP(Quantity, each_Quantity); output[U("Quantity")] = each_Quantity;
+                web::json::value each_Annotation; ToJsonUtilS(Annotation, each_Annotation); output[U("Annotation")] = each_Annotation;
+                web::json::value each_UpgradeFromItems; ToJsonUtilS(UpgradeFromItems, each_UpgradeFromItems); output[U("UpgradeFromItems")] = each_UpgradeFromItems;
+                return output;
+            }
         };
 
-        struct LinkAndroidDeviceIDRequest : public PlayFabBaseModel
+        struct LinkAndroidDeviceIDRequest : public PlayFabRequestCommon
         {
             std::string AndroidDeviceId;
             std::string OS;
             std::string AndroidDevice;
-            OptionalBool ForceLink;
+            Boxed<bool> ForceLink;
 
             LinkAndroidDeviceIDRequest() :
-                PlayFabBaseModel(),
+                PlayFabRequestCommon(),
                 AndroidDeviceId(),
                 OS(),
                 AndroidDevice(),
@@ -5137,255 +6914,299 @@ namespace PlayFab
             {}
 
             LinkAndroidDeviceIDRequest(const LinkAndroidDeviceIDRequest& src) :
-                PlayFabBaseModel(),
+                PlayFabRequestCommon(),
                 AndroidDeviceId(src.AndroidDeviceId),
                 OS(src.OS),
                 AndroidDevice(src.AndroidDevice),
                 ForceLink(src.ForceLink)
             {}
 
-            LinkAndroidDeviceIDRequest(const rapidjson::Value& obj) : LinkAndroidDeviceIDRequest()
+            ~LinkAndroidDeviceIDRequest() { }
+
+            void FromJson(web::json::value& input) override
             {
-                readFromValue(obj);
+                FromJsonUtilS(input[U("AndroidDeviceId")], AndroidDeviceId);
+                FromJsonUtilS(input[U("OS")], OS);
+                FromJsonUtilS(input[U("AndroidDevice")], AndroidDevice);
+                FromJsonUtilP(input[U("ForceLink")], ForceLink);
             }
 
-            ~LinkAndroidDeviceIDRequest();
-
-            void writeJSON(PFStringJsonWriter& writer) override;
-            bool readFromValue(const rapidjson::Value& obj) override;
+            web::json::value ToJson() const override
+            {
+                web::json::value output;
+                web::json::value each_AndroidDeviceId; ToJsonUtilS(AndroidDeviceId, each_AndroidDeviceId); output[U("AndroidDeviceId")] = each_AndroidDeviceId;
+                web::json::value each_OS; ToJsonUtilS(OS, each_OS); output[U("OS")] = each_OS;
+                web::json::value each_AndroidDevice; ToJsonUtilS(AndroidDevice, each_AndroidDevice); output[U("AndroidDevice")] = each_AndroidDevice;
+                web::json::value each_ForceLink; ToJsonUtilP(ForceLink, each_ForceLink); output[U("ForceLink")] = each_ForceLink;
+                return output;
+            }
         };
 
-        struct LinkAndroidDeviceIDResult : public PlayFabBaseModel
+        struct LinkAndroidDeviceIDResult : public PlayFabRequestCommon
         {
 
             LinkAndroidDeviceIDResult() :
-                PlayFabBaseModel()
+                PlayFabRequestCommon()
             {}
 
             LinkAndroidDeviceIDResult(const LinkAndroidDeviceIDResult& src) :
-                PlayFabBaseModel()
+                PlayFabRequestCommon()
             {}
 
-            LinkAndroidDeviceIDResult(const rapidjson::Value& obj) : LinkAndroidDeviceIDResult()
+            ~LinkAndroidDeviceIDResult() { }
+
+            void FromJson(web::json::value& input) override
             {
-                readFromValue(obj);
             }
 
-            ~LinkAndroidDeviceIDResult();
-
-            void writeJSON(PFStringJsonWriter& writer) override;
-            bool readFromValue(const rapidjson::Value& obj) override;
+            web::json::value ToJson() const override
+            {
+                web::json::value output;
+                return output;
+            }
         };
 
-        struct LinkCustomIDRequest : public PlayFabBaseModel
+        struct LinkCustomIDRequest : public PlayFabRequestCommon
         {
             std::string CustomId;
-            OptionalBool ForceLink;
+            Boxed<bool> ForceLink;
 
             LinkCustomIDRequest() :
-                PlayFabBaseModel(),
+                PlayFabRequestCommon(),
                 CustomId(),
                 ForceLink()
             {}
 
             LinkCustomIDRequest(const LinkCustomIDRequest& src) :
-                PlayFabBaseModel(),
+                PlayFabRequestCommon(),
                 CustomId(src.CustomId),
                 ForceLink(src.ForceLink)
             {}
 
-            LinkCustomIDRequest(const rapidjson::Value& obj) : LinkCustomIDRequest()
+            ~LinkCustomIDRequest() { }
+
+            void FromJson(web::json::value& input) override
             {
-                readFromValue(obj);
+                FromJsonUtilS(input[U("CustomId")], CustomId);
+                FromJsonUtilP(input[U("ForceLink")], ForceLink);
             }
 
-            ~LinkCustomIDRequest();
-
-            void writeJSON(PFStringJsonWriter& writer) override;
-            bool readFromValue(const rapidjson::Value& obj) override;
+            web::json::value ToJson() const override
+            {
+                web::json::value output;
+                web::json::value each_CustomId; ToJsonUtilS(CustomId, each_CustomId); output[U("CustomId")] = each_CustomId;
+                web::json::value each_ForceLink; ToJsonUtilP(ForceLink, each_ForceLink); output[U("ForceLink")] = each_ForceLink;
+                return output;
+            }
         };
 
-        struct LinkCustomIDResult : public PlayFabBaseModel
+        struct LinkCustomIDResult : public PlayFabRequestCommon
         {
 
             LinkCustomIDResult() :
-                PlayFabBaseModel()
+                PlayFabRequestCommon()
             {}
 
             LinkCustomIDResult(const LinkCustomIDResult& src) :
-                PlayFabBaseModel()
+                PlayFabRequestCommon()
             {}
 
-            LinkCustomIDResult(const rapidjson::Value& obj) : LinkCustomIDResult()
+            ~LinkCustomIDResult() { }
+
+            void FromJson(web::json::value& input) override
             {
-                readFromValue(obj);
             }
 
-            ~LinkCustomIDResult();
-
-            void writeJSON(PFStringJsonWriter& writer) override;
-            bool readFromValue(const rapidjson::Value& obj) override;
+            web::json::value ToJson() const override
+            {
+                web::json::value output;
+                return output;
+            }
         };
 
-        struct LinkFacebookAccountRequest : public PlayFabBaseModel
+        struct LinkFacebookAccountRequest : public PlayFabRequestCommon
         {
             std::string AccessToken;
-            OptionalBool ForceLink;
+            Boxed<bool> ForceLink;
 
             LinkFacebookAccountRequest() :
-                PlayFabBaseModel(),
+                PlayFabRequestCommon(),
                 AccessToken(),
                 ForceLink()
             {}
 
             LinkFacebookAccountRequest(const LinkFacebookAccountRequest& src) :
-                PlayFabBaseModel(),
+                PlayFabRequestCommon(),
                 AccessToken(src.AccessToken),
                 ForceLink(src.ForceLink)
             {}
 
-            LinkFacebookAccountRequest(const rapidjson::Value& obj) : LinkFacebookAccountRequest()
+            ~LinkFacebookAccountRequest() { }
+
+            void FromJson(web::json::value& input) override
             {
-                readFromValue(obj);
+                FromJsonUtilS(input[U("AccessToken")], AccessToken);
+                FromJsonUtilP(input[U("ForceLink")], ForceLink);
             }
 
-            ~LinkFacebookAccountRequest();
-
-            void writeJSON(PFStringJsonWriter& writer) override;
-            bool readFromValue(const rapidjson::Value& obj) override;
+            web::json::value ToJson() const override
+            {
+                web::json::value output;
+                web::json::value each_AccessToken; ToJsonUtilS(AccessToken, each_AccessToken); output[U("AccessToken")] = each_AccessToken;
+                web::json::value each_ForceLink; ToJsonUtilP(ForceLink, each_ForceLink); output[U("ForceLink")] = each_ForceLink;
+                return output;
+            }
         };
 
-        struct LinkFacebookAccountResult : public PlayFabBaseModel
+        struct LinkFacebookAccountResult : public PlayFabRequestCommon
         {
 
             LinkFacebookAccountResult() :
-                PlayFabBaseModel()
+                PlayFabRequestCommon()
             {}
 
             LinkFacebookAccountResult(const LinkFacebookAccountResult& src) :
-                PlayFabBaseModel()
+                PlayFabRequestCommon()
             {}
 
-            LinkFacebookAccountResult(const rapidjson::Value& obj) : LinkFacebookAccountResult()
+            ~LinkFacebookAccountResult() { }
+
+            void FromJson(web::json::value& input) override
             {
-                readFromValue(obj);
             }
 
-            ~LinkFacebookAccountResult();
-
-            void writeJSON(PFStringJsonWriter& writer) override;
-            bool readFromValue(const rapidjson::Value& obj) override;
+            web::json::value ToJson() const override
+            {
+                web::json::value output;
+                return output;
+            }
         };
 
-        struct LinkGameCenterAccountRequest : public PlayFabBaseModel
+        struct LinkGameCenterAccountRequest : public PlayFabRequestCommon
         {
             std::string GameCenterId;
-            OptionalBool ForceLink;
+            Boxed<bool> ForceLink;
 
             LinkGameCenterAccountRequest() :
-                PlayFabBaseModel(),
+                PlayFabRequestCommon(),
                 GameCenterId(),
                 ForceLink()
             {}
 
             LinkGameCenterAccountRequest(const LinkGameCenterAccountRequest& src) :
-                PlayFabBaseModel(),
+                PlayFabRequestCommon(),
                 GameCenterId(src.GameCenterId),
                 ForceLink(src.ForceLink)
             {}
 
-            LinkGameCenterAccountRequest(const rapidjson::Value& obj) : LinkGameCenterAccountRequest()
+            ~LinkGameCenterAccountRequest() { }
+
+            void FromJson(web::json::value& input) override
             {
-                readFromValue(obj);
+                FromJsonUtilS(input[U("GameCenterId")], GameCenterId);
+                FromJsonUtilP(input[U("ForceLink")], ForceLink);
             }
 
-            ~LinkGameCenterAccountRequest();
-
-            void writeJSON(PFStringJsonWriter& writer) override;
-            bool readFromValue(const rapidjson::Value& obj) override;
+            web::json::value ToJson() const override
+            {
+                web::json::value output;
+                web::json::value each_GameCenterId; ToJsonUtilS(GameCenterId, each_GameCenterId); output[U("GameCenterId")] = each_GameCenterId;
+                web::json::value each_ForceLink; ToJsonUtilP(ForceLink, each_ForceLink); output[U("ForceLink")] = each_ForceLink;
+                return output;
+            }
         };
 
-        struct LinkGameCenterAccountResult : public PlayFabBaseModel
+        struct LinkGameCenterAccountResult : public PlayFabRequestCommon
         {
 
             LinkGameCenterAccountResult() :
-                PlayFabBaseModel()
+                PlayFabRequestCommon()
             {}
 
             LinkGameCenterAccountResult(const LinkGameCenterAccountResult& src) :
-                PlayFabBaseModel()
+                PlayFabRequestCommon()
             {}
 
-            LinkGameCenterAccountResult(const rapidjson::Value& obj) : LinkGameCenterAccountResult()
+            ~LinkGameCenterAccountResult() { }
+
+            void FromJson(web::json::value& input) override
             {
-                readFromValue(obj);
             }
 
-            ~LinkGameCenterAccountResult();
-
-            void writeJSON(PFStringJsonWriter& writer) override;
-            bool readFromValue(const rapidjson::Value& obj) override;
+            web::json::value ToJson() const override
+            {
+                web::json::value output;
+                return output;
+            }
         };
 
-        struct LinkGoogleAccountRequest : public PlayFabBaseModel
+        struct LinkGoogleAccountRequest : public PlayFabRequestCommon
         {
             std::string AccessToken;
-            OptionalBool ForceLink;
+            Boxed<bool> ForceLink;
 
             LinkGoogleAccountRequest() :
-                PlayFabBaseModel(),
+                PlayFabRequestCommon(),
                 AccessToken(),
                 ForceLink()
             {}
 
             LinkGoogleAccountRequest(const LinkGoogleAccountRequest& src) :
-                PlayFabBaseModel(),
+                PlayFabRequestCommon(),
                 AccessToken(src.AccessToken),
                 ForceLink(src.ForceLink)
             {}
 
-            LinkGoogleAccountRequest(const rapidjson::Value& obj) : LinkGoogleAccountRequest()
+            ~LinkGoogleAccountRequest() { }
+
+            void FromJson(web::json::value& input) override
             {
-                readFromValue(obj);
+                FromJsonUtilS(input[U("AccessToken")], AccessToken);
+                FromJsonUtilP(input[U("ForceLink")], ForceLink);
             }
 
-            ~LinkGoogleAccountRequest();
-
-            void writeJSON(PFStringJsonWriter& writer) override;
-            bool readFromValue(const rapidjson::Value& obj) override;
+            web::json::value ToJson() const override
+            {
+                web::json::value output;
+                web::json::value each_AccessToken; ToJsonUtilS(AccessToken, each_AccessToken); output[U("AccessToken")] = each_AccessToken;
+                web::json::value each_ForceLink; ToJsonUtilP(ForceLink, each_ForceLink); output[U("ForceLink")] = each_ForceLink;
+                return output;
+            }
         };
 
-        struct LinkGoogleAccountResult : public PlayFabBaseModel
+        struct LinkGoogleAccountResult : public PlayFabRequestCommon
         {
 
             LinkGoogleAccountResult() :
-                PlayFabBaseModel()
+                PlayFabRequestCommon()
             {}
 
             LinkGoogleAccountResult(const LinkGoogleAccountResult& src) :
-                PlayFabBaseModel()
+                PlayFabRequestCommon()
             {}
 
-            LinkGoogleAccountResult(const rapidjson::Value& obj) : LinkGoogleAccountResult()
+            ~LinkGoogleAccountResult() { }
+
+            void FromJson(web::json::value& input) override
             {
-                readFromValue(obj);
             }
 
-            ~LinkGoogleAccountResult();
-
-            void writeJSON(PFStringJsonWriter& writer) override;
-            bool readFromValue(const rapidjson::Value& obj) override;
+            web::json::value ToJson() const override
+            {
+                web::json::value output;
+                return output;
+            }
         };
 
-        struct LinkIOSDeviceIDRequest : public PlayFabBaseModel
+        struct LinkIOSDeviceIDRequest : public PlayFabRequestCommon
         {
             std::string DeviceId;
             std::string OS;
             std::string DeviceModel;
-            OptionalBool ForceLink;
+            Boxed<bool> ForceLink;
 
             LinkIOSDeviceIDRequest() :
-                PlayFabBaseModel(),
+                PlayFabRequestCommon(),
                 DeviceId(),
                 OS(),
                 DeviceModel(),
@@ -5393,247 +7214,293 @@ namespace PlayFab
             {}
 
             LinkIOSDeviceIDRequest(const LinkIOSDeviceIDRequest& src) :
-                PlayFabBaseModel(),
+                PlayFabRequestCommon(),
                 DeviceId(src.DeviceId),
                 OS(src.OS),
                 DeviceModel(src.DeviceModel),
                 ForceLink(src.ForceLink)
             {}
 
-            LinkIOSDeviceIDRequest(const rapidjson::Value& obj) : LinkIOSDeviceIDRequest()
+            ~LinkIOSDeviceIDRequest() { }
+
+            void FromJson(web::json::value& input) override
             {
-                readFromValue(obj);
+                FromJsonUtilS(input[U("DeviceId")], DeviceId);
+                FromJsonUtilS(input[U("OS")], OS);
+                FromJsonUtilS(input[U("DeviceModel")], DeviceModel);
+                FromJsonUtilP(input[U("ForceLink")], ForceLink);
             }
 
-            ~LinkIOSDeviceIDRequest();
-
-            void writeJSON(PFStringJsonWriter& writer) override;
-            bool readFromValue(const rapidjson::Value& obj) override;
+            web::json::value ToJson() const override
+            {
+                web::json::value output;
+                web::json::value each_DeviceId; ToJsonUtilS(DeviceId, each_DeviceId); output[U("DeviceId")] = each_DeviceId;
+                web::json::value each_OS; ToJsonUtilS(OS, each_OS); output[U("OS")] = each_OS;
+                web::json::value each_DeviceModel; ToJsonUtilS(DeviceModel, each_DeviceModel); output[U("DeviceModel")] = each_DeviceModel;
+                web::json::value each_ForceLink; ToJsonUtilP(ForceLink, each_ForceLink); output[U("ForceLink")] = each_ForceLink;
+                return output;
+            }
         };
 
-        struct LinkIOSDeviceIDResult : public PlayFabBaseModel
+        struct LinkIOSDeviceIDResult : public PlayFabRequestCommon
         {
 
             LinkIOSDeviceIDResult() :
-                PlayFabBaseModel()
+                PlayFabRequestCommon()
             {}
 
             LinkIOSDeviceIDResult(const LinkIOSDeviceIDResult& src) :
-                PlayFabBaseModel()
+                PlayFabRequestCommon()
             {}
 
-            LinkIOSDeviceIDResult(const rapidjson::Value& obj) : LinkIOSDeviceIDResult()
+            ~LinkIOSDeviceIDResult() { }
+
+            void FromJson(web::json::value& input) override
             {
-                readFromValue(obj);
             }
 
-            ~LinkIOSDeviceIDResult();
-
-            void writeJSON(PFStringJsonWriter& writer) override;
-            bool readFromValue(const rapidjson::Value& obj) override;
+            web::json::value ToJson() const override
+            {
+                web::json::value output;
+                return output;
+            }
         };
 
-        struct LinkKongregateAccountRequest : public PlayFabBaseModel
+        struct LinkKongregateAccountRequest : public PlayFabRequestCommon
         {
             std::string KongregateId;
             std::string AuthTicket;
-            OptionalBool ForceLink;
+            Boxed<bool> ForceLink;
 
             LinkKongregateAccountRequest() :
-                PlayFabBaseModel(),
+                PlayFabRequestCommon(),
                 KongregateId(),
                 AuthTicket(),
                 ForceLink()
             {}
 
             LinkKongregateAccountRequest(const LinkKongregateAccountRequest& src) :
-                PlayFabBaseModel(),
+                PlayFabRequestCommon(),
                 KongregateId(src.KongregateId),
                 AuthTicket(src.AuthTicket),
                 ForceLink(src.ForceLink)
             {}
 
-            LinkKongregateAccountRequest(const rapidjson::Value& obj) : LinkKongregateAccountRequest()
+            ~LinkKongregateAccountRequest() { }
+
+            void FromJson(web::json::value& input) override
             {
-                readFromValue(obj);
+                FromJsonUtilS(input[U("KongregateId")], KongregateId);
+                FromJsonUtilS(input[U("AuthTicket")], AuthTicket);
+                FromJsonUtilP(input[U("ForceLink")], ForceLink);
             }
 
-            ~LinkKongregateAccountRequest();
-
-            void writeJSON(PFStringJsonWriter& writer) override;
-            bool readFromValue(const rapidjson::Value& obj) override;
+            web::json::value ToJson() const override
+            {
+                web::json::value output;
+                web::json::value each_KongregateId; ToJsonUtilS(KongregateId, each_KongregateId); output[U("KongregateId")] = each_KongregateId;
+                web::json::value each_AuthTicket; ToJsonUtilS(AuthTicket, each_AuthTicket); output[U("AuthTicket")] = each_AuthTicket;
+                web::json::value each_ForceLink; ToJsonUtilP(ForceLink, each_ForceLink); output[U("ForceLink")] = each_ForceLink;
+                return output;
+            }
         };
 
-        struct LinkKongregateAccountResult : public PlayFabBaseModel
+        struct LinkKongregateAccountResult : public PlayFabRequestCommon
         {
 
             LinkKongregateAccountResult() :
-                PlayFabBaseModel()
+                PlayFabRequestCommon()
             {}
 
             LinkKongregateAccountResult(const LinkKongregateAccountResult& src) :
-                PlayFabBaseModel()
+                PlayFabRequestCommon()
             {}
 
-            LinkKongregateAccountResult(const rapidjson::Value& obj) : LinkKongregateAccountResult()
+            ~LinkKongregateAccountResult() { }
+
+            void FromJson(web::json::value& input) override
             {
-                readFromValue(obj);
             }
 
-            ~LinkKongregateAccountResult();
-
-            void writeJSON(PFStringJsonWriter& writer) override;
-            bool readFromValue(const rapidjson::Value& obj) override;
+            web::json::value ToJson() const override
+            {
+                web::json::value output;
+                return output;
+            }
         };
 
-        struct LinkSteamAccountRequest : public PlayFabBaseModel
+        struct LinkSteamAccountRequest : public PlayFabRequestCommon
         {
             std::string SteamTicket;
-            OptionalBool ForceLink;
+            Boxed<bool> ForceLink;
 
             LinkSteamAccountRequest() :
-                PlayFabBaseModel(),
+                PlayFabRequestCommon(),
                 SteamTicket(),
                 ForceLink()
             {}
 
             LinkSteamAccountRequest(const LinkSteamAccountRequest& src) :
-                PlayFabBaseModel(),
+                PlayFabRequestCommon(),
                 SteamTicket(src.SteamTicket),
                 ForceLink(src.ForceLink)
             {}
 
-            LinkSteamAccountRequest(const rapidjson::Value& obj) : LinkSteamAccountRequest()
+            ~LinkSteamAccountRequest() { }
+
+            void FromJson(web::json::value& input) override
             {
-                readFromValue(obj);
+                FromJsonUtilS(input[U("SteamTicket")], SteamTicket);
+                FromJsonUtilP(input[U("ForceLink")], ForceLink);
             }
 
-            ~LinkSteamAccountRequest();
-
-            void writeJSON(PFStringJsonWriter& writer) override;
-            bool readFromValue(const rapidjson::Value& obj) override;
+            web::json::value ToJson() const override
+            {
+                web::json::value output;
+                web::json::value each_SteamTicket; ToJsonUtilS(SteamTicket, each_SteamTicket); output[U("SteamTicket")] = each_SteamTicket;
+                web::json::value each_ForceLink; ToJsonUtilP(ForceLink, each_ForceLink); output[U("ForceLink")] = each_ForceLink;
+                return output;
+            }
         };
 
-        struct LinkSteamAccountResult : public PlayFabBaseModel
+        struct LinkSteamAccountResult : public PlayFabRequestCommon
         {
 
             LinkSteamAccountResult() :
-                PlayFabBaseModel()
+                PlayFabRequestCommon()
             {}
 
             LinkSteamAccountResult(const LinkSteamAccountResult& src) :
-                PlayFabBaseModel()
+                PlayFabRequestCommon()
             {}
 
-            LinkSteamAccountResult(const rapidjson::Value& obj) : LinkSteamAccountResult()
+            ~LinkSteamAccountResult() { }
+
+            void FromJson(web::json::value& input) override
             {
-                readFromValue(obj);
             }
 
-            ~LinkSteamAccountResult();
-
-            void writeJSON(PFStringJsonWriter& writer) override;
-            bool readFromValue(const rapidjson::Value& obj) override;
+            web::json::value ToJson() const override
+            {
+                web::json::value output;
+                return output;
+            }
         };
 
-        struct LinkTwitchAccountRequest : public PlayFabBaseModel
+        struct LinkTwitchAccountRequest : public PlayFabRequestCommon
         {
             std::string AccessToken;
-            OptionalBool ForceLink;
+            Boxed<bool> ForceLink;
 
             LinkTwitchAccountRequest() :
-                PlayFabBaseModel(),
+                PlayFabRequestCommon(),
                 AccessToken(),
                 ForceLink()
             {}
 
             LinkTwitchAccountRequest(const LinkTwitchAccountRequest& src) :
-                PlayFabBaseModel(),
+                PlayFabRequestCommon(),
                 AccessToken(src.AccessToken),
                 ForceLink(src.ForceLink)
             {}
 
-            LinkTwitchAccountRequest(const rapidjson::Value& obj) : LinkTwitchAccountRequest()
+            ~LinkTwitchAccountRequest() { }
+
+            void FromJson(web::json::value& input) override
             {
-                readFromValue(obj);
+                FromJsonUtilS(input[U("AccessToken")], AccessToken);
+                FromJsonUtilP(input[U("ForceLink")], ForceLink);
             }
 
-            ~LinkTwitchAccountRequest();
-
-            void writeJSON(PFStringJsonWriter& writer) override;
-            bool readFromValue(const rapidjson::Value& obj) override;
+            web::json::value ToJson() const override
+            {
+                web::json::value output;
+                web::json::value each_AccessToken; ToJsonUtilS(AccessToken, each_AccessToken); output[U("AccessToken")] = each_AccessToken;
+                web::json::value each_ForceLink; ToJsonUtilP(ForceLink, each_ForceLink); output[U("ForceLink")] = each_ForceLink;
+                return output;
+            }
         };
 
-        struct LinkTwitchAccountResult : public PlayFabBaseModel
+        struct LinkTwitchAccountResult : public PlayFabRequestCommon
         {
 
             LinkTwitchAccountResult() :
-                PlayFabBaseModel()
+                PlayFabRequestCommon()
             {}
 
             LinkTwitchAccountResult(const LinkTwitchAccountResult& src) :
-                PlayFabBaseModel()
+                PlayFabRequestCommon()
             {}
 
-            LinkTwitchAccountResult(const rapidjson::Value& obj) : LinkTwitchAccountResult()
+            ~LinkTwitchAccountResult() { }
+
+            void FromJson(web::json::value& input) override
             {
-                readFromValue(obj);
             }
 
-            ~LinkTwitchAccountResult();
-
-            void writeJSON(PFStringJsonWriter& writer) override;
-            bool readFromValue(const rapidjson::Value& obj) override;
+            web::json::value ToJson() const override
+            {
+                web::json::value output;
+                return output;
+            }
         };
 
-        struct ListUsersCharactersRequest : public PlayFabBaseModel
+        struct ListUsersCharactersRequest : public PlayFabRequestCommon
         {
             std::string PlayFabId;
 
             ListUsersCharactersRequest() :
-                PlayFabBaseModel(),
+                PlayFabRequestCommon(),
                 PlayFabId()
             {}
 
             ListUsersCharactersRequest(const ListUsersCharactersRequest& src) :
-                PlayFabBaseModel(),
+                PlayFabRequestCommon(),
                 PlayFabId(src.PlayFabId)
             {}
 
-            ListUsersCharactersRequest(const rapidjson::Value& obj) : ListUsersCharactersRequest()
+            ~ListUsersCharactersRequest() { }
+
+            void FromJson(web::json::value& input) override
             {
-                readFromValue(obj);
+                FromJsonUtilS(input[U("PlayFabId")], PlayFabId);
             }
 
-            ~ListUsersCharactersRequest();
-
-            void writeJSON(PFStringJsonWriter& writer) override;
-            bool readFromValue(const rapidjson::Value& obj) override;
+            web::json::value ToJson() const override
+            {
+                web::json::value output;
+                web::json::value each_PlayFabId; ToJsonUtilS(PlayFabId, each_PlayFabId); output[U("PlayFabId")] = each_PlayFabId;
+                return output;
+            }
         };
 
-        struct ListUsersCharactersResult : public PlayFabBaseModel
+        struct ListUsersCharactersResult : public PlayFabRequestCommon
         {
             std::list<CharacterResult> Characters;
 
             ListUsersCharactersResult() :
-                PlayFabBaseModel(),
+                PlayFabRequestCommon(),
                 Characters()
             {}
 
             ListUsersCharactersResult(const ListUsersCharactersResult& src) :
-                PlayFabBaseModel(),
+                PlayFabRequestCommon(),
                 Characters(src.Characters)
             {}
 
-            ListUsersCharactersResult(const rapidjson::Value& obj) : ListUsersCharactersResult()
+            ~ListUsersCharactersResult() { }
+
+            void FromJson(web::json::value& input) override
             {
-                readFromValue(obj);
+                FromJsonUtilO(input[U("Characters")], Characters);
             }
 
-            ~ListUsersCharactersResult();
-
-            void writeJSON(PFStringJsonWriter& writer) override;
-            bool readFromValue(const rapidjson::Value& obj) override;
+            web::json::value ToJson() const override
+            {
+                web::json::value output;
+                web::json::value each_Characters; ToJsonUtilO(Characters, each_Characters); output[U("Characters")] = each_Characters;
+                return output;
+            }
         };
 
         struct UserSettings : public PlayFabBaseModel
@@ -5642,7 +7509,7 @@ namespace PlayFab
 
             UserSettings() :
                 PlayFabBaseModel(),
-                NeedsAttribution(false)
+                NeedsAttribution()
             {}
 
             UserSettings(const UserSettings& src) :
@@ -5650,447 +7517,585 @@ namespace PlayFab
                 NeedsAttribution(src.NeedsAttribution)
             {}
 
-            UserSettings(const rapidjson::Value& obj) : UserSettings()
+            ~UserSettings() { }
+
+            void FromJson(web::json::value& input) override
             {
-                readFromValue(obj);
+                FromJsonUtilP(input[U("NeedsAttribution")], NeedsAttribution);
             }
 
-            ~UserSettings();
-
-            void writeJSON(PFStringJsonWriter& writer) override;
-            bool readFromValue(const rapidjson::Value& obj) override;
+            web::json::value ToJson() const override
+            {
+                web::json::value output;
+                web::json::value each_NeedsAttribution; ToJsonUtilP(NeedsAttribution, each_NeedsAttribution); output[U("NeedsAttribution")] = each_NeedsAttribution;
+                return output;
+            }
         };
 
-        struct LoginResult : public PlayFabBaseModel
+        struct LoginResult : public PlayFabRequestCommon
         {
             std::string SessionTicket;
             std::string PlayFabId;
             bool NewlyCreated;
-            UserSettings* SettingsForUser;
-            OptionalTime LastLoginTime;
-            GetPlayerCombinedInfoResultPayload* InfoResultPayload;
+            Boxed<UserSettings> SettingsForUser;
+            Boxed<time_t> LastLoginTime;
+            Boxed<GetPlayerCombinedInfoResultPayload> InfoResultPayload;
 
             LoginResult() :
-                PlayFabBaseModel(),
+                PlayFabRequestCommon(),
                 SessionTicket(),
                 PlayFabId(),
-                NewlyCreated(false),
-                SettingsForUser(nullptr),
+                NewlyCreated(),
+                SettingsForUser(),
                 LastLoginTime(),
-                InfoResultPayload(nullptr)
+                InfoResultPayload()
             {}
 
             LoginResult(const LoginResult& src) :
-                PlayFabBaseModel(),
+                PlayFabRequestCommon(),
                 SessionTicket(src.SessionTicket),
                 PlayFabId(src.PlayFabId),
                 NewlyCreated(src.NewlyCreated),
-                SettingsForUser(src.SettingsForUser ? new UserSettings(*src.SettingsForUser) : nullptr),
+                SettingsForUser(src.SettingsForUser),
                 LastLoginTime(src.LastLoginTime),
-                InfoResultPayload(src.InfoResultPayload ? new GetPlayerCombinedInfoResultPayload(*src.InfoResultPayload) : nullptr)
+                InfoResultPayload(src.InfoResultPayload)
             {}
 
-            LoginResult(const rapidjson::Value& obj) : LoginResult()
+            ~LoginResult() { }
+
+            void FromJson(web::json::value& input) override
             {
-                readFromValue(obj);
+                FromJsonUtilS(input[U("SessionTicket")], SessionTicket);
+                FromJsonUtilS(input[U("PlayFabId")], PlayFabId);
+                FromJsonUtilP(input[U("NewlyCreated")], NewlyCreated);
+                FromJsonUtilO(input[U("SettingsForUser")], SettingsForUser);
+                FromJsonUtilT(input[U("LastLoginTime")], LastLoginTime);
+                FromJsonUtilO(input[U("InfoResultPayload")], InfoResultPayload);
             }
 
-            ~LoginResult();
-
-            void writeJSON(PFStringJsonWriter& writer) override;
-            bool readFromValue(const rapidjson::Value& obj) override;
+            web::json::value ToJson() const override
+            {
+                web::json::value output;
+                web::json::value each_SessionTicket; ToJsonUtilS(SessionTicket, each_SessionTicket); output[U("SessionTicket")] = each_SessionTicket;
+                web::json::value each_PlayFabId; ToJsonUtilS(PlayFabId, each_PlayFabId); output[U("PlayFabId")] = each_PlayFabId;
+                web::json::value each_NewlyCreated; ToJsonUtilP(NewlyCreated, each_NewlyCreated); output[U("NewlyCreated")] = each_NewlyCreated;
+                web::json::value each_SettingsForUser; ToJsonUtilO(SettingsForUser, each_SettingsForUser); output[U("SettingsForUser")] = each_SettingsForUser;
+                web::json::value each_LastLoginTime; ToJsonUtilT(LastLoginTime, each_LastLoginTime); output[U("LastLoginTime")] = each_LastLoginTime;
+                web::json::value each_InfoResultPayload; ToJsonUtilO(InfoResultPayload, each_InfoResultPayload); output[U("InfoResultPayload")] = each_InfoResultPayload;
+                return output;
+            }
         };
 
-        struct LoginWithAndroidDeviceIDRequest : public PlayFabBaseModel
+        struct LoginWithAndroidDeviceIDRequest : public PlayFabRequestCommon
         {
             std::string TitleId;
             std::string AndroidDeviceId;
             std::string OS;
             std::string AndroidDevice;
-            OptionalBool CreateAccount;
-            GetPlayerCombinedInfoRequestParams* InfoRequestParameters;
+            Boxed<bool> CreateAccount;
+            Boxed<GetPlayerCombinedInfoRequestParams> InfoRequestParameters;
 
             LoginWithAndroidDeviceIDRequest() :
-                PlayFabBaseModel(),
+                PlayFabRequestCommon(),
                 TitleId(),
                 AndroidDeviceId(),
                 OS(),
                 AndroidDevice(),
                 CreateAccount(),
-                InfoRequestParameters(nullptr)
+                InfoRequestParameters()
             {}
 
             LoginWithAndroidDeviceIDRequest(const LoginWithAndroidDeviceIDRequest& src) :
-                PlayFabBaseModel(),
+                PlayFabRequestCommon(),
                 TitleId(src.TitleId),
                 AndroidDeviceId(src.AndroidDeviceId),
                 OS(src.OS),
                 AndroidDevice(src.AndroidDevice),
                 CreateAccount(src.CreateAccount),
-                InfoRequestParameters(src.InfoRequestParameters ? new GetPlayerCombinedInfoRequestParams(*src.InfoRequestParameters) : nullptr)
+                InfoRequestParameters(src.InfoRequestParameters)
             {}
 
-            LoginWithAndroidDeviceIDRequest(const rapidjson::Value& obj) : LoginWithAndroidDeviceIDRequest()
+            ~LoginWithAndroidDeviceIDRequest() { }
+
+            void FromJson(web::json::value& input) override
             {
-                readFromValue(obj);
+                FromJsonUtilS(input[U("TitleId")], TitleId);
+                FromJsonUtilS(input[U("AndroidDeviceId")], AndroidDeviceId);
+                FromJsonUtilS(input[U("OS")], OS);
+                FromJsonUtilS(input[U("AndroidDevice")], AndroidDevice);
+                FromJsonUtilP(input[U("CreateAccount")], CreateAccount);
+                FromJsonUtilO(input[U("InfoRequestParameters")], InfoRequestParameters);
             }
 
-            ~LoginWithAndroidDeviceIDRequest();
-
-            void writeJSON(PFStringJsonWriter& writer) override;
-            bool readFromValue(const rapidjson::Value& obj) override;
+            web::json::value ToJson() const override
+            {
+                web::json::value output;
+                web::json::value each_TitleId; ToJsonUtilS(TitleId, each_TitleId); output[U("TitleId")] = each_TitleId;
+                web::json::value each_AndroidDeviceId; ToJsonUtilS(AndroidDeviceId, each_AndroidDeviceId); output[U("AndroidDeviceId")] = each_AndroidDeviceId;
+                web::json::value each_OS; ToJsonUtilS(OS, each_OS); output[U("OS")] = each_OS;
+                web::json::value each_AndroidDevice; ToJsonUtilS(AndroidDevice, each_AndroidDevice); output[U("AndroidDevice")] = each_AndroidDevice;
+                web::json::value each_CreateAccount; ToJsonUtilP(CreateAccount, each_CreateAccount); output[U("CreateAccount")] = each_CreateAccount;
+                web::json::value each_InfoRequestParameters; ToJsonUtilO(InfoRequestParameters, each_InfoRequestParameters); output[U("InfoRequestParameters")] = each_InfoRequestParameters;
+                return output;
+            }
         };
 
-        struct LoginWithCustomIDRequest : public PlayFabBaseModel
+        struct LoginWithCustomIDRequest : public PlayFabRequestCommon
         {
             std::string TitleId;
             std::string CustomId;
-            OptionalBool CreateAccount;
-            GetPlayerCombinedInfoRequestParams* InfoRequestParameters;
+            Boxed<bool> CreateAccount;
+            Boxed<GetPlayerCombinedInfoRequestParams> InfoRequestParameters;
 
             LoginWithCustomIDRequest() :
-                PlayFabBaseModel(),
+                PlayFabRequestCommon(),
                 TitleId(),
                 CustomId(),
                 CreateAccount(),
-                InfoRequestParameters(nullptr)
+                InfoRequestParameters()
             {}
 
             LoginWithCustomIDRequest(const LoginWithCustomIDRequest& src) :
-                PlayFabBaseModel(),
+                PlayFabRequestCommon(),
                 TitleId(src.TitleId),
                 CustomId(src.CustomId),
                 CreateAccount(src.CreateAccount),
-                InfoRequestParameters(src.InfoRequestParameters ? new GetPlayerCombinedInfoRequestParams(*src.InfoRequestParameters) : nullptr)
+                InfoRequestParameters(src.InfoRequestParameters)
             {}
 
-            LoginWithCustomIDRequest(const rapidjson::Value& obj) : LoginWithCustomIDRequest()
+            ~LoginWithCustomIDRequest() { }
+
+            void FromJson(web::json::value& input) override
             {
-                readFromValue(obj);
+                FromJsonUtilS(input[U("TitleId")], TitleId);
+                FromJsonUtilS(input[U("CustomId")], CustomId);
+                FromJsonUtilP(input[U("CreateAccount")], CreateAccount);
+                FromJsonUtilO(input[U("InfoRequestParameters")], InfoRequestParameters);
             }
 
-            ~LoginWithCustomIDRequest();
-
-            void writeJSON(PFStringJsonWriter& writer) override;
-            bool readFromValue(const rapidjson::Value& obj) override;
+            web::json::value ToJson() const override
+            {
+                web::json::value output;
+                web::json::value each_TitleId; ToJsonUtilS(TitleId, each_TitleId); output[U("TitleId")] = each_TitleId;
+                web::json::value each_CustomId; ToJsonUtilS(CustomId, each_CustomId); output[U("CustomId")] = each_CustomId;
+                web::json::value each_CreateAccount; ToJsonUtilP(CreateAccount, each_CreateAccount); output[U("CreateAccount")] = each_CreateAccount;
+                web::json::value each_InfoRequestParameters; ToJsonUtilO(InfoRequestParameters, each_InfoRequestParameters); output[U("InfoRequestParameters")] = each_InfoRequestParameters;
+                return output;
+            }
         };
 
-        struct LoginWithEmailAddressRequest : public PlayFabBaseModel
+        struct LoginWithEmailAddressRequest : public PlayFabRequestCommon
         {
             std::string TitleId;
             std::string Email;
             std::string Password;
-            GetPlayerCombinedInfoRequestParams* InfoRequestParameters;
+            Boxed<GetPlayerCombinedInfoRequestParams> InfoRequestParameters;
 
             LoginWithEmailAddressRequest() :
-                PlayFabBaseModel(),
+                PlayFabRequestCommon(),
                 TitleId(),
                 Email(),
                 Password(),
-                InfoRequestParameters(nullptr)
+                InfoRequestParameters()
             {}
 
             LoginWithEmailAddressRequest(const LoginWithEmailAddressRequest& src) :
-                PlayFabBaseModel(),
+                PlayFabRequestCommon(),
                 TitleId(src.TitleId),
                 Email(src.Email),
                 Password(src.Password),
-                InfoRequestParameters(src.InfoRequestParameters ? new GetPlayerCombinedInfoRequestParams(*src.InfoRequestParameters) : nullptr)
+                InfoRequestParameters(src.InfoRequestParameters)
             {}
 
-            LoginWithEmailAddressRequest(const rapidjson::Value& obj) : LoginWithEmailAddressRequest()
+            ~LoginWithEmailAddressRequest() { }
+
+            void FromJson(web::json::value& input) override
             {
-                readFromValue(obj);
+                FromJsonUtilS(input[U("TitleId")], TitleId);
+                FromJsonUtilS(input[U("Email")], Email);
+                FromJsonUtilS(input[U("Password")], Password);
+                FromJsonUtilO(input[U("InfoRequestParameters")], InfoRequestParameters);
             }
 
-            ~LoginWithEmailAddressRequest();
-
-            void writeJSON(PFStringJsonWriter& writer) override;
-            bool readFromValue(const rapidjson::Value& obj) override;
+            web::json::value ToJson() const override
+            {
+                web::json::value output;
+                web::json::value each_TitleId; ToJsonUtilS(TitleId, each_TitleId); output[U("TitleId")] = each_TitleId;
+                web::json::value each_Email; ToJsonUtilS(Email, each_Email); output[U("Email")] = each_Email;
+                web::json::value each_Password; ToJsonUtilS(Password, each_Password); output[U("Password")] = each_Password;
+                web::json::value each_InfoRequestParameters; ToJsonUtilO(InfoRequestParameters, each_InfoRequestParameters); output[U("InfoRequestParameters")] = each_InfoRequestParameters;
+                return output;
+            }
         };
 
-        struct LoginWithFacebookRequest : public PlayFabBaseModel
+        struct LoginWithFacebookRequest : public PlayFabRequestCommon
         {
             std::string TitleId;
             std::string AccessToken;
-            OptionalBool CreateAccount;
-            GetPlayerCombinedInfoRequestParams* InfoRequestParameters;
+            Boxed<bool> CreateAccount;
+            Boxed<GetPlayerCombinedInfoRequestParams> InfoRequestParameters;
 
             LoginWithFacebookRequest() :
-                PlayFabBaseModel(),
+                PlayFabRequestCommon(),
                 TitleId(),
                 AccessToken(),
                 CreateAccount(),
-                InfoRequestParameters(nullptr)
+                InfoRequestParameters()
             {}
 
             LoginWithFacebookRequest(const LoginWithFacebookRequest& src) :
-                PlayFabBaseModel(),
+                PlayFabRequestCommon(),
                 TitleId(src.TitleId),
                 AccessToken(src.AccessToken),
                 CreateAccount(src.CreateAccount),
-                InfoRequestParameters(src.InfoRequestParameters ? new GetPlayerCombinedInfoRequestParams(*src.InfoRequestParameters) : nullptr)
+                InfoRequestParameters(src.InfoRequestParameters)
             {}
 
-            LoginWithFacebookRequest(const rapidjson::Value& obj) : LoginWithFacebookRequest()
+            ~LoginWithFacebookRequest() { }
+
+            void FromJson(web::json::value& input) override
             {
-                readFromValue(obj);
+                FromJsonUtilS(input[U("TitleId")], TitleId);
+                FromJsonUtilS(input[U("AccessToken")], AccessToken);
+                FromJsonUtilP(input[U("CreateAccount")], CreateAccount);
+                FromJsonUtilO(input[U("InfoRequestParameters")], InfoRequestParameters);
             }
 
-            ~LoginWithFacebookRequest();
-
-            void writeJSON(PFStringJsonWriter& writer) override;
-            bool readFromValue(const rapidjson::Value& obj) override;
+            web::json::value ToJson() const override
+            {
+                web::json::value output;
+                web::json::value each_TitleId; ToJsonUtilS(TitleId, each_TitleId); output[U("TitleId")] = each_TitleId;
+                web::json::value each_AccessToken; ToJsonUtilS(AccessToken, each_AccessToken); output[U("AccessToken")] = each_AccessToken;
+                web::json::value each_CreateAccount; ToJsonUtilP(CreateAccount, each_CreateAccount); output[U("CreateAccount")] = each_CreateAccount;
+                web::json::value each_InfoRequestParameters; ToJsonUtilO(InfoRequestParameters, each_InfoRequestParameters); output[U("InfoRequestParameters")] = each_InfoRequestParameters;
+                return output;
+            }
         };
 
-        struct LoginWithGameCenterRequest : public PlayFabBaseModel
+        struct LoginWithGameCenterRequest : public PlayFabRequestCommon
         {
             std::string TitleId;
             std::string PlayerId;
-            OptionalBool CreateAccount;
-            GetPlayerCombinedInfoRequestParams* InfoRequestParameters;
+            Boxed<bool> CreateAccount;
+            Boxed<GetPlayerCombinedInfoRequestParams> InfoRequestParameters;
 
             LoginWithGameCenterRequest() :
-                PlayFabBaseModel(),
+                PlayFabRequestCommon(),
                 TitleId(),
                 PlayerId(),
                 CreateAccount(),
-                InfoRequestParameters(nullptr)
+                InfoRequestParameters()
             {}
 
             LoginWithGameCenterRequest(const LoginWithGameCenterRequest& src) :
-                PlayFabBaseModel(),
+                PlayFabRequestCommon(),
                 TitleId(src.TitleId),
                 PlayerId(src.PlayerId),
                 CreateAccount(src.CreateAccount),
-                InfoRequestParameters(src.InfoRequestParameters ? new GetPlayerCombinedInfoRequestParams(*src.InfoRequestParameters) : nullptr)
+                InfoRequestParameters(src.InfoRequestParameters)
             {}
 
-            LoginWithGameCenterRequest(const rapidjson::Value& obj) : LoginWithGameCenterRequest()
+            ~LoginWithGameCenterRequest() { }
+
+            void FromJson(web::json::value& input) override
             {
-                readFromValue(obj);
+                FromJsonUtilS(input[U("TitleId")], TitleId);
+                FromJsonUtilS(input[U("PlayerId")], PlayerId);
+                FromJsonUtilP(input[U("CreateAccount")], CreateAccount);
+                FromJsonUtilO(input[U("InfoRequestParameters")], InfoRequestParameters);
             }
 
-            ~LoginWithGameCenterRequest();
-
-            void writeJSON(PFStringJsonWriter& writer) override;
-            bool readFromValue(const rapidjson::Value& obj) override;
+            web::json::value ToJson() const override
+            {
+                web::json::value output;
+                web::json::value each_TitleId; ToJsonUtilS(TitleId, each_TitleId); output[U("TitleId")] = each_TitleId;
+                web::json::value each_PlayerId; ToJsonUtilS(PlayerId, each_PlayerId); output[U("PlayerId")] = each_PlayerId;
+                web::json::value each_CreateAccount; ToJsonUtilP(CreateAccount, each_CreateAccount); output[U("CreateAccount")] = each_CreateAccount;
+                web::json::value each_InfoRequestParameters; ToJsonUtilO(InfoRequestParameters, each_InfoRequestParameters); output[U("InfoRequestParameters")] = each_InfoRequestParameters;
+                return output;
+            }
         };
 
-        struct LoginWithGoogleAccountRequest : public PlayFabBaseModel
+        struct LoginWithGoogleAccountRequest : public PlayFabRequestCommon
         {
             std::string TitleId;
             std::string AccessToken;
-            OptionalBool CreateAccount;
-            GetPlayerCombinedInfoRequestParams* InfoRequestParameters;
+            Boxed<bool> CreateAccount;
+            Boxed<GetPlayerCombinedInfoRequestParams> InfoRequestParameters;
 
             LoginWithGoogleAccountRequest() :
-                PlayFabBaseModel(),
+                PlayFabRequestCommon(),
                 TitleId(),
                 AccessToken(),
                 CreateAccount(),
-                InfoRequestParameters(nullptr)
+                InfoRequestParameters()
             {}
 
             LoginWithGoogleAccountRequest(const LoginWithGoogleAccountRequest& src) :
-                PlayFabBaseModel(),
+                PlayFabRequestCommon(),
                 TitleId(src.TitleId),
                 AccessToken(src.AccessToken),
                 CreateAccount(src.CreateAccount),
-                InfoRequestParameters(src.InfoRequestParameters ? new GetPlayerCombinedInfoRequestParams(*src.InfoRequestParameters) : nullptr)
+                InfoRequestParameters(src.InfoRequestParameters)
             {}
 
-            LoginWithGoogleAccountRequest(const rapidjson::Value& obj) : LoginWithGoogleAccountRequest()
+            ~LoginWithGoogleAccountRequest() { }
+
+            void FromJson(web::json::value& input) override
             {
-                readFromValue(obj);
+                FromJsonUtilS(input[U("TitleId")], TitleId);
+                FromJsonUtilS(input[U("AccessToken")], AccessToken);
+                FromJsonUtilP(input[U("CreateAccount")], CreateAccount);
+                FromJsonUtilO(input[U("InfoRequestParameters")], InfoRequestParameters);
             }
 
-            ~LoginWithGoogleAccountRequest();
-
-            void writeJSON(PFStringJsonWriter& writer) override;
-            bool readFromValue(const rapidjson::Value& obj) override;
+            web::json::value ToJson() const override
+            {
+                web::json::value output;
+                web::json::value each_TitleId; ToJsonUtilS(TitleId, each_TitleId); output[U("TitleId")] = each_TitleId;
+                web::json::value each_AccessToken; ToJsonUtilS(AccessToken, each_AccessToken); output[U("AccessToken")] = each_AccessToken;
+                web::json::value each_CreateAccount; ToJsonUtilP(CreateAccount, each_CreateAccount); output[U("CreateAccount")] = each_CreateAccount;
+                web::json::value each_InfoRequestParameters; ToJsonUtilO(InfoRequestParameters, each_InfoRequestParameters); output[U("InfoRequestParameters")] = each_InfoRequestParameters;
+                return output;
+            }
         };
 
-        struct LoginWithIOSDeviceIDRequest : public PlayFabBaseModel
+        struct LoginWithIOSDeviceIDRequest : public PlayFabRequestCommon
         {
             std::string TitleId;
             std::string DeviceId;
             std::string OS;
             std::string DeviceModel;
-            GetPlayerCombinedInfoRequestParams* InfoRequestParameters;
-            OptionalBool CreateAccount;
+            Boxed<GetPlayerCombinedInfoRequestParams> InfoRequestParameters;
+            Boxed<bool> CreateAccount;
 
             LoginWithIOSDeviceIDRequest() :
-                PlayFabBaseModel(),
+                PlayFabRequestCommon(),
                 TitleId(),
                 DeviceId(),
                 OS(),
                 DeviceModel(),
-                InfoRequestParameters(nullptr),
+                InfoRequestParameters(),
                 CreateAccount()
             {}
 
             LoginWithIOSDeviceIDRequest(const LoginWithIOSDeviceIDRequest& src) :
-                PlayFabBaseModel(),
+                PlayFabRequestCommon(),
                 TitleId(src.TitleId),
                 DeviceId(src.DeviceId),
                 OS(src.OS),
                 DeviceModel(src.DeviceModel),
-                InfoRequestParameters(src.InfoRequestParameters ? new GetPlayerCombinedInfoRequestParams(*src.InfoRequestParameters) : nullptr),
+                InfoRequestParameters(src.InfoRequestParameters),
                 CreateAccount(src.CreateAccount)
             {}
 
-            LoginWithIOSDeviceIDRequest(const rapidjson::Value& obj) : LoginWithIOSDeviceIDRequest()
+            ~LoginWithIOSDeviceIDRequest() { }
+
+            void FromJson(web::json::value& input) override
             {
-                readFromValue(obj);
+                FromJsonUtilS(input[U("TitleId")], TitleId);
+                FromJsonUtilS(input[U("DeviceId")], DeviceId);
+                FromJsonUtilS(input[U("OS")], OS);
+                FromJsonUtilS(input[U("DeviceModel")], DeviceModel);
+                FromJsonUtilO(input[U("InfoRequestParameters")], InfoRequestParameters);
+                FromJsonUtilP(input[U("CreateAccount")], CreateAccount);
             }
 
-            ~LoginWithIOSDeviceIDRequest();
-
-            void writeJSON(PFStringJsonWriter& writer) override;
-            bool readFromValue(const rapidjson::Value& obj) override;
+            web::json::value ToJson() const override
+            {
+                web::json::value output;
+                web::json::value each_TitleId; ToJsonUtilS(TitleId, each_TitleId); output[U("TitleId")] = each_TitleId;
+                web::json::value each_DeviceId; ToJsonUtilS(DeviceId, each_DeviceId); output[U("DeviceId")] = each_DeviceId;
+                web::json::value each_OS; ToJsonUtilS(OS, each_OS); output[U("OS")] = each_OS;
+                web::json::value each_DeviceModel; ToJsonUtilS(DeviceModel, each_DeviceModel); output[U("DeviceModel")] = each_DeviceModel;
+                web::json::value each_InfoRequestParameters; ToJsonUtilO(InfoRequestParameters, each_InfoRequestParameters); output[U("InfoRequestParameters")] = each_InfoRequestParameters;
+                web::json::value each_CreateAccount; ToJsonUtilP(CreateAccount, each_CreateAccount); output[U("CreateAccount")] = each_CreateAccount;
+                return output;
+            }
         };
 
-        struct LoginWithKongregateRequest : public PlayFabBaseModel
+        struct LoginWithKongregateRequest : public PlayFabRequestCommon
         {
             std::string TitleId;
             std::string KongregateId;
             std::string AuthTicket;
-            OptionalBool CreateAccount;
-            GetPlayerCombinedInfoRequestParams* InfoRequestParameters;
+            Boxed<bool> CreateAccount;
+            Boxed<GetPlayerCombinedInfoRequestParams> InfoRequestParameters;
 
             LoginWithKongregateRequest() :
-                PlayFabBaseModel(),
+                PlayFabRequestCommon(),
                 TitleId(),
                 KongregateId(),
                 AuthTicket(),
                 CreateAccount(),
-                InfoRequestParameters(nullptr)
+                InfoRequestParameters()
             {}
 
             LoginWithKongregateRequest(const LoginWithKongregateRequest& src) :
-                PlayFabBaseModel(),
+                PlayFabRequestCommon(),
                 TitleId(src.TitleId),
                 KongregateId(src.KongregateId),
                 AuthTicket(src.AuthTicket),
                 CreateAccount(src.CreateAccount),
-                InfoRequestParameters(src.InfoRequestParameters ? new GetPlayerCombinedInfoRequestParams(*src.InfoRequestParameters) : nullptr)
+                InfoRequestParameters(src.InfoRequestParameters)
             {}
 
-            LoginWithKongregateRequest(const rapidjson::Value& obj) : LoginWithKongregateRequest()
+            ~LoginWithKongregateRequest() { }
+
+            void FromJson(web::json::value& input) override
             {
-                readFromValue(obj);
+                FromJsonUtilS(input[U("TitleId")], TitleId);
+                FromJsonUtilS(input[U("KongregateId")], KongregateId);
+                FromJsonUtilS(input[U("AuthTicket")], AuthTicket);
+                FromJsonUtilP(input[U("CreateAccount")], CreateAccount);
+                FromJsonUtilO(input[U("InfoRequestParameters")], InfoRequestParameters);
             }
 
-            ~LoginWithKongregateRequest();
-
-            void writeJSON(PFStringJsonWriter& writer) override;
-            bool readFromValue(const rapidjson::Value& obj) override;
+            web::json::value ToJson() const override
+            {
+                web::json::value output;
+                web::json::value each_TitleId; ToJsonUtilS(TitleId, each_TitleId); output[U("TitleId")] = each_TitleId;
+                web::json::value each_KongregateId; ToJsonUtilS(KongregateId, each_KongregateId); output[U("KongregateId")] = each_KongregateId;
+                web::json::value each_AuthTicket; ToJsonUtilS(AuthTicket, each_AuthTicket); output[U("AuthTicket")] = each_AuthTicket;
+                web::json::value each_CreateAccount; ToJsonUtilP(CreateAccount, each_CreateAccount); output[U("CreateAccount")] = each_CreateAccount;
+                web::json::value each_InfoRequestParameters; ToJsonUtilO(InfoRequestParameters, each_InfoRequestParameters); output[U("InfoRequestParameters")] = each_InfoRequestParameters;
+                return output;
+            }
         };
 
-        struct LoginWithPlayFabRequest : public PlayFabBaseModel
+        struct LoginWithPlayFabRequest : public PlayFabRequestCommon
         {
             std::string TitleId;
             std::string Username;
             std::string Password;
-            GetPlayerCombinedInfoRequestParams* InfoRequestParameters;
+            Boxed<GetPlayerCombinedInfoRequestParams> InfoRequestParameters;
 
             LoginWithPlayFabRequest() :
-                PlayFabBaseModel(),
+                PlayFabRequestCommon(),
                 TitleId(),
                 Username(),
                 Password(),
-                InfoRequestParameters(nullptr)
+                InfoRequestParameters()
             {}
 
             LoginWithPlayFabRequest(const LoginWithPlayFabRequest& src) :
-                PlayFabBaseModel(),
+                PlayFabRequestCommon(),
                 TitleId(src.TitleId),
                 Username(src.Username),
                 Password(src.Password),
-                InfoRequestParameters(src.InfoRequestParameters ? new GetPlayerCombinedInfoRequestParams(*src.InfoRequestParameters) : nullptr)
+                InfoRequestParameters(src.InfoRequestParameters)
             {}
 
-            LoginWithPlayFabRequest(const rapidjson::Value& obj) : LoginWithPlayFabRequest()
+            ~LoginWithPlayFabRequest() { }
+
+            void FromJson(web::json::value& input) override
             {
-                readFromValue(obj);
+                FromJsonUtilS(input[U("TitleId")], TitleId);
+                FromJsonUtilS(input[U("Username")], Username);
+                FromJsonUtilS(input[U("Password")], Password);
+                FromJsonUtilO(input[U("InfoRequestParameters")], InfoRequestParameters);
             }
 
-            ~LoginWithPlayFabRequest();
-
-            void writeJSON(PFStringJsonWriter& writer) override;
-            bool readFromValue(const rapidjson::Value& obj) override;
+            web::json::value ToJson() const override
+            {
+                web::json::value output;
+                web::json::value each_TitleId; ToJsonUtilS(TitleId, each_TitleId); output[U("TitleId")] = each_TitleId;
+                web::json::value each_Username; ToJsonUtilS(Username, each_Username); output[U("Username")] = each_Username;
+                web::json::value each_Password; ToJsonUtilS(Password, each_Password); output[U("Password")] = each_Password;
+                web::json::value each_InfoRequestParameters; ToJsonUtilO(InfoRequestParameters, each_InfoRequestParameters); output[U("InfoRequestParameters")] = each_InfoRequestParameters;
+                return output;
+            }
         };
 
-        struct LoginWithSteamRequest : public PlayFabBaseModel
+        struct LoginWithSteamRequest : public PlayFabRequestCommon
         {
             std::string TitleId;
             std::string SteamTicket;
-            OptionalBool CreateAccount;
-            GetPlayerCombinedInfoRequestParams* InfoRequestParameters;
+            Boxed<bool> CreateAccount;
+            Boxed<GetPlayerCombinedInfoRequestParams> InfoRequestParameters;
 
             LoginWithSteamRequest() :
-                PlayFabBaseModel(),
+                PlayFabRequestCommon(),
                 TitleId(),
                 SteamTicket(),
                 CreateAccount(),
-                InfoRequestParameters(nullptr)
+                InfoRequestParameters()
             {}
 
             LoginWithSteamRequest(const LoginWithSteamRequest& src) :
-                PlayFabBaseModel(),
+                PlayFabRequestCommon(),
                 TitleId(src.TitleId),
                 SteamTicket(src.SteamTicket),
                 CreateAccount(src.CreateAccount),
-                InfoRequestParameters(src.InfoRequestParameters ? new GetPlayerCombinedInfoRequestParams(*src.InfoRequestParameters) : nullptr)
+                InfoRequestParameters(src.InfoRequestParameters)
             {}
 
-            LoginWithSteamRequest(const rapidjson::Value& obj) : LoginWithSteamRequest()
+            ~LoginWithSteamRequest() { }
+
+            void FromJson(web::json::value& input) override
             {
-                readFromValue(obj);
+                FromJsonUtilS(input[U("TitleId")], TitleId);
+                FromJsonUtilS(input[U("SteamTicket")], SteamTicket);
+                FromJsonUtilP(input[U("CreateAccount")], CreateAccount);
+                FromJsonUtilO(input[U("InfoRequestParameters")], InfoRequestParameters);
             }
 
-            ~LoginWithSteamRequest();
-
-            void writeJSON(PFStringJsonWriter& writer) override;
-            bool readFromValue(const rapidjson::Value& obj) override;
+            web::json::value ToJson() const override
+            {
+                web::json::value output;
+                web::json::value each_TitleId; ToJsonUtilS(TitleId, each_TitleId); output[U("TitleId")] = each_TitleId;
+                web::json::value each_SteamTicket; ToJsonUtilS(SteamTicket, each_SteamTicket); output[U("SteamTicket")] = each_SteamTicket;
+                web::json::value each_CreateAccount; ToJsonUtilP(CreateAccount, each_CreateAccount); output[U("CreateAccount")] = each_CreateAccount;
+                web::json::value each_InfoRequestParameters; ToJsonUtilO(InfoRequestParameters, each_InfoRequestParameters); output[U("InfoRequestParameters")] = each_InfoRequestParameters;
+                return output;
+            }
         };
 
-        struct LoginWithTwitchRequest : public PlayFabBaseModel
+        struct LoginWithTwitchRequest : public PlayFabRequestCommon
         {
             std::string TitleId;
             std::string AccessToken;
-            OptionalBool CreateAccount;
-            GetPlayerCombinedInfoRequestParams* InfoRequestParameters;
+            Boxed<bool> CreateAccount;
+            Boxed<GetPlayerCombinedInfoRequestParams> InfoRequestParameters;
 
             LoginWithTwitchRequest() :
-                PlayFabBaseModel(),
+                PlayFabRequestCommon(),
                 TitleId(),
                 AccessToken(),
                 CreateAccount(),
-                InfoRequestParameters(nullptr)
+                InfoRequestParameters()
             {}
 
             LoginWithTwitchRequest(const LoginWithTwitchRequest& src) :
-                PlayFabBaseModel(),
+                PlayFabRequestCommon(),
                 TitleId(src.TitleId),
                 AccessToken(src.AccessToken),
                 CreateAccount(src.CreateAccount),
-                InfoRequestParameters(src.InfoRequestParameters ? new GetPlayerCombinedInfoRequestParams(*src.InfoRequestParameters) : nullptr)
+                InfoRequestParameters(src.InfoRequestParameters)
             {}
 
-            LoginWithTwitchRequest(const rapidjson::Value& obj) : LoginWithTwitchRequest()
+            ~LoginWithTwitchRequest() { }
+
+            void FromJson(web::json::value& input) override
             {
-                readFromValue(obj);
+                FromJsonUtilS(input[U("TitleId")], TitleId);
+                FromJsonUtilS(input[U("AccessToken")], AccessToken);
+                FromJsonUtilP(input[U("CreateAccount")], CreateAccount);
+                FromJsonUtilO(input[U("InfoRequestParameters")], InfoRequestParameters);
             }
 
-            ~LoginWithTwitchRequest();
-
-            void writeJSON(PFStringJsonWriter& writer) override;
-            bool readFromValue(const rapidjson::Value& obj) override;
+            web::json::value ToJson() const override
+            {
+                web::json::value output;
+                web::json::value each_TitleId; ToJsonUtilS(TitleId, each_TitleId); output[U("TitleId")] = each_TitleId;
+                web::json::value each_AccessToken; ToJsonUtilS(AccessToken, each_AccessToken); output[U("AccessToken")] = each_AccessToken;
+                web::json::value each_CreateAccount; ToJsonUtilP(CreateAccount, each_CreateAccount); output[U("CreateAccount")] = each_CreateAccount;
+                web::json::value each_InfoRequestParameters; ToJsonUtilO(InfoRequestParameters, each_InfoRequestParameters); output[U("InfoRequestParameters")] = each_InfoRequestParameters;
+                return output;
+            }
         };
 
-        struct MatchmakeRequest : public PlayFabBaseModel
+        struct MatchmakeRequest : public PlayFabRequestCommon
         {
             std::string BuildVersion;
             Boxed<Region> pfRegion;
@@ -6098,11 +8103,11 @@ namespace PlayFab
             std::string LobbyId;
             std::string StatisticName;
             std::string CharacterId;
-            OptionalBool StartNewIfNoneFound;
-            CollectionFilter* TagFilter;
+            Boxed<bool> StartNewIfNoneFound;
+            Boxed<CollectionFilter> TagFilter;
 
             MatchmakeRequest() :
-                PlayFabBaseModel(),
+                PlayFabRequestCommon(),
                 BuildVersion(),
                 pfRegion(),
                 GameMode(),
@@ -6110,11 +8115,11 @@ namespace PlayFab
                 StatisticName(),
                 CharacterId(),
                 StartNewIfNoneFound(),
-                TagFilter(nullptr)
+                TagFilter()
             {}
 
             MatchmakeRequest(const MatchmakeRequest& src) :
-                PlayFabBaseModel(),
+                PlayFabRequestCommon(),
                 BuildVersion(src.BuildVersion),
                 pfRegion(src.pfRegion),
                 GameMode(src.GameMode),
@@ -6122,44 +8127,50 @@ namespace PlayFab
                 StatisticName(src.StatisticName),
                 CharacterId(src.CharacterId),
                 StartNewIfNoneFound(src.StartNewIfNoneFound),
-                TagFilter(src.TagFilter ? new CollectionFilter(*src.TagFilter) : nullptr)
+                TagFilter(src.TagFilter)
             {}
 
-            MatchmakeRequest(const rapidjson::Value& obj) : MatchmakeRequest()
+            ~MatchmakeRequest() { }
+
+            void FromJson(web::json::value& input) override
             {
-                readFromValue(obj);
+                FromJsonUtilS(input[U("BuildVersion")], BuildVersion);
+                FromJsonUtilE(input[U("pfRegion")], pfRegion);
+                FromJsonUtilS(input[U("GameMode")], GameMode);
+                FromJsonUtilS(input[U("LobbyId")], LobbyId);
+                FromJsonUtilS(input[U("StatisticName")], StatisticName);
+                FromJsonUtilS(input[U("CharacterId")], CharacterId);
+                FromJsonUtilP(input[U("StartNewIfNoneFound")], StartNewIfNoneFound);
+                FromJsonUtilO(input[U("TagFilter")], TagFilter);
             }
 
-            ~MatchmakeRequest();
-
-            void writeJSON(PFStringJsonWriter& writer) override;
-            bool readFromValue(const rapidjson::Value& obj) override;
+            web::json::value ToJson() const override
+            {
+                web::json::value output;
+                web::json::value each_BuildVersion; ToJsonUtilS(BuildVersion, each_BuildVersion); output[U("BuildVersion")] = each_BuildVersion;
+                web::json::value each_pfRegion; ToJsonUtilE(pfRegion, each_pfRegion); output[U("Region")] = each_pfRegion;
+                web::json::value each_GameMode; ToJsonUtilS(GameMode, each_GameMode); output[U("GameMode")] = each_GameMode;
+                web::json::value each_LobbyId; ToJsonUtilS(LobbyId, each_LobbyId); output[U("LobbyId")] = each_LobbyId;
+                web::json::value each_StatisticName; ToJsonUtilS(StatisticName, each_StatisticName); output[U("StatisticName")] = each_StatisticName;
+                web::json::value each_CharacterId; ToJsonUtilS(CharacterId, each_CharacterId); output[U("CharacterId")] = each_CharacterId;
+                web::json::value each_StartNewIfNoneFound; ToJsonUtilP(StartNewIfNoneFound, each_StartNewIfNoneFound); output[U("StartNewIfNoneFound")] = each_StartNewIfNoneFound;
+                web::json::value each_TagFilter; ToJsonUtilO(TagFilter, each_TagFilter); output[U("TagFilter")] = each_TagFilter;
+                return output;
+            }
         };
 
-        enum MatchmakeStatus
-        {
-            MatchmakeStatusComplete,
-            MatchmakeStatusWaiting,
-            MatchmakeStatusGameNotFound,
-            MatchmakeStatusNoAvailableSlots,
-            MatchmakeStatusSessionClosed
-        };
-
-        void writeMatchmakeStatusEnumJSON(MatchmakeStatus enumVal, PFStringJsonWriter& writer);
-        MatchmakeStatus readMatchmakeStatusFromValue(const rapidjson::Value& obj);
-
-        struct MatchmakeResult : public PlayFabBaseModel
+        struct MatchmakeResult : public PlayFabRequestCommon
         {
             std::string LobbyID;
             std::string ServerHostname;
-            OptionalInt32 ServerPort;
+            Boxed<Int32> ServerPort;
             std::string Ticket;
             std::string Expires;
-            OptionalInt32 PollWaitTimeMS;
+            Boxed<Int32> PollWaitTimeMS;
             Boxed<MatchmakeStatus> Status;
 
             MatchmakeResult() :
-                PlayFabBaseModel(),
+                PlayFabRequestCommon(),
                 LobbyID(),
                 ServerHostname(),
                 ServerPort(),
@@ -6170,7 +8181,7 @@ namespace PlayFab
             {}
 
             MatchmakeResult(const MatchmakeResult& src) :
-                PlayFabBaseModel(),
+                PlayFabRequestCommon(),
                 LobbyID(src.LobbyID),
                 ServerHostname(src.ServerHostname),
                 ServerPort(src.ServerPort),
@@ -6180,18 +8191,34 @@ namespace PlayFab
                 Status(src.Status)
             {}
 
-            MatchmakeResult(const rapidjson::Value& obj) : MatchmakeResult()
+            ~MatchmakeResult() { }
+
+            void FromJson(web::json::value& input) override
             {
-                readFromValue(obj);
+                FromJsonUtilS(input[U("LobbyID")], LobbyID);
+                FromJsonUtilS(input[U("ServerHostname")], ServerHostname);
+                FromJsonUtilP(input[U("ServerPort")], ServerPort);
+                FromJsonUtilS(input[U("Ticket")], Ticket);
+                FromJsonUtilS(input[U("Expires")], Expires);
+                FromJsonUtilP(input[U("PollWaitTimeMS")], PollWaitTimeMS);
+                FromJsonUtilE(input[U("Status")], Status);
             }
 
-            ~MatchmakeResult();
-
-            void writeJSON(PFStringJsonWriter& writer) override;
-            bool readFromValue(const rapidjson::Value& obj) override;
+            web::json::value ToJson() const override
+            {
+                web::json::value output;
+                web::json::value each_LobbyID; ToJsonUtilS(LobbyID, each_LobbyID); output[U("LobbyID")] = each_LobbyID;
+                web::json::value each_ServerHostname; ToJsonUtilS(ServerHostname, each_ServerHostname); output[U("ServerHostname")] = each_ServerHostname;
+                web::json::value each_ServerPort; ToJsonUtilP(ServerPort, each_ServerPort); output[U("ServerPort")] = each_ServerPort;
+                web::json::value each_Ticket; ToJsonUtilS(Ticket, each_Ticket); output[U("Ticket")] = each_Ticket;
+                web::json::value each_Expires; ToJsonUtilS(Expires, each_Expires); output[U("Expires")] = each_Expires;
+                web::json::value each_PollWaitTimeMS; ToJsonUtilP(PollWaitTimeMS, each_PollWaitTimeMS); output[U("PollWaitTimeMS")] = each_PollWaitTimeMS;
+                web::json::value each_Status; ToJsonUtilE(Status, each_Status); output[U("Status")] = each_Status;
+                return output;
+            }
         };
 
-        struct ModifyUserVirtualCurrencyResult : public PlayFabBaseModel
+        struct ModifyUserVirtualCurrencyResult : public PlayFabRequestCommon
         {
             std::string PlayFabId;
             std::string VirtualCurrency;
@@ -6199,89 +8226,111 @@ namespace PlayFab
             Int32 Balance;
 
             ModifyUserVirtualCurrencyResult() :
-                PlayFabBaseModel(),
+                PlayFabRequestCommon(),
                 PlayFabId(),
                 VirtualCurrency(),
-                BalanceChange(0),
-                Balance(0)
+                BalanceChange(),
+                Balance()
             {}
 
             ModifyUserVirtualCurrencyResult(const ModifyUserVirtualCurrencyResult& src) :
-                PlayFabBaseModel(),
+                PlayFabRequestCommon(),
                 PlayFabId(src.PlayFabId),
                 VirtualCurrency(src.VirtualCurrency),
                 BalanceChange(src.BalanceChange),
                 Balance(src.Balance)
             {}
 
-            ModifyUserVirtualCurrencyResult(const rapidjson::Value& obj) : ModifyUserVirtualCurrencyResult()
+            ~ModifyUserVirtualCurrencyResult() { }
+
+            void FromJson(web::json::value& input) override
             {
-                readFromValue(obj);
+                FromJsonUtilS(input[U("PlayFabId")], PlayFabId);
+                FromJsonUtilS(input[U("VirtualCurrency")], VirtualCurrency);
+                FromJsonUtilP(input[U("BalanceChange")], BalanceChange);
+                FromJsonUtilP(input[U("Balance")], Balance);
             }
 
-            ~ModifyUserVirtualCurrencyResult();
-
-            void writeJSON(PFStringJsonWriter& writer) override;
-            bool readFromValue(const rapidjson::Value& obj) override;
+            web::json::value ToJson() const override
+            {
+                web::json::value output;
+                web::json::value each_PlayFabId; ToJsonUtilS(PlayFabId, each_PlayFabId); output[U("PlayFabId")] = each_PlayFabId;
+                web::json::value each_VirtualCurrency; ToJsonUtilS(VirtualCurrency, each_VirtualCurrency); output[U("VirtualCurrency")] = each_VirtualCurrency;
+                web::json::value each_BalanceChange; ToJsonUtilP(BalanceChange, each_BalanceChange); output[U("BalanceChange")] = each_BalanceChange;
+                web::json::value each_Balance; ToJsonUtilP(Balance, each_Balance); output[U("Balance")] = each_Balance;
+                return output;
+            }
         };
 
-        struct OpenTradeRequest : public PlayFabBaseModel
+        struct OpenTradeRequest : public PlayFabRequestCommon
         {
             std::list<std::string> OfferedInventoryInstanceIds;
             std::list<std::string> RequestedCatalogItemIds;
             std::list<std::string> AllowedPlayerIds;
 
             OpenTradeRequest() :
-                PlayFabBaseModel(),
+                PlayFabRequestCommon(),
                 OfferedInventoryInstanceIds(),
                 RequestedCatalogItemIds(),
                 AllowedPlayerIds()
             {}
 
             OpenTradeRequest(const OpenTradeRequest& src) :
-                PlayFabBaseModel(),
+                PlayFabRequestCommon(),
                 OfferedInventoryInstanceIds(src.OfferedInventoryInstanceIds),
                 RequestedCatalogItemIds(src.RequestedCatalogItemIds),
                 AllowedPlayerIds(src.AllowedPlayerIds)
             {}
 
-            OpenTradeRequest(const rapidjson::Value& obj) : OpenTradeRequest()
+            ~OpenTradeRequest() { }
+
+            void FromJson(web::json::value& input) override
             {
-                readFromValue(obj);
+                FromJsonUtilS(input[U("OfferedInventoryInstanceIds")], OfferedInventoryInstanceIds);
+                FromJsonUtilS(input[U("RequestedCatalogItemIds")], RequestedCatalogItemIds);
+                FromJsonUtilS(input[U("AllowedPlayerIds")], AllowedPlayerIds);
             }
 
-            ~OpenTradeRequest();
-
-            void writeJSON(PFStringJsonWriter& writer) override;
-            bool readFromValue(const rapidjson::Value& obj) override;
+            web::json::value ToJson() const override
+            {
+                web::json::value output;
+                web::json::value each_OfferedInventoryInstanceIds; ToJsonUtilS(OfferedInventoryInstanceIds, each_OfferedInventoryInstanceIds); output[U("OfferedInventoryInstanceIds")] = each_OfferedInventoryInstanceIds;
+                web::json::value each_RequestedCatalogItemIds; ToJsonUtilS(RequestedCatalogItemIds, each_RequestedCatalogItemIds); output[U("RequestedCatalogItemIds")] = each_RequestedCatalogItemIds;
+                web::json::value each_AllowedPlayerIds; ToJsonUtilS(AllowedPlayerIds, each_AllowedPlayerIds); output[U("AllowedPlayerIds")] = each_AllowedPlayerIds;
+                return output;
+            }
         };
 
-        struct OpenTradeResponse : public PlayFabBaseModel
+        struct OpenTradeResponse : public PlayFabRequestCommon
         {
-            TradeInfo* Trade;
+            Boxed<TradeInfo> Trade;
 
             OpenTradeResponse() :
-                PlayFabBaseModel(),
-                Trade(nullptr)
+                PlayFabRequestCommon(),
+                Trade()
             {}
 
             OpenTradeResponse(const OpenTradeResponse& src) :
-                PlayFabBaseModel(),
-                Trade(src.Trade ? new TradeInfo(*src.Trade) : nullptr)
+                PlayFabRequestCommon(),
+                Trade(src.Trade)
             {}
 
-            OpenTradeResponse(const rapidjson::Value& obj) : OpenTradeResponse()
+            ~OpenTradeResponse() { }
+
+            void FromJson(web::json::value& input) override
             {
-                readFromValue(obj);
+                FromJsonUtilO(input[U("Trade")], Trade);
             }
 
-            ~OpenTradeResponse();
-
-            void writeJSON(PFStringJsonWriter& writer) override;
-            bool readFromValue(const rapidjson::Value& obj) override;
+            web::json::value ToJson() const override
+            {
+                web::json::value output;
+                web::json::value each_Trade; ToJsonUtilO(Trade, each_Trade); output[U("Trade")] = each_Trade;
+                return output;
+            }
         };
 
-        struct PayForPurchaseRequest : public PlayFabBaseModel
+        struct PayForPurchaseRequest : public PlayFabRequestCommon
         {
             std::string OrderId;
             std::string ProviderName;
@@ -6289,7 +8338,7 @@ namespace PlayFab
             std::string ProviderTransactionId;
 
             PayForPurchaseRequest() :
-                PlayFabBaseModel(),
+                PlayFabRequestCommon(),
                 OrderId(),
                 ProviderName(),
                 Currency(),
@@ -6297,52 +8346,35 @@ namespace PlayFab
             {}
 
             PayForPurchaseRequest(const PayForPurchaseRequest& src) :
-                PlayFabBaseModel(),
+                PlayFabRequestCommon(),
                 OrderId(src.OrderId),
                 ProviderName(src.ProviderName),
                 Currency(src.Currency),
                 ProviderTransactionId(src.ProviderTransactionId)
             {}
 
-            PayForPurchaseRequest(const rapidjson::Value& obj) : PayForPurchaseRequest()
+            ~PayForPurchaseRequest() { }
+
+            void FromJson(web::json::value& input) override
             {
-                readFromValue(obj);
+                FromJsonUtilS(input[U("OrderId")], OrderId);
+                FromJsonUtilS(input[U("ProviderName")], ProviderName);
+                FromJsonUtilS(input[U("Currency")], Currency);
+                FromJsonUtilS(input[U("ProviderTransactionId")], ProviderTransactionId);
             }
 
-            ~PayForPurchaseRequest();
-
-            void writeJSON(PFStringJsonWriter& writer) override;
-            bool readFromValue(const rapidjson::Value& obj) override;
+            web::json::value ToJson() const override
+            {
+                web::json::value output;
+                web::json::value each_OrderId; ToJsonUtilS(OrderId, each_OrderId); output[U("OrderId")] = each_OrderId;
+                web::json::value each_ProviderName; ToJsonUtilS(ProviderName, each_ProviderName); output[U("ProviderName")] = each_ProviderName;
+                web::json::value each_Currency; ToJsonUtilS(Currency, each_Currency); output[U("Currency")] = each_Currency;
+                web::json::value each_ProviderTransactionId; ToJsonUtilS(ProviderTransactionId, each_ProviderTransactionId); output[U("ProviderTransactionId")] = each_ProviderTransactionId;
+                return output;
+            }
         };
 
-        enum TransactionStatus
-        {
-            TransactionStatusCreateCart,
-            TransactionStatusInit,
-            TransactionStatusApproved,
-            TransactionStatusSucceeded,
-            TransactionStatusFailedByProvider,
-            TransactionStatusDisputePending,
-            TransactionStatusRefundPending,
-            TransactionStatusRefunded,
-            TransactionStatusRefundFailed,
-            TransactionStatusChargedBack,
-            TransactionStatusFailedByUber,
-            TransactionStatusFailedByPlayFab,
-            TransactionStatusRevoked,
-            TransactionStatusTradePending,
-            TransactionStatusTraded,
-            TransactionStatusUpgraded,
-            TransactionStatusStackPending,
-            TransactionStatusStacked,
-            TransactionStatusOther,
-            TransactionStatusFailed
-        };
-
-        void writeTransactionStatusEnumJSON(TransactionStatus enumVal, PFStringJsonWriter& writer);
-        TransactionStatus readTransactionStatusFromValue(const rapidjson::Value& obj);
-
-        struct PayForPurchaseResult : public PlayFabBaseModel
+        struct PayForPurchaseResult : public PlayFabRequestCommon
         {
             std::string OrderId;
             Boxed<TransactionStatus> Status;
@@ -6356,13 +8388,13 @@ namespace PlayFab
             std::string ProviderToken;
 
             PayForPurchaseResult() :
-                PlayFabBaseModel(),
+                PlayFabRequestCommon(),
                 OrderId(),
                 Status(),
                 VCAmount(),
                 PurchaseCurrency(),
-                PurchasePrice(0),
-                CreditApplied(0),
+                PurchasePrice(),
+                CreditApplied(),
                 ProviderData(),
                 PurchaseConfirmationPageURL(),
                 VirtualCurrency(),
@@ -6370,7 +8402,7 @@ namespace PlayFab
             {}
 
             PayForPurchaseResult(const PayForPurchaseResult& src) :
-                PlayFabBaseModel(),
+                PlayFabRequestCommon(),
                 OrderId(src.OrderId),
                 Status(src.Status),
                 VCAmount(src.VCAmount),
@@ -6383,15 +8415,37 @@ namespace PlayFab
                 ProviderToken(src.ProviderToken)
             {}
 
-            PayForPurchaseResult(const rapidjson::Value& obj) : PayForPurchaseResult()
+            ~PayForPurchaseResult() { }
+
+            void FromJson(web::json::value& input) override
             {
-                readFromValue(obj);
+                FromJsonUtilS(input[U("OrderId")], OrderId);
+                FromJsonUtilE(input[U("Status")], Status);
+                FromJsonUtilP(input[U("VCAmount")], VCAmount);
+                FromJsonUtilS(input[U("PurchaseCurrency")], PurchaseCurrency);
+                FromJsonUtilP(input[U("PurchasePrice")], PurchasePrice);
+                FromJsonUtilP(input[U("CreditApplied")], CreditApplied);
+                FromJsonUtilS(input[U("ProviderData")], ProviderData);
+                FromJsonUtilS(input[U("PurchaseConfirmationPageURL")], PurchaseConfirmationPageURL);
+                FromJsonUtilP(input[U("VirtualCurrency")], VirtualCurrency);
+                FromJsonUtilS(input[U("ProviderToken")], ProviderToken);
             }
 
-            ~PayForPurchaseResult();
-
-            void writeJSON(PFStringJsonWriter& writer) override;
-            bool readFromValue(const rapidjson::Value& obj) override;
+            web::json::value ToJson() const override
+            {
+                web::json::value output;
+                web::json::value each_OrderId; ToJsonUtilS(OrderId, each_OrderId); output[U("OrderId")] = each_OrderId;
+                web::json::value each_Status; ToJsonUtilE(Status, each_Status); output[U("Status")] = each_Status;
+                web::json::value each_VCAmount; ToJsonUtilP(VCAmount, each_VCAmount); output[U("VCAmount")] = each_VCAmount;
+                web::json::value each_PurchaseCurrency; ToJsonUtilS(PurchaseCurrency, each_PurchaseCurrency); output[U("PurchaseCurrency")] = each_PurchaseCurrency;
+                web::json::value each_PurchasePrice; ToJsonUtilP(PurchasePrice, each_PurchasePrice); output[U("PurchasePrice")] = each_PurchasePrice;
+                web::json::value each_CreditApplied; ToJsonUtilP(CreditApplied, each_CreditApplied); output[U("CreditApplied")] = each_CreditApplied;
+                web::json::value each_ProviderData; ToJsonUtilS(ProviderData, each_ProviderData); output[U("ProviderData")] = each_ProviderData;
+                web::json::value each_PurchaseConfirmationPageURL; ToJsonUtilS(PurchaseConfirmationPageURL, each_PurchaseConfirmationPageURL); output[U("PurchaseConfirmationPageURL")] = each_PurchaseConfirmationPageURL;
+                web::json::value each_VirtualCurrency; ToJsonUtilP(VirtualCurrency, each_VirtualCurrency); output[U("VirtualCurrency")] = each_VirtualCurrency;
+                web::json::value each_ProviderToken; ToJsonUtilS(ProviderToken, each_ProviderToken); output[U("ProviderToken")] = each_ProviderToken;
+                return output;
+            }
         };
 
         struct PaymentOption : public PlayFabBaseModel
@@ -6405,8 +8459,8 @@ namespace PlayFab
                 PlayFabBaseModel(),
                 Currency(),
                 ProviderName(),
-                Price(0),
-                StoreCredit(0)
+                Price(),
+                StoreCredit()
             {}
 
             PaymentOption(const PaymentOption& src) :
@@ -6417,18 +8471,28 @@ namespace PlayFab
                 StoreCredit(src.StoreCredit)
             {}
 
-            PaymentOption(const rapidjson::Value& obj) : PaymentOption()
+            ~PaymentOption() { }
+
+            void FromJson(web::json::value& input) override
             {
-                readFromValue(obj);
+                FromJsonUtilS(input[U("Currency")], Currency);
+                FromJsonUtilS(input[U("ProviderName")], ProviderName);
+                FromJsonUtilP(input[U("Price")], Price);
+                FromJsonUtilP(input[U("StoreCredit")], StoreCredit);
             }
 
-            ~PaymentOption();
-
-            void writeJSON(PFStringJsonWriter& writer) override;
-            bool readFromValue(const rapidjson::Value& obj) override;
+            web::json::value ToJson() const override
+            {
+                web::json::value output;
+                web::json::value each_Currency; ToJsonUtilS(Currency, each_Currency); output[U("Currency")] = each_Currency;
+                web::json::value each_ProviderName; ToJsonUtilS(ProviderName, each_ProviderName); output[U("ProviderName")] = each_ProviderName;
+                web::json::value each_Price; ToJsonUtilP(Price, each_Price); output[U("Price")] = each_Price;
+                web::json::value each_StoreCredit; ToJsonUtilP(StoreCredit, each_StoreCredit); output[U("StoreCredit")] = each_StoreCredit;
+                return output;
+            }
         };
 
-        struct PurchaseItemRequest : public PlayFabBaseModel
+        struct PurchaseItemRequest : public PlayFabRequestCommon
         {
             std::string ItemId;
             std::string VirtualCurrency;
@@ -6438,17 +8502,17 @@ namespace PlayFab
             std::string CharacterId;
 
             PurchaseItemRequest() :
-                PlayFabBaseModel(),
+                PlayFabRequestCommon(),
                 ItemId(),
                 VirtualCurrency(),
-                Price(0),
+                Price(),
                 CatalogVersion(),
                 StoreId(),
                 CharacterId()
             {}
 
             PurchaseItemRequest(const PurchaseItemRequest& src) :
-                PlayFabBaseModel(),
+                PlayFabRequestCommon(),
                 ItemId(src.ItemId),
                 VirtualCurrency(src.VirtualCurrency),
                 Price(src.Price),
@@ -6457,162 +8521,202 @@ namespace PlayFab
                 CharacterId(src.CharacterId)
             {}
 
-            PurchaseItemRequest(const rapidjson::Value& obj) : PurchaseItemRequest()
+            ~PurchaseItemRequest() { }
+
+            void FromJson(web::json::value& input) override
             {
-                readFromValue(obj);
+                FromJsonUtilS(input[U("ItemId")], ItemId);
+                FromJsonUtilS(input[U("VirtualCurrency")], VirtualCurrency);
+                FromJsonUtilP(input[U("Price")], Price);
+                FromJsonUtilS(input[U("CatalogVersion")], CatalogVersion);
+                FromJsonUtilS(input[U("StoreId")], StoreId);
+                FromJsonUtilS(input[U("CharacterId")], CharacterId);
             }
 
-            ~PurchaseItemRequest();
-
-            void writeJSON(PFStringJsonWriter& writer) override;
-            bool readFromValue(const rapidjson::Value& obj) override;
+            web::json::value ToJson() const override
+            {
+                web::json::value output;
+                web::json::value each_ItemId; ToJsonUtilS(ItemId, each_ItemId); output[U("ItemId")] = each_ItemId;
+                web::json::value each_VirtualCurrency; ToJsonUtilS(VirtualCurrency, each_VirtualCurrency); output[U("VirtualCurrency")] = each_VirtualCurrency;
+                web::json::value each_Price; ToJsonUtilP(Price, each_Price); output[U("Price")] = each_Price;
+                web::json::value each_CatalogVersion; ToJsonUtilS(CatalogVersion, each_CatalogVersion); output[U("CatalogVersion")] = each_CatalogVersion;
+                web::json::value each_StoreId; ToJsonUtilS(StoreId, each_StoreId); output[U("StoreId")] = each_StoreId;
+                web::json::value each_CharacterId; ToJsonUtilS(CharacterId, each_CharacterId); output[U("CharacterId")] = each_CharacterId;
+                return output;
+            }
         };
 
-        struct PurchaseItemResult : public PlayFabBaseModel
+        struct PurchaseItemResult : public PlayFabRequestCommon
         {
             std::list<ItemInstance> Items;
 
             PurchaseItemResult() :
-                PlayFabBaseModel(),
+                PlayFabRequestCommon(),
                 Items()
             {}
 
             PurchaseItemResult(const PurchaseItemResult& src) :
-                PlayFabBaseModel(),
+                PlayFabRequestCommon(),
                 Items(src.Items)
             {}
 
-            PurchaseItemResult(const rapidjson::Value& obj) : PurchaseItemResult()
+            ~PurchaseItemResult() { }
+
+            void FromJson(web::json::value& input) override
             {
-                readFromValue(obj);
+                FromJsonUtilO(input[U("Items")], Items);
             }
 
-            ~PurchaseItemResult();
-
-            void writeJSON(PFStringJsonWriter& writer) override;
-            bool readFromValue(const rapidjson::Value& obj) override;
+            web::json::value ToJson() const override
+            {
+                web::json::value output;
+                web::json::value each_Items; ToJsonUtilO(Items, each_Items); output[U("Items")] = each_Items;
+                return output;
+            }
         };
 
-        struct RedeemCouponRequest : public PlayFabBaseModel
+        struct RedeemCouponRequest : public PlayFabRequestCommon
         {
             std::string CouponCode;
             std::string CatalogVersion;
             std::string CharacterId;
 
             RedeemCouponRequest() :
-                PlayFabBaseModel(),
+                PlayFabRequestCommon(),
                 CouponCode(),
                 CatalogVersion(),
                 CharacterId()
             {}
 
             RedeemCouponRequest(const RedeemCouponRequest& src) :
-                PlayFabBaseModel(),
+                PlayFabRequestCommon(),
                 CouponCode(src.CouponCode),
                 CatalogVersion(src.CatalogVersion),
                 CharacterId(src.CharacterId)
             {}
 
-            RedeemCouponRequest(const rapidjson::Value& obj) : RedeemCouponRequest()
+            ~RedeemCouponRequest() { }
+
+            void FromJson(web::json::value& input) override
             {
-                readFromValue(obj);
+                FromJsonUtilS(input[U("CouponCode")], CouponCode);
+                FromJsonUtilS(input[U("CatalogVersion")], CatalogVersion);
+                FromJsonUtilS(input[U("CharacterId")], CharacterId);
             }
 
-            ~RedeemCouponRequest();
-
-            void writeJSON(PFStringJsonWriter& writer) override;
-            bool readFromValue(const rapidjson::Value& obj) override;
+            web::json::value ToJson() const override
+            {
+                web::json::value output;
+                web::json::value each_CouponCode; ToJsonUtilS(CouponCode, each_CouponCode); output[U("CouponCode")] = each_CouponCode;
+                web::json::value each_CatalogVersion; ToJsonUtilS(CatalogVersion, each_CatalogVersion); output[U("CatalogVersion")] = each_CatalogVersion;
+                web::json::value each_CharacterId; ToJsonUtilS(CharacterId, each_CharacterId); output[U("CharacterId")] = each_CharacterId;
+                return output;
+            }
         };
 
-        struct RedeemCouponResult : public PlayFabBaseModel
+        struct RedeemCouponResult : public PlayFabRequestCommon
         {
             std::list<ItemInstance> GrantedItems;
 
             RedeemCouponResult() :
-                PlayFabBaseModel(),
+                PlayFabRequestCommon(),
                 GrantedItems()
             {}
 
             RedeemCouponResult(const RedeemCouponResult& src) :
-                PlayFabBaseModel(),
+                PlayFabRequestCommon(),
                 GrantedItems(src.GrantedItems)
             {}
 
-            RedeemCouponResult(const rapidjson::Value& obj) : RedeemCouponResult()
+            ~RedeemCouponResult() { }
+
+            void FromJson(web::json::value& input) override
             {
-                readFromValue(obj);
+                FromJsonUtilO(input[U("GrantedItems")], GrantedItems);
             }
 
-            ~RedeemCouponResult();
-
-            void writeJSON(PFStringJsonWriter& writer) override;
-            bool readFromValue(const rapidjson::Value& obj) override;
+            web::json::value ToJson() const override
+            {
+                web::json::value output;
+                web::json::value each_GrantedItems; ToJsonUtilO(GrantedItems, each_GrantedItems); output[U("GrantedItems")] = each_GrantedItems;
+                return output;
+            }
         };
 
-        struct RegisterForIOSPushNotificationRequest : public PlayFabBaseModel
+        struct RegisterForIOSPushNotificationRequest : public PlayFabRequestCommon
         {
             std::string DeviceToken;
-            OptionalBool SendPushNotificationConfirmation;
+            Boxed<bool> SendPushNotificationConfirmation;
             std::string ConfirmationMessage;
 
             RegisterForIOSPushNotificationRequest() :
-                PlayFabBaseModel(),
+                PlayFabRequestCommon(),
                 DeviceToken(),
                 SendPushNotificationConfirmation(),
                 ConfirmationMessage()
             {}
 
             RegisterForIOSPushNotificationRequest(const RegisterForIOSPushNotificationRequest& src) :
-                PlayFabBaseModel(),
+                PlayFabRequestCommon(),
                 DeviceToken(src.DeviceToken),
                 SendPushNotificationConfirmation(src.SendPushNotificationConfirmation),
                 ConfirmationMessage(src.ConfirmationMessage)
             {}
 
-            RegisterForIOSPushNotificationRequest(const rapidjson::Value& obj) : RegisterForIOSPushNotificationRequest()
+            ~RegisterForIOSPushNotificationRequest() { }
+
+            void FromJson(web::json::value& input) override
             {
-                readFromValue(obj);
+                FromJsonUtilS(input[U("DeviceToken")], DeviceToken);
+                FromJsonUtilP(input[U("SendPushNotificationConfirmation")], SendPushNotificationConfirmation);
+                FromJsonUtilS(input[U("ConfirmationMessage")], ConfirmationMessage);
             }
 
-            ~RegisterForIOSPushNotificationRequest();
-
-            void writeJSON(PFStringJsonWriter& writer) override;
-            bool readFromValue(const rapidjson::Value& obj) override;
+            web::json::value ToJson() const override
+            {
+                web::json::value output;
+                web::json::value each_DeviceToken; ToJsonUtilS(DeviceToken, each_DeviceToken); output[U("DeviceToken")] = each_DeviceToken;
+                web::json::value each_SendPushNotificationConfirmation; ToJsonUtilP(SendPushNotificationConfirmation, each_SendPushNotificationConfirmation); output[U("SendPushNotificationConfirmation")] = each_SendPushNotificationConfirmation;
+                web::json::value each_ConfirmationMessage; ToJsonUtilS(ConfirmationMessage, each_ConfirmationMessage); output[U("ConfirmationMessage")] = each_ConfirmationMessage;
+                return output;
+            }
         };
 
-        struct RegisterForIOSPushNotificationResult : public PlayFabBaseModel
+        struct RegisterForIOSPushNotificationResult : public PlayFabRequestCommon
         {
 
             RegisterForIOSPushNotificationResult() :
-                PlayFabBaseModel()
+                PlayFabRequestCommon()
             {}
 
             RegisterForIOSPushNotificationResult(const RegisterForIOSPushNotificationResult& src) :
-                PlayFabBaseModel()
+                PlayFabRequestCommon()
             {}
 
-            RegisterForIOSPushNotificationResult(const rapidjson::Value& obj) : RegisterForIOSPushNotificationResult()
+            ~RegisterForIOSPushNotificationResult() { }
+
+            void FromJson(web::json::value& input) override
             {
-                readFromValue(obj);
             }
 
-            ~RegisterForIOSPushNotificationResult();
-
-            void writeJSON(PFStringJsonWriter& writer) override;
-            bool readFromValue(const rapidjson::Value& obj) override;
+            web::json::value ToJson() const override
+            {
+                web::json::value output;
+                return output;
+            }
         };
 
-        struct RegisterPlayFabUserRequest : public PlayFabBaseModel
+        struct RegisterPlayFabUserRequest : public PlayFabRequestCommon
         {
             std::string TitleId;
             std::string Username;
             std::string Email;
             std::string Password;
-            OptionalBool RequireBothUsernameAndEmail;
+            Boxed<bool> RequireBothUsernameAndEmail;
             std::string DisplayName;
 
             RegisterPlayFabUserRequest() :
-                PlayFabBaseModel(),
+                PlayFabRequestCommon(),
                 TitleId(),
                 Username(),
                 Email(),
@@ -6622,7 +8726,7 @@ namespace PlayFab
             {}
 
             RegisterPlayFabUserRequest(const RegisterPlayFabUserRequest& src) :
-                PlayFabBaseModel(),
+                PlayFabRequestCommon(),
                 TitleId(src.TitleId),
                 Username(src.Username),
                 Email(src.Email),
@@ -6631,399 +8735,477 @@ namespace PlayFab
                 DisplayName(src.DisplayName)
             {}
 
-            RegisterPlayFabUserRequest(const rapidjson::Value& obj) : RegisterPlayFabUserRequest()
+            ~RegisterPlayFabUserRequest() { }
+
+            void FromJson(web::json::value& input) override
             {
-                readFromValue(obj);
+                FromJsonUtilS(input[U("TitleId")], TitleId);
+                FromJsonUtilS(input[U("Username")], Username);
+                FromJsonUtilS(input[U("Email")], Email);
+                FromJsonUtilS(input[U("Password")], Password);
+                FromJsonUtilP(input[U("RequireBothUsernameAndEmail")], RequireBothUsernameAndEmail);
+                FromJsonUtilS(input[U("DisplayName")], DisplayName);
             }
 
-            ~RegisterPlayFabUserRequest();
-
-            void writeJSON(PFStringJsonWriter& writer) override;
-            bool readFromValue(const rapidjson::Value& obj) override;
+            web::json::value ToJson() const override
+            {
+                web::json::value output;
+                web::json::value each_TitleId; ToJsonUtilS(TitleId, each_TitleId); output[U("TitleId")] = each_TitleId;
+                web::json::value each_Username; ToJsonUtilS(Username, each_Username); output[U("Username")] = each_Username;
+                web::json::value each_Email; ToJsonUtilS(Email, each_Email); output[U("Email")] = each_Email;
+                web::json::value each_Password; ToJsonUtilS(Password, each_Password); output[U("Password")] = each_Password;
+                web::json::value each_RequireBothUsernameAndEmail; ToJsonUtilP(RequireBothUsernameAndEmail, each_RequireBothUsernameAndEmail); output[U("RequireBothUsernameAndEmail")] = each_RequireBothUsernameAndEmail;
+                web::json::value each_DisplayName; ToJsonUtilS(DisplayName, each_DisplayName); output[U("DisplayName")] = each_DisplayName;
+                return output;
+            }
         };
 
-        struct RegisterPlayFabUserResult : public PlayFabBaseModel
+        struct RegisterPlayFabUserResult : public PlayFabRequestCommon
         {
             std::string PlayFabId;
             std::string SessionTicket;
             std::string Username;
-            UserSettings* SettingsForUser;
+            Boxed<UserSettings> SettingsForUser;
 
             RegisterPlayFabUserResult() :
-                PlayFabBaseModel(),
+                PlayFabRequestCommon(),
                 PlayFabId(),
                 SessionTicket(),
                 Username(),
-                SettingsForUser(nullptr)
+                SettingsForUser()
             {}
 
             RegisterPlayFabUserResult(const RegisterPlayFabUserResult& src) :
-                PlayFabBaseModel(),
+                PlayFabRequestCommon(),
                 PlayFabId(src.PlayFabId),
                 SessionTicket(src.SessionTicket),
                 Username(src.Username),
-                SettingsForUser(src.SettingsForUser ? new UserSettings(*src.SettingsForUser) : nullptr)
+                SettingsForUser(src.SettingsForUser)
             {}
 
-            RegisterPlayFabUserResult(const rapidjson::Value& obj) : RegisterPlayFabUserResult()
+            ~RegisterPlayFabUserResult() { }
+
+            void FromJson(web::json::value& input) override
             {
-                readFromValue(obj);
+                FromJsonUtilS(input[U("PlayFabId")], PlayFabId);
+                FromJsonUtilS(input[U("SessionTicket")], SessionTicket);
+                FromJsonUtilS(input[U("Username")], Username);
+                FromJsonUtilO(input[U("SettingsForUser")], SettingsForUser);
             }
 
-            ~RegisterPlayFabUserResult();
-
-            void writeJSON(PFStringJsonWriter& writer) override;
-            bool readFromValue(const rapidjson::Value& obj) override;
+            web::json::value ToJson() const override
+            {
+                web::json::value output;
+                web::json::value each_PlayFabId; ToJsonUtilS(PlayFabId, each_PlayFabId); output[U("PlayFabId")] = each_PlayFabId;
+                web::json::value each_SessionTicket; ToJsonUtilS(SessionTicket, each_SessionTicket); output[U("SessionTicket")] = each_SessionTicket;
+                web::json::value each_Username; ToJsonUtilS(Username, each_Username); output[U("Username")] = each_Username;
+                web::json::value each_SettingsForUser; ToJsonUtilO(SettingsForUser, each_SettingsForUser); output[U("SettingsForUser")] = each_SettingsForUser;
+                return output;
+            }
         };
 
-        struct RemoveFriendRequest : public PlayFabBaseModel
+        struct RemoveFriendRequest : public PlayFabRequestCommon
         {
             std::string FriendPlayFabId;
 
             RemoveFriendRequest() :
-                PlayFabBaseModel(),
+                PlayFabRequestCommon(),
                 FriendPlayFabId()
             {}
 
             RemoveFriendRequest(const RemoveFriendRequest& src) :
-                PlayFabBaseModel(),
+                PlayFabRequestCommon(),
                 FriendPlayFabId(src.FriendPlayFabId)
             {}
 
-            RemoveFriendRequest(const rapidjson::Value& obj) : RemoveFriendRequest()
+            ~RemoveFriendRequest() { }
+
+            void FromJson(web::json::value& input) override
             {
-                readFromValue(obj);
+                FromJsonUtilS(input[U("FriendPlayFabId")], FriendPlayFabId);
             }
 
-            ~RemoveFriendRequest();
-
-            void writeJSON(PFStringJsonWriter& writer) override;
-            bool readFromValue(const rapidjson::Value& obj) override;
+            web::json::value ToJson() const override
+            {
+                web::json::value output;
+                web::json::value each_FriendPlayFabId; ToJsonUtilS(FriendPlayFabId, each_FriendPlayFabId); output[U("FriendPlayFabId")] = each_FriendPlayFabId;
+                return output;
+            }
         };
 
-        struct RemoveFriendResult : public PlayFabBaseModel
+        struct RemoveFriendResult : public PlayFabRequestCommon
         {
 
             RemoveFriendResult() :
-                PlayFabBaseModel()
+                PlayFabRequestCommon()
             {}
 
             RemoveFriendResult(const RemoveFriendResult& src) :
-                PlayFabBaseModel()
+                PlayFabRequestCommon()
             {}
 
-            RemoveFriendResult(const rapidjson::Value& obj) : RemoveFriendResult()
+            ~RemoveFriendResult() { }
+
+            void FromJson(web::json::value& input) override
             {
-                readFromValue(obj);
             }
 
-            ~RemoveFriendResult();
-
-            void writeJSON(PFStringJsonWriter& writer) override;
-            bool readFromValue(const rapidjson::Value& obj) override;
+            web::json::value ToJson() const override
+            {
+                web::json::value output;
+                return output;
+            }
         };
 
-        struct RemoveGenericIDRequest : public PlayFabBaseModel
+        struct RemoveGenericIDRequest : public PlayFabRequestCommon
         {
             GenericServiceId GenericId;
 
             RemoveGenericIDRequest() :
-                PlayFabBaseModel(),
+                PlayFabRequestCommon(),
                 GenericId()
             {}
 
             RemoveGenericIDRequest(const RemoveGenericIDRequest& src) :
-                PlayFabBaseModel(),
+                PlayFabRequestCommon(),
                 GenericId(src.GenericId)
             {}
 
-            RemoveGenericIDRequest(const rapidjson::Value& obj) : RemoveGenericIDRequest()
+            ~RemoveGenericIDRequest() { }
+
+            void FromJson(web::json::value& input) override
             {
-                readFromValue(obj);
+                FromJsonUtilO(input[U("GenericId")], GenericId);
             }
 
-            ~RemoveGenericIDRequest();
-
-            void writeJSON(PFStringJsonWriter& writer) override;
-            bool readFromValue(const rapidjson::Value& obj) override;
+            web::json::value ToJson() const override
+            {
+                web::json::value output;
+                web::json::value each_GenericId; ToJsonUtilO(GenericId, each_GenericId); output[U("GenericId")] = each_GenericId;
+                return output;
+            }
         };
 
-        struct RemoveGenericIDResult : public PlayFabBaseModel
+        struct RemoveGenericIDResult : public PlayFabRequestCommon
         {
 
             RemoveGenericIDResult() :
-                PlayFabBaseModel()
+                PlayFabRequestCommon()
             {}
 
             RemoveGenericIDResult(const RemoveGenericIDResult& src) :
-                PlayFabBaseModel()
+                PlayFabRequestCommon()
             {}
 
-            RemoveGenericIDResult(const rapidjson::Value& obj) : RemoveGenericIDResult()
+            ~RemoveGenericIDResult() { }
+
+            void FromJson(web::json::value& input) override
             {
-                readFromValue(obj);
             }
 
-            ~RemoveGenericIDResult();
-
-            void writeJSON(PFStringJsonWriter& writer) override;
-            bool readFromValue(const rapidjson::Value& obj) override;
+            web::json::value ToJson() const override
+            {
+                web::json::value output;
+                return output;
+            }
         };
 
-        struct RemoveSharedGroupMembersRequest : public PlayFabBaseModel
+        struct RemoveSharedGroupMembersRequest : public PlayFabRequestCommon
         {
             std::string SharedGroupId;
             std::list<std::string> PlayFabIds;
 
             RemoveSharedGroupMembersRequest() :
-                PlayFabBaseModel(),
+                PlayFabRequestCommon(),
                 SharedGroupId(),
                 PlayFabIds()
             {}
 
             RemoveSharedGroupMembersRequest(const RemoveSharedGroupMembersRequest& src) :
-                PlayFabBaseModel(),
+                PlayFabRequestCommon(),
                 SharedGroupId(src.SharedGroupId),
                 PlayFabIds(src.PlayFabIds)
             {}
 
-            RemoveSharedGroupMembersRequest(const rapidjson::Value& obj) : RemoveSharedGroupMembersRequest()
+            ~RemoveSharedGroupMembersRequest() { }
+
+            void FromJson(web::json::value& input) override
             {
-                readFromValue(obj);
+                FromJsonUtilS(input[U("SharedGroupId")], SharedGroupId);
+                FromJsonUtilS(input[U("PlayFabIds")], PlayFabIds);
             }
 
-            ~RemoveSharedGroupMembersRequest();
-
-            void writeJSON(PFStringJsonWriter& writer) override;
-            bool readFromValue(const rapidjson::Value& obj) override;
+            web::json::value ToJson() const override
+            {
+                web::json::value output;
+                web::json::value each_SharedGroupId; ToJsonUtilS(SharedGroupId, each_SharedGroupId); output[U("SharedGroupId")] = each_SharedGroupId;
+                web::json::value each_PlayFabIds; ToJsonUtilS(PlayFabIds, each_PlayFabIds); output[U("PlayFabIds")] = each_PlayFabIds;
+                return output;
+            }
         };
 
-        struct RemoveSharedGroupMembersResult : public PlayFabBaseModel
+        struct RemoveSharedGroupMembersResult : public PlayFabRequestCommon
         {
 
             RemoveSharedGroupMembersResult() :
-                PlayFabBaseModel()
+                PlayFabRequestCommon()
             {}
 
             RemoveSharedGroupMembersResult(const RemoveSharedGroupMembersResult& src) :
-                PlayFabBaseModel()
+                PlayFabRequestCommon()
             {}
 
-            RemoveSharedGroupMembersResult(const rapidjson::Value& obj) : RemoveSharedGroupMembersResult()
+            ~RemoveSharedGroupMembersResult() { }
+
+            void FromJson(web::json::value& input) override
             {
-                readFromValue(obj);
             }
 
-            ~RemoveSharedGroupMembersResult();
-
-            void writeJSON(PFStringJsonWriter& writer) override;
-            bool readFromValue(const rapidjson::Value& obj) override;
+            web::json::value ToJson() const override
+            {
+                web::json::value output;
+                return output;
+            }
         };
 
-        struct ReportPlayerClientRequest : public PlayFabBaseModel
+        struct ReportPlayerClientRequest : public PlayFabRequestCommon
         {
             std::string ReporteeId;
             std::string Comment;
 
             ReportPlayerClientRequest() :
-                PlayFabBaseModel(),
+                PlayFabRequestCommon(),
                 ReporteeId(),
                 Comment()
             {}
 
             ReportPlayerClientRequest(const ReportPlayerClientRequest& src) :
-                PlayFabBaseModel(),
+                PlayFabRequestCommon(),
                 ReporteeId(src.ReporteeId),
                 Comment(src.Comment)
             {}
 
-            ReportPlayerClientRequest(const rapidjson::Value& obj) : ReportPlayerClientRequest()
+            ~ReportPlayerClientRequest() { }
+
+            void FromJson(web::json::value& input) override
             {
-                readFromValue(obj);
+                FromJsonUtilS(input[U("ReporteeId")], ReporteeId);
+                FromJsonUtilS(input[U("Comment")], Comment);
             }
 
-            ~ReportPlayerClientRequest();
-
-            void writeJSON(PFStringJsonWriter& writer) override;
-            bool readFromValue(const rapidjson::Value& obj) override;
+            web::json::value ToJson() const override
+            {
+                web::json::value output;
+                web::json::value each_ReporteeId; ToJsonUtilS(ReporteeId, each_ReporteeId); output[U("ReporteeId")] = each_ReporteeId;
+                web::json::value each_Comment; ToJsonUtilS(Comment, each_Comment); output[U("Comment")] = each_Comment;
+                return output;
+            }
         };
 
-        struct ReportPlayerClientResult : public PlayFabBaseModel
+        struct ReportPlayerClientResult : public PlayFabRequestCommon
         {
             bool Updated;
             Int32 SubmissionsRemaining;
 
             ReportPlayerClientResult() :
-                PlayFabBaseModel(),
-                Updated(false),
-                SubmissionsRemaining(0)
+                PlayFabRequestCommon(),
+                Updated(),
+                SubmissionsRemaining()
             {}
 
             ReportPlayerClientResult(const ReportPlayerClientResult& src) :
-                PlayFabBaseModel(),
+                PlayFabRequestCommon(),
                 Updated(src.Updated),
                 SubmissionsRemaining(src.SubmissionsRemaining)
             {}
 
-            ReportPlayerClientResult(const rapidjson::Value& obj) : ReportPlayerClientResult()
+            ~ReportPlayerClientResult() { }
+
+            void FromJson(web::json::value& input) override
             {
-                readFromValue(obj);
+                FromJsonUtilP(input[U("Updated")], Updated);
+                FromJsonUtilP(input[U("SubmissionsRemaining")], SubmissionsRemaining);
             }
 
-            ~ReportPlayerClientResult();
-
-            void writeJSON(PFStringJsonWriter& writer) override;
-            bool readFromValue(const rapidjson::Value& obj) override;
+            web::json::value ToJson() const override
+            {
+                web::json::value output;
+                web::json::value each_Updated; ToJsonUtilP(Updated, each_Updated); output[U("Updated")] = each_Updated;
+                web::json::value each_SubmissionsRemaining; ToJsonUtilP(SubmissionsRemaining, each_SubmissionsRemaining); output[U("SubmissionsRemaining")] = each_SubmissionsRemaining;
+                return output;
+            }
         };
 
-        struct RestoreIOSPurchasesRequest : public PlayFabBaseModel
+        struct RestoreIOSPurchasesRequest : public PlayFabRequestCommon
         {
             std::string ReceiptData;
 
             RestoreIOSPurchasesRequest() :
-                PlayFabBaseModel(),
+                PlayFabRequestCommon(),
                 ReceiptData()
             {}
 
             RestoreIOSPurchasesRequest(const RestoreIOSPurchasesRequest& src) :
-                PlayFabBaseModel(),
+                PlayFabRequestCommon(),
                 ReceiptData(src.ReceiptData)
             {}
 
-            RestoreIOSPurchasesRequest(const rapidjson::Value& obj) : RestoreIOSPurchasesRequest()
+            ~RestoreIOSPurchasesRequest() { }
+
+            void FromJson(web::json::value& input) override
             {
-                readFromValue(obj);
+                FromJsonUtilS(input[U("ReceiptData")], ReceiptData);
             }
 
-            ~RestoreIOSPurchasesRequest();
-
-            void writeJSON(PFStringJsonWriter& writer) override;
-            bool readFromValue(const rapidjson::Value& obj) override;
+            web::json::value ToJson() const override
+            {
+                web::json::value output;
+                web::json::value each_ReceiptData; ToJsonUtilS(ReceiptData, each_ReceiptData); output[U("ReceiptData")] = each_ReceiptData;
+                return output;
+            }
         };
 
-        struct RestoreIOSPurchasesResult : public PlayFabBaseModel
+        struct RestoreIOSPurchasesResult : public PlayFabRequestCommon
         {
 
             RestoreIOSPurchasesResult() :
-                PlayFabBaseModel()
+                PlayFabRequestCommon()
             {}
 
             RestoreIOSPurchasesResult(const RestoreIOSPurchasesResult& src) :
-                PlayFabBaseModel()
+                PlayFabRequestCommon()
             {}
 
-            RestoreIOSPurchasesResult(const rapidjson::Value& obj) : RestoreIOSPurchasesResult()
+            ~RestoreIOSPurchasesResult() { }
+
+            void FromJson(web::json::value& input) override
             {
-                readFromValue(obj);
             }
 
-            ~RestoreIOSPurchasesResult();
-
-            void writeJSON(PFStringJsonWriter& writer) override;
-            bool readFromValue(const rapidjson::Value& obj) override;
+            web::json::value ToJson() const override
+            {
+                web::json::value output;
+                return output;
+            }
         };
 
-        struct SendAccountRecoveryEmailRequest : public PlayFabBaseModel
+        struct SendAccountRecoveryEmailRequest : public PlayFabRequestCommon
         {
             std::string Email;
             std::string TitleId;
 
             SendAccountRecoveryEmailRequest() :
-                PlayFabBaseModel(),
+                PlayFabRequestCommon(),
                 Email(),
                 TitleId()
             {}
 
             SendAccountRecoveryEmailRequest(const SendAccountRecoveryEmailRequest& src) :
-                PlayFabBaseModel(),
+                PlayFabRequestCommon(),
                 Email(src.Email),
                 TitleId(src.TitleId)
             {}
 
-            SendAccountRecoveryEmailRequest(const rapidjson::Value& obj) : SendAccountRecoveryEmailRequest()
+            ~SendAccountRecoveryEmailRequest() { }
+
+            void FromJson(web::json::value& input) override
             {
-                readFromValue(obj);
+                FromJsonUtilS(input[U("Email")], Email);
+                FromJsonUtilS(input[U("TitleId")], TitleId);
             }
 
-            ~SendAccountRecoveryEmailRequest();
-
-            void writeJSON(PFStringJsonWriter& writer) override;
-            bool readFromValue(const rapidjson::Value& obj) override;
+            web::json::value ToJson() const override
+            {
+                web::json::value output;
+                web::json::value each_Email; ToJsonUtilS(Email, each_Email); output[U("Email")] = each_Email;
+                web::json::value each_TitleId; ToJsonUtilS(TitleId, each_TitleId); output[U("TitleId")] = each_TitleId;
+                return output;
+            }
         };
 
-        struct SendAccountRecoveryEmailResult : public PlayFabBaseModel
+        struct SendAccountRecoveryEmailResult : public PlayFabRequestCommon
         {
 
             SendAccountRecoveryEmailResult() :
-                PlayFabBaseModel()
+                PlayFabRequestCommon()
             {}
 
             SendAccountRecoveryEmailResult(const SendAccountRecoveryEmailResult& src) :
-                PlayFabBaseModel()
+                PlayFabRequestCommon()
             {}
 
-            SendAccountRecoveryEmailResult(const rapidjson::Value& obj) : SendAccountRecoveryEmailResult()
+            ~SendAccountRecoveryEmailResult() { }
+
+            void FromJson(web::json::value& input) override
             {
-                readFromValue(obj);
             }
 
-            ~SendAccountRecoveryEmailResult();
-
-            void writeJSON(PFStringJsonWriter& writer) override;
-            bool readFromValue(const rapidjson::Value& obj) override;
+            web::json::value ToJson() const override
+            {
+                web::json::value output;
+                return output;
+            }
         };
 
-        struct SetFriendTagsRequest : public PlayFabBaseModel
+        struct SetFriendTagsRequest : public PlayFabRequestCommon
         {
             std::string FriendPlayFabId;
             std::list<std::string> Tags;
 
             SetFriendTagsRequest() :
-                PlayFabBaseModel(),
+                PlayFabRequestCommon(),
                 FriendPlayFabId(),
                 Tags()
             {}
 
             SetFriendTagsRequest(const SetFriendTagsRequest& src) :
-                PlayFabBaseModel(),
+                PlayFabRequestCommon(),
                 FriendPlayFabId(src.FriendPlayFabId),
                 Tags(src.Tags)
             {}
 
-            SetFriendTagsRequest(const rapidjson::Value& obj) : SetFriendTagsRequest()
+            ~SetFriendTagsRequest() { }
+
+            void FromJson(web::json::value& input) override
             {
-                readFromValue(obj);
+                FromJsonUtilS(input[U("FriendPlayFabId")], FriendPlayFabId);
+                FromJsonUtilS(input[U("Tags")], Tags);
             }
 
-            ~SetFriendTagsRequest();
-
-            void writeJSON(PFStringJsonWriter& writer) override;
-            bool readFromValue(const rapidjson::Value& obj) override;
+            web::json::value ToJson() const override
+            {
+                web::json::value output;
+                web::json::value each_FriendPlayFabId; ToJsonUtilS(FriendPlayFabId, each_FriendPlayFabId); output[U("FriendPlayFabId")] = each_FriendPlayFabId;
+                web::json::value each_Tags; ToJsonUtilS(Tags, each_Tags); output[U("Tags")] = each_Tags;
+                return output;
+            }
         };
 
-        struct SetFriendTagsResult : public PlayFabBaseModel
+        struct SetFriendTagsResult : public PlayFabRequestCommon
         {
 
             SetFriendTagsResult() :
-                PlayFabBaseModel()
+                PlayFabRequestCommon()
             {}
 
             SetFriendTagsResult(const SetFriendTagsResult& src) :
-                PlayFabBaseModel()
+                PlayFabRequestCommon()
             {}
 
-            SetFriendTagsResult(const rapidjson::Value& obj) : SetFriendTagsResult()
+            ~SetFriendTagsResult() { }
+
+            void FromJson(web::json::value& input) override
             {
-                readFromValue(obj);
             }
 
-            ~SetFriendTagsResult();
-
-            void writeJSON(PFStringJsonWriter& writer) override;
-            bool readFromValue(const rapidjson::Value& obj) override;
+            web::json::value ToJson() const override
+            {
+                web::json::value output;
+                return output;
+            }
         };
 
-        struct StartGameRequest : public PlayFabBaseModel
+        struct StartGameRequest : public PlayFabRequestCommon
         {
             std::string BuildVersion;
             Region pfRegion;
@@ -7033,7 +9215,7 @@ namespace PlayFab
             std::string CustomCommandLineData;
 
             StartGameRequest() :
-                PlayFabBaseModel(),
+                PlayFabRequestCommon(),
                 BuildVersion(),
                 pfRegion(),
                 GameMode(),
@@ -7043,7 +9225,7 @@ namespace PlayFab
             {}
 
             StartGameRequest(const StartGameRequest& src) :
-                PlayFabBaseModel(),
+                PlayFabRequestCommon(),
                 BuildVersion(src.BuildVersion),
                 pfRegion(src.pfRegion),
                 GameMode(src.GameMode),
@@ -7052,28 +9234,42 @@ namespace PlayFab
                 CustomCommandLineData(src.CustomCommandLineData)
             {}
 
-            StartGameRequest(const rapidjson::Value& obj) : StartGameRequest()
+            ~StartGameRequest() { }
+
+            void FromJson(web::json::value& input) override
             {
-                readFromValue(obj);
+                FromJsonUtilS(input[U("BuildVersion")], BuildVersion);
+                FromJsonEnum(input[U("pfRegion")], pfRegion);
+                FromJsonUtilS(input[U("GameMode")], GameMode);
+                FromJsonUtilS(input[U("StatisticName")], StatisticName);
+                FromJsonUtilS(input[U("CharacterId")], CharacterId);
+                FromJsonUtilS(input[U("CustomCommandLineData")], CustomCommandLineData);
             }
 
-            ~StartGameRequest();
-
-            void writeJSON(PFStringJsonWriter& writer) override;
-            bool readFromValue(const rapidjson::Value& obj) override;
+            web::json::value ToJson() const override
+            {
+                web::json::value output;
+                web::json::value each_BuildVersion; ToJsonUtilS(BuildVersion, each_BuildVersion); output[U("BuildVersion")] = each_BuildVersion;
+                web::json::value each_pfRegion; ToJsonEnum(pfRegion, each_pfRegion); output[U("Region")] = each_pfRegion;
+                web::json::value each_GameMode; ToJsonUtilS(GameMode, each_GameMode); output[U("GameMode")] = each_GameMode;
+                web::json::value each_StatisticName; ToJsonUtilS(StatisticName, each_StatisticName); output[U("StatisticName")] = each_StatisticName;
+                web::json::value each_CharacterId; ToJsonUtilS(CharacterId, each_CharacterId); output[U("CharacterId")] = each_CharacterId;
+                web::json::value each_CustomCommandLineData; ToJsonUtilS(CustomCommandLineData, each_CustomCommandLineData); output[U("CustomCommandLineData")] = each_CustomCommandLineData;
+                return output;
+            }
         };
 
-        struct StartGameResult : public PlayFabBaseModel
+        struct StartGameResult : public PlayFabRequestCommon
         {
             std::string LobbyID;
             std::string ServerHostname;
-            OptionalInt32 ServerPort;
+            Boxed<Int32> ServerPort;
             std::string Ticket;
             std::string Expires;
             std::string Password;
 
             StartGameResult() :
-                PlayFabBaseModel(),
+                PlayFabRequestCommon(),
                 LobbyID(),
                 ServerHostname(),
                 ServerPort(),
@@ -7083,7 +9279,7 @@ namespace PlayFab
             {}
 
             StartGameResult(const StartGameResult& src) :
-                PlayFabBaseModel(),
+                PlayFabRequestCommon(),
                 LobbyID(src.LobbyID),
                 ServerHostname(src.ServerHostname),
                 ServerPort(src.ServerPort),
@@ -7092,49 +9288,71 @@ namespace PlayFab
                 Password(src.Password)
             {}
 
-            StartGameResult(const rapidjson::Value& obj) : StartGameResult()
+            ~StartGameResult() { }
+
+            void FromJson(web::json::value& input) override
             {
-                readFromValue(obj);
+                FromJsonUtilS(input[U("LobbyID")], LobbyID);
+                FromJsonUtilS(input[U("ServerHostname")], ServerHostname);
+                FromJsonUtilP(input[U("ServerPort")], ServerPort);
+                FromJsonUtilS(input[U("Ticket")], Ticket);
+                FromJsonUtilS(input[U("Expires")], Expires);
+                FromJsonUtilS(input[U("Password")], Password);
             }
 
-            ~StartGameResult();
-
-            void writeJSON(PFStringJsonWriter& writer) override;
-            bool readFromValue(const rapidjson::Value& obj) override;
+            web::json::value ToJson() const override
+            {
+                web::json::value output;
+                web::json::value each_LobbyID; ToJsonUtilS(LobbyID, each_LobbyID); output[U("LobbyID")] = each_LobbyID;
+                web::json::value each_ServerHostname; ToJsonUtilS(ServerHostname, each_ServerHostname); output[U("ServerHostname")] = each_ServerHostname;
+                web::json::value each_ServerPort; ToJsonUtilP(ServerPort, each_ServerPort); output[U("ServerPort")] = each_ServerPort;
+                web::json::value each_Ticket; ToJsonUtilS(Ticket, each_Ticket); output[U("Ticket")] = each_Ticket;
+                web::json::value each_Expires; ToJsonUtilS(Expires, each_Expires); output[U("Expires")] = each_Expires;
+                web::json::value each_Password; ToJsonUtilS(Password, each_Password); output[U("Password")] = each_Password;
+                return output;
+            }
         };
 
-        struct StartPurchaseRequest : public PlayFabBaseModel
+        struct StartPurchaseRequest : public PlayFabRequestCommon
         {
             std::string CatalogVersion;
             std::string StoreId;
             std::list<ItemPurchaseRequest> Items;
 
             StartPurchaseRequest() :
-                PlayFabBaseModel(),
+                PlayFabRequestCommon(),
                 CatalogVersion(),
                 StoreId(),
                 Items()
             {}
 
             StartPurchaseRequest(const StartPurchaseRequest& src) :
-                PlayFabBaseModel(),
+                PlayFabRequestCommon(),
                 CatalogVersion(src.CatalogVersion),
                 StoreId(src.StoreId),
                 Items(src.Items)
             {}
 
-            StartPurchaseRequest(const rapidjson::Value& obj) : StartPurchaseRequest()
+            ~StartPurchaseRequest() { }
+
+            void FromJson(web::json::value& input) override
             {
-                readFromValue(obj);
+                FromJsonUtilS(input[U("CatalogVersion")], CatalogVersion);
+                FromJsonUtilS(input[U("StoreId")], StoreId);
+                FromJsonUtilO(input[U("Items")], Items);
             }
 
-            ~StartPurchaseRequest();
-
-            void writeJSON(PFStringJsonWriter& writer) override;
-            bool readFromValue(const rapidjson::Value& obj) override;
+            web::json::value ToJson() const override
+            {
+                web::json::value output;
+                web::json::value each_CatalogVersion; ToJsonUtilS(CatalogVersion, each_CatalogVersion); output[U("CatalogVersion")] = each_CatalogVersion;
+                web::json::value each_StoreId; ToJsonUtilS(StoreId, each_StoreId); output[U("StoreId")] = each_StoreId;
+                web::json::value each_Items; ToJsonUtilO(Items, each_Items); output[U("Items")] = each_Items;
+                return output;
+            }
         };
 
-        struct StartPurchaseResult : public PlayFabBaseModel
+        struct StartPurchaseResult : public PlayFabRequestCommon
         {
             std::string OrderId;
             std::list<CartItem> Contents;
@@ -7142,7 +9360,7 @@ namespace PlayFab
             std::map<std::string, Int32> VirtualCurrencyBalances;
 
             StartPurchaseResult() :
-                PlayFabBaseModel(),
+                PlayFabRequestCommon(),
                 OrderId(),
                 Contents(),
                 PaymentOptions(),
@@ -7150,35 +9368,45 @@ namespace PlayFab
             {}
 
             StartPurchaseResult(const StartPurchaseResult& src) :
-                PlayFabBaseModel(),
+                PlayFabRequestCommon(),
                 OrderId(src.OrderId),
                 Contents(src.Contents),
                 PaymentOptions(src.PaymentOptions),
                 VirtualCurrencyBalances(src.VirtualCurrencyBalances)
             {}
 
-            StartPurchaseResult(const rapidjson::Value& obj) : StartPurchaseResult()
+            ~StartPurchaseResult() { }
+
+            void FromJson(web::json::value& input) override
             {
-                readFromValue(obj);
+                FromJsonUtilS(input[U("OrderId")], OrderId);
+                FromJsonUtilO(input[U("Contents")], Contents);
+                FromJsonUtilO(input[U("PaymentOptions")], PaymentOptions);
+                FromJsonUtilP(input[U("VirtualCurrencyBalances")], VirtualCurrencyBalances);
             }
 
-            ~StartPurchaseResult();
-
-            void writeJSON(PFStringJsonWriter& writer) override;
-            bool readFromValue(const rapidjson::Value& obj) override;
+            web::json::value ToJson() const override
+            {
+                web::json::value output;
+                web::json::value each_OrderId; ToJsonUtilS(OrderId, each_OrderId); output[U("OrderId")] = each_OrderId;
+                web::json::value each_Contents; ToJsonUtilO(Contents, each_Contents); output[U("Contents")] = each_Contents;
+                web::json::value each_PaymentOptions; ToJsonUtilO(PaymentOptions, each_PaymentOptions); output[U("PaymentOptions")] = each_PaymentOptions;
+                web::json::value each_VirtualCurrencyBalances; ToJsonUtilP(VirtualCurrencyBalances, each_VirtualCurrencyBalances); output[U("VirtualCurrencyBalances")] = each_VirtualCurrencyBalances;
+                return output;
+            }
         };
 
         struct StatisticUpdate : public PlayFabBaseModel
         {
             std::string StatisticName;
-            OptionalUint32 Version;
+            Boxed<Uint32> Version;
             Int32 Value;
 
             StatisticUpdate() :
                 PlayFabBaseModel(),
                 StatisticName(),
                 Version(),
-                Value(0)
+                Value()
             {}
 
             StatisticUpdate(const StatisticUpdate& src) :
@@ -7188,451 +9416,507 @@ namespace PlayFab
                 Value(src.Value)
             {}
 
-            StatisticUpdate(const rapidjson::Value& obj) : StatisticUpdate()
+            ~StatisticUpdate() { }
+
+            void FromJson(web::json::value& input) override
             {
-                readFromValue(obj);
+                FromJsonUtilS(input[U("StatisticName")], StatisticName);
+                FromJsonUtilP(input[U("Version")], Version);
+                FromJsonUtilP(input[U("Value")], Value);
             }
 
-            ~StatisticUpdate();
-
-            void writeJSON(PFStringJsonWriter& writer) override;
-            bool readFromValue(const rapidjson::Value& obj) override;
+            web::json::value ToJson() const override
+            {
+                web::json::value output;
+                web::json::value each_StatisticName; ToJsonUtilS(StatisticName, each_StatisticName); output[U("StatisticName")] = each_StatisticName;
+                web::json::value each_Version; ToJsonUtilP(Version, each_Version); output[U("Version")] = each_Version;
+                web::json::value each_Value; ToJsonUtilP(Value, each_Value); output[U("Value")] = each_Value;
+                return output;
+            }
         };
 
-        struct SubtractUserVirtualCurrencyRequest : public PlayFabBaseModel
+        struct SubtractUserVirtualCurrencyRequest : public PlayFabRequestCommon
         {
             std::string VirtualCurrency;
             Int32 Amount;
 
             SubtractUserVirtualCurrencyRequest() :
-                PlayFabBaseModel(),
+                PlayFabRequestCommon(),
                 VirtualCurrency(),
-                Amount(0)
+                Amount()
             {}
 
             SubtractUserVirtualCurrencyRequest(const SubtractUserVirtualCurrencyRequest& src) :
-                PlayFabBaseModel(),
+                PlayFabRequestCommon(),
                 VirtualCurrency(src.VirtualCurrency),
                 Amount(src.Amount)
             {}
 
-            SubtractUserVirtualCurrencyRequest(const rapidjson::Value& obj) : SubtractUserVirtualCurrencyRequest()
+            ~SubtractUserVirtualCurrencyRequest() { }
+
+            void FromJson(web::json::value& input) override
             {
-                readFromValue(obj);
+                FromJsonUtilS(input[U("VirtualCurrency")], VirtualCurrency);
+                FromJsonUtilP(input[U("Amount")], Amount);
             }
 
-            ~SubtractUserVirtualCurrencyRequest();
-
-            void writeJSON(PFStringJsonWriter& writer) override;
-            bool readFromValue(const rapidjson::Value& obj) override;
+            web::json::value ToJson() const override
+            {
+                web::json::value output;
+                web::json::value each_VirtualCurrency; ToJsonUtilS(VirtualCurrency, each_VirtualCurrency); output[U("VirtualCurrency")] = each_VirtualCurrency;
+                web::json::value each_Amount; ToJsonUtilP(Amount, each_Amount); output[U("Amount")] = each_Amount;
+                return output;
+            }
         };
 
-        struct UnlinkAndroidDeviceIDRequest : public PlayFabBaseModel
+        struct UnlinkAndroidDeviceIDRequest : public PlayFabRequestCommon
         {
             std::string AndroidDeviceId;
 
             UnlinkAndroidDeviceIDRequest() :
-                PlayFabBaseModel(),
+                PlayFabRequestCommon(),
                 AndroidDeviceId()
             {}
 
             UnlinkAndroidDeviceIDRequest(const UnlinkAndroidDeviceIDRequest& src) :
-                PlayFabBaseModel(),
+                PlayFabRequestCommon(),
                 AndroidDeviceId(src.AndroidDeviceId)
             {}
 
-            UnlinkAndroidDeviceIDRequest(const rapidjson::Value& obj) : UnlinkAndroidDeviceIDRequest()
+            ~UnlinkAndroidDeviceIDRequest() { }
+
+            void FromJson(web::json::value& input) override
             {
-                readFromValue(obj);
+                FromJsonUtilS(input[U("AndroidDeviceId")], AndroidDeviceId);
             }
 
-            ~UnlinkAndroidDeviceIDRequest();
-
-            void writeJSON(PFStringJsonWriter& writer) override;
-            bool readFromValue(const rapidjson::Value& obj) override;
+            web::json::value ToJson() const override
+            {
+                web::json::value output;
+                web::json::value each_AndroidDeviceId; ToJsonUtilS(AndroidDeviceId, each_AndroidDeviceId); output[U("AndroidDeviceId")] = each_AndroidDeviceId;
+                return output;
+            }
         };
 
-        struct UnlinkAndroidDeviceIDResult : public PlayFabBaseModel
+        struct UnlinkAndroidDeviceIDResult : public PlayFabRequestCommon
         {
 
             UnlinkAndroidDeviceIDResult() :
-                PlayFabBaseModel()
+                PlayFabRequestCommon()
             {}
 
             UnlinkAndroidDeviceIDResult(const UnlinkAndroidDeviceIDResult& src) :
-                PlayFabBaseModel()
+                PlayFabRequestCommon()
             {}
 
-            UnlinkAndroidDeviceIDResult(const rapidjson::Value& obj) : UnlinkAndroidDeviceIDResult()
+            ~UnlinkAndroidDeviceIDResult() { }
+
+            void FromJson(web::json::value& input) override
             {
-                readFromValue(obj);
             }
 
-            ~UnlinkAndroidDeviceIDResult();
-
-            void writeJSON(PFStringJsonWriter& writer) override;
-            bool readFromValue(const rapidjson::Value& obj) override;
+            web::json::value ToJson() const override
+            {
+                web::json::value output;
+                return output;
+            }
         };
 
-        struct UnlinkCustomIDRequest : public PlayFabBaseModel
+        struct UnlinkCustomIDRequest : public PlayFabRequestCommon
         {
             std::string CustomId;
 
             UnlinkCustomIDRequest() :
-                PlayFabBaseModel(),
+                PlayFabRequestCommon(),
                 CustomId()
             {}
 
             UnlinkCustomIDRequest(const UnlinkCustomIDRequest& src) :
-                PlayFabBaseModel(),
+                PlayFabRequestCommon(),
                 CustomId(src.CustomId)
             {}
 
-            UnlinkCustomIDRequest(const rapidjson::Value& obj) : UnlinkCustomIDRequest()
+            ~UnlinkCustomIDRequest() { }
+
+            void FromJson(web::json::value& input) override
             {
-                readFromValue(obj);
+                FromJsonUtilS(input[U("CustomId")], CustomId);
             }
 
-            ~UnlinkCustomIDRequest();
-
-            void writeJSON(PFStringJsonWriter& writer) override;
-            bool readFromValue(const rapidjson::Value& obj) override;
+            web::json::value ToJson() const override
+            {
+                web::json::value output;
+                web::json::value each_CustomId; ToJsonUtilS(CustomId, each_CustomId); output[U("CustomId")] = each_CustomId;
+                return output;
+            }
         };
 
-        struct UnlinkCustomIDResult : public PlayFabBaseModel
+        struct UnlinkCustomIDResult : public PlayFabRequestCommon
         {
 
             UnlinkCustomIDResult() :
-                PlayFabBaseModel()
+                PlayFabRequestCommon()
             {}
 
             UnlinkCustomIDResult(const UnlinkCustomIDResult& src) :
-                PlayFabBaseModel()
+                PlayFabRequestCommon()
             {}
 
-            UnlinkCustomIDResult(const rapidjson::Value& obj) : UnlinkCustomIDResult()
+            ~UnlinkCustomIDResult() { }
+
+            void FromJson(web::json::value& input) override
             {
-                readFromValue(obj);
             }
 
-            ~UnlinkCustomIDResult();
-
-            void writeJSON(PFStringJsonWriter& writer) override;
-            bool readFromValue(const rapidjson::Value& obj) override;
+            web::json::value ToJson() const override
+            {
+                web::json::value output;
+                return output;
+            }
         };
 
-        struct UnlinkFacebookAccountRequest : public PlayFabBaseModel
+        struct UnlinkFacebookAccountRequest : public PlayFabRequestCommon
         {
 
             UnlinkFacebookAccountRequest() :
-                PlayFabBaseModel()
+                PlayFabRequestCommon()
             {}
 
             UnlinkFacebookAccountRequest(const UnlinkFacebookAccountRequest& src) :
-                PlayFabBaseModel()
+                PlayFabRequestCommon()
             {}
 
-            UnlinkFacebookAccountRequest(const rapidjson::Value& obj) : UnlinkFacebookAccountRequest()
+            ~UnlinkFacebookAccountRequest() { }
+
+            void FromJson(web::json::value& input) override
             {
-                readFromValue(obj);
             }
 
-            ~UnlinkFacebookAccountRequest();
-
-            void writeJSON(PFStringJsonWriter& writer) override;
-            bool readFromValue(const rapidjson::Value& obj) override;
+            web::json::value ToJson() const override
+            {
+                web::json::value output;
+                return output;
+            }
         };
 
-        struct UnlinkFacebookAccountResult : public PlayFabBaseModel
+        struct UnlinkFacebookAccountResult : public PlayFabRequestCommon
         {
 
             UnlinkFacebookAccountResult() :
-                PlayFabBaseModel()
+                PlayFabRequestCommon()
             {}
 
             UnlinkFacebookAccountResult(const UnlinkFacebookAccountResult& src) :
-                PlayFabBaseModel()
+                PlayFabRequestCommon()
             {}
 
-            UnlinkFacebookAccountResult(const rapidjson::Value& obj) : UnlinkFacebookAccountResult()
+            ~UnlinkFacebookAccountResult() { }
+
+            void FromJson(web::json::value& input) override
             {
-                readFromValue(obj);
             }
 
-            ~UnlinkFacebookAccountResult();
-
-            void writeJSON(PFStringJsonWriter& writer) override;
-            bool readFromValue(const rapidjson::Value& obj) override;
+            web::json::value ToJson() const override
+            {
+                web::json::value output;
+                return output;
+            }
         };
 
-        struct UnlinkGameCenterAccountRequest : public PlayFabBaseModel
+        struct UnlinkGameCenterAccountRequest : public PlayFabRequestCommon
         {
 
             UnlinkGameCenterAccountRequest() :
-                PlayFabBaseModel()
+                PlayFabRequestCommon()
             {}
 
             UnlinkGameCenterAccountRequest(const UnlinkGameCenterAccountRequest& src) :
-                PlayFabBaseModel()
+                PlayFabRequestCommon()
             {}
 
-            UnlinkGameCenterAccountRequest(const rapidjson::Value& obj) : UnlinkGameCenterAccountRequest()
+            ~UnlinkGameCenterAccountRequest() { }
+
+            void FromJson(web::json::value& input) override
             {
-                readFromValue(obj);
             }
 
-            ~UnlinkGameCenterAccountRequest();
-
-            void writeJSON(PFStringJsonWriter& writer) override;
-            bool readFromValue(const rapidjson::Value& obj) override;
+            web::json::value ToJson() const override
+            {
+                web::json::value output;
+                return output;
+            }
         };
 
-        struct UnlinkGameCenterAccountResult : public PlayFabBaseModel
+        struct UnlinkGameCenterAccountResult : public PlayFabRequestCommon
         {
 
             UnlinkGameCenterAccountResult() :
-                PlayFabBaseModel()
+                PlayFabRequestCommon()
             {}
 
             UnlinkGameCenterAccountResult(const UnlinkGameCenterAccountResult& src) :
-                PlayFabBaseModel()
+                PlayFabRequestCommon()
             {}
 
-            UnlinkGameCenterAccountResult(const rapidjson::Value& obj) : UnlinkGameCenterAccountResult()
+            ~UnlinkGameCenterAccountResult() { }
+
+            void FromJson(web::json::value& input) override
             {
-                readFromValue(obj);
             }
 
-            ~UnlinkGameCenterAccountResult();
-
-            void writeJSON(PFStringJsonWriter& writer) override;
-            bool readFromValue(const rapidjson::Value& obj) override;
+            web::json::value ToJson() const override
+            {
+                web::json::value output;
+                return output;
+            }
         };
 
-        struct UnlinkGoogleAccountRequest : public PlayFabBaseModel
+        struct UnlinkGoogleAccountRequest : public PlayFabRequestCommon
         {
 
             UnlinkGoogleAccountRequest() :
-                PlayFabBaseModel()
+                PlayFabRequestCommon()
             {}
 
             UnlinkGoogleAccountRequest(const UnlinkGoogleAccountRequest& src) :
-                PlayFabBaseModel()
+                PlayFabRequestCommon()
             {}
 
-            UnlinkGoogleAccountRequest(const rapidjson::Value& obj) : UnlinkGoogleAccountRequest()
+            ~UnlinkGoogleAccountRequest() { }
+
+            void FromJson(web::json::value& input) override
             {
-                readFromValue(obj);
             }
 
-            ~UnlinkGoogleAccountRequest();
-
-            void writeJSON(PFStringJsonWriter& writer) override;
-            bool readFromValue(const rapidjson::Value& obj) override;
+            web::json::value ToJson() const override
+            {
+                web::json::value output;
+                return output;
+            }
         };
 
-        struct UnlinkGoogleAccountResult : public PlayFabBaseModel
+        struct UnlinkGoogleAccountResult : public PlayFabRequestCommon
         {
 
             UnlinkGoogleAccountResult() :
-                PlayFabBaseModel()
+                PlayFabRequestCommon()
             {}
 
             UnlinkGoogleAccountResult(const UnlinkGoogleAccountResult& src) :
-                PlayFabBaseModel()
+                PlayFabRequestCommon()
             {}
 
-            UnlinkGoogleAccountResult(const rapidjson::Value& obj) : UnlinkGoogleAccountResult()
+            ~UnlinkGoogleAccountResult() { }
+
+            void FromJson(web::json::value& input) override
             {
-                readFromValue(obj);
             }
 
-            ~UnlinkGoogleAccountResult();
-
-            void writeJSON(PFStringJsonWriter& writer) override;
-            bool readFromValue(const rapidjson::Value& obj) override;
+            web::json::value ToJson() const override
+            {
+                web::json::value output;
+                return output;
+            }
         };
 
-        struct UnlinkIOSDeviceIDRequest : public PlayFabBaseModel
+        struct UnlinkIOSDeviceIDRequest : public PlayFabRequestCommon
         {
             std::string DeviceId;
 
             UnlinkIOSDeviceIDRequest() :
-                PlayFabBaseModel(),
+                PlayFabRequestCommon(),
                 DeviceId()
             {}
 
             UnlinkIOSDeviceIDRequest(const UnlinkIOSDeviceIDRequest& src) :
-                PlayFabBaseModel(),
+                PlayFabRequestCommon(),
                 DeviceId(src.DeviceId)
             {}
 
-            UnlinkIOSDeviceIDRequest(const rapidjson::Value& obj) : UnlinkIOSDeviceIDRequest()
+            ~UnlinkIOSDeviceIDRequest() { }
+
+            void FromJson(web::json::value& input) override
             {
-                readFromValue(obj);
+                FromJsonUtilS(input[U("DeviceId")], DeviceId);
             }
 
-            ~UnlinkIOSDeviceIDRequest();
-
-            void writeJSON(PFStringJsonWriter& writer) override;
-            bool readFromValue(const rapidjson::Value& obj) override;
+            web::json::value ToJson() const override
+            {
+                web::json::value output;
+                web::json::value each_DeviceId; ToJsonUtilS(DeviceId, each_DeviceId); output[U("DeviceId")] = each_DeviceId;
+                return output;
+            }
         };
 
-        struct UnlinkIOSDeviceIDResult : public PlayFabBaseModel
+        struct UnlinkIOSDeviceIDResult : public PlayFabRequestCommon
         {
 
             UnlinkIOSDeviceIDResult() :
-                PlayFabBaseModel()
+                PlayFabRequestCommon()
             {}
 
             UnlinkIOSDeviceIDResult(const UnlinkIOSDeviceIDResult& src) :
-                PlayFabBaseModel()
+                PlayFabRequestCommon()
             {}
 
-            UnlinkIOSDeviceIDResult(const rapidjson::Value& obj) : UnlinkIOSDeviceIDResult()
+            ~UnlinkIOSDeviceIDResult() { }
+
+            void FromJson(web::json::value& input) override
             {
-                readFromValue(obj);
             }
 
-            ~UnlinkIOSDeviceIDResult();
-
-            void writeJSON(PFStringJsonWriter& writer) override;
-            bool readFromValue(const rapidjson::Value& obj) override;
+            web::json::value ToJson() const override
+            {
+                web::json::value output;
+                return output;
+            }
         };
 
-        struct UnlinkKongregateAccountRequest : public PlayFabBaseModel
+        struct UnlinkKongregateAccountRequest : public PlayFabRequestCommon
         {
 
             UnlinkKongregateAccountRequest() :
-                PlayFabBaseModel()
+                PlayFabRequestCommon()
             {}
 
             UnlinkKongregateAccountRequest(const UnlinkKongregateAccountRequest& src) :
-                PlayFabBaseModel()
+                PlayFabRequestCommon()
             {}
 
-            UnlinkKongregateAccountRequest(const rapidjson::Value& obj) : UnlinkKongregateAccountRequest()
+            ~UnlinkKongregateAccountRequest() { }
+
+            void FromJson(web::json::value& input) override
             {
-                readFromValue(obj);
             }
 
-            ~UnlinkKongregateAccountRequest();
-
-            void writeJSON(PFStringJsonWriter& writer) override;
-            bool readFromValue(const rapidjson::Value& obj) override;
+            web::json::value ToJson() const override
+            {
+                web::json::value output;
+                return output;
+            }
         };
 
-        struct UnlinkKongregateAccountResult : public PlayFabBaseModel
+        struct UnlinkKongregateAccountResult : public PlayFabRequestCommon
         {
 
             UnlinkKongregateAccountResult() :
-                PlayFabBaseModel()
+                PlayFabRequestCommon()
             {}
 
             UnlinkKongregateAccountResult(const UnlinkKongregateAccountResult& src) :
-                PlayFabBaseModel()
+                PlayFabRequestCommon()
             {}
 
-            UnlinkKongregateAccountResult(const rapidjson::Value& obj) : UnlinkKongregateAccountResult()
+            ~UnlinkKongregateAccountResult() { }
+
+            void FromJson(web::json::value& input) override
             {
-                readFromValue(obj);
             }
 
-            ~UnlinkKongregateAccountResult();
-
-            void writeJSON(PFStringJsonWriter& writer) override;
-            bool readFromValue(const rapidjson::Value& obj) override;
+            web::json::value ToJson() const override
+            {
+                web::json::value output;
+                return output;
+            }
         };
 
-        struct UnlinkSteamAccountRequest : public PlayFabBaseModel
+        struct UnlinkSteamAccountRequest : public PlayFabRequestCommon
         {
 
             UnlinkSteamAccountRequest() :
-                PlayFabBaseModel()
+                PlayFabRequestCommon()
             {}
 
             UnlinkSteamAccountRequest(const UnlinkSteamAccountRequest& src) :
-                PlayFabBaseModel()
+                PlayFabRequestCommon()
             {}
 
-            UnlinkSteamAccountRequest(const rapidjson::Value& obj) : UnlinkSteamAccountRequest()
+            ~UnlinkSteamAccountRequest() { }
+
+            void FromJson(web::json::value& input) override
             {
-                readFromValue(obj);
             }
 
-            ~UnlinkSteamAccountRequest();
-
-            void writeJSON(PFStringJsonWriter& writer) override;
-            bool readFromValue(const rapidjson::Value& obj) override;
+            web::json::value ToJson() const override
+            {
+                web::json::value output;
+                return output;
+            }
         };
 
-        struct UnlinkSteamAccountResult : public PlayFabBaseModel
+        struct UnlinkSteamAccountResult : public PlayFabRequestCommon
         {
 
             UnlinkSteamAccountResult() :
-                PlayFabBaseModel()
+                PlayFabRequestCommon()
             {}
 
             UnlinkSteamAccountResult(const UnlinkSteamAccountResult& src) :
-                PlayFabBaseModel()
+                PlayFabRequestCommon()
             {}
 
-            UnlinkSteamAccountResult(const rapidjson::Value& obj) : UnlinkSteamAccountResult()
+            ~UnlinkSteamAccountResult() { }
+
+            void FromJson(web::json::value& input) override
             {
-                readFromValue(obj);
             }
 
-            ~UnlinkSteamAccountResult();
-
-            void writeJSON(PFStringJsonWriter& writer) override;
-            bool readFromValue(const rapidjson::Value& obj) override;
+            web::json::value ToJson() const override
+            {
+                web::json::value output;
+                return output;
+            }
         };
 
-        struct UnlinkTwitchAccountRequest : public PlayFabBaseModel
+        struct UnlinkTwitchAccountRequest : public PlayFabRequestCommon
         {
 
             UnlinkTwitchAccountRequest() :
-                PlayFabBaseModel()
+                PlayFabRequestCommon()
             {}
 
             UnlinkTwitchAccountRequest(const UnlinkTwitchAccountRequest& src) :
-                PlayFabBaseModel()
+                PlayFabRequestCommon()
             {}
 
-            UnlinkTwitchAccountRequest(const rapidjson::Value& obj) : UnlinkTwitchAccountRequest()
+            ~UnlinkTwitchAccountRequest() { }
+
+            void FromJson(web::json::value& input) override
             {
-                readFromValue(obj);
             }
 
-            ~UnlinkTwitchAccountRequest();
-
-            void writeJSON(PFStringJsonWriter& writer) override;
-            bool readFromValue(const rapidjson::Value& obj) override;
+            web::json::value ToJson() const override
+            {
+                web::json::value output;
+                return output;
+            }
         };
 
-        struct UnlinkTwitchAccountResult : public PlayFabBaseModel
+        struct UnlinkTwitchAccountResult : public PlayFabRequestCommon
         {
 
             UnlinkTwitchAccountResult() :
-                PlayFabBaseModel()
+                PlayFabRequestCommon()
             {}
 
             UnlinkTwitchAccountResult(const UnlinkTwitchAccountResult& src) :
-                PlayFabBaseModel()
+                PlayFabRequestCommon()
             {}
 
-            UnlinkTwitchAccountResult(const rapidjson::Value& obj) : UnlinkTwitchAccountResult()
+            ~UnlinkTwitchAccountResult() { }
+
+            void FromJson(web::json::value& input) override
             {
-                readFromValue(obj);
             }
 
-            ~UnlinkTwitchAccountResult();
-
-            void writeJSON(PFStringJsonWriter& writer) override;
-            bool readFromValue(const rapidjson::Value& obj) override;
+            web::json::value ToJson() const override
+            {
+                web::json::value output;
+                return output;
+            }
         };
 
-        struct UnlockContainerInstanceRequest : public PlayFabBaseModel
+        struct UnlockContainerInstanceRequest : public PlayFabRequestCommon
         {
             std::string CharacterId;
             std::string ContainerItemInstanceId;
@@ -7640,7 +9924,7 @@ namespace PlayFab
             std::string CatalogVersion;
 
             UnlockContainerInstanceRequest() :
-                PlayFabBaseModel(),
+                PlayFabRequestCommon(),
                 CharacterId(),
                 ContainerItemInstanceId(),
                 KeyItemInstanceId(),
@@ -7648,56 +9932,74 @@ namespace PlayFab
             {}
 
             UnlockContainerInstanceRequest(const UnlockContainerInstanceRequest& src) :
-                PlayFabBaseModel(),
+                PlayFabRequestCommon(),
                 CharacterId(src.CharacterId),
                 ContainerItemInstanceId(src.ContainerItemInstanceId),
                 KeyItemInstanceId(src.KeyItemInstanceId),
                 CatalogVersion(src.CatalogVersion)
             {}
 
-            UnlockContainerInstanceRequest(const rapidjson::Value& obj) : UnlockContainerInstanceRequest()
+            ~UnlockContainerInstanceRequest() { }
+
+            void FromJson(web::json::value& input) override
             {
-                readFromValue(obj);
+                FromJsonUtilS(input[U("CharacterId")], CharacterId);
+                FromJsonUtilS(input[U("ContainerItemInstanceId")], ContainerItemInstanceId);
+                FromJsonUtilS(input[U("KeyItemInstanceId")], KeyItemInstanceId);
+                FromJsonUtilS(input[U("CatalogVersion")], CatalogVersion);
             }
 
-            ~UnlockContainerInstanceRequest();
-
-            void writeJSON(PFStringJsonWriter& writer) override;
-            bool readFromValue(const rapidjson::Value& obj) override;
+            web::json::value ToJson() const override
+            {
+                web::json::value output;
+                web::json::value each_CharacterId; ToJsonUtilS(CharacterId, each_CharacterId); output[U("CharacterId")] = each_CharacterId;
+                web::json::value each_ContainerItemInstanceId; ToJsonUtilS(ContainerItemInstanceId, each_ContainerItemInstanceId); output[U("ContainerItemInstanceId")] = each_ContainerItemInstanceId;
+                web::json::value each_KeyItemInstanceId; ToJsonUtilS(KeyItemInstanceId, each_KeyItemInstanceId); output[U("KeyItemInstanceId")] = each_KeyItemInstanceId;
+                web::json::value each_CatalogVersion; ToJsonUtilS(CatalogVersion, each_CatalogVersion); output[U("CatalogVersion")] = each_CatalogVersion;
+                return output;
+            }
         };
 
-        struct UnlockContainerItemRequest : public PlayFabBaseModel
+        struct UnlockContainerItemRequest : public PlayFabRequestCommon
         {
             std::string ContainerItemId;
             std::string CatalogVersion;
             std::string CharacterId;
 
             UnlockContainerItemRequest() :
-                PlayFabBaseModel(),
+                PlayFabRequestCommon(),
                 ContainerItemId(),
                 CatalogVersion(),
                 CharacterId()
             {}
 
             UnlockContainerItemRequest(const UnlockContainerItemRequest& src) :
-                PlayFabBaseModel(),
+                PlayFabRequestCommon(),
                 ContainerItemId(src.ContainerItemId),
                 CatalogVersion(src.CatalogVersion),
                 CharacterId(src.CharacterId)
             {}
 
-            UnlockContainerItemRequest(const rapidjson::Value& obj) : UnlockContainerItemRequest()
+            ~UnlockContainerItemRequest() { }
+
+            void FromJson(web::json::value& input) override
             {
-                readFromValue(obj);
+                FromJsonUtilS(input[U("ContainerItemId")], ContainerItemId);
+                FromJsonUtilS(input[U("CatalogVersion")], CatalogVersion);
+                FromJsonUtilS(input[U("CharacterId")], CharacterId);
             }
 
-            ~UnlockContainerItemRequest();
-
-            void writeJSON(PFStringJsonWriter& writer) override;
-            bool readFromValue(const rapidjson::Value& obj) override;
+            web::json::value ToJson() const override
+            {
+                web::json::value output;
+                web::json::value each_ContainerItemId; ToJsonUtilS(ContainerItemId, each_ContainerItemId); output[U("ContainerItemId")] = each_ContainerItemId;
+                web::json::value each_CatalogVersion; ToJsonUtilS(CatalogVersion, each_CatalogVersion); output[U("CatalogVersion")] = each_CatalogVersion;
+                web::json::value each_CharacterId; ToJsonUtilS(CharacterId, each_CharacterId); output[U("CharacterId")] = each_CharacterId;
+                return output;
+            }
         };
 
-        struct UnlockContainerItemResult : public PlayFabBaseModel
+        struct UnlockContainerItemResult : public PlayFabRequestCommon
         {
             std::string UnlockedItemInstanceId;
             std::string UnlockedWithItemInstanceId;
@@ -7705,7 +10007,7 @@ namespace PlayFab
             std::map<std::string, Uint32> VirtualCurrency;
 
             UnlockContainerItemResult() :
-                PlayFabBaseModel(),
+                PlayFabRequestCommon(),
                 UnlockedItemInstanceId(),
                 UnlockedWithItemInstanceId(),
                 GrantedItems(),
@@ -7713,25 +10015,35 @@ namespace PlayFab
             {}
 
             UnlockContainerItemResult(const UnlockContainerItemResult& src) :
-                PlayFabBaseModel(),
+                PlayFabRequestCommon(),
                 UnlockedItemInstanceId(src.UnlockedItemInstanceId),
                 UnlockedWithItemInstanceId(src.UnlockedWithItemInstanceId),
                 GrantedItems(src.GrantedItems),
                 VirtualCurrency(src.VirtualCurrency)
             {}
 
-            UnlockContainerItemResult(const rapidjson::Value& obj) : UnlockContainerItemResult()
+            ~UnlockContainerItemResult() { }
+
+            void FromJson(web::json::value& input) override
             {
-                readFromValue(obj);
+                FromJsonUtilS(input[U("UnlockedItemInstanceId")], UnlockedItemInstanceId);
+                FromJsonUtilS(input[U("UnlockedWithItemInstanceId")], UnlockedWithItemInstanceId);
+                FromJsonUtilO(input[U("GrantedItems")], GrantedItems);
+                FromJsonUtilP(input[U("VirtualCurrency")], VirtualCurrency);
             }
 
-            ~UnlockContainerItemResult();
-
-            void writeJSON(PFStringJsonWriter& writer) override;
-            bool readFromValue(const rapidjson::Value& obj) override;
+            web::json::value ToJson() const override
+            {
+                web::json::value output;
+                web::json::value each_UnlockedItemInstanceId; ToJsonUtilS(UnlockedItemInstanceId, each_UnlockedItemInstanceId); output[U("UnlockedItemInstanceId")] = each_UnlockedItemInstanceId;
+                web::json::value each_UnlockedWithItemInstanceId; ToJsonUtilS(UnlockedWithItemInstanceId, each_UnlockedWithItemInstanceId); output[U("UnlockedWithItemInstanceId")] = each_UnlockedWithItemInstanceId;
+                web::json::value each_GrantedItems; ToJsonUtilO(GrantedItems, each_GrantedItems); output[U("GrantedItems")] = each_GrantedItems;
+                web::json::value each_VirtualCurrency; ToJsonUtilP(VirtualCurrency, each_VirtualCurrency); output[U("VirtualCurrency")] = each_VirtualCurrency;
+                return output;
+            }
         };
 
-        struct UpdateCharacterDataRequest : public PlayFabBaseModel
+        struct UpdateCharacterDataRequest : public PlayFabRequestCommon
         {
             std::string CharacterId;
             std::map<std::string, std::string> Data;
@@ -7739,7 +10051,7 @@ namespace PlayFab
             Boxed<UserDataPermission> Permission;
 
             UpdateCharacterDataRequest() :
-                PlayFabBaseModel(),
+                PlayFabRequestCommon(),
                 CharacterId(),
                 Data(),
                 KeysToRemove(),
@@ -7747,147 +10059,175 @@ namespace PlayFab
             {}
 
             UpdateCharacterDataRequest(const UpdateCharacterDataRequest& src) :
-                PlayFabBaseModel(),
+                PlayFabRequestCommon(),
                 CharacterId(src.CharacterId),
                 Data(src.Data),
                 KeysToRemove(src.KeysToRemove),
                 Permission(src.Permission)
             {}
 
-            UpdateCharacterDataRequest(const rapidjson::Value& obj) : UpdateCharacterDataRequest()
+            ~UpdateCharacterDataRequest() { }
+
+            void FromJson(web::json::value& input) override
             {
-                readFromValue(obj);
+                FromJsonUtilS(input[U("CharacterId")], CharacterId);
+                FromJsonUtilS(input[U("Data")], Data);
+                FromJsonUtilS(input[U("KeysToRemove")], KeysToRemove);
+                FromJsonUtilE(input[U("Permission")], Permission);
             }
 
-            ~UpdateCharacterDataRequest();
-
-            void writeJSON(PFStringJsonWriter& writer) override;
-            bool readFromValue(const rapidjson::Value& obj) override;
+            web::json::value ToJson() const override
+            {
+                web::json::value output;
+                web::json::value each_CharacterId; ToJsonUtilS(CharacterId, each_CharacterId); output[U("CharacterId")] = each_CharacterId;
+                web::json::value each_Data; ToJsonUtilS(Data, each_Data); output[U("Data")] = each_Data;
+                web::json::value each_KeysToRemove; ToJsonUtilS(KeysToRemove, each_KeysToRemove); output[U("KeysToRemove")] = each_KeysToRemove;
+                web::json::value each_Permission; ToJsonUtilE(Permission, each_Permission); output[U("Permission")] = each_Permission;
+                return output;
+            }
         };
 
-        struct UpdateCharacterDataResult : public PlayFabBaseModel
+        struct UpdateCharacterDataResult : public PlayFabRequestCommon
         {
             Uint32 DataVersion;
 
             UpdateCharacterDataResult() :
-                PlayFabBaseModel(),
-                DataVersion(0)
+                PlayFabRequestCommon(),
+                DataVersion()
             {}
 
             UpdateCharacterDataResult(const UpdateCharacterDataResult& src) :
-                PlayFabBaseModel(),
+                PlayFabRequestCommon(),
                 DataVersion(src.DataVersion)
             {}
 
-            UpdateCharacterDataResult(const rapidjson::Value& obj) : UpdateCharacterDataResult()
+            ~UpdateCharacterDataResult() { }
+
+            void FromJson(web::json::value& input) override
             {
-                readFromValue(obj);
+                FromJsonUtilP(input[U("DataVersion")], DataVersion);
             }
 
-            ~UpdateCharacterDataResult();
-
-            void writeJSON(PFStringJsonWriter& writer) override;
-            bool readFromValue(const rapidjson::Value& obj) override;
+            web::json::value ToJson() const override
+            {
+                web::json::value output;
+                web::json::value each_DataVersion; ToJsonUtilP(DataVersion, each_DataVersion); output[U("DataVersion")] = each_DataVersion;
+                return output;
+            }
         };
 
-        struct UpdateCharacterStatisticsRequest : public PlayFabBaseModel
+        struct UpdateCharacterStatisticsRequest : public PlayFabRequestCommon
         {
             std::string CharacterId;
             std::map<std::string, Int32> CharacterStatistics;
 
             UpdateCharacterStatisticsRequest() :
-                PlayFabBaseModel(),
+                PlayFabRequestCommon(),
                 CharacterId(),
                 CharacterStatistics()
             {}
 
             UpdateCharacterStatisticsRequest(const UpdateCharacterStatisticsRequest& src) :
-                PlayFabBaseModel(),
+                PlayFabRequestCommon(),
                 CharacterId(src.CharacterId),
                 CharacterStatistics(src.CharacterStatistics)
             {}
 
-            UpdateCharacterStatisticsRequest(const rapidjson::Value& obj) : UpdateCharacterStatisticsRequest()
+            ~UpdateCharacterStatisticsRequest() { }
+
+            void FromJson(web::json::value& input) override
             {
-                readFromValue(obj);
+                FromJsonUtilS(input[U("CharacterId")], CharacterId);
+                FromJsonUtilP(input[U("CharacterStatistics")], CharacterStatistics);
             }
 
-            ~UpdateCharacterStatisticsRequest();
-
-            void writeJSON(PFStringJsonWriter& writer) override;
-            bool readFromValue(const rapidjson::Value& obj) override;
+            web::json::value ToJson() const override
+            {
+                web::json::value output;
+                web::json::value each_CharacterId; ToJsonUtilS(CharacterId, each_CharacterId); output[U("CharacterId")] = each_CharacterId;
+                web::json::value each_CharacterStatistics; ToJsonUtilP(CharacterStatistics, each_CharacterStatistics); output[U("CharacterStatistics")] = each_CharacterStatistics;
+                return output;
+            }
         };
 
-        struct UpdateCharacterStatisticsResult : public PlayFabBaseModel
+        struct UpdateCharacterStatisticsResult : public PlayFabRequestCommon
         {
 
             UpdateCharacterStatisticsResult() :
-                PlayFabBaseModel()
+                PlayFabRequestCommon()
             {}
 
             UpdateCharacterStatisticsResult(const UpdateCharacterStatisticsResult& src) :
-                PlayFabBaseModel()
+                PlayFabRequestCommon()
             {}
 
-            UpdateCharacterStatisticsResult(const rapidjson::Value& obj) : UpdateCharacterStatisticsResult()
+            ~UpdateCharacterStatisticsResult() { }
+
+            void FromJson(web::json::value& input) override
             {
-                readFromValue(obj);
             }
 
-            ~UpdateCharacterStatisticsResult();
-
-            void writeJSON(PFStringJsonWriter& writer) override;
-            bool readFromValue(const rapidjson::Value& obj) override;
+            web::json::value ToJson() const override
+            {
+                web::json::value output;
+                return output;
+            }
         };
 
-        struct UpdatePlayerStatisticsRequest : public PlayFabBaseModel
+        struct UpdatePlayerStatisticsRequest : public PlayFabRequestCommon
         {
             std::list<StatisticUpdate> Statistics;
 
             UpdatePlayerStatisticsRequest() :
-                PlayFabBaseModel(),
+                PlayFabRequestCommon(),
                 Statistics()
             {}
 
             UpdatePlayerStatisticsRequest(const UpdatePlayerStatisticsRequest& src) :
-                PlayFabBaseModel(),
+                PlayFabRequestCommon(),
                 Statistics(src.Statistics)
             {}
 
-            UpdatePlayerStatisticsRequest(const rapidjson::Value& obj) : UpdatePlayerStatisticsRequest()
+            ~UpdatePlayerStatisticsRequest() { }
+
+            void FromJson(web::json::value& input) override
             {
-                readFromValue(obj);
+                FromJsonUtilO(input[U("Statistics")], Statistics);
             }
 
-            ~UpdatePlayerStatisticsRequest();
-
-            void writeJSON(PFStringJsonWriter& writer) override;
-            bool readFromValue(const rapidjson::Value& obj) override;
+            web::json::value ToJson() const override
+            {
+                web::json::value output;
+                web::json::value each_Statistics; ToJsonUtilO(Statistics, each_Statistics); output[U("Statistics")] = each_Statistics;
+                return output;
+            }
         };
 
-        struct UpdatePlayerStatisticsResult : public PlayFabBaseModel
+        struct UpdatePlayerStatisticsResult : public PlayFabRequestCommon
         {
 
             UpdatePlayerStatisticsResult() :
-                PlayFabBaseModel()
+                PlayFabRequestCommon()
             {}
 
             UpdatePlayerStatisticsResult(const UpdatePlayerStatisticsResult& src) :
-                PlayFabBaseModel()
+                PlayFabRequestCommon()
             {}
 
-            UpdatePlayerStatisticsResult(const rapidjson::Value& obj) : UpdatePlayerStatisticsResult()
+            ~UpdatePlayerStatisticsResult() { }
+
+            void FromJson(web::json::value& input) override
             {
-                readFromValue(obj);
             }
 
-            ~UpdatePlayerStatisticsResult();
-
-            void writeJSON(PFStringJsonWriter& writer) override;
-            bool readFromValue(const rapidjson::Value& obj) override;
+            web::json::value ToJson() const override
+            {
+                web::json::value output;
+                return output;
+            }
         };
 
-        struct UpdateSharedGroupDataRequest : public PlayFabBaseModel
+        struct UpdateSharedGroupDataRequest : public PlayFabRequestCommon
         {
             std::string SharedGroupId;
             std::map<std::string, std::string> Data;
@@ -7895,7 +10235,7 @@ namespace PlayFab
             Boxed<UserDataPermission> Permission;
 
             UpdateSharedGroupDataRequest() :
-                PlayFabBaseModel(),
+                PlayFabRequestCommon(),
                 SharedGroupId(),
                 Data(),
                 KeysToRemove(),
@@ -7903,153 +10243,185 @@ namespace PlayFab
             {}
 
             UpdateSharedGroupDataRequest(const UpdateSharedGroupDataRequest& src) :
-                PlayFabBaseModel(),
+                PlayFabRequestCommon(),
                 SharedGroupId(src.SharedGroupId),
                 Data(src.Data),
                 KeysToRemove(src.KeysToRemove),
                 Permission(src.Permission)
             {}
 
-            UpdateSharedGroupDataRequest(const rapidjson::Value& obj) : UpdateSharedGroupDataRequest()
+            ~UpdateSharedGroupDataRequest() { }
+
+            void FromJson(web::json::value& input) override
             {
-                readFromValue(obj);
+                FromJsonUtilS(input[U("SharedGroupId")], SharedGroupId);
+                FromJsonUtilS(input[U("Data")], Data);
+                FromJsonUtilS(input[U("KeysToRemove")], KeysToRemove);
+                FromJsonUtilE(input[U("Permission")], Permission);
             }
 
-            ~UpdateSharedGroupDataRequest();
-
-            void writeJSON(PFStringJsonWriter& writer) override;
-            bool readFromValue(const rapidjson::Value& obj) override;
+            web::json::value ToJson() const override
+            {
+                web::json::value output;
+                web::json::value each_SharedGroupId; ToJsonUtilS(SharedGroupId, each_SharedGroupId); output[U("SharedGroupId")] = each_SharedGroupId;
+                web::json::value each_Data; ToJsonUtilS(Data, each_Data); output[U("Data")] = each_Data;
+                web::json::value each_KeysToRemove; ToJsonUtilS(KeysToRemove, each_KeysToRemove); output[U("KeysToRemove")] = each_KeysToRemove;
+                web::json::value each_Permission; ToJsonUtilE(Permission, each_Permission); output[U("Permission")] = each_Permission;
+                return output;
+            }
         };
 
-        struct UpdateSharedGroupDataResult : public PlayFabBaseModel
+        struct UpdateSharedGroupDataResult : public PlayFabRequestCommon
         {
 
             UpdateSharedGroupDataResult() :
-                PlayFabBaseModel()
+                PlayFabRequestCommon()
             {}
 
             UpdateSharedGroupDataResult(const UpdateSharedGroupDataResult& src) :
-                PlayFabBaseModel()
+                PlayFabRequestCommon()
             {}
 
-            UpdateSharedGroupDataResult(const rapidjson::Value& obj) : UpdateSharedGroupDataResult()
+            ~UpdateSharedGroupDataResult() { }
+
+            void FromJson(web::json::value& input) override
             {
-                readFromValue(obj);
             }
 
-            ~UpdateSharedGroupDataResult();
-
-            void writeJSON(PFStringJsonWriter& writer) override;
-            bool readFromValue(const rapidjson::Value& obj) override;
+            web::json::value ToJson() const override
+            {
+                web::json::value output;
+                return output;
+            }
         };
 
-        struct UpdateUserDataRequest : public PlayFabBaseModel
+        struct UpdateUserDataRequest : public PlayFabRequestCommon
         {
             std::map<std::string, std::string> Data;
             std::list<std::string> KeysToRemove;
             Boxed<UserDataPermission> Permission;
 
             UpdateUserDataRequest() :
-                PlayFabBaseModel(),
+                PlayFabRequestCommon(),
                 Data(),
                 KeysToRemove(),
                 Permission()
             {}
 
             UpdateUserDataRequest(const UpdateUserDataRequest& src) :
-                PlayFabBaseModel(),
+                PlayFabRequestCommon(),
                 Data(src.Data),
                 KeysToRemove(src.KeysToRemove),
                 Permission(src.Permission)
             {}
 
-            UpdateUserDataRequest(const rapidjson::Value& obj) : UpdateUserDataRequest()
+            ~UpdateUserDataRequest() { }
+
+            void FromJson(web::json::value& input) override
             {
-                readFromValue(obj);
+                FromJsonUtilS(input[U("Data")], Data);
+                FromJsonUtilS(input[U("KeysToRemove")], KeysToRemove);
+                FromJsonUtilE(input[U("Permission")], Permission);
             }
 
-            ~UpdateUserDataRequest();
-
-            void writeJSON(PFStringJsonWriter& writer) override;
-            bool readFromValue(const rapidjson::Value& obj) override;
+            web::json::value ToJson() const override
+            {
+                web::json::value output;
+                web::json::value each_Data; ToJsonUtilS(Data, each_Data); output[U("Data")] = each_Data;
+                web::json::value each_KeysToRemove; ToJsonUtilS(KeysToRemove, each_KeysToRemove); output[U("KeysToRemove")] = each_KeysToRemove;
+                web::json::value each_Permission; ToJsonUtilE(Permission, each_Permission); output[U("Permission")] = each_Permission;
+                return output;
+            }
         };
 
-        struct UpdateUserDataResult : public PlayFabBaseModel
+        struct UpdateUserDataResult : public PlayFabRequestCommon
         {
             Uint32 DataVersion;
 
             UpdateUserDataResult() :
-                PlayFabBaseModel(),
-                DataVersion(0)
+                PlayFabRequestCommon(),
+                DataVersion()
             {}
 
             UpdateUserDataResult(const UpdateUserDataResult& src) :
-                PlayFabBaseModel(),
+                PlayFabRequestCommon(),
                 DataVersion(src.DataVersion)
             {}
 
-            UpdateUserDataResult(const rapidjson::Value& obj) : UpdateUserDataResult()
+            ~UpdateUserDataResult() { }
+
+            void FromJson(web::json::value& input) override
             {
-                readFromValue(obj);
+                FromJsonUtilP(input[U("DataVersion")], DataVersion);
             }
 
-            ~UpdateUserDataResult();
-
-            void writeJSON(PFStringJsonWriter& writer) override;
-            bool readFromValue(const rapidjson::Value& obj) override;
+            web::json::value ToJson() const override
+            {
+                web::json::value output;
+                web::json::value each_DataVersion; ToJsonUtilP(DataVersion, each_DataVersion); output[U("DataVersion")] = each_DataVersion;
+                return output;
+            }
         };
 
-        struct UpdateUserTitleDisplayNameRequest : public PlayFabBaseModel
+        struct UpdateUserTitleDisplayNameRequest : public PlayFabRequestCommon
         {
             std::string DisplayName;
 
             UpdateUserTitleDisplayNameRequest() :
-                PlayFabBaseModel(),
+                PlayFabRequestCommon(),
                 DisplayName()
             {}
 
             UpdateUserTitleDisplayNameRequest(const UpdateUserTitleDisplayNameRequest& src) :
-                PlayFabBaseModel(),
+                PlayFabRequestCommon(),
                 DisplayName(src.DisplayName)
             {}
 
-            UpdateUserTitleDisplayNameRequest(const rapidjson::Value& obj) : UpdateUserTitleDisplayNameRequest()
+            ~UpdateUserTitleDisplayNameRequest() { }
+
+            void FromJson(web::json::value& input) override
             {
-                readFromValue(obj);
+                FromJsonUtilS(input[U("DisplayName")], DisplayName);
             }
 
-            ~UpdateUserTitleDisplayNameRequest();
-
-            void writeJSON(PFStringJsonWriter& writer) override;
-            bool readFromValue(const rapidjson::Value& obj) override;
+            web::json::value ToJson() const override
+            {
+                web::json::value output;
+                web::json::value each_DisplayName; ToJsonUtilS(DisplayName, each_DisplayName); output[U("DisplayName")] = each_DisplayName;
+                return output;
+            }
         };
 
-        struct UpdateUserTitleDisplayNameResult : public PlayFabBaseModel
+        struct UpdateUserTitleDisplayNameResult : public PlayFabRequestCommon
         {
             std::string DisplayName;
 
             UpdateUserTitleDisplayNameResult() :
-                PlayFabBaseModel(),
+                PlayFabRequestCommon(),
                 DisplayName()
             {}
 
             UpdateUserTitleDisplayNameResult(const UpdateUserTitleDisplayNameResult& src) :
-                PlayFabBaseModel(),
+                PlayFabRequestCommon(),
                 DisplayName(src.DisplayName)
             {}
 
-            UpdateUserTitleDisplayNameResult(const rapidjson::Value& obj) : UpdateUserTitleDisplayNameResult()
+            ~UpdateUserTitleDisplayNameResult() { }
+
+            void FromJson(web::json::value& input) override
             {
-                readFromValue(obj);
+                FromJsonUtilS(input[U("DisplayName")], DisplayName);
             }
 
-            ~UpdateUserTitleDisplayNameResult();
-
-            void writeJSON(PFStringJsonWriter& writer) override;
-            bool readFromValue(const rapidjson::Value& obj) override;
+            web::json::value ToJson() const override
+            {
+                web::json::value output;
+                web::json::value each_DisplayName; ToJsonUtilS(DisplayName, each_DisplayName); output[U("DisplayName")] = each_DisplayName;
+                return output;
+            }
         };
 
-        struct ValidateAmazonReceiptRequest : public PlayFabBaseModel
+        struct ValidateAmazonReceiptRequest : public PlayFabRequestCommon
         {
             std::string ReceiptId;
             std::string UserId;
@@ -8058,16 +10430,16 @@ namespace PlayFab
             Int32 PurchasePrice;
 
             ValidateAmazonReceiptRequest() :
-                PlayFabBaseModel(),
+                PlayFabRequestCommon(),
                 ReceiptId(),
                 UserId(),
                 CatalogVersion(),
                 CurrencyCode(),
-                PurchasePrice(0)
+                PurchasePrice()
             {}
 
             ValidateAmazonReceiptRequest(const ValidateAmazonReceiptRequest& src) :
-                PlayFabBaseModel(),
+                PlayFabRequestCommon(),
                 ReceiptId(src.ReceiptId),
                 UserId(src.UserId),
                 CatalogVersion(src.CatalogVersion),
@@ -8075,48 +10447,62 @@ namespace PlayFab
                 PurchasePrice(src.PurchasePrice)
             {}
 
-            ValidateAmazonReceiptRequest(const rapidjson::Value& obj) : ValidateAmazonReceiptRequest()
+            ~ValidateAmazonReceiptRequest() { }
+
+            void FromJson(web::json::value& input) override
             {
-                readFromValue(obj);
+                FromJsonUtilS(input[U("ReceiptId")], ReceiptId);
+                FromJsonUtilS(input[U("UserId")], UserId);
+                FromJsonUtilS(input[U("CatalogVersion")], CatalogVersion);
+                FromJsonUtilS(input[U("CurrencyCode")], CurrencyCode);
+                FromJsonUtilP(input[U("PurchasePrice")], PurchasePrice);
             }
 
-            ~ValidateAmazonReceiptRequest();
-
-            void writeJSON(PFStringJsonWriter& writer) override;
-            bool readFromValue(const rapidjson::Value& obj) override;
+            web::json::value ToJson() const override
+            {
+                web::json::value output;
+                web::json::value each_ReceiptId; ToJsonUtilS(ReceiptId, each_ReceiptId); output[U("ReceiptId")] = each_ReceiptId;
+                web::json::value each_UserId; ToJsonUtilS(UserId, each_UserId); output[U("UserId")] = each_UserId;
+                web::json::value each_CatalogVersion; ToJsonUtilS(CatalogVersion, each_CatalogVersion); output[U("CatalogVersion")] = each_CatalogVersion;
+                web::json::value each_CurrencyCode; ToJsonUtilS(CurrencyCode, each_CurrencyCode); output[U("CurrencyCode")] = each_CurrencyCode;
+                web::json::value each_PurchasePrice; ToJsonUtilP(PurchasePrice, each_PurchasePrice); output[U("PurchasePrice")] = each_PurchasePrice;
+                return output;
+            }
         };
 
-        struct ValidateAmazonReceiptResult : public PlayFabBaseModel
+        struct ValidateAmazonReceiptResult : public PlayFabRequestCommon
         {
 
             ValidateAmazonReceiptResult() :
-                PlayFabBaseModel()
+                PlayFabRequestCommon()
             {}
 
             ValidateAmazonReceiptResult(const ValidateAmazonReceiptResult& src) :
-                PlayFabBaseModel()
+                PlayFabRequestCommon()
             {}
 
-            ValidateAmazonReceiptResult(const rapidjson::Value& obj) : ValidateAmazonReceiptResult()
+            ~ValidateAmazonReceiptResult() { }
+
+            void FromJson(web::json::value& input) override
             {
-                readFromValue(obj);
             }
 
-            ~ValidateAmazonReceiptResult();
-
-            void writeJSON(PFStringJsonWriter& writer) override;
-            bool readFromValue(const rapidjson::Value& obj) override;
+            web::json::value ToJson() const override
+            {
+                web::json::value output;
+                return output;
+            }
         };
 
-        struct ValidateGooglePlayPurchaseRequest : public PlayFabBaseModel
+        struct ValidateGooglePlayPurchaseRequest : public PlayFabRequestCommon
         {
             std::string ReceiptJson;
             std::string Signature;
             std::string CurrencyCode;
-            OptionalUint32 PurchasePrice;
+            Boxed<Uint32> PurchasePrice;
 
             ValidateGooglePlayPurchaseRequest() :
-                PlayFabBaseModel(),
+                PlayFabRequestCommon(),
                 ReceiptJson(),
                 Signature(),
                 CurrencyCode(),
@@ -8124,108 +10510,130 @@ namespace PlayFab
             {}
 
             ValidateGooglePlayPurchaseRequest(const ValidateGooglePlayPurchaseRequest& src) :
-                PlayFabBaseModel(),
+                PlayFabRequestCommon(),
                 ReceiptJson(src.ReceiptJson),
                 Signature(src.Signature),
                 CurrencyCode(src.CurrencyCode),
                 PurchasePrice(src.PurchasePrice)
             {}
 
-            ValidateGooglePlayPurchaseRequest(const rapidjson::Value& obj) : ValidateGooglePlayPurchaseRequest()
+            ~ValidateGooglePlayPurchaseRequest() { }
+
+            void FromJson(web::json::value& input) override
             {
-                readFromValue(obj);
+                FromJsonUtilS(input[U("ReceiptJson")], ReceiptJson);
+                FromJsonUtilS(input[U("Signature")], Signature);
+                FromJsonUtilS(input[U("CurrencyCode")], CurrencyCode);
+                FromJsonUtilP(input[U("PurchasePrice")], PurchasePrice);
             }
 
-            ~ValidateGooglePlayPurchaseRequest();
-
-            void writeJSON(PFStringJsonWriter& writer) override;
-            bool readFromValue(const rapidjson::Value& obj) override;
+            web::json::value ToJson() const override
+            {
+                web::json::value output;
+                web::json::value each_ReceiptJson; ToJsonUtilS(ReceiptJson, each_ReceiptJson); output[U("ReceiptJson")] = each_ReceiptJson;
+                web::json::value each_Signature; ToJsonUtilS(Signature, each_Signature); output[U("Signature")] = each_Signature;
+                web::json::value each_CurrencyCode; ToJsonUtilS(CurrencyCode, each_CurrencyCode); output[U("CurrencyCode")] = each_CurrencyCode;
+                web::json::value each_PurchasePrice; ToJsonUtilP(PurchasePrice, each_PurchasePrice); output[U("PurchasePrice")] = each_PurchasePrice;
+                return output;
+            }
         };
 
-        struct ValidateGooglePlayPurchaseResult : public PlayFabBaseModel
+        struct ValidateGooglePlayPurchaseResult : public PlayFabRequestCommon
         {
 
             ValidateGooglePlayPurchaseResult() :
-                PlayFabBaseModel()
+                PlayFabRequestCommon()
             {}
 
             ValidateGooglePlayPurchaseResult(const ValidateGooglePlayPurchaseResult& src) :
-                PlayFabBaseModel()
+                PlayFabRequestCommon()
             {}
 
-            ValidateGooglePlayPurchaseResult(const rapidjson::Value& obj) : ValidateGooglePlayPurchaseResult()
+            ~ValidateGooglePlayPurchaseResult() { }
+
+            void FromJson(web::json::value& input) override
             {
-                readFromValue(obj);
             }
 
-            ~ValidateGooglePlayPurchaseResult();
-
-            void writeJSON(PFStringJsonWriter& writer) override;
-            bool readFromValue(const rapidjson::Value& obj) override;
+            web::json::value ToJson() const override
+            {
+                web::json::value output;
+                return output;
+            }
         };
 
-        struct ValidateIOSReceiptRequest : public PlayFabBaseModel
+        struct ValidateIOSReceiptRequest : public PlayFabRequestCommon
         {
             std::string ReceiptData;
             std::string CurrencyCode;
             Int32 PurchasePrice;
 
             ValidateIOSReceiptRequest() :
-                PlayFabBaseModel(),
+                PlayFabRequestCommon(),
                 ReceiptData(),
                 CurrencyCode(),
-                PurchasePrice(0)
+                PurchasePrice()
             {}
 
             ValidateIOSReceiptRequest(const ValidateIOSReceiptRequest& src) :
-                PlayFabBaseModel(),
+                PlayFabRequestCommon(),
                 ReceiptData(src.ReceiptData),
                 CurrencyCode(src.CurrencyCode),
                 PurchasePrice(src.PurchasePrice)
             {}
 
-            ValidateIOSReceiptRequest(const rapidjson::Value& obj) : ValidateIOSReceiptRequest()
+            ~ValidateIOSReceiptRequest() { }
+
+            void FromJson(web::json::value& input) override
             {
-                readFromValue(obj);
+                FromJsonUtilS(input[U("ReceiptData")], ReceiptData);
+                FromJsonUtilS(input[U("CurrencyCode")], CurrencyCode);
+                FromJsonUtilP(input[U("PurchasePrice")], PurchasePrice);
             }
 
-            ~ValidateIOSReceiptRequest();
-
-            void writeJSON(PFStringJsonWriter& writer) override;
-            bool readFromValue(const rapidjson::Value& obj) override;
+            web::json::value ToJson() const override
+            {
+                web::json::value output;
+                web::json::value each_ReceiptData; ToJsonUtilS(ReceiptData, each_ReceiptData); output[U("ReceiptData")] = each_ReceiptData;
+                web::json::value each_CurrencyCode; ToJsonUtilS(CurrencyCode, each_CurrencyCode); output[U("CurrencyCode")] = each_CurrencyCode;
+                web::json::value each_PurchasePrice; ToJsonUtilP(PurchasePrice, each_PurchasePrice); output[U("PurchasePrice")] = each_PurchasePrice;
+                return output;
+            }
         };
 
-        struct ValidateIOSReceiptResult : public PlayFabBaseModel
+        struct ValidateIOSReceiptResult : public PlayFabRequestCommon
         {
 
             ValidateIOSReceiptResult() :
-                PlayFabBaseModel()
+                PlayFabRequestCommon()
             {}
 
             ValidateIOSReceiptResult(const ValidateIOSReceiptResult& src) :
-                PlayFabBaseModel()
+                PlayFabRequestCommon()
             {}
 
-            ValidateIOSReceiptResult(const rapidjson::Value& obj) : ValidateIOSReceiptResult()
+            ~ValidateIOSReceiptResult() { }
+
+            void FromJson(web::json::value& input) override
             {
-                readFromValue(obj);
             }
 
-            ~ValidateIOSReceiptResult();
-
-            void writeJSON(PFStringJsonWriter& writer) override;
-            bool readFromValue(const rapidjson::Value& obj) override;
+            web::json::value ToJson() const override
+            {
+                web::json::value output;
+                return output;
+            }
         };
 
-        struct WriteClientCharacterEventRequest : public PlayFabBaseModel
+        struct WriteClientCharacterEventRequest : public PlayFabRequestCommon
         {
             std::string CharacterId;
             std::string EventName;
-            OptionalTime Timestamp;
-            std::map<std::string, MultitypeVar> Body;
+            Boxed<time_t> Timestamp;
+            web::json::value Body; // Not truly arbitrary. See documentation for restrictions on format
 
             WriteClientCharacterEventRequest() :
-                PlayFabBaseModel(),
+                PlayFabRequestCommon(),
                 CharacterId(),
                 EventName(),
                 Timestamp(),
@@ -8233,111 +10641,140 @@ namespace PlayFab
             {}
 
             WriteClientCharacterEventRequest(const WriteClientCharacterEventRequest& src) :
-                PlayFabBaseModel(),
+                PlayFabRequestCommon(),
                 CharacterId(src.CharacterId),
                 EventName(src.EventName),
                 Timestamp(src.Timestamp),
                 Body(src.Body)
             {}
 
-            WriteClientCharacterEventRequest(const rapidjson::Value& obj) : WriteClientCharacterEventRequest()
+            ~WriteClientCharacterEventRequest() { }
+
+            void FromJson(web::json::value& input) override
             {
-                readFromValue(obj);
+                FromJsonUtilS(input[U("CharacterId")], CharacterId);
+                FromJsonUtilS(input[U("EventName")], EventName);
+                FromJsonUtilT(input[U("Timestamp")], Timestamp);
+                Body = input[U("Body")];
             }
 
-            ~WriteClientCharacterEventRequest();
-
-            void writeJSON(PFStringJsonWriter& writer) override;
-            bool readFromValue(const rapidjson::Value& obj) override;
+            web::json::value ToJson() const override
+            {
+                web::json::value output;
+                web::json::value each_CharacterId; ToJsonUtilS(CharacterId, each_CharacterId); output[U("CharacterId")] = each_CharacterId;
+                web::json::value each_EventName; ToJsonUtilS(EventName, each_EventName); output[U("EventName")] = each_EventName;
+                web::json::value each_Timestamp; ToJsonUtilT(Timestamp, each_Timestamp); output[U("Timestamp")] = each_Timestamp;
+                output[U("Body")] = Body;
+                return output;
+            }
         };
 
-        struct WriteClientPlayerEventRequest : public PlayFabBaseModel
+        struct WriteClientPlayerEventRequest : public PlayFabRequestCommon
         {
             std::string EventName;
-            OptionalTime Timestamp;
-            std::map<std::string, MultitypeVar> Body;
+            Boxed<time_t> Timestamp;
+            web::json::value Body; // Not truly arbitrary. See documentation for restrictions on format
 
             WriteClientPlayerEventRequest() :
-                PlayFabBaseModel(),
+                PlayFabRequestCommon(),
                 EventName(),
                 Timestamp(),
                 Body()
             {}
 
             WriteClientPlayerEventRequest(const WriteClientPlayerEventRequest& src) :
-                PlayFabBaseModel(),
+                PlayFabRequestCommon(),
                 EventName(src.EventName),
                 Timestamp(src.Timestamp),
                 Body(src.Body)
             {}
 
-            WriteClientPlayerEventRequest(const rapidjson::Value& obj) : WriteClientPlayerEventRequest()
+            ~WriteClientPlayerEventRequest() { }
+
+            void FromJson(web::json::value& input) override
             {
-                readFromValue(obj);
+                FromJsonUtilS(input[U("EventName")], EventName);
+                FromJsonUtilT(input[U("Timestamp")], Timestamp);
+                Body = input[U("Body")];
             }
 
-            ~WriteClientPlayerEventRequest();
-
-            void writeJSON(PFStringJsonWriter& writer) override;
-            bool readFromValue(const rapidjson::Value& obj) override;
+            web::json::value ToJson() const override
+            {
+                web::json::value output;
+                web::json::value each_EventName; ToJsonUtilS(EventName, each_EventName); output[U("EventName")] = each_EventName;
+                web::json::value each_Timestamp; ToJsonUtilT(Timestamp, each_Timestamp); output[U("Timestamp")] = each_Timestamp;
+                output[U("Body")] = Body;
+                return output;
+            }
         };
 
-        struct WriteEventResponse : public PlayFabBaseModel
+        struct WriteEventResponse : public PlayFabRequestCommon
         {
             std::string EventId;
 
             WriteEventResponse() :
-                PlayFabBaseModel(),
+                PlayFabRequestCommon(),
                 EventId()
             {}
 
             WriteEventResponse(const WriteEventResponse& src) :
-                PlayFabBaseModel(),
+                PlayFabRequestCommon(),
                 EventId(src.EventId)
             {}
 
-            WriteEventResponse(const rapidjson::Value& obj) : WriteEventResponse()
+            ~WriteEventResponse() { }
+
+            void FromJson(web::json::value& input) override
             {
-                readFromValue(obj);
+                FromJsonUtilS(input[U("EventId")], EventId);
             }
 
-            ~WriteEventResponse();
-
-            void writeJSON(PFStringJsonWriter& writer) override;
-            bool readFromValue(const rapidjson::Value& obj) override;
+            web::json::value ToJson() const override
+            {
+                web::json::value output;
+                web::json::value each_EventId; ToJsonUtilS(EventId, each_EventId); output[U("EventId")] = each_EventId;
+                return output;
+            }
         };
 
-        struct WriteTitleEventRequest : public PlayFabBaseModel
+        struct WriteTitleEventRequest : public PlayFabRequestCommon
         {
             std::string EventName;
-            OptionalTime Timestamp;
-            std::map<std::string, MultitypeVar> Body;
+            Boxed<time_t> Timestamp;
+            web::json::value Body; // Not truly arbitrary. See documentation for restrictions on format
 
             WriteTitleEventRequest() :
-                PlayFabBaseModel(),
+                PlayFabRequestCommon(),
                 EventName(),
                 Timestamp(),
                 Body()
             {}
 
             WriteTitleEventRequest(const WriteTitleEventRequest& src) :
-                PlayFabBaseModel(),
+                PlayFabRequestCommon(),
                 EventName(src.EventName),
                 Timestamp(src.Timestamp),
                 Body(src.Body)
             {}
 
-            WriteTitleEventRequest(const rapidjson::Value& obj) : WriteTitleEventRequest()
+            ~WriteTitleEventRequest() { }
+
+            void FromJson(web::json::value& input) override
             {
-                readFromValue(obj);
+                FromJsonUtilS(input[U("EventName")], EventName);
+                FromJsonUtilT(input[U("Timestamp")], Timestamp);
+                Body = input[U("Body")];
             }
 
-            ~WriteTitleEventRequest();
-
-            void writeJSON(PFStringJsonWriter& writer) override;
-            bool readFromValue(const rapidjson::Value& obj) override;
+            web::json::value ToJson() const override
+            {
+                web::json::value output;
+                web::json::value each_EventName; ToJsonUtilS(EventName, each_EventName); output[U("EventName")] = each_EventName;
+                web::json::value each_Timestamp; ToJsonUtilT(Timestamp, each_Timestamp); output[U("Timestamp")] = each_Timestamp;
+                output[U("Body")] = Body;
+                return output;
+            }
         };
-
 
     }
 }
