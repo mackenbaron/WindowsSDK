@@ -7142,17 +7142,20 @@ namespace PlayFab
 
         struct LinkGoogleAccountRequest : public PlayFabRequestCommon
         {
+            std::string ServerAuthCode;
             std::string AccessToken;
             Boxed<bool> ForceLink;
 
             LinkGoogleAccountRequest() :
                 PlayFabRequestCommon(),
+                ServerAuthCode(),
                 AccessToken(),
                 ForceLink()
             {}
 
             LinkGoogleAccountRequest(const LinkGoogleAccountRequest& src) :
                 PlayFabRequestCommon(),
+                ServerAuthCode(src.ServerAuthCode),
                 AccessToken(src.AccessToken),
                 ForceLink(src.ForceLink)
             {}
@@ -7161,6 +7164,7 @@ namespace PlayFab
 
             void FromJson(web::json::value& input) override
             {
+                FromJsonUtilS(input[U("ServerAuthCode")], ServerAuthCode);
                 FromJsonUtilS(input[U("AccessToken")], AccessToken);
                 FromJsonUtilP(input[U("ForceLink")], ForceLink);
             }
@@ -7168,6 +7172,7 @@ namespace PlayFab
             web::json::value ToJson() const override
             {
                 web::json::value output;
+                web::json::value each_ServerAuthCode; ToJsonUtilS(ServerAuthCode, each_ServerAuthCode); output[U("ServerAuthCode")] = each_ServerAuthCode;
                 web::json::value each_AccessToken; ToJsonUtilS(AccessToken, each_AccessToken); output[U("AccessToken")] = each_AccessToken;
                 web::json::value each_ForceLink; ToJsonUtilP(ForceLink, each_ForceLink); output[U("ForceLink")] = each_ForceLink;
                 return output;
@@ -7819,6 +7824,7 @@ namespace PlayFab
         struct LoginWithGoogleAccountRequest : public PlayFabRequestCommon
         {
             std::string TitleId;
+            std::string ServerAuthCode;
             std::string AccessToken;
             Boxed<bool> CreateAccount;
             Boxed<GetPlayerCombinedInfoRequestParams> InfoRequestParameters;
@@ -7826,6 +7832,7 @@ namespace PlayFab
             LoginWithGoogleAccountRequest() :
                 PlayFabRequestCommon(),
                 TitleId(),
+                ServerAuthCode(),
                 AccessToken(),
                 CreateAccount(),
                 InfoRequestParameters()
@@ -7834,6 +7841,7 @@ namespace PlayFab
             LoginWithGoogleAccountRequest(const LoginWithGoogleAccountRequest& src) :
                 PlayFabRequestCommon(),
                 TitleId(src.TitleId),
+                ServerAuthCode(src.ServerAuthCode),
                 AccessToken(src.AccessToken),
                 CreateAccount(src.CreateAccount),
                 InfoRequestParameters(src.InfoRequestParameters)
@@ -7844,6 +7852,7 @@ namespace PlayFab
             void FromJson(web::json::value& input) override
             {
                 FromJsonUtilS(input[U("TitleId")], TitleId);
+                FromJsonUtilS(input[U("ServerAuthCode")], ServerAuthCode);
                 FromJsonUtilS(input[U("AccessToken")], AccessToken);
                 FromJsonUtilP(input[U("CreateAccount")], CreateAccount);
                 FromJsonUtilO(input[U("InfoRequestParameters")], InfoRequestParameters);
@@ -7853,6 +7862,7 @@ namespace PlayFab
             {
                 web::json::value output;
                 web::json::value each_TitleId; ToJsonUtilS(TitleId, each_TitleId); output[U("TitleId")] = each_TitleId;
+                web::json::value each_ServerAuthCode; ToJsonUtilS(ServerAuthCode, each_ServerAuthCode); output[U("ServerAuthCode")] = each_ServerAuthCode;
                 web::json::value each_AccessToken; ToJsonUtilS(AccessToken, each_AccessToken); output[U("AccessToken")] = each_AccessToken;
                 web::json::value each_CreateAccount; ToJsonUtilP(CreateAccount, each_CreateAccount); output[U("CreateAccount")] = each_CreateAccount;
                 web::json::value each_InfoRequestParameters; ToJsonUtilO(InfoRequestParameters, each_InfoRequestParameters); output[U("InfoRequestParameters")] = each_InfoRequestParameters;
@@ -8258,6 +8268,40 @@ namespace PlayFab
                 web::json::value each_VirtualCurrency; ToJsonUtilS(VirtualCurrency, each_VirtualCurrency); output[U("VirtualCurrency")] = each_VirtualCurrency;
                 web::json::value each_BalanceChange; ToJsonUtilP(BalanceChange, each_BalanceChange); output[U("BalanceChange")] = each_BalanceChange;
                 web::json::value each_Balance; ToJsonUtilP(Balance, each_Balance); output[U("Balance")] = each_Balance;
+                return output;
+            }
+        };
+
+        struct NameIdentifier : public PlayFabBaseModel
+        {
+            std::string Name;
+            std::string Id;
+
+            NameIdentifier() :
+                PlayFabBaseModel(),
+                Name(),
+                Id()
+            {}
+
+            NameIdentifier(const NameIdentifier& src) :
+                PlayFabBaseModel(),
+                Name(src.Name),
+                Id(src.Id)
+            {}
+
+            ~NameIdentifier() { }
+
+            void FromJson(web::json::value& input) override
+            {
+                FromJsonUtilS(input[U("Name")], Name);
+                FromJsonUtilS(input[U("Id")], Id);
+            }
+
+            web::json::value ToJson() const override
+            {
+                web::json::value output;
+                web::json::value each_Name; ToJsonUtilS(Name, each_Name); output[U("Name")] = each_Name;
+                web::json::value each_Id; ToJsonUtilS(Id, each_Id); output[U("Id")] = each_Id;
                 return output;
             }
         };
