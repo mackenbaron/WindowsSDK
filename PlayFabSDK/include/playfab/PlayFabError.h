@@ -266,6 +266,12 @@ namespace PlayFab
         PlayFabErrorInvalidIdentityProviderId = 1263,
         PlayFabErrorMisconfiguredIdentityProvider = 1264,
         PlayFabErrorInvalidScheduledTaskType = 1265,
+        PlayFabErrorBillingInformationRequired = 1266,
+        PlayFabErrorLimitedEditionItemUnavailable = 1267,
+        PlayFabErrorInvalidAdPlacementAndReward = 1268,
+        PlayFabErrorAllAdPlacementViewsAlreadyConsumed = 1269,
+        PlayFabErrorGoogleOAuthNotConfiguredForTitle = 1270,
+        PlayFabErrorGoogleOAuthError = 1271,
     };
 
     /// <summary>
