@@ -1360,7 +1360,8 @@ namespace PlayFab
             LoginIdentityProviderFacebook,
             LoginIdentityProviderIOSDevice,
             LoginIdentityProviderAndroidDevice,
-            LoginIdentityProviderTwitch
+            LoginIdentityProviderTwitch,
+            LoginIdentityProviderWindowsHello
         };
 
         inline void ToJsonEnum(const LoginIdentityProvider input, web::json::value& output)
@@ -1378,6 +1379,7 @@ namespace PlayFab
             if (input == LoginIdentityProviderIOSDevice) output = web::json::value(U("IOSDevice"));
             if (input == LoginIdentityProviderAndroidDevice) output = web::json::value(U("AndroidDevice"));
             if (input == LoginIdentityProviderTwitch) output = web::json::value(U("Twitch"));
+            if (input == LoginIdentityProviderWindowsHello) output = web::json::value(U("WindowsHello"));
         }
         inline void FromJsonEnum(const web::json::value& input, LoginIdentityProvider& output)
         {
@@ -1396,6 +1398,7 @@ namespace PlayFab
             if (inputStr == U("IOSDevice")) output = LoginIdentityProviderIOSDevice;
             if (inputStr == U("AndroidDevice")) output = LoginIdentityProviderAndroidDevice;
             if (inputStr == U("Twitch")) output = LoginIdentityProviderTwitch;
+            if (inputStr == U("WindowsHello")) output = LoginIdentityProviderWindowsHello;
         }
 
         enum PushNotificationPlatform
@@ -1716,7 +1719,8 @@ namespace PlayFab
             UserOriginationCustomId,
             UserOriginationXboxLive,
             UserOriginationParse,
-            UserOriginationTwitch
+            UserOriginationTwitch,
+            UserOriginationWindowsHello
         };
 
         inline void ToJsonEnum(const UserOrigination input, web::json::value& output)
@@ -1738,6 +1742,7 @@ namespace PlayFab
             if (input == UserOriginationXboxLive) output = web::json::value(U("XboxLive"));
             if (input == UserOriginationParse) output = web::json::value(U("Parse"));
             if (input == UserOriginationTwitch) output = web::json::value(U("Twitch"));
+            if (input == UserOriginationWindowsHello) output = web::json::value(U("WindowsHello"));
         }
         inline void FromJsonEnum(const web::json::value& input, UserOrigination& output)
         {
@@ -1760,6 +1765,7 @@ namespace PlayFab
             if (inputStr == U("XboxLive")) output = UserOriginationXboxLive;
             if (inputStr == U("Parse")) output = UserOriginationParse;
             if (inputStr == U("Twitch")) output = UserOriginationTwitch;
+            if (inputStr == U("WindowsHello")) output = UserOriginationWindowsHello;
         }
 
         // Admin Classes
@@ -4698,6 +4704,7 @@ namespace PlayFab
             Boxed<time_t> Created;
             Boxed<time_t> LastLogin;
             Boxed<time_t> BannedUntil;
+            std::string AvatarUrl;
             std::map<std::string, Int32> Statistics;
             Boxed<Uint32> TotalValueToDateInUSD;
             std::map<std::string, Uint32> ValuesToDate;
@@ -4719,6 +4726,7 @@ namespace PlayFab
                 Created(),
                 LastLogin(),
                 BannedUntil(),
+                AvatarUrl(),
                 Statistics(),
                 TotalValueToDateInUSD(),
                 ValuesToDate(),
@@ -4741,6 +4749,7 @@ namespace PlayFab
                 Created(src.Created),
                 LastLogin(src.LastLogin),
                 BannedUntil(src.BannedUntil),
+                AvatarUrl(src.AvatarUrl),
                 Statistics(src.Statistics),
                 TotalValueToDateInUSD(src.TotalValueToDateInUSD),
                 ValuesToDate(src.ValuesToDate),
@@ -4765,6 +4774,7 @@ namespace PlayFab
                 FromJsonUtilT(input[U("Created")], Created);
                 FromJsonUtilT(input[U("LastLogin")], LastLogin);
                 FromJsonUtilT(input[U("BannedUntil")], BannedUntil);
+                FromJsonUtilS(input[U("AvatarUrl")], AvatarUrl);
                 FromJsonUtilP(input[U("Statistics")], Statistics);
                 FromJsonUtilP(input[U("TotalValueToDateInUSD")], TotalValueToDateInUSD);
                 FromJsonUtilP(input[U("ValuesToDate")], ValuesToDate);
@@ -4788,6 +4798,7 @@ namespace PlayFab
                 web::json::value each_Created; ToJsonUtilT(Created, each_Created); output[U("Created")] = each_Created;
                 web::json::value each_LastLogin; ToJsonUtilT(LastLogin, each_LastLogin); output[U("LastLogin")] = each_LastLogin;
                 web::json::value each_BannedUntil; ToJsonUtilT(BannedUntil, each_BannedUntil); output[U("BannedUntil")] = each_BannedUntil;
+                web::json::value each_AvatarUrl; ToJsonUtilS(AvatarUrl, each_AvatarUrl); output[U("AvatarUrl")] = each_AvatarUrl;
                 web::json::value each_Statistics; ToJsonUtilP(Statistics, each_Statistics); output[U("Statistics")] = each_Statistics;
                 web::json::value each_TotalValueToDateInUSD; ToJsonUtilP(TotalValueToDateInUSD, each_TotalValueToDateInUSD); output[U("TotalValueToDateInUSD")] = each_TotalValueToDateInUSD;
                 web::json::value each_ValuesToDate; ToJsonUtilP(ValuesToDate, each_ValuesToDate); output[U("ValuesToDate")] = each_ValuesToDate;
@@ -6935,6 +6946,7 @@ namespace PlayFab
             Boxed<time_t> LastLogin;
             Boxed<time_t> FirstLogin;
             Boxed<bool> isBanned;
+            std::string AvatarUrl;
 
             UserTitleInfo() :
                 PlayFabBaseModel(),
@@ -6943,7 +6955,8 @@ namespace PlayFab
                 Created(),
                 LastLogin(),
                 FirstLogin(),
-                isBanned()
+                isBanned(),
+                AvatarUrl()
             {}
 
             UserTitleInfo(const UserTitleInfo& src) :
@@ -6953,7 +6966,8 @@ namespace PlayFab
                 Created(src.Created),
                 LastLogin(src.LastLogin),
                 FirstLogin(src.FirstLogin),
-                isBanned(src.isBanned)
+                isBanned(src.isBanned),
+                AvatarUrl(src.AvatarUrl)
             {}
 
             ~UserTitleInfo() { }
@@ -6966,6 +6980,7 @@ namespace PlayFab
                 FromJsonUtilT(input[U("LastLogin")], LastLogin);
                 FromJsonUtilT(input[U("FirstLogin")], FirstLogin);
                 FromJsonUtilP(input[U("isBanned")], isBanned);
+                FromJsonUtilS(input[U("AvatarUrl")], AvatarUrl);
             }
 
             web::json::value ToJson() const override
@@ -6977,6 +6992,7 @@ namespace PlayFab
                 web::json::value each_LastLogin; ToJsonUtilT(LastLogin, each_LastLogin); output[U("LastLogin")] = each_LastLogin;
                 web::json::value each_FirstLogin; ToJsonUtilT(FirstLogin, each_FirstLogin); output[U("FirstLogin")] = each_FirstLogin;
                 web::json::value each_isBanned; ToJsonUtilP(isBanned, each_isBanned); output[U("isBanned")] = each_isBanned;
+                web::json::value each_AvatarUrl; ToJsonUtilS(AvatarUrl, each_AvatarUrl); output[U("AvatarUrl")] = each_AvatarUrl;
                 return output;
             }
         };
