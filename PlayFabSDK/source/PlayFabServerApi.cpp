@@ -250,6 +250,32 @@ namespace PlayFab
         }
     }
 
+    void PlayFabServerAPI::UpdateAvatarUrl(
+        UpdateAvatarUrlRequest& request,
+        ProcessApiCallback<EmptyResult> callback,
+        ErrorCallback errorCallback,
+        void* customData
+    )
+    {
+
+        IPlayFabHttp& http = IPlayFabHttp::Get();
+        auto requestJson = request.ToJson();
+        http.AddRequest(U("/Server/UpdateAvatarUrl"), U("X-SecretKey"), PlayFabSettings::developerSecretKey, requestJson, OnUpdateAvatarUrlResult, SharedVoidPointer((callback == nullptr) ? nullptr : new ProcessApiCallback<EmptyResult>(callback)), errorCallback, customData);
+    }
+
+    void PlayFabServerAPI::OnUpdateAvatarUrlResult(CallRequestContainer& request)
+    {
+        EmptyResult outResult;
+        outResult.FromJson(request.errorWrapper.Data);
+
+        auto internalPtr = request.successCallback.get();
+        if (internalPtr != nullptr)
+        {
+            auto callback = (*static_cast<ProcessApiCallback<EmptyResult> *>(internalPtr));
+            callback(outResult, request.customData);
+        }
+    }
+
     void PlayFabServerAPI::UpdateBans(
         UpdateBansRequest& request,
         ProcessApiCallback<UpdateBansResult> callback,
@@ -1668,6 +1694,32 @@ namespace PlayFab
     }
 
     void PlayFabServerAPI::OnRemoveFriendResult(CallRequestContainer& request)
+    {
+        EmptyResult outResult;
+        outResult.FromJson(request.errorWrapper.Data);
+
+        auto internalPtr = request.successCallback.get();
+        if (internalPtr != nullptr)
+        {
+            auto callback = (*static_cast<ProcessApiCallback<EmptyResult> *>(internalPtr));
+            callback(outResult, request.customData);
+        }
+    }
+
+    void PlayFabServerAPI::SetFriendTags(
+        SetFriendTagsRequest& request,
+        ProcessApiCallback<EmptyResult> callback,
+        ErrorCallback errorCallback,
+        void* customData
+    )
+    {
+
+        IPlayFabHttp& http = IPlayFabHttp::Get();
+        auto requestJson = request.ToJson();
+        http.AddRequest(U("/Server/SetFriendTags"), U("X-SecretKey"), PlayFabSettings::developerSecretKey, requestJson, OnSetFriendTagsResult, SharedVoidPointer((callback == nullptr) ? nullptr : new ProcessApiCallback<EmptyResult>(callback)), errorCallback, customData);
+    }
+
+    void PlayFabServerAPI::OnSetFriendTagsResult(CallRequestContainer& request)
     {
         EmptyResult outResult;
         outResult.FromJson(request.errorWrapper.Data);
