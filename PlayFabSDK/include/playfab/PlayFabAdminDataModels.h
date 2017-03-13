@@ -1304,18 +1304,21 @@ namespace PlayFab
 
         enum EffectType
         {
-            EffectTypeAllow
+            EffectTypeAllow,
+            EffectTypeDeny
         };
 
         inline void ToJsonEnum(const EffectType input, web::json::value& output)
         {
             if (input == EffectTypeAllow) output = web::json::value(U("Allow"));
+            if (input == EffectTypeDeny) output = web::json::value(U("Deny"));
         }
         inline void FromJsonEnum(const web::json::value& input, EffectType& output)
         {
             if (!input.is_string()) return;
             const utility::string_t& inputStr = input.as_string();
             if (inputStr == U("Allow")) output = EffectTypeAllow;
+            if (inputStr == U("Deny")) output = EffectTypeDeny;
         }
 
         enum GameBuildStatus
@@ -1621,6 +1624,34 @@ namespace PlayFab
             if (inputStr == U("Queued")) output = StatisticVersionArchivalStatusQueued;
             if (inputStr == U("InProgress")) output = StatisticVersionArchivalStatusInProgress;
             if (inputStr == U("Complete")) output = StatisticVersionArchivalStatusComplete;
+        }
+
+        enum StatisticVersionStatus
+        {
+            StatisticVersionStatusActive,
+            StatisticVersionStatusSnapshotPending,
+            StatisticVersionStatusSnapshot,
+            StatisticVersionStatusArchivalPending,
+            StatisticVersionStatusArchived
+        };
+
+        inline void ToJsonEnum(const StatisticVersionStatus input, web::json::value& output)
+        {
+            if (input == StatisticVersionStatusActive) output = web::json::value(U("Active"));
+            if (input == StatisticVersionStatusSnapshotPending) output = web::json::value(U("SnapshotPending"));
+            if (input == StatisticVersionStatusSnapshot) output = web::json::value(U("Snapshot"));
+            if (input == StatisticVersionStatusArchivalPending) output = web::json::value(U("ArchivalPending"));
+            if (input == StatisticVersionStatusArchived) output = web::json::value(U("Archived"));
+        }
+        inline void FromJsonEnum(const web::json::value& input, StatisticVersionStatus& output)
+        {
+            if (!input.is_string()) return;
+            const utility::string_t& inputStr = input.as_string();
+            if (inputStr == U("Active")) output = StatisticVersionStatusActive;
+            if (inputStr == U("SnapshotPending")) output = StatisticVersionStatusSnapshotPending;
+            if (inputStr == U("Snapshot")) output = StatisticVersionStatusSnapshot;
+            if (inputStr == U("ArchivalPending")) output = StatisticVersionStatusArchivalPending;
+            if (inputStr == U("Archived")) output = StatisticVersionStatusArchived;
         }
 
         enum TaskInstanceStatus
@@ -4972,6 +5003,7 @@ namespace PlayFab
             Boxed<time_t> ScheduledDeactivationTime;
             Boxed<time_t> DeactivationTime;
             Boxed<StatisticVersionArchivalStatus> ArchivalStatus;
+            Boxed<StatisticVersionStatus> Status;
             std::string ArchiveDownloadUrl;
 
             PlayerStatisticVersion() :
@@ -4983,6 +5015,7 @@ namespace PlayFab
                 ScheduledDeactivationTime(),
                 DeactivationTime(),
                 ArchivalStatus(),
+                Status(),
                 ArchiveDownloadUrl()
             {}
 
@@ -4995,6 +5028,7 @@ namespace PlayFab
                 ScheduledDeactivationTime(src.ScheduledDeactivationTime),
                 DeactivationTime(src.DeactivationTime),
                 ArchivalStatus(src.ArchivalStatus),
+                Status(src.Status),
                 ArchiveDownloadUrl(src.ArchiveDownloadUrl)
             {}
 
@@ -5009,6 +5043,7 @@ namespace PlayFab
                 FromJsonUtilT(input[U("ScheduledDeactivationTime")], ScheduledDeactivationTime);
                 FromJsonUtilT(input[U("DeactivationTime")], DeactivationTime);
                 FromJsonUtilE(input[U("ArchivalStatus")], ArchivalStatus);
+                FromJsonUtilE(input[U("Status")], Status);
                 FromJsonUtilS(input[U("ArchiveDownloadUrl")], ArchiveDownloadUrl);
             }
 
@@ -5022,6 +5057,7 @@ namespace PlayFab
                 web::json::value each_ScheduledDeactivationTime; ToJsonUtilT(ScheduledDeactivationTime, each_ScheduledDeactivationTime); output[U("ScheduledDeactivationTime")] = each_ScheduledDeactivationTime;
                 web::json::value each_DeactivationTime; ToJsonUtilT(DeactivationTime, each_DeactivationTime); output[U("DeactivationTime")] = each_DeactivationTime;
                 web::json::value each_ArchivalStatus; ToJsonUtilE(ArchivalStatus, each_ArchivalStatus); output[U("ArchivalStatus")] = each_ArchivalStatus;
+                web::json::value each_Status; ToJsonUtilE(Status, each_Status); output[U("Status")] = each_Status;
                 web::json::value each_ArchiveDownloadUrl; ToJsonUtilS(ArchiveDownloadUrl, each_ArchiveDownloadUrl); output[U("ArchiveDownloadUrl")] = each_ArchiveDownloadUrl;
                 return output;
             }
