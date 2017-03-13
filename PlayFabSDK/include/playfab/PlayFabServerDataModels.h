@@ -1798,6 +1798,45 @@ namespace PlayFab
             }
         };
 
+        struct AdCampaignAttributionModel : public PlayFabBaseModel
+        {
+            std::string Platform;
+            std::string CampaignId;
+            time_t AttributedAt;
+
+            AdCampaignAttributionModel() :
+                PlayFabBaseModel(),
+                Platform(),
+                CampaignId(),
+                AttributedAt()
+            {}
+
+            AdCampaignAttributionModel(const AdCampaignAttributionModel& src) :
+                PlayFabBaseModel(),
+                Platform(src.Platform),
+                CampaignId(src.CampaignId),
+                AttributedAt(src.AttributedAt)
+            {}
+
+            ~AdCampaignAttributionModel() { }
+
+            void FromJson(web::json::value& input) override
+            {
+                FromJsonUtilS(input[U("Platform")], Platform);
+                FromJsonUtilS(input[U("CampaignId")], CampaignId);
+                FromJsonUtilT(input[U("AttributedAt")], AttributedAt);
+            }
+
+            web::json::value ToJson() const override
+            {
+                web::json::value output;
+                web::json::value each_Platform; ToJsonUtilS(Platform, each_Platform); output[U("Platform")] = each_Platform;
+                web::json::value each_CampaignId; ToJsonUtilS(CampaignId, each_CampaignId); output[U("CampaignId")] = each_CampaignId;
+                web::json::value each_AttributedAt; ToJsonUtilT(AttributedAt, each_AttributedAt); output[U("AttributedAt")] = each_AttributedAt;
+                return output;
+            }
+        };
+
         struct AddCharacterVirtualCurrencyRequest : public PlayFabRequestCommon
         {
             std::string PlayFabId;
@@ -4848,13 +4887,12 @@ namespace PlayFab
             bool ShowLastLogin;
             bool ShowBannedUntil;
             bool ShowStatistics;
-            bool ShowCampaignAtributions;
+            bool ShowCampaignAttributions;
             bool ShowPushNotificationRegistrations;
             bool ShowLinkedAccounts;
             bool ShowTotalValueToDateInUsd;
             bool ShowValuesToDate;
             bool ShowTags;
-            bool ShowVirtualCurrencyBalances;
             bool ShowLocations;
             bool ShowAvatarUrl;
 
@@ -4866,13 +4904,12 @@ namespace PlayFab
                 ShowLastLogin(),
                 ShowBannedUntil(),
                 ShowStatistics(),
-                ShowCampaignAtributions(),
+                ShowCampaignAttributions(),
                 ShowPushNotificationRegistrations(),
                 ShowLinkedAccounts(),
                 ShowTotalValueToDateInUsd(),
                 ShowValuesToDate(),
                 ShowTags(),
-                ShowVirtualCurrencyBalances(),
                 ShowLocations(),
                 ShowAvatarUrl()
             {}
@@ -4885,13 +4922,12 @@ namespace PlayFab
                 ShowLastLogin(src.ShowLastLogin),
                 ShowBannedUntil(src.ShowBannedUntil),
                 ShowStatistics(src.ShowStatistics),
-                ShowCampaignAtributions(src.ShowCampaignAtributions),
+                ShowCampaignAttributions(src.ShowCampaignAttributions),
                 ShowPushNotificationRegistrations(src.ShowPushNotificationRegistrations),
                 ShowLinkedAccounts(src.ShowLinkedAccounts),
                 ShowTotalValueToDateInUsd(src.ShowTotalValueToDateInUsd),
                 ShowValuesToDate(src.ShowValuesToDate),
                 ShowTags(src.ShowTags),
-                ShowVirtualCurrencyBalances(src.ShowVirtualCurrencyBalances),
                 ShowLocations(src.ShowLocations),
                 ShowAvatarUrl(src.ShowAvatarUrl)
             {}
@@ -4906,13 +4942,12 @@ namespace PlayFab
                 FromJsonUtilP(input[U("ShowLastLogin")], ShowLastLogin);
                 FromJsonUtilP(input[U("ShowBannedUntil")], ShowBannedUntil);
                 FromJsonUtilP(input[U("ShowStatistics")], ShowStatistics);
-                FromJsonUtilP(input[U("ShowCampaignAtributions")], ShowCampaignAtributions);
+                FromJsonUtilP(input[U("ShowCampaignAttributions")], ShowCampaignAttributions);
                 FromJsonUtilP(input[U("ShowPushNotificationRegistrations")], ShowPushNotificationRegistrations);
                 FromJsonUtilP(input[U("ShowLinkedAccounts")], ShowLinkedAccounts);
                 FromJsonUtilP(input[U("ShowTotalValueToDateInUsd")], ShowTotalValueToDateInUsd);
                 FromJsonUtilP(input[U("ShowValuesToDate")], ShowValuesToDate);
                 FromJsonUtilP(input[U("ShowTags")], ShowTags);
-                FromJsonUtilP(input[U("ShowVirtualCurrencyBalances")], ShowVirtualCurrencyBalances);
                 FromJsonUtilP(input[U("ShowLocations")], ShowLocations);
                 FromJsonUtilP(input[U("ShowAvatarUrl")], ShowAvatarUrl);
             }
@@ -4926,13 +4961,12 @@ namespace PlayFab
                 web::json::value each_ShowLastLogin; ToJsonUtilP(ShowLastLogin, each_ShowLastLogin); output[U("ShowLastLogin")] = each_ShowLastLogin;
                 web::json::value each_ShowBannedUntil; ToJsonUtilP(ShowBannedUntil, each_ShowBannedUntil); output[U("ShowBannedUntil")] = each_ShowBannedUntil;
                 web::json::value each_ShowStatistics; ToJsonUtilP(ShowStatistics, each_ShowStatistics); output[U("ShowStatistics")] = each_ShowStatistics;
-                web::json::value each_ShowCampaignAtributions; ToJsonUtilP(ShowCampaignAtributions, each_ShowCampaignAtributions); output[U("ShowCampaignAtributions")] = each_ShowCampaignAtributions;
+                web::json::value each_ShowCampaignAttributions; ToJsonUtilP(ShowCampaignAttributions, each_ShowCampaignAttributions); output[U("ShowCampaignAttributions")] = each_ShowCampaignAttributions;
                 web::json::value each_ShowPushNotificationRegistrations; ToJsonUtilP(ShowPushNotificationRegistrations, each_ShowPushNotificationRegistrations); output[U("ShowPushNotificationRegistrations")] = each_ShowPushNotificationRegistrations;
                 web::json::value each_ShowLinkedAccounts; ToJsonUtilP(ShowLinkedAccounts, each_ShowLinkedAccounts); output[U("ShowLinkedAccounts")] = each_ShowLinkedAccounts;
                 web::json::value each_ShowTotalValueToDateInUsd; ToJsonUtilP(ShowTotalValueToDateInUsd, each_ShowTotalValueToDateInUsd); output[U("ShowTotalValueToDateInUsd")] = each_ShowTotalValueToDateInUsd;
                 web::json::value each_ShowValuesToDate; ToJsonUtilP(ShowValuesToDate, each_ShowValuesToDate); output[U("ShowValuesToDate")] = each_ShowValuesToDate;
                 web::json::value each_ShowTags; ToJsonUtilP(ShowTags, each_ShowTags); output[U("ShowTags")] = each_ShowTags;
-                web::json::value each_ShowVirtualCurrencyBalances; ToJsonUtilP(ShowVirtualCurrencyBalances, each_ShowVirtualCurrencyBalances); output[U("ShowVirtualCurrencyBalances")] = each_ShowVirtualCurrencyBalances;
                 web::json::value each_ShowLocations; ToJsonUtilP(ShowLocations, each_ShowLocations); output[U("ShowLocations")] = each_ShowLocations;
                 web::json::value each_ShowAvatarUrl; ToJsonUtilP(ShowAvatarUrl, each_ShowAvatarUrl); output[U("ShowAvatarUrl")] = each_ShowAvatarUrl;
                 return output;
@@ -5208,15 +5242,15 @@ namespace PlayFab
             }
         };
 
-        struct PlayerLocation : public PlayFabBaseModel
+        struct LocationModel : public PlayFabBaseModel
         {
-            ContinentCode pfContinentCode;
-            CountryCode pfCountryCode;
+            Boxed<ContinentCode> pfContinentCode;
+            Boxed<CountryCode> pfCountryCode;
             std::string City;
             Boxed<double> Latitude;
             Boxed<double> Longitude;
 
-            PlayerLocation() :
+            LocationModel() :
                 PlayFabBaseModel(),
                 pfContinentCode(),
                 pfCountryCode(),
@@ -5225,7 +5259,7 @@ namespace PlayFab
                 Longitude()
             {}
 
-            PlayerLocation(const PlayerLocation& src) :
+            LocationModel(const LocationModel& src) :
                 PlayFabBaseModel(),
                 pfContinentCode(src.pfContinentCode),
                 pfCountryCode(src.pfCountryCode),
@@ -5234,12 +5268,12 @@ namespace PlayFab
                 Longitude(src.Longitude)
             {}
 
-            ~PlayerLocation() { }
+            ~LocationModel() { }
 
             void FromJson(web::json::value& input) override
             {
-                FromJsonEnum(input[U("pfContinentCode")], pfContinentCode);
-                FromJsonEnum(input[U("pfCountryCode")], pfCountryCode);
+                FromJsonUtilE(input[U("pfContinentCode")], pfContinentCode);
+                FromJsonUtilE(input[U("pfCountryCode")], pfCountryCode);
                 FromJsonUtilS(input[U("City")], City);
                 FromJsonUtilP(input[U("Latitude")], Latitude);
                 FromJsonUtilP(input[U("Longitude")], Longitude);
@@ -5248,8 +5282,8 @@ namespace PlayFab
             web::json::value ToJson() const override
             {
                 web::json::value output;
-                web::json::value each_pfContinentCode; ToJsonEnum(pfContinentCode, each_pfContinentCode); output[U("ContinentCode")] = each_pfContinentCode;
-                web::json::value each_pfCountryCode; ToJsonEnum(pfCountryCode, each_pfCountryCode); output[U("CountryCode")] = each_pfCountryCode;
+                web::json::value each_pfContinentCode; ToJsonUtilE(pfContinentCode, each_pfContinentCode); output[U("ContinentCode")] = each_pfContinentCode;
+                web::json::value each_pfCountryCode; ToJsonUtilE(pfCountryCode, each_pfCountryCode); output[U("CountryCode")] = each_pfCountryCode;
                 web::json::value each_City; ToJsonUtilS(City, each_City); output[U("City")] = each_City;
                 web::json::value each_Latitude; ToJsonUtilP(Latitude, each_Latitude); output[U("Latitude")] = each_Latitude;
                 web::json::value each_Longitude; ToJsonUtilP(Longitude, each_Longitude); output[U("Longitude")] = each_Longitude;
@@ -5257,24 +5291,53 @@ namespace PlayFab
             }
         };
 
-        struct PushNotificationRegistration : public PlayFabBaseModel
+        struct TagModel : public PlayFabBaseModel
+        {
+            std::string TagValue;
+
+            TagModel() :
+                PlayFabBaseModel(),
+                TagValue()
+            {}
+
+            TagModel(const TagModel& src) :
+                PlayFabBaseModel(),
+                TagValue(src.TagValue)
+            {}
+
+            ~TagModel() { }
+
+            void FromJson(web::json::value& input) override
+            {
+                FromJsonUtilS(input[U("TagValue")], TagValue);
+            }
+
+            web::json::value ToJson() const override
+            {
+                web::json::value output;
+                web::json::value each_TagValue; ToJsonUtilS(TagValue, each_TagValue); output[U("TagValue")] = each_TagValue;
+                return output;
+            }
+        };
+
+        struct PushNotificationRegistrationModel : public PlayFabBaseModel
         {
             Boxed<PushNotificationPlatform> Platform;
             std::string NotificationEndpointARN;
 
-            PushNotificationRegistration() :
+            PushNotificationRegistrationModel() :
                 PlayFabBaseModel(),
                 Platform(),
                 NotificationEndpointARN()
             {}
 
-            PushNotificationRegistration(const PushNotificationRegistration& src) :
+            PushNotificationRegistrationModel(const PushNotificationRegistrationModel& src) :
                 PlayFabBaseModel(),
                 Platform(src.Platform),
                 NotificationEndpointARN(src.NotificationEndpointARN)
             {}
 
-            ~PushNotificationRegistration() { }
+            ~PushNotificationRegistrationModel() { }
 
             void FromJson(web::json::value& input) override
             {
@@ -5291,14 +5354,14 @@ namespace PlayFab
             }
         };
 
-        struct PlayerLinkedAccount : public PlayFabBaseModel
+        struct LinkedPlatformAccountModel : public PlayFabBaseModel
         {
             Boxed<LoginIdentityProvider> Platform;
             std::string PlatformUserId;
             std::string Username;
             std::string Email;
 
-            PlayerLinkedAccount() :
+            LinkedPlatformAccountModel() :
                 PlayFabBaseModel(),
                 Platform(),
                 PlatformUserId(),
@@ -5306,7 +5369,7 @@ namespace PlayFab
                 Email()
             {}
 
-            PlayerLinkedAccount(const PlayerLinkedAccount& src) :
+            LinkedPlatformAccountModel(const LinkedPlatformAccountModel& src) :
                 PlayFabBaseModel(),
                 Platform(src.Platform),
                 PlatformUserId(src.PlatformUserId),
@@ -5314,7 +5377,7 @@ namespace PlayFab
                 Email(src.Email)
             {}
 
-            ~PlayerLinkedAccount() { }
+            ~LinkedPlatformAccountModel() { }
 
             void FromJson(web::json::value& input) override
             {
@@ -5335,165 +5398,228 @@ namespace PlayFab
             }
         };
 
-        struct PlayerStatistic : public PlayFabBaseModel
+        struct ValueToDateModel : public PlayFabBaseModel
         {
-            std::string Id;
-            Int32 StatisticVersion;
-            Int32 StatisticValue;
-            std::string Name;
+            std::string Currency;
+            Uint32 TotalValue;
+            std::string TotalValueAsDecimal;
 
-            PlayerStatistic() :
+            ValueToDateModel() :
                 PlayFabBaseModel(),
-                Id(),
-                StatisticVersion(),
-                StatisticValue(),
-                Name()
+                Currency(),
+                TotalValue(),
+                TotalValueAsDecimal()
             {}
 
-            PlayerStatistic(const PlayerStatistic& src) :
+            ValueToDateModel(const ValueToDateModel& src) :
                 PlayFabBaseModel(),
-                Id(src.Id),
-                StatisticVersion(src.StatisticVersion),
-                StatisticValue(src.StatisticValue),
-                Name(src.Name)
+                Currency(src.Currency),
+                TotalValue(src.TotalValue),
+                TotalValueAsDecimal(src.TotalValueAsDecimal)
             {}
 
-            ~PlayerStatistic() { }
+            ~ValueToDateModel() { }
 
             void FromJson(web::json::value& input) override
             {
-                FromJsonUtilS(input[U("Id")], Id);
-                FromJsonUtilP(input[U("StatisticVersion")], StatisticVersion);
-                FromJsonUtilP(input[U("StatisticValue")], StatisticValue);
-                FromJsonUtilS(input[U("Name")], Name);
+                FromJsonUtilS(input[U("Currency")], Currency);
+                FromJsonUtilP(input[U("TotalValue")], TotalValue);
+                FromJsonUtilS(input[U("TotalValueAsDecimal")], TotalValueAsDecimal);
             }
 
             web::json::value ToJson() const override
             {
                 web::json::value output;
-                web::json::value each_Id; ToJsonUtilS(Id, each_Id); output[U("Id")] = each_Id;
-                web::json::value each_StatisticVersion; ToJsonUtilP(StatisticVersion, each_StatisticVersion); output[U("StatisticVersion")] = each_StatisticVersion;
-                web::json::value each_StatisticValue; ToJsonUtilP(StatisticValue, each_StatisticValue); output[U("StatisticValue")] = each_StatisticValue;
-                web::json::value each_Name; ToJsonUtilS(Name, each_Name); output[U("Name")] = each_Name;
+                web::json::value each_Currency; ToJsonUtilS(Currency, each_Currency); output[U("Currency")] = each_Currency;
+                web::json::value each_TotalValue; ToJsonUtilP(TotalValue, each_TotalValue); output[U("TotalValue")] = each_TotalValue;
+                web::json::value each_TotalValueAsDecimal; ToJsonUtilS(TotalValueAsDecimal, each_TotalValueAsDecimal); output[U("TotalValueAsDecimal")] = each_TotalValueAsDecimal;
                 return output;
             }
         };
 
-        struct PlayerProfile : public PlayFabBaseModel
+        struct VirtualCurrencyBalanceModel : public PlayFabBaseModel
         {
-            std::string PlayerId;
-            std::string TitleId;
-            std::string DisplayName;
-            std::string PublisherId;
-            Boxed<LoginIdentityProvider> Origination;
-            Boxed<time_t> Created;
-            Boxed<time_t> LastLogin;
-            Boxed<time_t> BannedUntil;
-            std::string AvatarUrl;
-            std::map<std::string, Int32> Statistics;
-            Boxed<Uint32> TotalValueToDateInUSD;
-            std::map<std::string, Uint32> ValuesToDate;
-            std::list<std::string> Tags;
-            std::map<std::string, PlayerLocation> Locations;
-            std::map<std::string, Int32> VirtualCurrencyBalances;
-            std::list<AdCampaignAttribution> AdCampaignAttributions;
-            std::list<PushNotificationRegistration> PushNotificationRegistrations;
-            std::list<PlayerLinkedAccount> LinkedAccounts;
-            std::list<PlayerStatistic> PlayerStatistics;
+            std::string Currency;
+            Int32 TotalValue;
 
-            PlayerProfile() :
+            VirtualCurrencyBalanceModel() :
                 PlayFabBaseModel(),
-                PlayerId(),
-                TitleId(),
-                DisplayName(),
-                PublisherId(),
-                Origination(),
-                Created(),
-                LastLogin(),
-                BannedUntil(),
-                AvatarUrl(),
-                Statistics(),
-                TotalValueToDateInUSD(),
-                ValuesToDate(),
-                Tags(),
-                Locations(),
-                VirtualCurrencyBalances(),
-                AdCampaignAttributions(),
-                PushNotificationRegistrations(),
-                LinkedAccounts(),
-                PlayerStatistics()
+                Currency(),
+                TotalValue()
             {}
 
-            PlayerProfile(const PlayerProfile& src) :
+            VirtualCurrencyBalanceModel(const VirtualCurrencyBalanceModel& src) :
                 PlayFabBaseModel(),
-                PlayerId(src.PlayerId),
-                TitleId(src.TitleId),
-                DisplayName(src.DisplayName),
-                PublisherId(src.PublisherId),
-                Origination(src.Origination),
-                Created(src.Created),
-                LastLogin(src.LastLogin),
-                BannedUntil(src.BannedUntil),
-                AvatarUrl(src.AvatarUrl),
-                Statistics(src.Statistics),
-                TotalValueToDateInUSD(src.TotalValueToDateInUSD),
-                ValuesToDate(src.ValuesToDate),
-                Tags(src.Tags),
-                Locations(src.Locations),
-                VirtualCurrencyBalances(src.VirtualCurrencyBalances),
-                AdCampaignAttributions(src.AdCampaignAttributions),
-                PushNotificationRegistrations(src.PushNotificationRegistrations),
-                LinkedAccounts(src.LinkedAccounts),
-                PlayerStatistics(src.PlayerStatistics)
+                Currency(src.Currency),
+                TotalValue(src.TotalValue)
             {}
 
-            ~PlayerProfile() { }
+            ~VirtualCurrencyBalanceModel() { }
 
             void FromJson(web::json::value& input) override
             {
-                FromJsonUtilS(input[U("PlayerId")], PlayerId);
-                FromJsonUtilS(input[U("TitleId")], TitleId);
-                FromJsonUtilS(input[U("DisplayName")], DisplayName);
-                FromJsonUtilS(input[U("PublisherId")], PublisherId);
-                FromJsonUtilE(input[U("Origination")], Origination);
-                FromJsonUtilT(input[U("Created")], Created);
-                FromJsonUtilT(input[U("LastLogin")], LastLogin);
-                FromJsonUtilT(input[U("BannedUntil")], BannedUntil);
-                FromJsonUtilS(input[U("AvatarUrl")], AvatarUrl);
-                FromJsonUtilP(input[U("Statistics")], Statistics);
-                FromJsonUtilP(input[U("TotalValueToDateInUSD")], TotalValueToDateInUSD);
-                FromJsonUtilP(input[U("ValuesToDate")], ValuesToDate);
-                FromJsonUtilS(input[U("Tags")], Tags);
-                FromJsonUtilO(input[U("Locations")], Locations);
-                FromJsonUtilP(input[U("VirtualCurrencyBalances")], VirtualCurrencyBalances);
-                FromJsonUtilO(input[U("AdCampaignAttributions")], AdCampaignAttributions);
-                FromJsonUtilO(input[U("PushNotificationRegistrations")], PushNotificationRegistrations);
-                FromJsonUtilO(input[U("LinkedAccounts")], LinkedAccounts);
-                FromJsonUtilO(input[U("PlayerStatistics")], PlayerStatistics);
+                FromJsonUtilS(input[U("Currency")], Currency);
+                FromJsonUtilP(input[U("TotalValue")], TotalValue);
             }
 
             web::json::value ToJson() const override
             {
                 web::json::value output;
-                web::json::value each_PlayerId; ToJsonUtilS(PlayerId, each_PlayerId); output[U("PlayerId")] = each_PlayerId;
-                web::json::value each_TitleId; ToJsonUtilS(TitleId, each_TitleId); output[U("TitleId")] = each_TitleId;
-                web::json::value each_DisplayName; ToJsonUtilS(DisplayName, each_DisplayName); output[U("DisplayName")] = each_DisplayName;
+                web::json::value each_Currency; ToJsonUtilS(Currency, each_Currency); output[U("Currency")] = each_Currency;
+                web::json::value each_TotalValue; ToJsonUtilP(TotalValue, each_TotalValue); output[U("TotalValue")] = each_TotalValue;
+                return output;
+            }
+        };
+
+        struct StatisticModel : public PlayFabBaseModel
+        {
+            std::string Name;
+            Int32 Version;
+            Int32 Value;
+
+            StatisticModel() :
+                PlayFabBaseModel(),
+                Name(),
+                Version(),
+                Value()
+            {}
+
+            StatisticModel(const StatisticModel& src) :
+                PlayFabBaseModel(),
+                Name(src.Name),
+                Version(src.Version),
+                Value(src.Value)
+            {}
+
+            ~StatisticModel() { }
+
+            void FromJson(web::json::value& input) override
+            {
+                FromJsonUtilS(input[U("Name")], Name);
+                FromJsonUtilP(input[U("Version")], Version);
+                FromJsonUtilP(input[U("Value")], Value);
+            }
+
+            web::json::value ToJson() const override
+            {
+                web::json::value output;
+                web::json::value each_Name; ToJsonUtilS(Name, each_Name); output[U("Name")] = each_Name;
+                web::json::value each_Version; ToJsonUtilP(Version, each_Version); output[U("Version")] = each_Version;
+                web::json::value each_Value; ToJsonUtilP(Value, each_Value); output[U("Value")] = each_Value;
+                return output;
+            }
+        };
+
+        struct PlayerProfileModel : public PlayFabBaseModel
+        {
+            std::string PublisherId;
+            std::string TitleId;
+            std::string PlayerId;
+            Boxed<time_t> Created;
+            Boxed<LoginIdentityProvider> Origination;
+            Boxed<time_t> LastLogin;
+            Boxed<time_t> BannedUntil;
+            std::list<LocationModel> Locations;
+            std::string DisplayName;
+            std::string AvatarUrl;
+            std::list<TagModel> Tags;
+            std::list<PushNotificationRegistrationModel> PushNotificationRegistrations;
+            std::list<LinkedPlatformAccountModel> LinkedAccounts;
+            std::list<AdCampaignAttributionModel> AdCampaignAttributions;
+            Boxed<Uint32> TotalValueToDateInUSD;
+            std::list<ValueToDateModel> ValuesToDate;
+            std::list<VirtualCurrencyBalanceModel> VirtualCurrencyBalances;
+            std::list<StatisticModel> Statistics;
+
+            PlayerProfileModel() :
+                PlayFabBaseModel(),
+                PublisherId(),
+                TitleId(),
+                PlayerId(),
+                Created(),
+                Origination(),
+                LastLogin(),
+                BannedUntil(),
+                Locations(),
+                DisplayName(),
+                AvatarUrl(),
+                Tags(),
+                PushNotificationRegistrations(),
+                LinkedAccounts(),
+                AdCampaignAttributions(),
+                TotalValueToDateInUSD(),
+                ValuesToDate(),
+                VirtualCurrencyBalances(),
+                Statistics()
+            {}
+
+            PlayerProfileModel(const PlayerProfileModel& src) :
+                PlayFabBaseModel(),
+                PublisherId(src.PublisherId),
+                TitleId(src.TitleId),
+                PlayerId(src.PlayerId),
+                Created(src.Created),
+                Origination(src.Origination),
+                LastLogin(src.LastLogin),
+                BannedUntil(src.BannedUntil),
+                Locations(src.Locations),
+                DisplayName(src.DisplayName),
+                AvatarUrl(src.AvatarUrl),
+                Tags(src.Tags),
+                PushNotificationRegistrations(src.PushNotificationRegistrations),
+                LinkedAccounts(src.LinkedAccounts),
+                AdCampaignAttributions(src.AdCampaignAttributions),
+                TotalValueToDateInUSD(src.TotalValueToDateInUSD),
+                ValuesToDate(src.ValuesToDate),
+                VirtualCurrencyBalances(src.VirtualCurrencyBalances),
+                Statistics(src.Statistics)
+            {}
+
+            ~PlayerProfileModel() { }
+
+            void FromJson(web::json::value& input) override
+            {
+                FromJsonUtilS(input[U("PublisherId")], PublisherId);
+                FromJsonUtilS(input[U("TitleId")], TitleId);
+                FromJsonUtilS(input[U("PlayerId")], PlayerId);
+                FromJsonUtilT(input[U("Created")], Created);
+                FromJsonUtilE(input[U("Origination")], Origination);
+                FromJsonUtilT(input[U("LastLogin")], LastLogin);
+                FromJsonUtilT(input[U("BannedUntil")], BannedUntil);
+                FromJsonUtilO(input[U("Locations")], Locations);
+                FromJsonUtilS(input[U("DisplayName")], DisplayName);
+                FromJsonUtilS(input[U("AvatarUrl")], AvatarUrl);
+                FromJsonUtilO(input[U("Tags")], Tags);
+                FromJsonUtilO(input[U("PushNotificationRegistrations")], PushNotificationRegistrations);
+                FromJsonUtilO(input[U("LinkedAccounts")], LinkedAccounts);
+                FromJsonUtilO(input[U("AdCampaignAttributions")], AdCampaignAttributions);
+                FromJsonUtilP(input[U("TotalValueToDateInUSD")], TotalValueToDateInUSD);
+                FromJsonUtilO(input[U("ValuesToDate")], ValuesToDate);
+                FromJsonUtilO(input[U("VirtualCurrencyBalances")], VirtualCurrencyBalances);
+                FromJsonUtilO(input[U("Statistics")], Statistics);
+            }
+
+            web::json::value ToJson() const override
+            {
+                web::json::value output;
                 web::json::value each_PublisherId; ToJsonUtilS(PublisherId, each_PublisherId); output[U("PublisherId")] = each_PublisherId;
-                web::json::value each_Origination; ToJsonUtilE(Origination, each_Origination); output[U("Origination")] = each_Origination;
+                web::json::value each_TitleId; ToJsonUtilS(TitleId, each_TitleId); output[U("TitleId")] = each_TitleId;
+                web::json::value each_PlayerId; ToJsonUtilS(PlayerId, each_PlayerId); output[U("PlayerId")] = each_PlayerId;
                 web::json::value each_Created; ToJsonUtilT(Created, each_Created); output[U("Created")] = each_Created;
+                web::json::value each_Origination; ToJsonUtilE(Origination, each_Origination); output[U("Origination")] = each_Origination;
                 web::json::value each_LastLogin; ToJsonUtilT(LastLogin, each_LastLogin); output[U("LastLogin")] = each_LastLogin;
                 web::json::value each_BannedUntil; ToJsonUtilT(BannedUntil, each_BannedUntil); output[U("BannedUntil")] = each_BannedUntil;
-                web::json::value each_AvatarUrl; ToJsonUtilS(AvatarUrl, each_AvatarUrl); output[U("AvatarUrl")] = each_AvatarUrl;
-                web::json::value each_Statistics; ToJsonUtilP(Statistics, each_Statistics); output[U("Statistics")] = each_Statistics;
-                web::json::value each_TotalValueToDateInUSD; ToJsonUtilP(TotalValueToDateInUSD, each_TotalValueToDateInUSD); output[U("TotalValueToDateInUSD")] = each_TotalValueToDateInUSD;
-                web::json::value each_ValuesToDate; ToJsonUtilP(ValuesToDate, each_ValuesToDate); output[U("ValuesToDate")] = each_ValuesToDate;
-                web::json::value each_Tags; ToJsonUtilS(Tags, each_Tags); output[U("Tags")] = each_Tags;
                 web::json::value each_Locations; ToJsonUtilO(Locations, each_Locations); output[U("Locations")] = each_Locations;
-                web::json::value each_VirtualCurrencyBalances; ToJsonUtilP(VirtualCurrencyBalances, each_VirtualCurrencyBalances); output[U("VirtualCurrencyBalances")] = each_VirtualCurrencyBalances;
-                web::json::value each_AdCampaignAttributions; ToJsonUtilO(AdCampaignAttributions, each_AdCampaignAttributions); output[U("AdCampaignAttributions")] = each_AdCampaignAttributions;
+                web::json::value each_DisplayName; ToJsonUtilS(DisplayName, each_DisplayName); output[U("DisplayName")] = each_DisplayName;
+                web::json::value each_AvatarUrl; ToJsonUtilS(AvatarUrl, each_AvatarUrl); output[U("AvatarUrl")] = each_AvatarUrl;
+                web::json::value each_Tags; ToJsonUtilO(Tags, each_Tags); output[U("Tags")] = each_Tags;
                 web::json::value each_PushNotificationRegistrations; ToJsonUtilO(PushNotificationRegistrations, each_PushNotificationRegistrations); output[U("PushNotificationRegistrations")] = each_PushNotificationRegistrations;
                 web::json::value each_LinkedAccounts; ToJsonUtilO(LinkedAccounts, each_LinkedAccounts); output[U("LinkedAccounts")] = each_LinkedAccounts;
-                web::json::value each_PlayerStatistics; ToJsonUtilO(PlayerStatistics, each_PlayerStatistics); output[U("PlayerStatistics")] = each_PlayerStatistics;
+                web::json::value each_AdCampaignAttributions; ToJsonUtilO(AdCampaignAttributions, each_AdCampaignAttributions); output[U("AdCampaignAttributions")] = each_AdCampaignAttributions;
+                web::json::value each_TotalValueToDateInUSD; ToJsonUtilP(TotalValueToDateInUSD, each_TotalValueToDateInUSD); output[U("TotalValueToDateInUSD")] = each_TotalValueToDateInUSD;
+                web::json::value each_ValuesToDate; ToJsonUtilO(ValuesToDate, each_ValuesToDate); output[U("ValuesToDate")] = each_ValuesToDate;
+                web::json::value each_VirtualCurrencyBalances; ToJsonUtilO(VirtualCurrencyBalances, each_VirtualCurrencyBalances); output[U("VirtualCurrencyBalances")] = each_VirtualCurrencyBalances;
+                web::json::value each_Statistics; ToJsonUtilO(Statistics, each_Statistics); output[U("Statistics")] = each_Statistics;
                 return output;
             }
         };
@@ -5504,7 +5630,7 @@ namespace PlayFab
             std::string DisplayName;
             Int32 StatValue;
             Int32 Position;
-            Boxed<PlayerProfile> Profile;
+            Boxed<PlayerProfileModel> Profile;
 
             PlayerLeaderboardEntry() :
                 PlayFabBaseModel(),
@@ -6096,6 +6222,296 @@ namespace PlayFab
                 web::json::value each_SecondsToLive; ToJsonUtilP(SecondsToLive, each_SecondsToLive); output[U("SecondsToLive")] = each_SecondsToLive;
                 web::json::value each_MaxBatchSize; ToJsonUtilP(MaxBatchSize, each_MaxBatchSize); output[U("MaxBatchSize")] = each_MaxBatchSize;
                 web::json::value each_ContinuationToken; ToJsonUtilS(ContinuationToken, each_ContinuationToken); output[U("ContinuationToken")] = each_ContinuationToken;
+                return output;
+            }
+        };
+
+        struct PlayerLocation : public PlayFabBaseModel
+        {
+            ContinentCode pfContinentCode;
+            CountryCode pfCountryCode;
+            std::string City;
+            Boxed<double> Latitude;
+            Boxed<double> Longitude;
+
+            PlayerLocation() :
+                PlayFabBaseModel(),
+                pfContinentCode(),
+                pfCountryCode(),
+                City(),
+                Latitude(),
+                Longitude()
+            {}
+
+            PlayerLocation(const PlayerLocation& src) :
+                PlayFabBaseModel(),
+                pfContinentCode(src.pfContinentCode),
+                pfCountryCode(src.pfCountryCode),
+                City(src.City),
+                Latitude(src.Latitude),
+                Longitude(src.Longitude)
+            {}
+
+            ~PlayerLocation() { }
+
+            void FromJson(web::json::value& input) override
+            {
+                FromJsonEnum(input[U("pfContinentCode")], pfContinentCode);
+                FromJsonEnum(input[U("pfCountryCode")], pfCountryCode);
+                FromJsonUtilS(input[U("City")], City);
+                FromJsonUtilP(input[U("Latitude")], Latitude);
+                FromJsonUtilP(input[U("Longitude")], Longitude);
+            }
+
+            web::json::value ToJson() const override
+            {
+                web::json::value output;
+                web::json::value each_pfContinentCode; ToJsonEnum(pfContinentCode, each_pfContinentCode); output[U("ContinentCode")] = each_pfContinentCode;
+                web::json::value each_pfCountryCode; ToJsonEnum(pfCountryCode, each_pfCountryCode); output[U("CountryCode")] = each_pfCountryCode;
+                web::json::value each_City; ToJsonUtilS(City, each_City); output[U("City")] = each_City;
+                web::json::value each_Latitude; ToJsonUtilP(Latitude, each_Latitude); output[U("Latitude")] = each_Latitude;
+                web::json::value each_Longitude; ToJsonUtilP(Longitude, each_Longitude); output[U("Longitude")] = each_Longitude;
+                return output;
+            }
+        };
+
+        struct PushNotificationRegistration : public PlayFabBaseModel
+        {
+            Boxed<PushNotificationPlatform> Platform;
+            std::string NotificationEndpointARN;
+
+            PushNotificationRegistration() :
+                PlayFabBaseModel(),
+                Platform(),
+                NotificationEndpointARN()
+            {}
+
+            PushNotificationRegistration(const PushNotificationRegistration& src) :
+                PlayFabBaseModel(),
+                Platform(src.Platform),
+                NotificationEndpointARN(src.NotificationEndpointARN)
+            {}
+
+            ~PushNotificationRegistration() { }
+
+            void FromJson(web::json::value& input) override
+            {
+                FromJsonUtilE(input[U("Platform")], Platform);
+                FromJsonUtilS(input[U("NotificationEndpointARN")], NotificationEndpointARN);
+            }
+
+            web::json::value ToJson() const override
+            {
+                web::json::value output;
+                web::json::value each_Platform; ToJsonUtilE(Platform, each_Platform); output[U("Platform")] = each_Platform;
+                web::json::value each_NotificationEndpointARN; ToJsonUtilS(NotificationEndpointARN, each_NotificationEndpointARN); output[U("NotificationEndpointARN")] = each_NotificationEndpointARN;
+                return output;
+            }
+        };
+
+        struct PlayerLinkedAccount : public PlayFabBaseModel
+        {
+            Boxed<LoginIdentityProvider> Platform;
+            std::string PlatformUserId;
+            std::string Username;
+            std::string Email;
+
+            PlayerLinkedAccount() :
+                PlayFabBaseModel(),
+                Platform(),
+                PlatformUserId(),
+                Username(),
+                Email()
+            {}
+
+            PlayerLinkedAccount(const PlayerLinkedAccount& src) :
+                PlayFabBaseModel(),
+                Platform(src.Platform),
+                PlatformUserId(src.PlatformUserId),
+                Username(src.Username),
+                Email(src.Email)
+            {}
+
+            ~PlayerLinkedAccount() { }
+
+            void FromJson(web::json::value& input) override
+            {
+                FromJsonUtilE(input[U("Platform")], Platform);
+                FromJsonUtilS(input[U("PlatformUserId")], PlatformUserId);
+                FromJsonUtilS(input[U("Username")], Username);
+                FromJsonUtilS(input[U("Email")], Email);
+            }
+
+            web::json::value ToJson() const override
+            {
+                web::json::value output;
+                web::json::value each_Platform; ToJsonUtilE(Platform, each_Platform); output[U("Platform")] = each_Platform;
+                web::json::value each_PlatformUserId; ToJsonUtilS(PlatformUserId, each_PlatformUserId); output[U("PlatformUserId")] = each_PlatformUserId;
+                web::json::value each_Username; ToJsonUtilS(Username, each_Username); output[U("Username")] = each_Username;
+                web::json::value each_Email; ToJsonUtilS(Email, each_Email); output[U("Email")] = each_Email;
+                return output;
+            }
+        };
+
+        struct PlayerStatistic : public PlayFabBaseModel
+        {
+            std::string Id;
+            Int32 StatisticVersion;
+            Int32 StatisticValue;
+            std::string Name;
+
+            PlayerStatistic() :
+                PlayFabBaseModel(),
+                Id(),
+                StatisticVersion(),
+                StatisticValue(),
+                Name()
+            {}
+
+            PlayerStatistic(const PlayerStatistic& src) :
+                PlayFabBaseModel(),
+                Id(src.Id),
+                StatisticVersion(src.StatisticVersion),
+                StatisticValue(src.StatisticValue),
+                Name(src.Name)
+            {}
+
+            ~PlayerStatistic() { }
+
+            void FromJson(web::json::value& input) override
+            {
+                FromJsonUtilS(input[U("Id")], Id);
+                FromJsonUtilP(input[U("StatisticVersion")], StatisticVersion);
+                FromJsonUtilP(input[U("StatisticValue")], StatisticValue);
+                FromJsonUtilS(input[U("Name")], Name);
+            }
+
+            web::json::value ToJson() const override
+            {
+                web::json::value output;
+                web::json::value each_Id; ToJsonUtilS(Id, each_Id); output[U("Id")] = each_Id;
+                web::json::value each_StatisticVersion; ToJsonUtilP(StatisticVersion, each_StatisticVersion); output[U("StatisticVersion")] = each_StatisticVersion;
+                web::json::value each_StatisticValue; ToJsonUtilP(StatisticValue, each_StatisticValue); output[U("StatisticValue")] = each_StatisticValue;
+                web::json::value each_Name; ToJsonUtilS(Name, each_Name); output[U("Name")] = each_Name;
+                return output;
+            }
+        };
+
+        struct PlayerProfile : public PlayFabBaseModel
+        {
+            std::string PlayerId;
+            std::string TitleId;
+            std::string DisplayName;
+            std::string PublisherId;
+            Boxed<LoginIdentityProvider> Origination;
+            Boxed<time_t> Created;
+            Boxed<time_t> LastLogin;
+            Boxed<time_t> BannedUntil;
+            std::string AvatarUrl;
+            std::map<std::string, Int32> Statistics;
+            Boxed<Uint32> TotalValueToDateInUSD;
+            std::map<std::string, Uint32> ValuesToDate;
+            std::list<std::string> Tags;
+            std::map<std::string, PlayerLocation> Locations;
+            std::map<std::string, Int32> VirtualCurrencyBalances;
+            std::list<AdCampaignAttribution> AdCampaignAttributions;
+            std::list<PushNotificationRegistration> PushNotificationRegistrations;
+            std::list<PlayerLinkedAccount> LinkedAccounts;
+            std::list<PlayerStatistic> PlayerStatistics;
+
+            PlayerProfile() :
+                PlayFabBaseModel(),
+                PlayerId(),
+                TitleId(),
+                DisplayName(),
+                PublisherId(),
+                Origination(),
+                Created(),
+                LastLogin(),
+                BannedUntil(),
+                AvatarUrl(),
+                Statistics(),
+                TotalValueToDateInUSD(),
+                ValuesToDate(),
+                Tags(),
+                Locations(),
+                VirtualCurrencyBalances(),
+                AdCampaignAttributions(),
+                PushNotificationRegistrations(),
+                LinkedAccounts(),
+                PlayerStatistics()
+            {}
+
+            PlayerProfile(const PlayerProfile& src) :
+                PlayFabBaseModel(),
+                PlayerId(src.PlayerId),
+                TitleId(src.TitleId),
+                DisplayName(src.DisplayName),
+                PublisherId(src.PublisherId),
+                Origination(src.Origination),
+                Created(src.Created),
+                LastLogin(src.LastLogin),
+                BannedUntil(src.BannedUntil),
+                AvatarUrl(src.AvatarUrl),
+                Statistics(src.Statistics),
+                TotalValueToDateInUSD(src.TotalValueToDateInUSD),
+                ValuesToDate(src.ValuesToDate),
+                Tags(src.Tags),
+                Locations(src.Locations),
+                VirtualCurrencyBalances(src.VirtualCurrencyBalances),
+                AdCampaignAttributions(src.AdCampaignAttributions),
+                PushNotificationRegistrations(src.PushNotificationRegistrations),
+                LinkedAccounts(src.LinkedAccounts),
+                PlayerStatistics(src.PlayerStatistics)
+            {}
+
+            ~PlayerProfile() { }
+
+            void FromJson(web::json::value& input) override
+            {
+                FromJsonUtilS(input[U("PlayerId")], PlayerId);
+                FromJsonUtilS(input[U("TitleId")], TitleId);
+                FromJsonUtilS(input[U("DisplayName")], DisplayName);
+                FromJsonUtilS(input[U("PublisherId")], PublisherId);
+                FromJsonUtilE(input[U("Origination")], Origination);
+                FromJsonUtilT(input[U("Created")], Created);
+                FromJsonUtilT(input[U("LastLogin")], LastLogin);
+                FromJsonUtilT(input[U("BannedUntil")], BannedUntil);
+                FromJsonUtilS(input[U("AvatarUrl")], AvatarUrl);
+                FromJsonUtilP(input[U("Statistics")], Statistics);
+                FromJsonUtilP(input[U("TotalValueToDateInUSD")], TotalValueToDateInUSD);
+                FromJsonUtilP(input[U("ValuesToDate")], ValuesToDate);
+                FromJsonUtilS(input[U("Tags")], Tags);
+                FromJsonUtilO(input[U("Locations")], Locations);
+                FromJsonUtilP(input[U("VirtualCurrencyBalances")], VirtualCurrencyBalances);
+                FromJsonUtilO(input[U("AdCampaignAttributions")], AdCampaignAttributions);
+                FromJsonUtilO(input[U("PushNotificationRegistrations")], PushNotificationRegistrations);
+                FromJsonUtilO(input[U("LinkedAccounts")], LinkedAccounts);
+                FromJsonUtilO(input[U("PlayerStatistics")], PlayerStatistics);
+            }
+
+            web::json::value ToJson() const override
+            {
+                web::json::value output;
+                web::json::value each_PlayerId; ToJsonUtilS(PlayerId, each_PlayerId); output[U("PlayerId")] = each_PlayerId;
+                web::json::value each_TitleId; ToJsonUtilS(TitleId, each_TitleId); output[U("TitleId")] = each_TitleId;
+                web::json::value each_DisplayName; ToJsonUtilS(DisplayName, each_DisplayName); output[U("DisplayName")] = each_DisplayName;
+                web::json::value each_PublisherId; ToJsonUtilS(PublisherId, each_PublisherId); output[U("PublisherId")] = each_PublisherId;
+                web::json::value each_Origination; ToJsonUtilE(Origination, each_Origination); output[U("Origination")] = each_Origination;
+                web::json::value each_Created; ToJsonUtilT(Created, each_Created); output[U("Created")] = each_Created;
+                web::json::value each_LastLogin; ToJsonUtilT(LastLogin, each_LastLogin); output[U("LastLogin")] = each_LastLogin;
+                web::json::value each_BannedUntil; ToJsonUtilT(BannedUntil, each_BannedUntil); output[U("BannedUntil")] = each_BannedUntil;
+                web::json::value each_AvatarUrl; ToJsonUtilS(AvatarUrl, each_AvatarUrl); output[U("AvatarUrl")] = each_AvatarUrl;
+                web::json::value each_Statistics; ToJsonUtilP(Statistics, each_Statistics); output[U("Statistics")] = each_Statistics;
+                web::json::value each_TotalValueToDateInUSD; ToJsonUtilP(TotalValueToDateInUSD, each_TotalValueToDateInUSD); output[U("TotalValueToDateInUSD")] = each_TotalValueToDateInUSD;
+                web::json::value each_ValuesToDate; ToJsonUtilP(ValuesToDate, each_ValuesToDate); output[U("ValuesToDate")] = each_ValuesToDate;
+                web::json::value each_Tags; ToJsonUtilS(Tags, each_Tags); output[U("Tags")] = each_Tags;
+                web::json::value each_Locations; ToJsonUtilO(Locations, each_Locations); output[U("Locations")] = each_Locations;
+                web::json::value each_VirtualCurrencyBalances; ToJsonUtilP(VirtualCurrencyBalances, each_VirtualCurrencyBalances); output[U("VirtualCurrencyBalances")] = each_VirtualCurrencyBalances;
+                web::json::value each_AdCampaignAttributions; ToJsonUtilO(AdCampaignAttributions, each_AdCampaignAttributions); output[U("AdCampaignAttributions")] = each_AdCampaignAttributions;
+                web::json::value each_PushNotificationRegistrations; ToJsonUtilO(PushNotificationRegistrations, each_PushNotificationRegistrations); output[U("PushNotificationRegistrations")] = each_PushNotificationRegistrations;
+                web::json::value each_LinkedAccounts; ToJsonUtilO(LinkedAccounts, each_LinkedAccounts); output[U("LinkedAccounts")] = each_LinkedAccounts;
+                web::json::value each_PlayerStatistics; ToJsonUtilO(PlayerStatistics, each_PlayerStatistics); output[U("PlayerStatistics")] = each_PlayerStatistics;
                 return output;
             }
         };
