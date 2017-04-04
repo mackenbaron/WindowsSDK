@@ -68,32 +68,6 @@ namespace PlayFab
         }
     }
 
-    void PlayFabClientAPI::LinkWindowsHello(
-        LinkWindowsHelloAccountRequest& request,
-        ProcessApiCallback<LinkWindowsHelloAccountResponse> callback,
-        ErrorCallback errorCallback,
-        void* customData
-    )
-    {
-
-        IPlayFabHttp& http = IPlayFabHttp::Get();
-        auto requestJson = request.ToJson();
-        http.AddRequest(U("/Client/LinkWindowsHello"), U(""), U(""), requestJson, OnLinkWindowsHelloResult, SharedVoidPointer((callback == nullptr) ? nullptr : new ProcessApiCallback<LinkWindowsHelloAccountResponse>(callback)), errorCallback, customData);
-    }
-
-    void PlayFabClientAPI::OnLinkWindowsHelloResult(CallRequestContainer& request)
-    {
-        LinkWindowsHelloAccountResponse outResult;
-        outResult.FromJson(request.errorWrapper.Data);
-
-        auto internalPtr = request.successCallback.get();
-        if (internalPtr != nullptr)
-        {
-            auto callback = (*static_cast<ProcessApiCallback<LinkWindowsHelloAccountResponse> *>(internalPtr));
-            callback(outResult, request.customData);
-        }
-    }
-
     void PlayFabClientAPI::LoginWithAndroidDeviceID(
         LoginWithAndroidDeviceIDRequest& request,
         ProcessApiCallback<LoginResult> callback,
@@ -538,32 +512,6 @@ namespace PlayFab
         if (internalPtr != nullptr)
         {
             auto callback = (*static_cast<ProcessApiCallback<LoginResult> *>(internalPtr));
-            callback(outResult, request.customData);
-        }
-    }
-
-    void PlayFabClientAPI::UnlinkWindowsHello(
-        UnlinkWindowsHelloAccountRequest& request,
-        ProcessApiCallback<UnlinkWindowsHelloAccountResponse> callback,
-        ErrorCallback errorCallback,
-        void* customData
-    )
-    {
-
-        IPlayFabHttp& http = IPlayFabHttp::Get();
-        auto requestJson = request.ToJson();
-        http.AddRequest(U("/Client/UnlinkWindowsHello"), U(""), U(""), requestJson, OnUnlinkWindowsHelloResult, SharedVoidPointer((callback == nullptr) ? nullptr : new ProcessApiCallback<UnlinkWindowsHelloAccountResponse>(callback)), errorCallback, customData);
-    }
-
-    void PlayFabClientAPI::OnUnlinkWindowsHelloResult(CallRequestContainer& request)
-    {
-        UnlinkWindowsHelloAccountResponse outResult;
-        outResult.FromJson(request.errorWrapper.Data);
-
-        auto internalPtr = request.successCallback.get();
-        if (internalPtr != nullptr)
-        {
-            auto callback = (*static_cast<ProcessApiCallback<UnlinkWindowsHelloAccountResponse> *>(internalPtr));
             callback(outResult, request.customData);
         }
     }
@@ -1088,6 +1036,32 @@ namespace PlayFab
         }
     }
 
+    void PlayFabClientAPI::LinkWindowsHello(
+        LinkWindowsHelloAccountRequest& request,
+        ProcessApiCallback<LinkWindowsHelloAccountResponse> callback,
+        ErrorCallback errorCallback,
+        void* customData
+    )
+    {
+
+        IPlayFabHttp& http = IPlayFabHttp::Get();
+        auto requestJson = request.ToJson();
+        http.AddRequest(U("/Client/LinkWindowsHello"), U(""), U(""), requestJson, OnLinkWindowsHelloResult, SharedVoidPointer((callback == nullptr) ? nullptr : new ProcessApiCallback<LinkWindowsHelloAccountResponse>(callback)), errorCallback, customData);
+    }
+
+    void PlayFabClientAPI::OnLinkWindowsHelloResult(CallRequestContainer& request)
+    {
+        LinkWindowsHelloAccountResponse outResult;
+        outResult.FromJson(request.errorWrapper.Data);
+
+        auto internalPtr = request.successCallback.get();
+        if (internalPtr != nullptr)
+        {
+            auto callback = (*static_cast<ProcessApiCallback<LinkWindowsHelloAccountResponse> *>(internalPtr));
+            callback(outResult, request.customData);
+        }
+    }
+
     void PlayFabClientAPI::RemoveGenericID(
         RemoveGenericIDRequest& request,
         ProcessApiCallback<RemoveGenericIDResult> callback,
@@ -1396,6 +1370,32 @@ namespace PlayFab
         if (internalPtr != nullptr)
         {
             auto callback = (*static_cast<ProcessApiCallback<UnlinkTwitchAccountResult> *>(internalPtr));
+            callback(outResult, request.customData);
+        }
+    }
+
+    void PlayFabClientAPI::UnlinkWindowsHello(
+        UnlinkWindowsHelloAccountRequest& request,
+        ProcessApiCallback<UnlinkWindowsHelloAccountResponse> callback,
+        ErrorCallback errorCallback,
+        void* customData
+    )
+    {
+
+        IPlayFabHttp& http = IPlayFabHttp::Get();
+        auto requestJson = request.ToJson();
+        http.AddRequest(U("/Client/UnlinkWindowsHello"), U(""), U(""), requestJson, OnUnlinkWindowsHelloResult, SharedVoidPointer((callback == nullptr) ? nullptr : new ProcessApiCallback<UnlinkWindowsHelloAccountResponse>(callback)), errorCallback, customData);
+    }
+
+    void PlayFabClientAPI::OnUnlinkWindowsHelloResult(CallRequestContainer& request)
+    {
+        UnlinkWindowsHelloAccountResponse outResult;
+        outResult.FromJson(request.errorWrapper.Data);
+
+        auto internalPtr = request.successCallback.get();
+        if (internalPtr != nullptr)
+        {
+            auto callback = (*static_cast<ProcessApiCallback<UnlinkWindowsHelloAccountResponse> *>(internalPtr));
             callback(outResult, request.customData);
         }
     }

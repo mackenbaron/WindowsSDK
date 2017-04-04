@@ -286,6 +286,16 @@ namespace PlayFab
         PlayFabErrorExpressionParseFailure = 1284,
         PlayFabErrorExpressionInvokeFailure = 1285,
         PlayFabErrorExpressionTooLong = 1286,
+        PlayFabErrorDataUpdateRateExceeded = 1287,
+        PlayFabErrorRestrictedEmailDomain = 1288,
+        PlayFabErrorEncryptionKeyDisabled = 1289,
+        PlayFabErrorEncryptionKeyMissing = 1290,
+        PlayFabErrorEncryptionKeyBroken = 1291,
+        PlayFabErrorNoSharedSecretKeyConfigured = 1292,
+        PlayFabErrorSecretKeyNotFound = 1293,
+        PlayFabErrorPlayerSecretAlreadyConfigured = 1294,
+        PlayFabErrorAPIRequestsDisabledForTitle = 1295,
+        PlayFabErrorInvalidSharedSecretKey = 1296,
     };
 
     /// <summary>
