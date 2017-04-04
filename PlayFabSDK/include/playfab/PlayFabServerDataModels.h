@@ -4981,8 +4981,8 @@ namespace PlayFab
             Int32 MaxResultsCount;
             Boxed<bool> IncludeSteamFriends;
             Boxed<bool> IncludeFacebookFriends;
-            Int32 Version;
-            bool UseSpecificVersion;
+            Boxed<Int32> Version;
+            Boxed<bool> UseSpecificVersion;
             Boxed<PlayerProfileViewConstraints> ProfileConstraints;
 
             GetFriendLeaderboardRequest() :
@@ -5194,8 +5194,8 @@ namespace PlayFab
             std::string PlayFabId;
             Int32 MaxResultsCount;
             Boxed<PlayerProfileViewConstraints> ProfileConstraints;
-            Int32 Version;
-            bool UseSpecificVersion;
+            Boxed<Int32> Version;
+            Boxed<bool> UseSpecificVersion;
 
             GetLeaderboardAroundUserRequest() :
                 PlayFabRequestCommon(),
@@ -5786,8 +5786,8 @@ namespace PlayFab
             Int32 StartPosition;
             Int32 MaxResultsCount;
             Boxed<PlayerProfileViewConstraints> ProfileConstraints;
-            Int32 Version;
-            bool UseSpecificVersion;
+            Boxed<Int32> Version;
+            Boxed<bool> UseSpecificVersion;
 
             GetLeaderboardRequest() :
                 PlayFabRequestCommon(),

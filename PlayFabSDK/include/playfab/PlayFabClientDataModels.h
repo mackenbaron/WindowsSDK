@@ -5128,8 +5128,8 @@ namespace PlayFab
             std::string PlayFabId;
             Boxed<bool> IncludeSteamFriends;
             Boxed<bool> IncludeFacebookFriends;
-            Int32 Version;
-            bool UseSpecificVersion;
+            Boxed<Int32> Version;
+            Boxed<bool> UseSpecificVersion;
             Boxed<PlayerProfileViewConstraints> ProfileConstraints;
 
             GetFriendLeaderboardAroundPlayerRequest() :
@@ -5662,8 +5662,8 @@ namespace PlayFab
             Boxed<Int32> MaxResultsCount;
             Boxed<bool> IncludeSteamFriends;
             Boxed<bool> IncludeFacebookFriends;
-            Int32 Version;
-            bool UseSpecificVersion;
+            Boxed<Int32> Version;
+            Boxed<bool> UseSpecificVersion;
             Boxed<PlayerProfileViewConstraints> ProfileConstraints;
 
             GetFriendLeaderboardRequest() :
@@ -5860,8 +5860,8 @@ namespace PlayFab
             std::string PlayFabId;
             std::string StatisticName;
             Boxed<Int32> MaxResultsCount;
-            Int32 Version;
-            bool UseSpecificVersion;
+            Boxed<Int32> Version;
+            Boxed<bool> UseSpecificVersion;
             Boxed<PlayerProfileViewConstraints> ProfileConstraints;
 
             GetLeaderboardAroundPlayerRequest() :
@@ -6016,8 +6016,8 @@ namespace PlayFab
             std::string StatisticName;
             Int32 StartPosition;
             Boxed<Int32> MaxResultsCount;
-            Int32 Version;
-            bool UseSpecificVersion;
+            Boxed<Int32> Version;
+            Boxed<bool> UseSpecificVersion;
             Boxed<PlayerProfileViewConstraints> ProfileConstraints;
 
             GetLeaderboardRequest() :
@@ -8687,20 +8687,17 @@ namespace PlayFab
         struct LinkGoogleAccountRequest : public PlayFabRequestCommon
         {
             std::string ServerAuthCode;
-            std::string AccessToken;
             Boxed<bool> ForceLink;
 
             LinkGoogleAccountRequest() :
                 PlayFabRequestCommon(),
                 ServerAuthCode(),
-                AccessToken(),
                 ForceLink()
             {}
 
             LinkGoogleAccountRequest(const LinkGoogleAccountRequest& src) :
                 PlayFabRequestCommon(),
                 ServerAuthCode(src.ServerAuthCode),
-                AccessToken(src.AccessToken),
                 ForceLink(src.ForceLink)
             {}
 
@@ -8709,7 +8706,6 @@ namespace PlayFab
             void FromJson(web::json::value& input) override
             {
                 FromJsonUtilS(input[U("ServerAuthCode")], ServerAuthCode);
-                FromJsonUtilS(input[U("AccessToken")], AccessToken);
                 FromJsonUtilP(input[U("ForceLink")], ForceLink);
             }
 
@@ -8717,7 +8713,6 @@ namespace PlayFab
             {
                 web::json::value output;
                 web::json::value each_ServerAuthCode; ToJsonUtilS(ServerAuthCode, each_ServerAuthCode); output[U("ServerAuthCode")] = each_ServerAuthCode;
-                web::json::value each_AccessToken; ToJsonUtilS(AccessToken, each_AccessToken); output[U("AccessToken")] = each_AccessToken;
                 web::json::value each_ForceLink; ToJsonUtilP(ForceLink, each_ForceLink); output[U("ForceLink")] = each_ForceLink;
                 return output;
             }
@@ -9262,6 +9257,8 @@ namespace PlayFab
             std::string TitleId;
             std::string CustomId;
             Boxed<bool> CreateAccount;
+            std::string PlayerSecret;
+            std::string EncryptedRequest;
             Boxed<GetPlayerCombinedInfoRequestParams> InfoRequestParameters;
 
             LoginWithCustomIDRequest() :
@@ -9269,6 +9266,8 @@ namespace PlayFab
                 TitleId(),
                 CustomId(),
                 CreateAccount(),
+                PlayerSecret(),
+                EncryptedRequest(),
                 InfoRequestParameters()
             {}
 
@@ -9277,6 +9276,8 @@ namespace PlayFab
                 TitleId(src.TitleId),
                 CustomId(src.CustomId),
                 CreateAccount(src.CreateAccount),
+                PlayerSecret(src.PlayerSecret),
+                EncryptedRequest(src.EncryptedRequest),
                 InfoRequestParameters(src.InfoRequestParameters)
             {}
 
@@ -9287,6 +9288,8 @@ namespace PlayFab
                 FromJsonUtilS(input[U("TitleId")], TitleId);
                 FromJsonUtilS(input[U("CustomId")], CustomId);
                 FromJsonUtilP(input[U("CreateAccount")], CreateAccount);
+                FromJsonUtilS(input[U("PlayerSecret")], PlayerSecret);
+                FromJsonUtilS(input[U("EncryptedRequest")], EncryptedRequest);
                 FromJsonUtilO(input[U("InfoRequestParameters")], InfoRequestParameters);
             }
 
@@ -9296,6 +9299,8 @@ namespace PlayFab
                 web::json::value each_TitleId; ToJsonUtilS(TitleId, each_TitleId); output[U("TitleId")] = each_TitleId;
                 web::json::value each_CustomId; ToJsonUtilS(CustomId, each_CustomId); output[U("CustomId")] = each_CustomId;
                 web::json::value each_CreateAccount; ToJsonUtilP(CreateAccount, each_CreateAccount); output[U("CreateAccount")] = each_CreateAccount;
+                web::json::value each_PlayerSecret; ToJsonUtilS(PlayerSecret, each_PlayerSecret); output[U("PlayerSecret")] = each_PlayerSecret;
+                web::json::value each_EncryptedRequest; ToJsonUtilS(EncryptedRequest, each_EncryptedRequest); output[U("EncryptedRequest")] = each_EncryptedRequest;
                 web::json::value each_InfoRequestParameters; ToJsonUtilO(InfoRequestParameters, each_InfoRequestParameters); output[U("InfoRequestParameters")] = each_InfoRequestParameters;
                 return output;
             }
@@ -9437,7 +9442,6 @@ namespace PlayFab
         {
             std::string TitleId;
             std::string ServerAuthCode;
-            std::string AccessToken;
             Boxed<bool> CreateAccount;
             Boxed<GetPlayerCombinedInfoRequestParams> InfoRequestParameters;
 
@@ -9445,7 +9449,6 @@ namespace PlayFab
                 PlayFabRequestCommon(),
                 TitleId(),
                 ServerAuthCode(),
-                AccessToken(),
                 CreateAccount(),
                 InfoRequestParameters()
             {}
@@ -9454,7 +9457,6 @@ namespace PlayFab
                 PlayFabRequestCommon(),
                 TitleId(src.TitleId),
                 ServerAuthCode(src.ServerAuthCode),
-                AccessToken(src.AccessToken),
                 CreateAccount(src.CreateAccount),
                 InfoRequestParameters(src.InfoRequestParameters)
             {}
@@ -9465,7 +9467,6 @@ namespace PlayFab
             {
                 FromJsonUtilS(input[U("TitleId")], TitleId);
                 FromJsonUtilS(input[U("ServerAuthCode")], ServerAuthCode);
-                FromJsonUtilS(input[U("AccessToken")], AccessToken);
                 FromJsonUtilP(input[U("CreateAccount")], CreateAccount);
                 FromJsonUtilO(input[U("InfoRequestParameters")], InfoRequestParameters);
             }
@@ -9475,7 +9476,6 @@ namespace PlayFab
                 web::json::value output;
                 web::json::value each_TitleId; ToJsonUtilS(TitleId, each_TitleId); output[U("TitleId")] = each_TitleId;
                 web::json::value each_ServerAuthCode; ToJsonUtilS(ServerAuthCode, each_ServerAuthCode); output[U("ServerAuthCode")] = each_ServerAuthCode;
-                web::json::value each_AccessToken; ToJsonUtilS(AccessToken, each_AccessToken); output[U("AccessToken")] = each_AccessToken;
                 web::json::value each_CreateAccount; ToJsonUtilP(CreateAccount, each_CreateAccount); output[U("CreateAccount")] = each_CreateAccount;
                 web::json::value each_InfoRequestParameters; ToJsonUtilO(InfoRequestParameters, each_InfoRequestParameters); output[U("InfoRequestParameters")] = each_InfoRequestParameters;
                 return output;
