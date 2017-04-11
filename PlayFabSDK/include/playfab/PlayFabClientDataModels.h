@@ -9200,30 +9200,36 @@ namespace PlayFab
 
         struct LoginWithAndroidDeviceIDRequest : public PlayFabRequestCommon
         {
-            std::string TitleId;
             std::string AndroidDeviceId;
             std::string OS;
             std::string AndroidDevice;
             Boxed<bool> CreateAccount;
+            std::string TitleId;
+            std::string EncryptedRequest;
+            std::string PlayerSecret;
             Boxed<GetPlayerCombinedInfoRequestParams> InfoRequestParameters;
 
             LoginWithAndroidDeviceIDRequest() :
                 PlayFabRequestCommon(),
-                TitleId(),
                 AndroidDeviceId(),
                 OS(),
                 AndroidDevice(),
                 CreateAccount(),
+                TitleId(),
+                EncryptedRequest(),
+                PlayerSecret(),
                 InfoRequestParameters()
             {}
 
             LoginWithAndroidDeviceIDRequest(const LoginWithAndroidDeviceIDRequest& src) :
                 PlayFabRequestCommon(),
-                TitleId(src.TitleId),
                 AndroidDeviceId(src.AndroidDeviceId),
                 OS(src.OS),
                 AndroidDevice(src.AndroidDevice),
                 CreateAccount(src.CreateAccount),
+                TitleId(src.TitleId),
+                EncryptedRequest(src.EncryptedRequest),
+                PlayerSecret(src.PlayerSecret),
                 InfoRequestParameters(src.InfoRequestParameters)
             {}
 
@@ -9231,22 +9237,26 @@ namespace PlayFab
 
             void FromJson(web::json::value& input) override
             {
-                FromJsonUtilS(input[U("TitleId")], TitleId);
                 FromJsonUtilS(input[U("AndroidDeviceId")], AndroidDeviceId);
                 FromJsonUtilS(input[U("OS")], OS);
                 FromJsonUtilS(input[U("AndroidDevice")], AndroidDevice);
                 FromJsonUtilP(input[U("CreateAccount")], CreateAccount);
+                FromJsonUtilS(input[U("TitleId")], TitleId);
+                FromJsonUtilS(input[U("EncryptedRequest")], EncryptedRequest);
+                FromJsonUtilS(input[U("PlayerSecret")], PlayerSecret);
                 FromJsonUtilO(input[U("InfoRequestParameters")], InfoRequestParameters);
             }
 
             web::json::value ToJson() const override
             {
                 web::json::value output;
-                web::json::value each_TitleId; ToJsonUtilS(TitleId, each_TitleId); output[U("TitleId")] = each_TitleId;
                 web::json::value each_AndroidDeviceId; ToJsonUtilS(AndroidDeviceId, each_AndroidDeviceId); output[U("AndroidDeviceId")] = each_AndroidDeviceId;
                 web::json::value each_OS; ToJsonUtilS(OS, each_OS); output[U("OS")] = each_OS;
                 web::json::value each_AndroidDevice; ToJsonUtilS(AndroidDevice, each_AndroidDevice); output[U("AndroidDevice")] = each_AndroidDevice;
                 web::json::value each_CreateAccount; ToJsonUtilP(CreateAccount, each_CreateAccount); output[U("CreateAccount")] = each_CreateAccount;
+                web::json::value each_TitleId; ToJsonUtilS(TitleId, each_TitleId); output[U("TitleId")] = each_TitleId;
+                web::json::value each_EncryptedRequest; ToJsonUtilS(EncryptedRequest, each_EncryptedRequest); output[U("EncryptedRequest")] = each_EncryptedRequest;
+                web::json::value each_PlayerSecret; ToJsonUtilS(PlayerSecret, each_PlayerSecret); output[U("PlayerSecret")] = each_PlayerSecret;
                 web::json::value each_InfoRequestParameters; ToJsonUtilO(InfoRequestParameters, each_InfoRequestParameters); output[U("InfoRequestParameters")] = each_InfoRequestParameters;
                 return output;
             }
@@ -9254,30 +9264,30 @@ namespace PlayFab
 
         struct LoginWithCustomIDRequest : public PlayFabRequestCommon
         {
-            std::string TitleId;
             std::string CustomId;
             Boxed<bool> CreateAccount;
-            std::string PlayerSecret;
+            std::string TitleId;
             std::string EncryptedRequest;
+            std::string PlayerSecret;
             Boxed<GetPlayerCombinedInfoRequestParams> InfoRequestParameters;
 
             LoginWithCustomIDRequest() :
                 PlayFabRequestCommon(),
-                TitleId(),
                 CustomId(),
                 CreateAccount(),
-                PlayerSecret(),
+                TitleId(),
                 EncryptedRequest(),
+                PlayerSecret(),
                 InfoRequestParameters()
             {}
 
             LoginWithCustomIDRequest(const LoginWithCustomIDRequest& src) :
                 PlayFabRequestCommon(),
-                TitleId(src.TitleId),
                 CustomId(src.CustomId),
                 CreateAccount(src.CreateAccount),
-                PlayerSecret(src.PlayerSecret),
+                TitleId(src.TitleId),
                 EncryptedRequest(src.EncryptedRequest),
+                PlayerSecret(src.PlayerSecret),
                 InfoRequestParameters(src.InfoRequestParameters)
             {}
 
@@ -9285,22 +9295,22 @@ namespace PlayFab
 
             void FromJson(web::json::value& input) override
             {
-                FromJsonUtilS(input[U("TitleId")], TitleId);
                 FromJsonUtilS(input[U("CustomId")], CustomId);
                 FromJsonUtilP(input[U("CreateAccount")], CreateAccount);
-                FromJsonUtilS(input[U("PlayerSecret")], PlayerSecret);
+                FromJsonUtilS(input[U("TitleId")], TitleId);
                 FromJsonUtilS(input[U("EncryptedRequest")], EncryptedRequest);
+                FromJsonUtilS(input[U("PlayerSecret")], PlayerSecret);
                 FromJsonUtilO(input[U("InfoRequestParameters")], InfoRequestParameters);
             }
 
             web::json::value ToJson() const override
             {
                 web::json::value output;
-                web::json::value each_TitleId; ToJsonUtilS(TitleId, each_TitleId); output[U("TitleId")] = each_TitleId;
                 web::json::value each_CustomId; ToJsonUtilS(CustomId, each_CustomId); output[U("CustomId")] = each_CustomId;
                 web::json::value each_CreateAccount; ToJsonUtilP(CreateAccount, each_CreateAccount); output[U("CreateAccount")] = each_CreateAccount;
-                web::json::value each_PlayerSecret; ToJsonUtilS(PlayerSecret, each_PlayerSecret); output[U("PlayerSecret")] = each_PlayerSecret;
+                web::json::value each_TitleId; ToJsonUtilS(TitleId, each_TitleId); output[U("TitleId")] = each_TitleId;
                 web::json::value each_EncryptedRequest; ToJsonUtilS(EncryptedRequest, each_EncryptedRequest); output[U("EncryptedRequest")] = each_EncryptedRequest;
+                web::json::value each_PlayerSecret; ToJsonUtilS(PlayerSecret, each_PlayerSecret); output[U("PlayerSecret")] = each_PlayerSecret;
                 web::json::value each_InfoRequestParameters; ToJsonUtilO(InfoRequestParameters, each_InfoRequestParameters); output[U("InfoRequestParameters")] = each_InfoRequestParameters;
                 return output;
             }
@@ -9352,24 +9362,30 @@ namespace PlayFab
 
         struct LoginWithFacebookRequest : public PlayFabRequestCommon
         {
-            std::string TitleId;
             std::string AccessToken;
             Boxed<bool> CreateAccount;
+            std::string TitleId;
+            std::string EncryptedRequest;
+            std::string PlayerSecret;
             Boxed<GetPlayerCombinedInfoRequestParams> InfoRequestParameters;
 
             LoginWithFacebookRequest() :
                 PlayFabRequestCommon(),
-                TitleId(),
                 AccessToken(),
                 CreateAccount(),
+                TitleId(),
+                EncryptedRequest(),
+                PlayerSecret(),
                 InfoRequestParameters()
             {}
 
             LoginWithFacebookRequest(const LoginWithFacebookRequest& src) :
                 PlayFabRequestCommon(),
-                TitleId(src.TitleId),
                 AccessToken(src.AccessToken),
                 CreateAccount(src.CreateAccount),
+                TitleId(src.TitleId),
+                EncryptedRequest(src.EncryptedRequest),
+                PlayerSecret(src.PlayerSecret),
                 InfoRequestParameters(src.InfoRequestParameters)
             {}
 
@@ -9377,18 +9393,22 @@ namespace PlayFab
 
             void FromJson(web::json::value& input) override
             {
-                FromJsonUtilS(input[U("TitleId")], TitleId);
                 FromJsonUtilS(input[U("AccessToken")], AccessToken);
                 FromJsonUtilP(input[U("CreateAccount")], CreateAccount);
+                FromJsonUtilS(input[U("TitleId")], TitleId);
+                FromJsonUtilS(input[U("EncryptedRequest")], EncryptedRequest);
+                FromJsonUtilS(input[U("PlayerSecret")], PlayerSecret);
                 FromJsonUtilO(input[U("InfoRequestParameters")], InfoRequestParameters);
             }
 
             web::json::value ToJson() const override
             {
                 web::json::value output;
-                web::json::value each_TitleId; ToJsonUtilS(TitleId, each_TitleId); output[U("TitleId")] = each_TitleId;
                 web::json::value each_AccessToken; ToJsonUtilS(AccessToken, each_AccessToken); output[U("AccessToken")] = each_AccessToken;
                 web::json::value each_CreateAccount; ToJsonUtilP(CreateAccount, each_CreateAccount); output[U("CreateAccount")] = each_CreateAccount;
+                web::json::value each_TitleId; ToJsonUtilS(TitleId, each_TitleId); output[U("TitleId")] = each_TitleId;
+                web::json::value each_EncryptedRequest; ToJsonUtilS(EncryptedRequest, each_EncryptedRequest); output[U("EncryptedRequest")] = each_EncryptedRequest;
+                web::json::value each_PlayerSecret; ToJsonUtilS(PlayerSecret, each_PlayerSecret); output[U("PlayerSecret")] = each_PlayerSecret;
                 web::json::value each_InfoRequestParameters; ToJsonUtilO(InfoRequestParameters, each_InfoRequestParameters); output[U("InfoRequestParameters")] = each_InfoRequestParameters;
                 return output;
             }
@@ -9396,24 +9416,30 @@ namespace PlayFab
 
         struct LoginWithGameCenterRequest : public PlayFabRequestCommon
         {
-            std::string TitleId;
             std::string PlayerId;
             Boxed<bool> CreateAccount;
+            std::string TitleId;
+            std::string EncryptedRequest;
+            std::string PlayerSecret;
             Boxed<GetPlayerCombinedInfoRequestParams> InfoRequestParameters;
 
             LoginWithGameCenterRequest() :
                 PlayFabRequestCommon(),
-                TitleId(),
                 PlayerId(),
                 CreateAccount(),
+                TitleId(),
+                EncryptedRequest(),
+                PlayerSecret(),
                 InfoRequestParameters()
             {}
 
             LoginWithGameCenterRequest(const LoginWithGameCenterRequest& src) :
                 PlayFabRequestCommon(),
-                TitleId(src.TitleId),
                 PlayerId(src.PlayerId),
                 CreateAccount(src.CreateAccount),
+                TitleId(src.TitleId),
+                EncryptedRequest(src.EncryptedRequest),
+                PlayerSecret(src.PlayerSecret),
                 InfoRequestParameters(src.InfoRequestParameters)
             {}
 
@@ -9421,18 +9447,22 @@ namespace PlayFab
 
             void FromJson(web::json::value& input) override
             {
-                FromJsonUtilS(input[U("TitleId")], TitleId);
                 FromJsonUtilS(input[U("PlayerId")], PlayerId);
                 FromJsonUtilP(input[U("CreateAccount")], CreateAccount);
+                FromJsonUtilS(input[U("TitleId")], TitleId);
+                FromJsonUtilS(input[U("EncryptedRequest")], EncryptedRequest);
+                FromJsonUtilS(input[U("PlayerSecret")], PlayerSecret);
                 FromJsonUtilO(input[U("InfoRequestParameters")], InfoRequestParameters);
             }
 
             web::json::value ToJson() const override
             {
                 web::json::value output;
-                web::json::value each_TitleId; ToJsonUtilS(TitleId, each_TitleId); output[U("TitleId")] = each_TitleId;
                 web::json::value each_PlayerId; ToJsonUtilS(PlayerId, each_PlayerId); output[U("PlayerId")] = each_PlayerId;
                 web::json::value each_CreateAccount; ToJsonUtilP(CreateAccount, each_CreateAccount); output[U("CreateAccount")] = each_CreateAccount;
+                web::json::value each_TitleId; ToJsonUtilS(TitleId, each_TitleId); output[U("TitleId")] = each_TitleId;
+                web::json::value each_EncryptedRequest; ToJsonUtilS(EncryptedRequest, each_EncryptedRequest); output[U("EncryptedRequest")] = each_EncryptedRequest;
+                web::json::value each_PlayerSecret; ToJsonUtilS(PlayerSecret, each_PlayerSecret); output[U("PlayerSecret")] = each_PlayerSecret;
                 web::json::value each_InfoRequestParameters; ToJsonUtilO(InfoRequestParameters, each_InfoRequestParameters); output[U("InfoRequestParameters")] = each_InfoRequestParameters;
                 return output;
             }
@@ -9440,24 +9470,30 @@ namespace PlayFab
 
         struct LoginWithGoogleAccountRequest : public PlayFabRequestCommon
         {
-            std::string TitleId;
             std::string ServerAuthCode;
             Boxed<bool> CreateAccount;
+            std::string TitleId;
+            std::string EncryptedRequest;
+            std::string PlayerSecret;
             Boxed<GetPlayerCombinedInfoRequestParams> InfoRequestParameters;
 
             LoginWithGoogleAccountRequest() :
                 PlayFabRequestCommon(),
-                TitleId(),
                 ServerAuthCode(),
                 CreateAccount(),
+                TitleId(),
+                EncryptedRequest(),
+                PlayerSecret(),
                 InfoRequestParameters()
             {}
 
             LoginWithGoogleAccountRequest(const LoginWithGoogleAccountRequest& src) :
                 PlayFabRequestCommon(),
-                TitleId(src.TitleId),
                 ServerAuthCode(src.ServerAuthCode),
                 CreateAccount(src.CreateAccount),
+                TitleId(src.TitleId),
+                EncryptedRequest(src.EncryptedRequest),
+                PlayerSecret(src.PlayerSecret),
                 InfoRequestParameters(src.InfoRequestParameters)
             {}
 
@@ -9465,18 +9501,22 @@ namespace PlayFab
 
             void FromJson(web::json::value& input) override
             {
-                FromJsonUtilS(input[U("TitleId")], TitleId);
                 FromJsonUtilS(input[U("ServerAuthCode")], ServerAuthCode);
                 FromJsonUtilP(input[U("CreateAccount")], CreateAccount);
+                FromJsonUtilS(input[U("TitleId")], TitleId);
+                FromJsonUtilS(input[U("EncryptedRequest")], EncryptedRequest);
+                FromJsonUtilS(input[U("PlayerSecret")], PlayerSecret);
                 FromJsonUtilO(input[U("InfoRequestParameters")], InfoRequestParameters);
             }
 
             web::json::value ToJson() const override
             {
                 web::json::value output;
-                web::json::value each_TitleId; ToJsonUtilS(TitleId, each_TitleId); output[U("TitleId")] = each_TitleId;
                 web::json::value each_ServerAuthCode; ToJsonUtilS(ServerAuthCode, each_ServerAuthCode); output[U("ServerAuthCode")] = each_ServerAuthCode;
                 web::json::value each_CreateAccount; ToJsonUtilP(CreateAccount, each_CreateAccount); output[U("CreateAccount")] = each_CreateAccount;
+                web::json::value each_TitleId; ToJsonUtilS(TitleId, each_TitleId); output[U("TitleId")] = each_TitleId;
+                web::json::value each_EncryptedRequest; ToJsonUtilS(EncryptedRequest, each_EncryptedRequest); output[U("EncryptedRequest")] = each_EncryptedRequest;
+                web::json::value each_PlayerSecret; ToJsonUtilS(PlayerSecret, each_PlayerSecret); output[U("PlayerSecret")] = each_PlayerSecret;
                 web::json::value each_InfoRequestParameters; ToJsonUtilO(InfoRequestParameters, each_InfoRequestParameters); output[U("InfoRequestParameters")] = each_InfoRequestParameters;
                 return output;
             }
@@ -9484,103 +9524,123 @@ namespace PlayFab
 
         struct LoginWithIOSDeviceIDRequest : public PlayFabRequestCommon
         {
-            std::string TitleId;
             std::string DeviceId;
             std::string OS;
             std::string DeviceModel;
-            Boxed<GetPlayerCombinedInfoRequestParams> InfoRequestParameters;
             Boxed<bool> CreateAccount;
+            std::string TitleId;
+            std::string EncryptedRequest;
+            std::string PlayerSecret;
+            Boxed<GetPlayerCombinedInfoRequestParams> InfoRequestParameters;
 
             LoginWithIOSDeviceIDRequest() :
                 PlayFabRequestCommon(),
-                TitleId(),
                 DeviceId(),
                 OS(),
                 DeviceModel(),
-                InfoRequestParameters(),
-                CreateAccount()
+                CreateAccount(),
+                TitleId(),
+                EncryptedRequest(),
+                PlayerSecret(),
+                InfoRequestParameters()
             {}
 
             LoginWithIOSDeviceIDRequest(const LoginWithIOSDeviceIDRequest& src) :
                 PlayFabRequestCommon(),
-                TitleId(src.TitleId),
                 DeviceId(src.DeviceId),
                 OS(src.OS),
                 DeviceModel(src.DeviceModel),
-                InfoRequestParameters(src.InfoRequestParameters),
-                CreateAccount(src.CreateAccount)
+                CreateAccount(src.CreateAccount),
+                TitleId(src.TitleId),
+                EncryptedRequest(src.EncryptedRequest),
+                PlayerSecret(src.PlayerSecret),
+                InfoRequestParameters(src.InfoRequestParameters)
             {}
 
             ~LoginWithIOSDeviceIDRequest() { }
 
             void FromJson(web::json::value& input) override
             {
-                FromJsonUtilS(input[U("TitleId")], TitleId);
                 FromJsonUtilS(input[U("DeviceId")], DeviceId);
                 FromJsonUtilS(input[U("OS")], OS);
                 FromJsonUtilS(input[U("DeviceModel")], DeviceModel);
-                FromJsonUtilO(input[U("InfoRequestParameters")], InfoRequestParameters);
                 FromJsonUtilP(input[U("CreateAccount")], CreateAccount);
+                FromJsonUtilS(input[U("TitleId")], TitleId);
+                FromJsonUtilS(input[U("EncryptedRequest")], EncryptedRequest);
+                FromJsonUtilS(input[U("PlayerSecret")], PlayerSecret);
+                FromJsonUtilO(input[U("InfoRequestParameters")], InfoRequestParameters);
             }
 
             web::json::value ToJson() const override
             {
                 web::json::value output;
-                web::json::value each_TitleId; ToJsonUtilS(TitleId, each_TitleId); output[U("TitleId")] = each_TitleId;
                 web::json::value each_DeviceId; ToJsonUtilS(DeviceId, each_DeviceId); output[U("DeviceId")] = each_DeviceId;
                 web::json::value each_OS; ToJsonUtilS(OS, each_OS); output[U("OS")] = each_OS;
                 web::json::value each_DeviceModel; ToJsonUtilS(DeviceModel, each_DeviceModel); output[U("DeviceModel")] = each_DeviceModel;
-                web::json::value each_InfoRequestParameters; ToJsonUtilO(InfoRequestParameters, each_InfoRequestParameters); output[U("InfoRequestParameters")] = each_InfoRequestParameters;
                 web::json::value each_CreateAccount; ToJsonUtilP(CreateAccount, each_CreateAccount); output[U("CreateAccount")] = each_CreateAccount;
+                web::json::value each_TitleId; ToJsonUtilS(TitleId, each_TitleId); output[U("TitleId")] = each_TitleId;
+                web::json::value each_EncryptedRequest; ToJsonUtilS(EncryptedRequest, each_EncryptedRequest); output[U("EncryptedRequest")] = each_EncryptedRequest;
+                web::json::value each_PlayerSecret; ToJsonUtilS(PlayerSecret, each_PlayerSecret); output[U("PlayerSecret")] = each_PlayerSecret;
+                web::json::value each_InfoRequestParameters; ToJsonUtilO(InfoRequestParameters, each_InfoRequestParameters); output[U("InfoRequestParameters")] = each_InfoRequestParameters;
                 return output;
             }
         };
 
         struct LoginWithKongregateRequest : public PlayFabRequestCommon
         {
-            std::string TitleId;
             std::string KongregateId;
             std::string AuthTicket;
             Boxed<bool> CreateAccount;
             Boxed<GetPlayerCombinedInfoRequestParams> InfoRequestParameters;
+            std::string TitleId;
+            std::string EncryptedRequest;
+            std::string PlayerSecret;
 
             LoginWithKongregateRequest() :
                 PlayFabRequestCommon(),
-                TitleId(),
                 KongregateId(),
                 AuthTicket(),
                 CreateAccount(),
-                InfoRequestParameters()
+                InfoRequestParameters(),
+                TitleId(),
+                EncryptedRequest(),
+                PlayerSecret()
             {}
 
             LoginWithKongregateRequest(const LoginWithKongregateRequest& src) :
                 PlayFabRequestCommon(),
-                TitleId(src.TitleId),
                 KongregateId(src.KongregateId),
                 AuthTicket(src.AuthTicket),
                 CreateAccount(src.CreateAccount),
-                InfoRequestParameters(src.InfoRequestParameters)
+                InfoRequestParameters(src.InfoRequestParameters),
+                TitleId(src.TitleId),
+                EncryptedRequest(src.EncryptedRequest),
+                PlayerSecret(src.PlayerSecret)
             {}
 
             ~LoginWithKongregateRequest() { }
 
             void FromJson(web::json::value& input) override
             {
-                FromJsonUtilS(input[U("TitleId")], TitleId);
                 FromJsonUtilS(input[U("KongregateId")], KongregateId);
                 FromJsonUtilS(input[U("AuthTicket")], AuthTicket);
                 FromJsonUtilP(input[U("CreateAccount")], CreateAccount);
                 FromJsonUtilO(input[U("InfoRequestParameters")], InfoRequestParameters);
+                FromJsonUtilS(input[U("TitleId")], TitleId);
+                FromJsonUtilS(input[U("EncryptedRequest")], EncryptedRequest);
+                FromJsonUtilS(input[U("PlayerSecret")], PlayerSecret);
             }
 
             web::json::value ToJson() const override
             {
                 web::json::value output;
-                web::json::value each_TitleId; ToJsonUtilS(TitleId, each_TitleId); output[U("TitleId")] = each_TitleId;
                 web::json::value each_KongregateId; ToJsonUtilS(KongregateId, each_KongregateId); output[U("KongregateId")] = each_KongregateId;
                 web::json::value each_AuthTicket; ToJsonUtilS(AuthTicket, each_AuthTicket); output[U("AuthTicket")] = each_AuthTicket;
                 web::json::value each_CreateAccount; ToJsonUtilP(CreateAccount, each_CreateAccount); output[U("CreateAccount")] = each_CreateAccount;
                 web::json::value each_InfoRequestParameters; ToJsonUtilO(InfoRequestParameters, each_InfoRequestParameters); output[U("InfoRequestParameters")] = each_InfoRequestParameters;
+                web::json::value each_TitleId; ToJsonUtilS(TitleId, each_TitleId); output[U("TitleId")] = each_TitleId;
+                web::json::value each_EncryptedRequest; ToJsonUtilS(EncryptedRequest, each_EncryptedRequest); output[U("EncryptedRequest")] = each_EncryptedRequest;
+                web::json::value each_PlayerSecret; ToJsonUtilS(PlayerSecret, each_PlayerSecret); output[U("PlayerSecret")] = each_PlayerSecret;
                 return output;
             }
         };
@@ -9631,24 +9691,30 @@ namespace PlayFab
 
         struct LoginWithSteamRequest : public PlayFabRequestCommon
         {
-            std::string TitleId;
             std::string SteamTicket;
             Boxed<bool> CreateAccount;
+            std::string TitleId;
+            std::string EncryptedRequest;
+            std::string PlayerSecret;
             Boxed<GetPlayerCombinedInfoRequestParams> InfoRequestParameters;
 
             LoginWithSteamRequest() :
                 PlayFabRequestCommon(),
-                TitleId(),
                 SteamTicket(),
                 CreateAccount(),
+                TitleId(),
+                EncryptedRequest(),
+                PlayerSecret(),
                 InfoRequestParameters()
             {}
 
             LoginWithSteamRequest(const LoginWithSteamRequest& src) :
                 PlayFabRequestCommon(),
-                TitleId(src.TitleId),
                 SteamTicket(src.SteamTicket),
                 CreateAccount(src.CreateAccount),
+                TitleId(src.TitleId),
+                EncryptedRequest(src.EncryptedRequest),
+                PlayerSecret(src.PlayerSecret),
                 InfoRequestParameters(src.InfoRequestParameters)
             {}
 
@@ -9656,18 +9722,22 @@ namespace PlayFab
 
             void FromJson(web::json::value& input) override
             {
-                FromJsonUtilS(input[U("TitleId")], TitleId);
                 FromJsonUtilS(input[U("SteamTicket")], SteamTicket);
                 FromJsonUtilP(input[U("CreateAccount")], CreateAccount);
+                FromJsonUtilS(input[U("TitleId")], TitleId);
+                FromJsonUtilS(input[U("EncryptedRequest")], EncryptedRequest);
+                FromJsonUtilS(input[U("PlayerSecret")], PlayerSecret);
                 FromJsonUtilO(input[U("InfoRequestParameters")], InfoRequestParameters);
             }
 
             web::json::value ToJson() const override
             {
                 web::json::value output;
-                web::json::value each_TitleId; ToJsonUtilS(TitleId, each_TitleId); output[U("TitleId")] = each_TitleId;
                 web::json::value each_SteamTicket; ToJsonUtilS(SteamTicket, each_SteamTicket); output[U("SteamTicket")] = each_SteamTicket;
                 web::json::value each_CreateAccount; ToJsonUtilP(CreateAccount, each_CreateAccount); output[U("CreateAccount")] = each_CreateAccount;
+                web::json::value each_TitleId; ToJsonUtilS(TitleId, each_TitleId); output[U("TitleId")] = each_TitleId;
+                web::json::value each_EncryptedRequest; ToJsonUtilS(EncryptedRequest, each_EncryptedRequest); output[U("EncryptedRequest")] = each_EncryptedRequest;
+                web::json::value each_PlayerSecret; ToJsonUtilS(PlayerSecret, each_PlayerSecret); output[U("PlayerSecret")] = each_PlayerSecret;
                 web::json::value each_InfoRequestParameters; ToJsonUtilO(InfoRequestParameters, each_InfoRequestParameters); output[U("InfoRequestParameters")] = each_InfoRequestParameters;
                 return output;
             }
@@ -9675,24 +9745,30 @@ namespace PlayFab
 
         struct LoginWithTwitchRequest : public PlayFabRequestCommon
         {
-            std::string TitleId;
             std::string AccessToken;
             Boxed<bool> CreateAccount;
+            std::string TitleId;
+            std::string EncryptedRequest;
+            std::string PlayerSecret;
             Boxed<GetPlayerCombinedInfoRequestParams> InfoRequestParameters;
 
             LoginWithTwitchRequest() :
                 PlayFabRequestCommon(),
-                TitleId(),
                 AccessToken(),
                 CreateAccount(),
+                TitleId(),
+                EncryptedRequest(),
+                PlayerSecret(),
                 InfoRequestParameters()
             {}
 
             LoginWithTwitchRequest(const LoginWithTwitchRequest& src) :
                 PlayFabRequestCommon(),
-                TitleId(src.TitleId),
                 AccessToken(src.AccessToken),
                 CreateAccount(src.CreateAccount),
+                TitleId(src.TitleId),
+                EncryptedRequest(src.EncryptedRequest),
+                PlayerSecret(src.PlayerSecret),
                 InfoRequestParameters(src.InfoRequestParameters)
             {}
 
@@ -9700,18 +9776,22 @@ namespace PlayFab
 
             void FromJson(web::json::value& input) override
             {
-                FromJsonUtilS(input[U("TitleId")], TitleId);
                 FromJsonUtilS(input[U("AccessToken")], AccessToken);
                 FromJsonUtilP(input[U("CreateAccount")], CreateAccount);
+                FromJsonUtilS(input[U("TitleId")], TitleId);
+                FromJsonUtilS(input[U("EncryptedRequest")], EncryptedRequest);
+                FromJsonUtilS(input[U("PlayerSecret")], PlayerSecret);
                 FromJsonUtilO(input[U("InfoRequestParameters")], InfoRequestParameters);
             }
 
             web::json::value ToJson() const override
             {
                 web::json::value output;
-                web::json::value each_TitleId; ToJsonUtilS(TitleId, each_TitleId); output[U("TitleId")] = each_TitleId;
                 web::json::value each_AccessToken; ToJsonUtilS(AccessToken, each_AccessToken); output[U("AccessToken")] = each_AccessToken;
                 web::json::value each_CreateAccount; ToJsonUtilP(CreateAccount, each_CreateAccount); output[U("CreateAccount")] = each_CreateAccount;
+                web::json::value each_TitleId; ToJsonUtilS(TitleId, each_TitleId); output[U("TitleId")] = each_TitleId;
+                web::json::value each_EncryptedRequest; ToJsonUtilS(EncryptedRequest, each_EncryptedRequest); output[U("EncryptedRequest")] = each_EncryptedRequest;
+                web::json::value each_PlayerSecret; ToJsonUtilS(PlayerSecret, each_PlayerSecret); output[U("PlayerSecret")] = each_PlayerSecret;
                 web::json::value each_InfoRequestParameters; ToJsonUtilO(InfoRequestParameters, each_InfoRequestParameters); output[U("InfoRequestParameters")] = each_InfoRequestParameters;
                 return output;
             }
@@ -10408,54 +10488,69 @@ namespace PlayFab
 
         struct RegisterPlayFabUserRequest : public PlayFabRequestCommon
         {
-            std::string TitleId;
             std::string Username;
             std::string Email;
             std::string Password;
             Boxed<bool> RequireBothUsernameAndEmail;
             std::string DisplayName;
+            std::string TitleId;
+            std::string EncryptedRequest;
+            std::string PlayerSecret;
+            Boxed<GetPlayerCombinedInfoRequestParams> InfoRequestParameters;
 
             RegisterPlayFabUserRequest() :
                 PlayFabRequestCommon(),
-                TitleId(),
                 Username(),
                 Email(),
                 Password(),
                 RequireBothUsernameAndEmail(),
-                DisplayName()
+                DisplayName(),
+                TitleId(),
+                EncryptedRequest(),
+                PlayerSecret(),
+                InfoRequestParameters()
             {}
 
             RegisterPlayFabUserRequest(const RegisterPlayFabUserRequest& src) :
                 PlayFabRequestCommon(),
-                TitleId(src.TitleId),
                 Username(src.Username),
                 Email(src.Email),
                 Password(src.Password),
                 RequireBothUsernameAndEmail(src.RequireBothUsernameAndEmail),
-                DisplayName(src.DisplayName)
+                DisplayName(src.DisplayName),
+                TitleId(src.TitleId),
+                EncryptedRequest(src.EncryptedRequest),
+                PlayerSecret(src.PlayerSecret),
+                InfoRequestParameters(src.InfoRequestParameters)
             {}
 
             ~RegisterPlayFabUserRequest() { }
 
             void FromJson(web::json::value& input) override
             {
-                FromJsonUtilS(input[U("TitleId")], TitleId);
                 FromJsonUtilS(input[U("Username")], Username);
                 FromJsonUtilS(input[U("Email")], Email);
                 FromJsonUtilS(input[U("Password")], Password);
                 FromJsonUtilP(input[U("RequireBothUsernameAndEmail")], RequireBothUsernameAndEmail);
                 FromJsonUtilS(input[U("DisplayName")], DisplayName);
+                FromJsonUtilS(input[U("TitleId")], TitleId);
+                FromJsonUtilS(input[U("EncryptedRequest")], EncryptedRequest);
+                FromJsonUtilS(input[U("PlayerSecret")], PlayerSecret);
+                FromJsonUtilO(input[U("InfoRequestParameters")], InfoRequestParameters);
             }
 
             web::json::value ToJson() const override
             {
                 web::json::value output;
-                web::json::value each_TitleId; ToJsonUtilS(TitleId, each_TitleId); output[U("TitleId")] = each_TitleId;
                 web::json::value each_Username; ToJsonUtilS(Username, each_Username); output[U("Username")] = each_Username;
                 web::json::value each_Email; ToJsonUtilS(Email, each_Email); output[U("Email")] = each_Email;
                 web::json::value each_Password; ToJsonUtilS(Password, each_Password); output[U("Password")] = each_Password;
                 web::json::value each_RequireBothUsernameAndEmail; ToJsonUtilP(RequireBothUsernameAndEmail, each_RequireBothUsernameAndEmail); output[U("RequireBothUsernameAndEmail")] = each_RequireBothUsernameAndEmail;
                 web::json::value each_DisplayName; ToJsonUtilS(DisplayName, each_DisplayName); output[U("DisplayName")] = each_DisplayName;
+                web::json::value each_TitleId; ToJsonUtilS(TitleId, each_TitleId); output[U("TitleId")] = each_TitleId;
+                web::json::value each_EncryptedRequest; ToJsonUtilS(EncryptedRequest, each_EncryptedRequest); output[U("EncryptedRequest")] = each_EncryptedRequest;
+                web::json::value each_PlayerSecret; ToJsonUtilS(PlayerSecret, each_PlayerSecret); output[U("PlayerSecret")] = each_PlayerSecret;
+                web::json::value each_InfoRequestParameters; ToJsonUtilO(InfoRequestParameters, each_InfoRequestParameters); output[U("InfoRequestParameters")] = each_InfoRequestParameters;
                 return output;
             }
         };
@@ -10506,27 +10601,33 @@ namespace PlayFab
 
         struct RegisterWithWindowsHelloRequest : public PlayFabRequestCommon
         {
-            std::string TitleId;
             std::string UserName;
             std::string PublicKey;
             std::string DeviceName;
+            std::string TitleId;
+            std::string EncryptedRequest;
+            std::string PlayerSecret;
             Boxed<GetPlayerCombinedInfoRequestParams> InfoRequestParameters;
 
             RegisterWithWindowsHelloRequest() :
                 PlayFabRequestCommon(),
-                TitleId(),
                 UserName(),
                 PublicKey(),
                 DeviceName(),
+                TitleId(),
+                EncryptedRequest(),
+                PlayerSecret(),
                 InfoRequestParameters()
             {}
 
             RegisterWithWindowsHelloRequest(const RegisterWithWindowsHelloRequest& src) :
                 PlayFabRequestCommon(),
-                TitleId(src.TitleId),
                 UserName(src.UserName),
                 PublicKey(src.PublicKey),
                 DeviceName(src.DeviceName),
+                TitleId(src.TitleId),
+                EncryptedRequest(src.EncryptedRequest),
+                PlayerSecret(src.PlayerSecret),
                 InfoRequestParameters(src.InfoRequestParameters)
             {}
 
@@ -10534,20 +10635,24 @@ namespace PlayFab
 
             void FromJson(web::json::value& input) override
             {
-                FromJsonUtilS(input[U("TitleId")], TitleId);
                 FromJsonUtilS(input[U("UserName")], UserName);
                 FromJsonUtilS(input[U("PublicKey")], PublicKey);
                 FromJsonUtilS(input[U("DeviceName")], DeviceName);
+                FromJsonUtilS(input[U("TitleId")], TitleId);
+                FromJsonUtilS(input[U("EncryptedRequest")], EncryptedRequest);
+                FromJsonUtilS(input[U("PlayerSecret")], PlayerSecret);
                 FromJsonUtilO(input[U("InfoRequestParameters")], InfoRequestParameters);
             }
 
             web::json::value ToJson() const override
             {
                 web::json::value output;
-                web::json::value each_TitleId; ToJsonUtilS(TitleId, each_TitleId); output[U("TitleId")] = each_TitleId;
                 web::json::value each_UserName; ToJsonUtilS(UserName, each_UserName); output[U("UserName")] = each_UserName;
                 web::json::value each_PublicKey; ToJsonUtilS(PublicKey, each_PublicKey); output[U("PublicKey")] = each_PublicKey;
                 web::json::value each_DeviceName; ToJsonUtilS(DeviceName, each_DeviceName); output[U("DeviceName")] = each_DeviceName;
+                web::json::value each_TitleId; ToJsonUtilS(TitleId, each_TitleId); output[U("TitleId")] = each_TitleId;
+                web::json::value each_EncryptedRequest; ToJsonUtilS(EncryptedRequest, each_EncryptedRequest); output[U("EncryptedRequest")] = each_EncryptedRequest;
+                web::json::value each_PlayerSecret; ToJsonUtilS(PlayerSecret, each_PlayerSecret); output[U("PlayerSecret")] = each_PlayerSecret;
                 web::json::value each_InfoRequestParameters; ToJsonUtilO(InfoRequestParameters, each_InfoRequestParameters); output[U("InfoRequestParameters")] = each_InfoRequestParameters;
                 return output;
             }
