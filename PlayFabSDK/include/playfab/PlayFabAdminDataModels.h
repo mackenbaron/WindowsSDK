@@ -9,6 +9,28 @@ namespace PlayFab
     namespace AdminModels
     {
         // Admin Enums
+        enum Conditionals
+        {
+            ConditionalsAny,
+            ConditionalsTrue,
+            ConditionalsFalse
+        };
+
+        inline void ToJsonEnum(const Conditionals input, web::json::value& output)
+        {
+            if (input == ConditionalsAny) output = web::json::value(U("Any"));
+            if (input == ConditionalsTrue) output = web::json::value(U("True"));
+            if (input == ConditionalsFalse) output = web::json::value(U("False"));
+        }
+        inline void FromJsonEnum(const web::json::value& input, Conditionals& output)
+        {
+            if (!input.is_string()) return;
+            const utility::string_t& inputStr = input.as_string();
+            if (inputStr == U("Any")) output = ConditionalsAny;
+            if (inputStr == U("True")) output = ConditionalsTrue;
+            if (inputStr == U("False")) output = ConditionalsFalse;
+        }
+
         enum ContinentCode
         {
             ContinentCodeAF,
@@ -2392,6 +2414,35 @@ namespace PlayFab
             {
                 web::json::value output;
                 web::json::value each_VirtualCurrencies; ToJsonUtilO(VirtualCurrencies, each_VirtualCurrencies); output[U("VirtualCurrencies")] = each_VirtualCurrencies;
+                return output;
+            }
+        };
+
+        struct ApiCondition : public PlayFabBaseModel
+        {
+            Boxed<Conditionals> HasSignatureOrEncryption;
+
+            ApiCondition() :
+                PlayFabBaseModel(),
+                HasSignatureOrEncryption()
+            {}
+
+            ApiCondition(const ApiCondition& src) :
+                PlayFabBaseModel(),
+                HasSignatureOrEncryption(src.HasSignatureOrEncryption)
+            {}
+
+            ~ApiCondition() { }
+
+            void FromJson(web::json::value& input) override
+            {
+                FromJsonUtilE(input[U("HasSignatureOrEncryption")], HasSignatureOrEncryption);
+            }
+
+            web::json::value ToJson() const override
+            {
+                web::json::value output;
+                web::json::value each_HasSignatureOrEncryption; ToJsonUtilE(HasSignatureOrEncryption, each_HasSignatureOrEncryption); output[U("HasSignatureOrEncryption")] = each_HasSignatureOrEncryption;
                 return output;
             }
         };
@@ -5196,6 +5247,7 @@ namespace PlayFab
             EffectType Effect;
             std::string Principal;
             std::string Comment;
+            Boxed<ApiCondition> ApiConditions;
 
             PermissionStatement() :
                 PlayFabBaseModel(),
@@ -5203,7 +5255,8 @@ namespace PlayFab
                 Action(),
                 Effect(),
                 Principal(),
-                Comment()
+                Comment(),
+                ApiConditions()
             {}
 
             PermissionStatement(const PermissionStatement& src) :
@@ -5212,7 +5265,8 @@ namespace PlayFab
                 Action(src.Action),
                 Effect(src.Effect),
                 Principal(src.Principal),
-                Comment(src.Comment)
+                Comment(src.Comment),
+                ApiConditions(src.ApiConditions)
             {}
 
             ~PermissionStatement() { }
@@ -5224,6 +5278,7 @@ namespace PlayFab
                 FromJsonEnum(input[U("Effect")], Effect);
                 FromJsonUtilS(input[U("Principal")], Principal);
                 FromJsonUtilS(input[U("Comment")], Comment);
+                FromJsonUtilO(input[U("ApiConditions")], ApiConditions);
             }
 
             web::json::value ToJson() const override
@@ -5234,6 +5289,7 @@ namespace PlayFab
                 web::json::value each_Effect; ToJsonEnum(Effect, each_Effect); output[U("Effect")] = each_Effect;
                 web::json::value each_Principal; ToJsonUtilS(Principal, each_Principal); output[U("Principal")] = each_Principal;
                 web::json::value each_Comment; ToJsonUtilS(Comment, each_Comment); output[U("Comment")] = each_Comment;
+                web::json::value each_ApiConditions; ToJsonUtilO(ApiConditions, each_ApiConditions); output[U("ApiConditions")] = each_ApiConditions;
                 return output;
             }
         };
