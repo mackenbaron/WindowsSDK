@@ -3555,7 +3555,9 @@ namespace PlayFab
             std::string FunctionName;
             Int32 Revision;
             web::json::value FunctionResult;
+            Boxed<bool> FunctionResultTooLarge;
             std::list<LogStatement> Logs;
+            Boxed<bool> LogsTooLarge;
             double ExecutionTimeSeconds;
             double ProcessorTimeSeconds;
             Uint32 MemoryConsumedBytes;
@@ -3568,7 +3570,9 @@ namespace PlayFab
                 FunctionName(),
                 Revision(),
                 FunctionResult(),
+                FunctionResultTooLarge(),
                 Logs(),
+                LogsTooLarge(),
                 ExecutionTimeSeconds(),
                 ProcessorTimeSeconds(),
                 MemoryConsumedBytes(),
@@ -3582,7 +3586,9 @@ namespace PlayFab
                 FunctionName(src.FunctionName),
                 Revision(src.Revision),
                 FunctionResult(src.FunctionResult),
+                FunctionResultTooLarge(src.FunctionResultTooLarge),
                 Logs(src.Logs),
+                LogsTooLarge(src.LogsTooLarge),
                 ExecutionTimeSeconds(src.ExecutionTimeSeconds),
                 ProcessorTimeSeconds(src.ProcessorTimeSeconds),
                 MemoryConsumedBytes(src.MemoryConsumedBytes),
@@ -3598,7 +3604,9 @@ namespace PlayFab
                 FromJsonUtilS(input[U("FunctionName")], FunctionName);
                 FromJsonUtilP(input[U("Revision")], Revision);
                 FunctionResult = input[U("FunctionResult")];
+                FromJsonUtilP(input[U("FunctionResultTooLarge")], FunctionResultTooLarge);
                 FromJsonUtilO(input[U("Logs")], Logs);
+                FromJsonUtilP(input[U("LogsTooLarge")], LogsTooLarge);
                 FromJsonUtilP(input[U("ExecutionTimeSeconds")], ExecutionTimeSeconds);
                 FromJsonUtilP(input[U("ProcessorTimeSeconds")], ProcessorTimeSeconds);
                 FromJsonUtilP(input[U("MemoryConsumedBytes")], MemoryConsumedBytes);
@@ -3613,7 +3621,9 @@ namespace PlayFab
                 web::json::value each_FunctionName; ToJsonUtilS(FunctionName, each_FunctionName); output[U("FunctionName")] = each_FunctionName;
                 web::json::value each_Revision; ToJsonUtilP(Revision, each_Revision); output[U("Revision")] = each_Revision;
                 output[U("FunctionResult")] = FunctionResult;
+                web::json::value each_FunctionResultTooLarge; ToJsonUtilP(FunctionResultTooLarge, each_FunctionResultTooLarge); output[U("FunctionResultTooLarge")] = each_FunctionResultTooLarge;
                 web::json::value each_Logs; ToJsonUtilO(Logs, each_Logs); output[U("Logs")] = each_Logs;
+                web::json::value each_LogsTooLarge; ToJsonUtilP(LogsTooLarge, each_LogsTooLarge); output[U("LogsTooLarge")] = each_LogsTooLarge;
                 web::json::value each_ExecutionTimeSeconds; ToJsonUtilP(ExecutionTimeSeconds, each_ExecutionTimeSeconds); output[U("ExecutionTimeSeconds")] = each_ExecutionTimeSeconds;
                 web::json::value each_ProcessorTimeSeconds; ToJsonUtilP(ProcessorTimeSeconds, each_ProcessorTimeSeconds); output[U("ProcessorTimeSeconds")] = each_ProcessorTimeSeconds;
                 web::json::value each_MemoryConsumedBytes; ToJsonUtilP(MemoryConsumedBytes, each_MemoryConsumedBytes); output[U("MemoryConsumedBytes")] = each_MemoryConsumedBytes;

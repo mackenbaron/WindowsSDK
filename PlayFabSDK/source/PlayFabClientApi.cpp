@@ -1046,7 +1046,7 @@ namespace PlayFab
 
         IPlayFabHttp& http = IPlayFabHttp::Get();
         auto requestJson = request.ToJson();
-        http.AddRequest(U("/Client/LinkWindowsHello"), U(""), U(""), requestJson, OnLinkWindowsHelloResult, SharedVoidPointer((callback == nullptr) ? nullptr : new ProcessApiCallback<LinkWindowsHelloAccountResponse>(callback)), errorCallback, customData);
+        http.AddRequest(U("/Client/LinkWindowsHello"), U("X-Authorization"), mUserSessionTicket, requestJson, OnLinkWindowsHelloResult, SharedVoidPointer((callback == nullptr) ? nullptr : new ProcessApiCallback<LinkWindowsHelloAccountResponse>(callback)), errorCallback, customData);
     }
 
     void PlayFabClientAPI::OnLinkWindowsHelloResult(CallRequestContainer& request)
@@ -1384,7 +1384,7 @@ namespace PlayFab
 
         IPlayFabHttp& http = IPlayFabHttp::Get();
         auto requestJson = request.ToJson();
-        http.AddRequest(U("/Client/UnlinkWindowsHello"), U(""), U(""), requestJson, OnUnlinkWindowsHelloResult, SharedVoidPointer((callback == nullptr) ? nullptr : new ProcessApiCallback<UnlinkWindowsHelloAccountResponse>(callback)), errorCallback, customData);
+        http.AddRequest(U("/Client/UnlinkWindowsHello"), U("X-Authorization"), mUserSessionTicket, requestJson, OnUnlinkWindowsHelloResult, SharedVoidPointer((callback == nullptr) ? nullptr : new ProcessApiCallback<UnlinkWindowsHelloAccountResponse>(callback)), errorCallback, customData);
     }
 
     void PlayFabClientAPI::OnUnlinkWindowsHelloResult(CallRequestContainer& request)
@@ -3387,7 +3387,7 @@ namespace PlayFab
 
         IPlayFabHttp& http = IPlayFabHttp::Get();
         auto requestJson = request.ToJson();
-        http.AddRequest(U("/Client/ValidateWindowsStoreReceipt"), U(""), U(""), requestJson, OnValidateWindowsStoreReceiptResult, SharedVoidPointer((callback == nullptr) ? nullptr : new ProcessApiCallback<ValidateWindowsReceiptResult>(callback)), errorCallback, customData);
+        http.AddRequest(U("/Client/ValidateWindowsStoreReceipt"), U("X-Authorization"), mUserSessionTicket, requestJson, OnValidateWindowsStoreReceiptResult, SharedVoidPointer((callback == nullptr) ? nullptr : new ProcessApiCallback<ValidateWindowsReceiptResult>(callback)), errorCallback, customData);
     }
 
     void PlayFabClientAPI::OnValidateWindowsStoreReceiptResult(CallRequestContainer& request)
