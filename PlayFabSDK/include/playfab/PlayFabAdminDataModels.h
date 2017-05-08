@@ -3029,7 +3029,9 @@ namespace PlayFab
             std::string FunctionName;
             Int32 Revision;
             web::json::value FunctionResult;
+            Boxed<bool> FunctionResultTooLarge;
             std::list<LogStatement> Logs;
+            Boxed<bool> LogsTooLarge;
             double ExecutionTimeSeconds;
             double ProcessorTimeSeconds;
             Uint32 MemoryConsumedBytes;
@@ -3042,7 +3044,9 @@ namespace PlayFab
                 FunctionName(),
                 Revision(),
                 FunctionResult(),
+                FunctionResultTooLarge(),
                 Logs(),
+                LogsTooLarge(),
                 ExecutionTimeSeconds(),
                 ProcessorTimeSeconds(),
                 MemoryConsumedBytes(),
@@ -3056,7 +3060,9 @@ namespace PlayFab
                 FunctionName(src.FunctionName),
                 Revision(src.Revision),
                 FunctionResult(src.FunctionResult),
+                FunctionResultTooLarge(src.FunctionResultTooLarge),
                 Logs(src.Logs),
+                LogsTooLarge(src.LogsTooLarge),
                 ExecutionTimeSeconds(src.ExecutionTimeSeconds),
                 ProcessorTimeSeconds(src.ProcessorTimeSeconds),
                 MemoryConsumedBytes(src.MemoryConsumedBytes),
@@ -3072,7 +3078,9 @@ namespace PlayFab
                 FromJsonUtilS(input[U("FunctionName")], FunctionName);
                 FromJsonUtilP(input[U("Revision")], Revision);
                 FunctionResult = input[U("FunctionResult")];
+                FromJsonUtilP(input[U("FunctionResultTooLarge")], FunctionResultTooLarge);
                 FromJsonUtilO(input[U("Logs")], Logs);
+                FromJsonUtilP(input[U("LogsTooLarge")], LogsTooLarge);
                 FromJsonUtilP(input[U("ExecutionTimeSeconds")], ExecutionTimeSeconds);
                 FromJsonUtilP(input[U("ProcessorTimeSeconds")], ProcessorTimeSeconds);
                 FromJsonUtilP(input[U("MemoryConsumedBytes")], MemoryConsumedBytes);
@@ -3087,7 +3095,9 @@ namespace PlayFab
                 web::json::value each_FunctionName; ToJsonUtilS(FunctionName, each_FunctionName); output[U("FunctionName")] = each_FunctionName;
                 web::json::value each_Revision; ToJsonUtilP(Revision, each_Revision); output[U("Revision")] = each_Revision;
                 output[U("FunctionResult")] = FunctionResult;
+                web::json::value each_FunctionResultTooLarge; ToJsonUtilP(FunctionResultTooLarge, each_FunctionResultTooLarge); output[U("FunctionResultTooLarge")] = each_FunctionResultTooLarge;
                 web::json::value each_Logs; ToJsonUtilO(Logs, each_Logs); output[U("Logs")] = each_Logs;
+                web::json::value each_LogsTooLarge; ToJsonUtilP(LogsTooLarge, each_LogsTooLarge); output[U("LogsTooLarge")] = each_LogsTooLarge;
                 web::json::value each_ExecutionTimeSeconds; ToJsonUtilP(ExecutionTimeSeconds, each_ExecutionTimeSeconds); output[U("ExecutionTimeSeconds")] = each_ExecutionTimeSeconds;
                 web::json::value each_ProcessorTimeSeconds; ToJsonUtilP(ProcessorTimeSeconds, each_ProcessorTimeSeconds); output[U("ProcessorTimeSeconds")] = each_ProcessorTimeSeconds;
                 web::json::value each_MemoryConsumedBytes; ToJsonUtilP(MemoryConsumedBytes, each_MemoryConsumedBytes); output[U("MemoryConsumedBytes")] = each_MemoryConsumedBytes;
@@ -5053,7 +5063,6 @@ namespace PlayFab
             time_t ActivationTime;
             Boxed<time_t> ScheduledDeactivationTime;
             Boxed<time_t> DeactivationTime;
-            Boxed<StatisticVersionArchivalStatus> ArchivalStatus;
             Boxed<StatisticVersionStatus> Status;
             std::string ArchiveDownloadUrl;
 
@@ -5065,7 +5074,6 @@ namespace PlayFab
                 ActivationTime(),
                 ScheduledDeactivationTime(),
                 DeactivationTime(),
-                ArchivalStatus(),
                 Status(),
                 ArchiveDownloadUrl()
             {}
@@ -5078,7 +5086,6 @@ namespace PlayFab
                 ActivationTime(src.ActivationTime),
                 ScheduledDeactivationTime(src.ScheduledDeactivationTime),
                 DeactivationTime(src.DeactivationTime),
-                ArchivalStatus(src.ArchivalStatus),
                 Status(src.Status),
                 ArchiveDownloadUrl(src.ArchiveDownloadUrl)
             {}
@@ -5093,7 +5100,6 @@ namespace PlayFab
                 FromJsonUtilT(input[U("ActivationTime")], ActivationTime);
                 FromJsonUtilT(input[U("ScheduledDeactivationTime")], ScheduledDeactivationTime);
                 FromJsonUtilT(input[U("DeactivationTime")], DeactivationTime);
-                FromJsonUtilE(input[U("ArchivalStatus")], ArchivalStatus);
                 FromJsonUtilE(input[U("Status")], Status);
                 FromJsonUtilS(input[U("ArchiveDownloadUrl")], ArchiveDownloadUrl);
             }
@@ -5107,7 +5113,6 @@ namespace PlayFab
                 web::json::value each_ActivationTime; ToJsonUtilT(ActivationTime, each_ActivationTime); output[U("ActivationTime")] = each_ActivationTime;
                 web::json::value each_ScheduledDeactivationTime; ToJsonUtilT(ScheduledDeactivationTime, each_ScheduledDeactivationTime); output[U("ScheduledDeactivationTime")] = each_ScheduledDeactivationTime;
                 web::json::value each_DeactivationTime; ToJsonUtilT(DeactivationTime, each_DeactivationTime); output[U("DeactivationTime")] = each_DeactivationTime;
-                web::json::value each_ArchivalStatus; ToJsonUtilE(ArchivalStatus, each_ArchivalStatus); output[U("ArchivalStatus")] = each_ArchivalStatus;
                 web::json::value each_Status; ToJsonUtilE(Status, each_Status); output[U("Status")] = each_Status;
                 web::json::value each_ArchiveDownloadUrl; ToJsonUtilS(ArchiveDownloadUrl, each_ArchiveDownloadUrl); output[U("ArchiveDownloadUrl")] = each_ArchiveDownloadUrl;
                 return output;
