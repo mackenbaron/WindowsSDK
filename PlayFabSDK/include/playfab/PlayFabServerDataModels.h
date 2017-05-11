@@ -9179,14 +9179,12 @@ namespace PlayFab
         {
             std::string ReporterId;
             std::string ReporteeId;
-            std::string TitleId;
             std::string Comment;
 
             ReportPlayerServerRequest() :
                 PlayFabRequestCommon(),
                 ReporterId(),
                 ReporteeId(),
-                TitleId(),
                 Comment()
             {}
 
@@ -9194,7 +9192,6 @@ namespace PlayFab
                 PlayFabRequestCommon(),
                 ReporterId(src.ReporterId),
                 ReporteeId(src.ReporteeId),
-                TitleId(src.TitleId),
                 Comment(src.Comment)
             {}
 
@@ -9204,7 +9201,6 @@ namespace PlayFab
             {
                 FromJsonUtilS(input[U("ReporterId")], ReporterId);
                 FromJsonUtilS(input[U("ReporteeId")], ReporteeId);
-                FromJsonUtilS(input[U("TitleId")], TitleId);
                 FromJsonUtilS(input[U("Comment")], Comment);
             }
 
@@ -9213,7 +9209,6 @@ namespace PlayFab
                 web::json::value output;
                 web::json::value each_ReporterId; ToJsonUtilS(ReporterId, each_ReporterId); output[U("ReporterId")] = each_ReporterId;
                 web::json::value each_ReporteeId; ToJsonUtilS(ReporteeId, each_ReporteeId); output[U("ReporteeId")] = each_ReporteeId;
-                web::json::value each_TitleId; ToJsonUtilS(TitleId, each_TitleId); output[U("TitleId")] = each_TitleId;
                 web::json::value each_Comment; ToJsonUtilS(Comment, each_Comment); output[U("Comment")] = each_Comment;
                 return output;
             }

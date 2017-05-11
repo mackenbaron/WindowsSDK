@@ -303,6 +303,7 @@ namespace PlayFab
         PlayFabErrorEncryptedRequestNotAllowed = 1301,
         PlayFabErrorSignedRequestNotAllowed = 1302,
         PlayFabErrorRequestViewConstraintParamsNotAllowed = 1303,
+        PlayFabErrorBadPartnerConfiguration = 1304,
     };
 
     /// <summary>
